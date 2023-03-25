@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Calendar;
+import domain.Combinacion;
 
 /** Clase Partida. **/
 public class Partida {
@@ -54,5 +55,17 @@ public class Partida {
 
 	public getDificultad() {
 		return dificultad;
+	}
+
+	/**Introduce la solución para este turno **/
+	public getSolution() {
+        /**Dependiendo de la dificultad el tmaño será 4(fácil, medi) o 5(difícil) **/
+        int tamaño;
+        if (this.dificultad == 1 or this.dificultad == 2) tamaño = 4;
+        else tamaño = 5;
+        int comb[] = new int[tamaño]
+        
+		Combinacion newCombinacion = new Combinacion();
+		newCombinacion.setCombinacion(comb);
 	}
 }

@@ -1,7 +1,7 @@
 package domain;
 
 import java.util.Collection;
-import java.util.HashMap;
+import domain.Combinacion;
 
 
 /** Clase Turno. **/
@@ -27,8 +27,9 @@ public class Turno {
 
 	/** Métodos públicos **/
 	
-
-	public getDificultad() {
-		return dificultad;
+	public setSecuencia() {
+		Combinacion newCombinacion = new Combinacion();
+		return setCombinacion;
 	}
+
 }
