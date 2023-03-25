@@ -9,10 +9,10 @@ public class Record {
 
     /**
      * Constructora de la clase Record
-     * @param maxScore Puntuación más alta que ha conseguido el jugador
+     * El record en un principio es 0
      */
-    public Record(int maxScore) {
-        this.maxScore = maxScore;
+    public Record() {
+        this.maxScore = 0;
     }
 
     /**
@@ -23,10 +23,12 @@ public class Record {
     }
 
     /**
-     * Introduce la puntuación más alta que ha conseguido el jugador
+     * Establece la puntuación más alta que ha conseguido el jugador
      */
     public void setMaxScore(int maxScore) {
+        if (maxScore > this.maxScore){
         this.maxScore = maxScore;
+        }
     }
     
 }
