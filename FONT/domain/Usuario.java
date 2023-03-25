@@ -2,7 +2,6 @@ package domain;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
 /** Clase Usuario. **/
 public class Usuario {
