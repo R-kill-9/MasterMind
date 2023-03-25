@@ -51,3 +51,8 @@ public class Partida {
 		if (ayuda == false) this.ayuda = true;
 		else this.ayuda = false;
 	}
+
+	public getDificultad() {
+		return dificultad;
+	}
+}
