@@ -111,4 +111,11 @@ public class Partida {
 	public getPuntuacion() {
         return puntos;
 	}
+
+	/**
+	*Devuelve la fecha de la partida 
+	*/
+	public getFecha() {
+        return fecha;
+	}
 }
