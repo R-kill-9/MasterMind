@@ -3,18 +3,26 @@ package domain;
 import java.util.Collection;
 import java.util.HashMap;
 
-/** Clase Usuario. **/
+/**
+*Clase Usuario.
+*/
 public class Usuario {
 	
-	/** Atributos **/
+	/** 
+	*Atributos 
+	*/
 	
 	private String username;
 
-	/** Constructora **/
+	/** 
+	*Constructora 
+	*/
 	
 	public Usuario(String username) {
 		this.username = username;
 	}
 	
-	/** Métodos públicos **/
+	/** 
+	*Métodos públicos 
+	*/
 	
