@@ -5,17 +5,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Calendar;
 import domain.Combinacion;
+import domain.EstadoPartida;
 
 /** Clase Partida. **/
 public class Partida {
 	
 	/** Atributos **/
-	
 	private String fecha;
 	private int puntos;
 	private int dificultad; 
 	private boolean ayuda; 
-
+	private EstadoPartida estadoPartida;
 	/** Constructora **/
 	
 	public Partida(int dificultadEscogida) {
@@ -24,6 +24,7 @@ public class Partida {
 		this.dificultad = dificultadEscogida;
 		this.ayuda = false;
 		this.puntos = 0;
+		this.estadoPartida = new EstadoPartida();
 	}
 	
 	/** Métodos privados **/
@@ -48,6 +49,10 @@ public class Partida {
 	}
 
 	/** Métodos públicos **/
+	public String getEstadoPartida() {
+        return estadoPartida.getEstado();
+    }
+
 	public setAyuda() {
 		if (ayuda == false) this.ayuda = true;
 		else this.ayuda = false;
