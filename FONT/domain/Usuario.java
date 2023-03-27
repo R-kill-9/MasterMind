@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class Usuario {
 	
 	/** 
-<<<<<<< HEAD
 	*Atributos 
 	*/
 	
@@ -16,30 +15,6 @@ public class Usuario {
 	/** 
 	*Constructora 
 	*/
-=======
-	 * Nombre de usuario.
-	 */
-	
-	private String username;
-
-	/**
-	 * Record personal de cada usua
-	 */
-	private int maxScore;
-
-	/**
-	 * ArrayList de partidas del usuario
-	 */
-
-	 private final ArrayList<Partida> partidas;
-
-
-	/** 
-	 * Constructora por defecto.
-	 * El record en un principio es 0
-	 * El ArrayList de partidas se inicializa vacío
-	 */
->>>>>>> 2dceb22c6494b782ccdb34293c13d5025d7cf810
 	
 	public Usuario(String username) {
 		this.username = username;
@@ -108,12 +83,7 @@ public class Usuario {
 		return this.partidas;
 	}
 	
-<<<<<<< HEAD
-	/** 
-	*Métodos públicos 
-	*/
-=======
-
+	
+	
 }
->>>>>>> 2dceb22c6494b782ccdb34293c13d5025d7cf810
 	
