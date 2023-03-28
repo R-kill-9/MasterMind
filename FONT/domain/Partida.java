@@ -17,17 +17,22 @@ public class Partida {
 	/** 
 	*Atributos 
 	*/
-	private String fecha;
+	private Date fecha;
 	private int puntos;
 	private boolean ayuda; 
 	private EstadoPartida estadoPartida;
 	public Combinacion solution;
 	private Dificultad nivel;
+	private String username;
 	private Vector<Turno> turnos;
+
 	/** 
 	*Constructora 
+     * @param dificultadEscogida la dificultad elegida para la partida
+     * @param usuario el usuario que juega la partida
+     * @param ayuda true si se activa la ayuda, false en caso contrario
+     * @param rol true si el usuario es el CodeMaker, false si es el CodeBreaker
 	*/
-	
 	public Partida(int dificultadEscogida, String user, boolean ayuda, boolean rol) {
 		this.fecha = getFechaIni();
 		/** 
@@ -39,14 +44,15 @@ public class Partida {
 		turnos.add(turno);
 		this.ayuda = ayuda;
 		this.puntos = 0;
+		this.user = user;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
 	}
 	
 	/** 
-	*Métodos privados 
+	* Métodos privados 
 	*/
-	private String getFechaIni() {
+	private Date getFechaIni() {
 		
         Calendar fecha = new GregorianCalendar();
   
@@ -57,8 +63,7 @@ public class Partida {
         int minuto = fecha.get(Calendar.MINUTE);
         int segundo = fecha.get(Calendar.SECOND);
 		
-		String fechaRetorno = año + ':' + mes + ':' + dia + ':' hora + ':' + minuto + ':' + segundo;
-		return fechaRetorno;
+		return new Date(año - 1900, mes, dia, hora, minuto, segundo);
 	}
 
 	private void donePartida(){
@@ -74,6 +79,7 @@ public class Partida {
 		}
 		return true;
 	}
+
 	/** 
 	*Métodos públicos 
 	*/
@@ -84,6 +90,21 @@ public class Partida {
 	public String getEstadoPartida() {
         return estadoPartida.getEstado();
     }
+
+	/**
+	*Devuelve la data de la partida 
+	*/
+	public Date getData() {
+        return this.data;
+    }
+
+	/**
+	*Devuelve el jugador de la partida 
+	*/
+	public String getUsuario() {
+        return this.username;
+    }
+
 
 	/**
 	*Activa el modo ayuda dentro de la partida
@@ -111,7 +132,7 @@ public class Partida {
 	/**
 	*Introduce la solución para este turno 
 	*/
-	public setSolution(Colors[] combSolution){
+	public setSolution(Vector<Color> combSolution){
 		Combinacion newCombinacion = new Combinacion(combSolution);
 		if(this.turno.getRol) this.solution = newCombinacion;
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
@@ -120,7 +141,7 @@ public class Partida {
 	/**
 	* Introduce un intento para este turno 
 	*/
-	public Colors[] setCombinacion(Colors[] combSolution){
+	public Colors[] setCombinacion(Vector<Color> combSolution){
 		boolean lastChance = this.turno.setCombinacion(combSolution);
 		if(!this.turno.getRol){
 			String feedBack;

@@ -1,5 +1,6 @@
 package domain;
 import java.util.ArrayList;
+import domain.partida;
 
 /**
 *Clase Usuario.
@@ -11,6 +12,7 @@ public class Usuario {
 	*/
 	
 	private String username;
+	private Vector<Partida> partidas;
 
 	/** 
 	*Constructora 
@@ -57,7 +59,7 @@ public class Usuario {
 	/**
 	 * Borra una partida del ArrayList de partidas del usuario
 	 */
-	public void deletePartida(String fecha){
+	public void deletePartida(Date fecha){
 		Partida p = this.getPartida(fecha);
 		if (p != null) {
 			this.partidas.remove(p);
@@ -67,7 +69,7 @@ public class Usuario {
 	/**
 	 * Devuelve una partida del ArrayList de partidas del usuario
 	 */
-	public Partida getPartida(String fecha){
+	public Partida getPartida(Date fecha){
 		for (Partida p : this.partidas) {
 			if (p.getFecha().equals(fecha)) {
 				return p;
