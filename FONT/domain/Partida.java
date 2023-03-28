@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.Calendar;
 import domain.Combinacion;
 import domain.EstadoPartida;
-
+import domain.EstadoPartida;
+import domain.Color;
+import domain.ColorFeedBack;
 /** 
 *Clase Partida
 */
@@ -17,39 +19,37 @@ public class Partida {
 	*/
 	private String fecha;
 	private int puntos;
-	private int dificultad; 
 	private boolean ayuda; 
 	private EstadoPartida estadoPartida;
+	public Combinacion solution;
+	private Dificultad nivel;
+	private Vector<Turno> turnos;
 	/** 
 	*Constructora 
 	*/
 	
-	public Partida(int dificultadEscogida) {
+	public Partida(int dificultadEscogida, String user, boolean ayuda, boolean rol) {
 		this.fecha = getFechaIni();
 		/** 
-		*1 = Facil, 2 = Medio, 3 = Dificil
+		* 1 = Facil, 2 = Medio, 3 = Dificil
 		*/
-		this.dificultad = dificultadEscogida;
-		this.ayuda = false;
+		this.nivel = new Dificultad(int dificultadEscogida);
+		this.turnos = new Vector<Turno>();
+		Turno turno = new Turno(rol);
+		turnos.add(turno);
+		this.ayuda = ayuda;
 		this.puntos = 0;
-		this.estadoPartida = new EstadoPartida();
+		String estado = "running";
+		this.estadoPartida = new EstadoPartida(estado);
 	}
 	
 	/** 
 	*Métodos privados 
 	*/
-	private getFechaIni() {
+	private String getFechaIni() {
 		
-		/**
-		*Instanciamos el objeto Calendar en fecha obtenemos la fecha y hora del sistema 
-		*/
         Calendar fecha = new GregorianCalendar();
   
-        /**
-		*Obtenemos el valor del año, mes, día,
-        *hora, minuto y segundo del sistema
-        *usando el método get y el parámetro correspondiente 
-		*/
 		int año = fecha.get(Calendar.YEAR);
         int mes = fecha.get(Calendar.MONTH);
         int dia = fecha.get(Calendar.DAY_OF_MONTH);
@@ -57,13 +57,23 @@ public class Partida {
         int minuto = fecha.get(Calendar.MINUTE);
         int segundo = fecha.get(Calendar.SECOND);
 		
-		/**
-		*Creamos el String ordenando la fecha en este orden
-		*/
 		String fechaRetorno = año + ':' + mes + ':' + dia + ':' hora + ':' + minuto + ':' + segundo;
 		return fechaRetorno;
 	}
 
+	private void donePartida(){
+
+		boolean choosenRol = this.rol.getRol();
+		this.turno = new Turno(!choosenRol);
+	}
+	private boolean checkIfAllCorrects(Vector<Color> feedBackSolution){
+		Color firstElem = feedBackSolution[0];
+		if(firstElem != BLACK) return false;
+		for(int i = 1; i < feedBackSolution.size(); i++){
+			if(firstElem != feedBackSolution[i]) return false;
+		}
+		return true;
+	}
 	/** 
 	*Métodos públicos 
 	*/
@@ -78,44 +88,77 @@ public class Partida {
 	/**
 	*Activa el modo ayuda dentro de la partida
 	*/
-	public setAyuda() {
-		if (ayuda == false) this.ayuda = true;
-		else this.ayuda = false;
+	public setAyuda(boolean ayuda) { 
+		this.ayuda = ayuda ? this.ayuda : !this.ayuda;
 	}
 	/**
 	*Devuelve la dificultad de la partida 
 	*/
 	public getDificultad() {
-		return dificultad;
+		return this.nivel.getDificultad();
 	}
 
 	/**
 	*Introduce la solución para este turno 
 	*/
-	public getSolution() {
+	public Color[] getSolution() {
         /**
 		*Dependiendo de la dificultad el tmaño será 4(fácil, medi) o 5(difícil) 
 		*/
-        int tamaño;
-        if (this.dificultad == 1 or this.dificultad == 2) tamaño = 4;
-        else tamaño = 5;
-        int comb[] = new int[tamaño]
-        
-		Combinacion newCombinacion = new Combinacion();
-		newCombinacion.setCombinacion(comb);
+		return this?.solution;
+	}
+
+	/**
+	*Introduce la solución para este turno 
+	*/
+	public setSolution(Colors[] combSolution){
+		Combinacion newCombinacion = new Combinacion(combSolution);
+		if(this.turno.getRol) this.solution = newCombinacion;
+		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
+	}
+
+	/**
+	* Introduce un intento para este turno 
+	*/
+	public Colors[] setCombinacion(Colors[] combSolution){
+		boolean lastChance = this.turno.setCombinacion(combSolution);
+		if(!this.turno.getRol){
+			String feedBack;
+			Vector<ColorFeedBack> feedBackSolution = new Vector<ColorFeedBack>(); 
+			if(!ayuda) {
+				feedBack = nivel.comprobarCombinacion(this.solution, combSolution);
+				feedBack.forEach((bola)=>{
+					ColorFeedBack cb = feedBack[bola] == "n" ? BLACK : WHITE;
+					feedBackSolution.add(cb);
+				})
+				while(feedBackSolution.size() < nivel.getColumna()) feedBackSolution.add(GREY);
+			}
+			else {
+				feedBack = nivel.comprobarCombinacionPista(this.solution, combSolution);
+				feedBack.forEach((bola) => {
+					ColorFeedBack cb;
+					if(feedBack[bola] == " ") cb = GREY;
+					else cb = feedBack[bola] == "n" ? BLACK : WHITE;
+					feedBackSolution.add(feedBack[item]);
+				})
+			}
+			if(lastChance || checkIfAllCorrects(feedBackSolution)) donePartida();
+			return feedBackSolution;
+		}
+		else throw new Exception("Sólo el CodeMaker puede hacer combinaciones");
 	}
 
 	/**
 	*Devuelve la puntuación de la partida 
 	*/
 	public getPuntuacion() {
-        return puntos;
+        return this.puntos;
 	}
 
 	/**
 	*Devuelve la fecha de la partida 
 	*/
 	public getFecha() {
-        return fecha;
+        return this.fecha;
 	}
 }

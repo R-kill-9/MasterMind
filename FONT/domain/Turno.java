@@ -8,28 +8,35 @@ import domain.Combinacion;
 public class Turno {
 	
 	/** Atributos **/
-    /** 1 = CodeMaker, 2 = CodeBreaker**/
-	private int rol;
+    /** true = CodeMaker, false = CodeBreaker**/
+	private boolean rol;
+	public Vector <Combinacion> combinaciones;
 
 
 	/** Constructora **/
 	
-	public Turno(String rolEscogido) {
+	public Turno(boolean rolEscogido) {
 		/** 1 = CodeMaker, 2 = CodeBreaker**/
 		this.rol = rolEscogido;
 	}
 	
 	/** Métodos privados **/
-    private setTurno() {
-		if (this.rol == 1) this.rol = 2;
-		else this.rol = 1;
+    
+	/** Métodos públicos **/
+	/*
+	public changeTurno() {
+		this.rol = !this.rol;
+	}*/
+
+	public boolean getRol(){
+		return this.rol;
+	}
+	public boolean setCombinacion(Combinacion comb){
+		Combinacion newCombinacion = new Combinacion(combSolution);
+		combinaciones.push(newCombinacion);
+		if(combinaciones.size() == 10) return true;
+		return false;
 	}
 
-	/** Métodos públicos **/
-	
-	public setSecuencia() {
-		Combinacion newCombinacion = new Combinacion();
-		return setCombinacion;
-	}
 
 }
