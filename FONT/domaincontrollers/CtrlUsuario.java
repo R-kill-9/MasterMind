@@ -56,7 +56,7 @@ public class CtrlUsuario {
     /**
      * En caso de que la puntuación sea mayor que la máxima que ha conseguido el usuario, se actualiza el record.
      */
-    public void setRecord(String username, int puntuacion) {
+    public void setRecord(int puntuacion) {
         this.userAct.setMaxScore(puntuacion);
     }
 
@@ -74,8 +74,8 @@ public class CtrlUsuario {
      * @param username Nombre de usuario.
      * @param p Partida.
      */
-    public void addPartida(String username, Partida p) {
-        this.userAct.addPartida(p);
+    public void addPartida(Date fecha) {
+        this.userAct.addPartida(fecha);
     }
 
 
@@ -97,4 +97,24 @@ public class CtrlUsuario {
     public void deletePartida(Date fecha) {
        this.userAct.deletePartida(fecha);
     }
+
+    /**
+     * Crea una nueva partida
+     */
+    public void crearPartida(int dificultadEscogida, Usuario usuario, boolean ayuda, boolean rol) {
+        this.partidaController.crearPartida(dificultadEscogida, usuario, ayuda, rol);
+        // Se tendria que añadir la partida al usuario falta funcion para devolver la fecha de la partida
+    }
+
+    /**
+     * Borra una partida 
+     */
+    public void borrarPartida(String username, Date data) {
+        this.partidaController.borrarPartida(username, data);
+        deletePartida(data);
+    }
+
+   
+
+
 }
