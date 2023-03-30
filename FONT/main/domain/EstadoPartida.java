@@ -1,4 +1,4 @@
-package domain;
+package main.domain;
 
 public class EstadoPartida {
     
@@ -9,10 +9,11 @@ public class EstadoPartida {
 
     /**
      * Constructora de la clase EstadoPartida
+     * @param estado 
      * @param estado Estado de la partida que al iniciarla será "Running"
      */
-    public EstadoPartida() {
-        this.estado = "Running";
+    public EstadoPartida(String estado) {
+        this.estado = estado;
     }
 
     /**
