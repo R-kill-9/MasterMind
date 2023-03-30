@@ -1,7 +1,6 @@
-package domain;
+package main.domain;
 
-import java.util.Collection;
-import domain.Combinacion;
+import java.util.ArrayList;
 
 
 /** Clase Turno. **/
@@ -10,7 +9,7 @@ public class Turno {
 	/** Atributos **/
     /** true = CodeMaker, false = CodeBreaker**/
 	private boolean rol;
-	public Vector <Combinacion> combinaciones;
+	public ArrayList<Combinacion> combinations;
 
 
 	/** Constructora **/
@@ -31,11 +30,16 @@ public class Turno {
 	public boolean getRol(){
 		return this.rol;
 	}
-	public boolean setCombinacion(Combinacion comb){
-		Combinacion newCombinacion = new Combinacion(combSolution);
-		combinaciones.push(newCombinacion);
-		if(combinaciones.size() == 10) return true;
+	
+	public boolean setCombinacion(ArrayList <Color> combination){
+		Combinacion newCombinacion = new Combinacion(combination);
+		combinations.add(newCombinacion);
+		if(combinations.size() == 10) return true;
 		return false;
+	}
+
+	public int getNumberComb() {
+		return combinations.size();
 	}
 
 

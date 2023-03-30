@@ -1,22 +1,31 @@
-package domain;
+package main.domain;
 
-import java.util.Collection;
-import domain.Partida;
-import java.util.Scanner;
-import domain.Color;
+import java.util.ArrayList;
+
+
 
 /** Clase Combinacion. **/
 public class Combinacion {
 	
 	/** Atributos **/
-	private Vector<Color> comb;
+	private ArrayList<Color> combination;
 
 
 	/** Constructora **/
 	
-	public Combinacion(Color[] comb) {
+	public Combinacion(ArrayList<Color> combination) {
 		/** 1 = CodeMaker, 2 = CodeBreaker**/
-		this.comb = comb;
+		this.combination = combination; 
+	}
+
+
+	public ArrayList<Color> getCombination() {
+		return combination;
+	}
+
+
+	public void setCombination(ArrayList<Color> combination) {
+		this.combination = combination;
 	}
 	
 	/** Métodos privados **/

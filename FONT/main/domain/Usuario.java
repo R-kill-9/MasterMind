@@ -1,6 +1,8 @@
-package domain;
+package main.domain;
+
+import java.sql.Date;
 import java.util.ArrayList;
-import domain.partida;
+
 
 /**
 *Clase Usuario.
@@ -12,7 +14,8 @@ public class Usuario {
 	*/
 	
 	private String username;
-	private Vector<Partida> partidas;
+	private Integer maxScore;
+	private ArrayList<Partida> partidas;
 
 	/** 
 	*Constructora 
@@ -30,6 +33,10 @@ public class Usuario {
 	 */
 	public String getUsername() {
 		return username;
+	}
+	
+	public Usuario getUsuario() {
+		return this;
 	}
 
 	/**
