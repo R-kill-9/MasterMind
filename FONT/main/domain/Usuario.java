@@ -34,6 +34,10 @@ public class Usuario {
 	public String getUsername() {
 		return username;
 	}
+	
+	public Usuario getUsuario() {
+		return this;
+	}
 
 	/**
      * Devuelve la puntuación más alta que ha conseguido el jugador
