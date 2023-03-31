@@ -14,7 +14,7 @@ public class Combinacion {
 	/** Constructora **/
 	
 	public Combinacion(ArrayList<Color> combination) {
-		/** 1 = CodeMaker, 2 = CodeBreaker**/
+		
 		this.combination = combination; 
 	}
 

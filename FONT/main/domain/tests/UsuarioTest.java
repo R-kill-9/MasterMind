@@ -14,7 +14,10 @@ public class UsuarioTest {
 	/*Atributos*/
 	private Usuario user;
     private Partida partida1, partida2;
-
+    
+    /*
+     * Método que se aplica siempre antes de hacer un test
+     */
     @Before
     public void setUp() throws Exception {
         user = new Usuario("Sasuke");
@@ -25,10 +28,14 @@ public class UsuarioTest {
     }
 	
     /*
+     * TESTS
+     */
+    
+    /*
      * Comprueba que se introduzca bien el nombre del usuario al crearlo
      */
 	@Test
-	public void setUsername() {
+	public void testSetUsername() {
 		Usuario usuario = new Usuario("Alonso");
 		assertEquals("Alonso", usuario.getUsername());
 	}
