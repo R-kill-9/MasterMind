@@ -69,7 +69,7 @@ public class Usuario {
 	public void deletePartida(Date fecha){
 		Integer posPartida = this.fechaPartidas.indexOf(fecha);
 		if (posPartida != null) {
-			this.fechaPartidas.remove(posPartida);
+			this.fechaPartidas.remove(fecha);
 		}
 	}
 
