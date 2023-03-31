@@ -1,5 +1,7 @@
 package data;
 
+import java.sql.Date;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.LinkedList;
@@ -8,7 +10,7 @@ import java.util.Scanner;
 
 /**
  * ImplementaciÃ³n de la classe gestionadora de datos para la clase "Asignatura".
-En una implementación completa tendría que haber también un "CtrlAlumnosFichero" que cargara/volcara los alumnos modificados en cada sesión.
+En una implementaciï¿½n completa tendrï¿½a que haber tambiï¿½n un "CtrlAlumnosFichero" que cargara/volcara los alumnos modificados en cada sesiï¿½n.
  **/
 public class CtrlAsignaturaFichero {
 

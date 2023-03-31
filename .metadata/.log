@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 !SESSION 2023-03-30 12:27:19.090 -----------------------------------------------
+=======
+!SESSION 2023-03-31 15:18:34.615 -----------------------------------------------
+>>>>>>> main
 eclipse.buildId=4.26.0.20221201-1200
 java.version=17.0.6
 java.vendor=Eclipse Adoptium
@@ -6,6 +10,7 @@ BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=es_ES
 Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/elsaboix/.eclipse_keyring
 Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/elsaboix/.eclipse_keyring
 
+<<<<<<< HEAD
 !ENTRY ch.qos.logback.classic 1 0 2023-03-30 12:27:21.862
 !MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
 
@@ -15,6 +20,17 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.
 !ENTRY org.eclipse.jface 2 0 2023-03-30 12:27:53.129
 !MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
 !SUBENTRY 1 org.eclipse.jface 2 0 2023-03-30 12:27:53.129
+=======
+!ENTRY ch.qos.logback.classic 1 0 2023-03-31 15:18:36.853
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2023-03-31 15:18:39.059
+!MESSAGE Logback config file: /Users/elsaboix/Desktop/UNI/PROP/subgrup-prop42.5/.metadata/.plugins/org.eclipse.m2e.logback/logback.2.1.0.20221015-0744.xml
+
+!ENTRY org.eclipse.jface 2 0 2023-03-31 15:18:43.611
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2023-03-31 15:18:43.611
+>>>>>>> main
 !MESSAGE A conflict occurred for COMMAND+SHIFT+T:
 Binding(COMMAND+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
@@ -32,7 +48,11 @@ Binding(COMMAND+SHIFT+T,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
+<<<<<<< HEAD
 !SUBENTRY 1 org.eclipse.jface 2 0 2023-03-30 12:27:53.129
+=======
+!SUBENTRY 1 org.eclipse.jface 2 0 2023-03-31 15:18:43.611
+>>>>>>> main
 !MESSAGE A conflict occurred for ALT+COMMAND+R:
 Binding(ALT+COMMAND+R,
 	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
@@ -50,6 +70,7 @@ Binding(ALT+COMMAND+R,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,cocoa,system)
+<<<<<<< HEAD
 
 !ENTRY org.eclipse.ui 4 4 2023-03-30 12:41:49.950
 !MESSAGE Conflicting handlers for org.eclipse.ui.edit.findNext: {ActionHandler(org.eclipse.ui.texteditor.FindNextAction@62931c28)} vs {ActionHandler(org.eclipse.ui.texteditor.FindNextAction@62931c28)} in: PartImpl (org.eclipse.e4.ui.compatibility.editor)  removeOnHide org.eclipse.mylyn.wikitext.ui.editor.markupEditorContext
@@ -519,6 +540,9 @@ Binding(ALT+COMMAND+R,
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,cocoa,system)
 !SESSION 2023-03-30 16:14:23.772 -----------------------------------------------
+=======
+!SESSION 2023-03-31 15:21:06.176 -----------------------------------------------
+>>>>>>> main
 eclipse.buildId=4.26.0.20221201-1200
 java.version=17.0.6
 java.vendor=Eclipse Adoptium
@@ -526,6 +550,7 @@ BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=es_ES
 Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/elsaboix/.eclipse_keyring
 Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/elsaboix/.eclipse_keyring
 
+<<<<<<< HEAD
 !ENTRY ch.qos.logback.classic 1 0 2023-03-30 16:14:40.350
 !MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
 
@@ -538,6 +563,17 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.
 !ENTRY org.eclipse.jface 2 0 2023-03-30 16:15:01.769
 !MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
 !SUBENTRY 1 org.eclipse.jface 2 0 2023-03-30 16:15:01.770
+=======
+!ENTRY ch.qos.logback.classic 1 0 2023-03-31 15:21:08.318
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2023-03-31 15:21:10.643
+!MESSAGE Logback config file: /Users/elsaboix/Desktop/UNI/PROP/subgrup-prop42.5/.metadata/.plugins/org.eclipse.m2e.logback/logback.2.1.0.20221015-0744.xml
+
+!ENTRY org.eclipse.jface 2 0 2023-03-31 15:21:14.934
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2023-03-31 15:21:14.934
+>>>>>>> main
 !MESSAGE A conflict occurred for COMMAND+SHIFT+T:
 Binding(COMMAND+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
@@ -555,7 +591,11 @@ Binding(COMMAND+SHIFT+T,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
+<<<<<<< HEAD
 !SUBENTRY 1 org.eclipse.jface 2 0 2023-03-30 16:15:01.770
+=======
+!SUBENTRY 1 org.eclipse.jface 2 0 2023-03-31 15:21:14.934
+>>>>>>> main
 !MESSAGE A conflict occurred for ALT+COMMAND+R:
 Binding(ALT+COMMAND+R,
 	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
@@ -573,6 +613,7 @@ Binding(ALT+COMMAND+R,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,cocoa,system)
+<<<<<<< HEAD
 
 !ENTRY org.eclipse.jdt.ui 4 10001 2023-03-30 16:16:21.791
 !MESSAGE Internal Error
@@ -1021,3 +1062,5 @@ org.eclipse.swt.SWTException: Invalid thread access
 	at org.eclipse.oomph.internal.ui.EarlyStart.run(EarlyStart.java:119)
 	at org.eclipse.oomph.internal.ui.EarlyStart$1.run(EarlyStart.java:98)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+=======
+>>>>>>> main
