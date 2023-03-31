@@ -1,5 +1,5 @@
 
-package domain;
+package main.domain;
 
 import static org.junit.Assert.*;
 

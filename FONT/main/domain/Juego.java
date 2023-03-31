@@ -1,4 +1,4 @@
-package domain.classes;
+package main.domain;
 
 
 public class Juego {

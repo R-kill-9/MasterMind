@@ -1,4 +1,4 @@
-package domain;
+package main.domain;
 import java.util.List;
 import java.util.Vector;
 
