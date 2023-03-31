@@ -1,0 +1,22 @@
+import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+package test;
+import main.domain.Partida;
+
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+import org.junit.runners.*;
+
+public class PartidaTest extends TestCase {
+
+	@Test
+	void test() {
+		Partida p = new Partid();
+		fail("Not yet implemented");
+	}
+
+}

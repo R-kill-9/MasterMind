@@ -1,0 +1,15 @@
+import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+package test;
+import main.domain.Partida;
+
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+import org.junit.runners.*;
+
+public class PartidaTest extends TestCase {
+
+}

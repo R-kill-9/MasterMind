@@ -1,0 +1,9 @@
+package main.domain;
+
+public class Dificultad {
+
+	public Dificultad(int dificultadEscogida) {
+		// TODO Auto-generated constructor stub
+	}
+
+}
