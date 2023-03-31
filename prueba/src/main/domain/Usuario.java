@@ -32,7 +32,7 @@ public class Usuario {
 	 * Devuelve el nombre de usuario.
 	 */
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 	
 	public Usuario getUsuario() {
@@ -43,7 +43,7 @@ public class Usuario {
      * Devuelve la puntuación más alta que ha conseguido el jugador
      */
     public int getMaxScore() {
-        return maxScore;
+        return this.maxScore;
     }
 
 	/**

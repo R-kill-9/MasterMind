@@ -37,7 +37,7 @@ public class CtrlPartida {
      * @param data la fecha de la partida
      * @param usuario el usuario que quiere borrar la partida
      */
-    public void borrarPartida(String username, Date data) {
+    public void deletePartida(String username, Date data) {
         for (Partida partida : this.partidas) {
             String userPartida = partida.getUsuario();
             Date dataPartida = partida.getData();

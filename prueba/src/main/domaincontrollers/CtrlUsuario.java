@@ -97,6 +97,7 @@ public class CtrlUsuario {
      */
     public void deletePartida(Date fecha) {
        this.userAct.deletePartida(fecha);
+       this.partidaController.deletePartida(fecha, this.userAct.getUsername());
     }
 
     /**

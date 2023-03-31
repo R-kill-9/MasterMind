@@ -1,0 +1,14 @@
+import static org.junit.Assert.*;
+
+import java.lang.runtime.ObjectMethods;
+
+import org.junit.Test;
+
+public class TestPartida extends ObjectMethods {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}
