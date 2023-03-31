@@ -1,6 +1,10 @@
-package domaincontrollers;
+package main.domaincontrollers;
+import java.util.Date;
 import java.util.ArrayList;
-import domain.Usuario;
+import main.domain.Usuario;
+import main.domain.Color;
+import main.domain.ColorFeedBack;
+import main.domain.Partida;
 
 /**
  * Clase que representa el controlador de dominio de la clase Partida.
@@ -18,12 +22,12 @@ public class CtrlPartida {
      * Crea una nueva partida y la añade a la lista de partidas.
      * 
      * @param dificultadEscogida la dificultad elegida para la partida
-     * @param usuario el usuario que juega la partida
+     * @param username el usuario que juega la partida
      * @param ayuda true si se activa la ayuda, false en caso contrario
      * @param rol true si el usuario es el CodeMaker, false si es el CodeBreaker
      */
-    public void crearPartida(int dificultadEscogida, Usuario usuario, boolean ayuda, boolean rol) {
-        Partida partida = new Partida(dificultadEscogida, usuario, ayuda, rol);
+    public void crearPartida(int dificultadEscogida, String username, boolean ayuda, boolean rol) {
+        Partida partida = new Partida(dificultadEscogida, username, ayuda, rol);
         this.partidas.add(partida);
         this.partidaActual = partida;
     }
@@ -37,7 +41,7 @@ public class CtrlPartida {
         for (Partida partida : this.partidas) {
             String userPartida = partida.getUsuario();
             Date dataPartida = partida.getData();
-            if (userPartida == username && dataPartida == data) result.remove(partida);
+            if (userPartida == username && dataPartida == data) partidas.remove(partida);
         }
     }
 
@@ -56,8 +60,8 @@ public class CtrlPartida {
      * @param usuario el usuario que ha jugado la partida
      * @return la partida jugada por ese usuario, o null si no hay ninguna
      */
-    public Vector<Partida> getPartidasGuardadas(Usuario usuario) {
-        Vector<Partida> result = new Vector<Partida>();
+    public ArrayList<Partida> getPartidasGuardadas(Usuario usuario) {
+        ArrayList<Partida> result = new ArrayList<Partida>();
         for (Partida partida : this.partidas) {
             if (partida.getUsuario().equals(usuario)) {
                 result.add(partida);
@@ -70,18 +74,20 @@ public class CtrlPartida {
      * 
      * @param usuario el usuario que ha jugado la partida
      * @return la partida jugada por ese usuario, o null si no hay ninguna
+     * @throws Exception 
      */
-    public Vector<Partida> getPartidaActual(Usuario usuario) {
+    public Partida getPartidaActual(Usuario usuario) throws Exception {
         if(partidaActual != null) return partidaActual;
-        else throw enew Exception("No hay ninguna partida actual");
+        else throw new Exception("No hay ninguna partida actual");
     }
     /**
      * Obtiene una la partida actual del usuario.
      * 
      * @param Vector<Color> la combinacion de la partida
      * @return la partida jugada por ese usuario, o null si no hay ninguna
+     * @throws Exception 
      */
-    public Vector<ColorFeedBack> newCombinacion(Vector<Color> combination){
+    public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
         return partidaActual.setCombinacion(combination);
     }
     /**
@@ -91,8 +97,8 @@ public class CtrlPartida {
      * @param estado el estado de las partidas: guardadas o pausadas.
      * @return la partida jugada por ese usuario, o null si no hay ninguna
      */
-    public Vector<Partida> getPartidasSegunEstado(Usuario usuario, String estado) {
-        Vector<Partida> result = new Vector<Partida>();
+    public ArrayList<Partida> getPartidasSegunEstado(Usuario usuario, String estado) {
+        ArrayList<Partida> result = new ArrayList<Partida>();
         for (Partida partida : this.partidas) {
             String stateP = partida.getEstadoPartida();
             if (estado == stateP) result.add(partida);

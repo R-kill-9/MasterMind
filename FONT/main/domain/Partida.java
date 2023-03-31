@@ -41,7 +41,7 @@ public class Partida {
      * @param ayuda true si se activa la ayuda, false en caso contrario
      * @param rol true si el usuario es el CodeMaker, false si es el CodeBreaker
 	*/
-	public Partida(int dificultadEscogida, String user, boolean ayuda, boolean rol) {
+	public Partida(int dificultadEscogida, String usuario, boolean ayuda, boolean rol) {
 		this.data = getFechaIni();
 		/** 
 		* 1 = Facil, 2 = Medio, 3 = Dificil
@@ -51,7 +51,7 @@ public class Partida {
 		this.turnos.add(new Turno(rol));
 		this.ayuda = ayuda;
 		this.puntos = 0;
-		this.username = user;
+		this.username = usuario;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
 	}

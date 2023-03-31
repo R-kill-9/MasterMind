@@ -1,8 +1,10 @@
-package domaincontrollers;
+package main.domaincontrollers;
 import java.util.ArrayList;
-import domain.Usuario;
-import domain.Partida;
-import domaincontrollers.CtrlPartida;
+import java.util.Date;
+
+import main.domain.Usuario;
+import main.domain.Partida;
+import main.domaincontrollers.CtrlPartida;
 
 /**
  * Clase que representa el controlador de dominio de la clase Usuario.
@@ -18,9 +20,9 @@ public class CtrlUsuario {
     /**
      * Constructora por defecto.
      */
-    public CtrlUsuario() {
+    public CtrlUsuario(String username) {
         this.usuarios = new ArrayList<>();
-        this.userAct = new Usuario();
+        this.userAct = new Usuario(username);
         this.partidaController = new CtrlPartida();
     }
 
@@ -33,12 +35,19 @@ public class CtrlUsuario {
         this.usuarios.add(user);
     }
     
-    public void loginUser(String username) {
-    	Usuario user = usuarios.getUser(username);
-    	if (user != null) userAct = user;
-    	else throw new Exception("user is not exists");
+    public void loginUser(String username) throws Exception {
+    	Boolean exists = false;
+        for (Usuario user : this.usuarios) {
+            if (user.getUsername().equals(username)) {
+                exists = true;
+            }
+        }
+    	if(!exists) {
+    		userAct = new Usuario(username);
+    		usuarios.add(userAct);
+    	}
     }
-
+   
     /**
      * Obtenemos el usuario con el nombre de usuario dado.
      * @param username Nombre de usuario.
@@ -84,8 +93,8 @@ public class CtrlUsuario {
      * @param username Nombre de usuario.
      * @return ArrayList de partidas del usuario con el nombre de usuario dado.
      */
-    public ArrayList<Partida> getPartidas() {
-        return userAct.getPartidasGuardadas();
+    public ArrayList<Date> getDataPartidas() {
+        return userAct.getDataPartidasGuardadas();
 
     }
 
@@ -95,14 +104,14 @@ public class CtrlUsuario {
      * @param fecha Fecha de la partida.
      */
     public void deletePartida(Date fecha) {
-       this.userAct.deletePartida(fecha);
+       this.userAct.deletePartida((java.sql.Date) fecha);
     }
 
     /**
      * Crea una nueva partida
      */
-    public void crearPartida(int dificultadEscogida, Usuario usuario, boolean ayuda, boolean rol) {
-        this.partidaController.crearPartida(dificultadEscogida, usuario, ayuda, rol);
+    public void crearPartida(int dificultadEscogida, boolean ayuda, boolean rol) {
+        this.partidaController.crearPartida(dificultadEscogida, userAct.getUsername(), ayuda, rol);
         // Se tendria que añadir la partida al usuario falta funcion para devolver la fecha de la partida
     }
 

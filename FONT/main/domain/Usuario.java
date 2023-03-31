@@ -1,6 +1,6 @@
 package main.domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 
@@ -15,7 +15,7 @@ public class Usuario {
 	
 	private String username;
 	private Integer maxScore;
-	private ArrayList<Partida> partidas;
+	private ArrayList<Date> fechaPartidas;
 
 	/** 
 	*Constructora 
@@ -24,7 +24,7 @@ public class Usuario {
 	public Usuario(String username) {
 		this.username = username;
 		this.maxScore = 0;
-		this.partidas = new ArrayList<>();
+		this.fechaPartidas = new ArrayList<>();
 	}
 
 
@@ -58,8 +58,8 @@ public class Usuario {
 	/**
 	 * Añade una partida al ArrayList de partidas del usuario
 	 */
-	public void addPartida(Partida p) {
-		this.partidas.add(p);
+	public void addPartida(Date data) {
+		this.fechaPartidas.add(data);
 	}
 
 	
@@ -67,19 +67,19 @@ public class Usuario {
 	 * Borra una partida del ArrayList de partidas del usuario
 	 */
 	public void deletePartida(Date fecha){
-		Partida p = this.getPartida(fecha);
-		if (p != null) {
-			this.partidas.remove(p);
+		Integer posPartida = this.fechaPartidas.indexOf(fecha);
+		if (posPartida != null) {
+			this.fechaPartidas.remove(posPartida);
 		}
 	}
 
 	/**
 	 * Devuelve una partida del ArrayList de partidas del usuario
 	 */
-	public Partida getPartida(Date fecha){
-		for (Partida p : this.partidas) {
-			if (p.getFecha().equals(fecha)) {
-				return p;
+	public Date getDataPartida(Date fecha){
+		for (Date fechaPartida : this.fechaPartidas) {
+			if (fechaPartida == fecha) {
+				return fechaPartida;
 			}
 		}
 		return null;
@@ -88,8 +88,8 @@ public class Usuario {
 	/**
 	 * Devuelve el ArrayList de partidas del usuario
 	 */
-	public ArrayList<Partida> getPartidasGuardadas() {
-		return this.partidas;
+	public ArrayList<Date> getDataPartidasGuardadas() {
+		return this.fechaPartidas;
 	}
 	
 	
