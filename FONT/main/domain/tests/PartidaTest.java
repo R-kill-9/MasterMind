@@ -1,14 +1,16 @@
 package main.domain.tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
+import main.domain.Partida;
 
 class PartidaTest {
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		Partida partida = new Partida(0, null, false, false);
+		assertEquals(partida.getUsuario(), null);
 	}
 
 }
