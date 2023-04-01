@@ -19,7 +19,7 @@ public class UsuarioTest {
      * Método que se aplica siempre antes de hacer un test
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         user = new Usuario("Sasuke");
         partida1 = new Partida(1, user.getUsername(), false, false);
         partida2 = new Partida(2, user.getUsername(), true, true);
