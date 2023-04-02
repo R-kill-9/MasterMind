@@ -10,7 +10,6 @@ import main.domain.Partida;
 import main.domain.PossiblesEstadosPartida;
 import main.domain.HistorialPartidas;
 import main.domain.HistorialPartidasGuardadas;
-import main.domain.HistorialPartidasPausadas;
 import main.domain.Pair;
 
 /**
