@@ -1,5 +1,6 @@
 package main.domaincontrollers;
 import java.util.Date;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 import main.domain.Usuario;
@@ -7,19 +8,20 @@ import main.domain.Color;
 import main.domain.ColorFeedBack;
 import main.domain.Partida;
 import main.domain.PossiblesEstadosPartida;
+import main.domain.HistorialPartidas;
+import main.domain.HistorialPartidasGuardadas;
+import main.domain.HistorialPartidasPausadas;
+import main.domain.Pair;
 
 /**
  * Clase que representa el controlador de dominio de la clase Partida.
  */
 public class CtrlPartida {
-    private static ArrayList<Partida> partidas;
     private static Partida partidaActual;
     /**
      * Constructora por defecto.
      */
-    public CtrlPartida() {
-        partidas = new ArrayList<>();
-    }
+    public CtrlPartida() {}
      /**
      * Crea una nueva partida y la añade a la lista de partidas.
      * 
@@ -30,7 +32,8 @@ public class CtrlPartida {
      */
     public static Partida crearPartida(int dificultadEscogida, String username, boolean ayuda, boolean rol) {
         Partida partida = new Partida(dificultadEscogida, username, ayuda, rol);
-        partidas.add(partida);
+        Date dataPartida = partida.getData();
+        HistorialPartidas.agregarPartida(username,dataPartida);
         partidaActual = partida;
         return partida;
     }
@@ -39,17 +42,10 @@ public class CtrlPartida {
      * 
      * @param data la fecha de la partida
      * @param usuario el usuario que quiere borrar la partida
+     * @return 
      */
-    public static Partida borrarPartida(String username, Date data) {
-        for (Partida partida : partidas) {
-            String userPartida = partida.getUsuario();
-            Date dataPartida = partida.getData();
-            if (userPartida == username && dataPartida == data) {
-            	partidas.remove(partida);
-            	return partida;
-            }
-        }
-        return null;
+    public static Boolean borrarPartida(String username, Date dataPartida) {
+        return HistorialPartidas.borrarPartida(username,dataPartida);
     }
 
      /**
@@ -57,25 +53,11 @@ public class CtrlPartida {
      * 
      * @return la lista de partidas
      */
-    public ArrayList<Partida> getPartidas() {
-        return partidas;
+    public ArrayList<Pair<String, Date>> getPartidas() {
+        return HistorialPartidas.getPartidas();
     }
 
-     /**
-     * Obtiene las partidas en función del usuario que la ha jugado.
-     * 
-     * @param usuario el usuario que ha jugado la partida
-     * @return la partida jugada por ese usuario, o null si no hay ninguna
-     */
-    public ArrayList<Partida> getPartidasGuardadas(Usuario usuario) {
-        ArrayList<Partida> result = new ArrayList<Partida>();
-        for (Partida partida : partidas) {
-            if (partida.getUsuario().equals(usuario)) {
-                result.add(partida);
-            }
-        }
-        return result.size() == 0 ? null : partidas;
-    }
+     
     /**
      * Obtiene una la partida actual del usuario.
      * 
@@ -104,17 +86,21 @@ public class CtrlPartida {
      * @param estado el estado de las partidas: guardadas o pausadas.
      * @return la partida jugada por ese usuario, o null si no hay ninguna
      */
-    public ArrayList<Partida> getInfoPartidaSegunEstado(Usuario usuario, PossiblesEstadosPartida estado) {
-    	ArrayList<Partida> result = new ArrayList<>();
-        for (Partida partida : partidas) {
-        	if (partida.getUsuario().equals(usuario)) {
-        		PossiblesEstadosPartida stateP = partida.getEstadoPartida();
-                if (estado == stateP) result.add(partida);
-            }
-        }
+    public static ArrayList<Pair<String, Date>> getInfoPartidaSegunEstado(String usuario, PossiblesEstadosPartida estado) {
+    	ArrayList<Pair<String, Date>> result = new ArrayList<>();
+    	switch(estado) {
+	    	case SAVED:
+	    		result = HistorialPartidasGuardadas.getPartidas(usuario);
+	    	break;
+	    	case PAUSED:
+	    		result = HistorialPartidasPausadas.getPartidas(usuario);
+	    	break;
+	    	default:
+			break;
+    	}
         return result;
     }
-	public HashMap<Date,Integer> getInfoPartida(Partida partida) {
+	public static HashMap<Date,Integer> getInfoPartida(Partida partida) {
 		Date dataP = partida.getData();
 		Integer nivel = partida.getDificultad();
 		HashMap<Date, Integer> infoPartida = new HashMap<>();

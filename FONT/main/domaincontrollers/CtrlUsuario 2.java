@@ -1,12 +1,8 @@
-package main.domaincontrollers;
+package domaincontrollers;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-
-import main.domain.Usuario;
-import main.domain.Pair;
-import main.domain.Partida;
-import main.domain.PossiblesEstadosPartida;
+import domain.Usuario;
+import domain.Partida;
+import domaincontrollers.CtrlPartida;
 
 /**
  * Clase que representa el controlador de dominio de la clase Usuario.
@@ -17,13 +13,15 @@ public class CtrlUsuario {
      * Array que contiene los usuarios del sistema.
      */
     private final ArrayList<Usuario> usuarios;
-    private static Usuario userAct;
+    private Usuario userAct;
+    private CtrlPartida partidaController;
     /**
      * Constructora por defecto.
      */
-    public CtrlUsuario(String username) {
+    public CtrlUsuario() {
         this.usuarios = new ArrayList<>();
-        userAct = new Usuario(username);
+        this.userAct = new Usuario();
+        this.partidaController = new CtrlPartida();
     }
 
     /**
@@ -35,19 +33,12 @@ public class CtrlUsuario {
         this.usuarios.add(user);
     }
     
-    public void loginUser(String username) throws Exception {
-    	Boolean exists = false;
-        for (Usuario user : this.usuarios) {
-            if (user.getUsername().equals(username)) {
-                exists = true;
-            }
-        }
-    	if(!exists) {
-    		userAct = new Usuario(username);
-    		usuarios.add(userAct);
-    	}
+    public void loginUser(String username) {
+    	Usuario user = usuarios.getUser(username);
+    	if (user != null) userAct = user;
+    	else throw new Exception("user is not exists");
     }
-   
+
     /**
      * Obtenemos el usuario con el nombre de usuario dado.
      * @param username Nombre de usuario.
@@ -66,7 +57,7 @@ public class CtrlUsuario {
      * En caso de que la puntuación sea mayor que la máxima que ha conseguido el usuario, se actualiza el record.
      */
     public void setRecord(int puntuacion) {
-        userAct.setMaxScore(puntuacion);
+        this.userAct.setMaxScore(puntuacion);
     }
 
     /**
@@ -75,7 +66,7 @@ public class CtrlUsuario {
      * @return Record del usuario con el nombre de usuario dado.
      */
     public int getRecord() {
-        return userAct.getMaxScore();
+        return this.userAct.getMaxScore();
     }
 
     /**
@@ -84,18 +75,18 @@ public class CtrlUsuario {
      * @param p Partida.
      */
     public void addPartida(Date fecha) {
-        userAct.addPartida(fecha);
+        this.userAct.addPartida(fecha);
     }
 
 
     /**
      * Obtenemos el ArrayList de partidas del usuario con el nombre de usuario dado.
      * @param username Nombre de usuario.
-     * @return ArrayList<Pair<String, Date>> where string = username, date = dateCreation
+     * @return ArrayList de partidas del usuario con el nombre de usuario dado.
      */
-    public static ArrayList<Pair<String, Date>> getPartidasSegunEstado(PossiblesEstadosPartida posEstado) {
-    	String username = userAct.getUsername();
-    	return CtrlPartida.getInfoPartidaSegunEstado(username,posEstado);
+    public ArrayList<Partida> getPartidas() {
+        return userAct.getPartidasGuardadas();
+
     }
 
     /**
@@ -103,32 +94,24 @@ public class CtrlUsuario {
      * @param username Nombre de usuario.
      * @param fecha Fecha de la partida.
      */
-    public static void deletePartida(Date fecha) {
-       userAct.deletePartida(fecha);
-       CtrlPartida.borrarPartida(userAct.getUsername(), fecha);
+    public void deletePartida(Date fecha) {
+       this.userAct.deletePartida(fecha);
     }
 
     /**
      * Crea una nueva partida
      */
-    public static void crearPartida(int dificultadEscogida, boolean ayuda, boolean rol) {
-        Partida newPartida = CtrlPartida.crearPartida(dificultadEscogida, userAct.getUsername(), ayuda, rol);
-        Date dataPartida = newPartida.getData();
-        userAct.addPartida(dataPartida);
+    public void crearPartida(int dificultadEscogida, Usuario usuario, boolean ayuda, boolean rol) {
+        this.partidaController.crearPartida(dificultadEscogida, usuario, ayuda, rol);
         // Se tendria que añadir la partida al usuario falta funcion para devolver la fecha de la partida
     }
+
     /**
      * Borra una partida 
-     * @throws Exception 
      */
-    public void borrarPartida(Date data) throws Exception {
-    	String username = userAct.getUsername();
-    	Boolean removedPartida = CtrlPartida.borrarPartida(username, data);
-    	if(removedPartida == null) throw new Exception("The partida does not exists");
-    	else {
-    		deletePartida(data);
-    		userAct.deletePartida(data);
-    	}
+    public void borrarPartida(String username, Date data) {
+        this.partidaController.borrarPartida(username, data);
+        deletePartida(data);
     }
 
    
