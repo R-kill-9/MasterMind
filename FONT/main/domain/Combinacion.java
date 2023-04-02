@@ -4,21 +4,27 @@ import java.util.ArrayList;
 
 
 
-/** Clase Combinacion. **/
+/** Clase Combinacion **/
 public class Combinacion {
 	
-	/** Atributos **/
+	/* 
+	 * Atributos 
+	 */
 	private ArrayList<Color> combination;
 
 
-	/** Constructora **/
+	/* 
+	 * Constructora 
+	 * */
 	
 	public Combinacion(ArrayList<Color> combination) {
-		/** 1 = CodeMaker, 2 = CodeBreaker**/
+		
 		this.combination = combination; 
 	}
 
-
+	/*
+	 * Métodos públicos
+	 */
 	public ArrayList<Color> getCombination() {
 		return combination;
 	}
@@ -28,17 +34,7 @@ public class Combinacion {
 		this.combination = combination;
 	}
 	
-	/** Métodos privados **/
 
-	/** Métodos públicos **/
-	/*
-	public setCombinacion(int *comb) {
-        //Creamos esta clase para leer valores por consola
-        Scanner scanner = new Scanner(System.in);
-        for(int i = 0; i < tamaño; ++i) {
-            int comb[i] = scanner.nextInt();
-        }
-        return comb;
-	}*/
+
 
 }

@@ -3,7 +3,7 @@ package main.domain;
 public class EstadoPartida {
     
     /**
-     * Estado de la partida que será o bien "Running" o "Puased" o "Saved"
+     * Estado de la partida que será o bien "Running" o "Paused" o "Saved"
      */
     private String estado; 
 
