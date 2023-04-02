@@ -92,7 +92,5 @@ public class Usuario {
 		return this.fechaPartidas;
 	}
 	
-	
-	
 }
 	

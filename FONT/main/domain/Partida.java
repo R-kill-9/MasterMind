@@ -30,7 +30,7 @@ public class Partida {
 	private boolean ayuda; 
 	private EstadoPartida estadoPartida;
 	public Combinacion solution;
-	private Dificultad nivel;
+	private NivelDificultad nivel;
 	private String username;
 	private ArrayList<Turno> turnos;
 
@@ -46,7 +46,19 @@ public class Partida {
 		/** 
 		* 1 = Facil, 2 = Medio, 3 = Dificil
 		*/
-		this.nivel = new Dificultad(dificultadEscogida);
+		switch(dificultadEscogida) {
+			case 1:
+				this.nivel = new NivelDificultadBajo();
+				break;
+			case 2:
+				this.nivel = new NivelDificultadBajo();
+				break;
+			case 3:
+				this.nivel = new NivelDificultadBajo();
+				break;
+			default:
+				throw new  IllegalArgumentException("Nivel de dificultad: 1, 2 o 3");
+		}
 		this.turnos = new ArrayList<Turno>();
 		this.turnos.add(new Turno(rol));
 		this.ayuda = ayuda;
@@ -66,9 +78,8 @@ public class Partida {
 	}
 	
 	private void donePartida(){
-		boolean choosenRol;
 		if(turnos.size() == 1) {
-			choosenRol = this.turnos.get(0).getRol();
+			boolean choosenRol = this.turnos.get(0).getRol();
 			this.turnos.add(new Turno(!choosenRol));
 		}
 	}
@@ -88,7 +99,7 @@ public class Partida {
 	/**
 	*Devuelve el estado de la partida 
 	*/
-	public String getEstadoPartida() {
+	public PossiblesEstadosPartida getEstadoPartida() {
         return estadoPartida.getEstado();
     }
 
@@ -118,7 +129,7 @@ public class Partida {
 	*Devuelve la dificultad de la partida 
 	 * @return 
 	*/
-	public Dificultad getDificultad() {
+	public Integer getDificultad() {
 		return this.nivel.getDificultad();
 	}
 
@@ -154,12 +165,12 @@ public class Partida {
 				    ColorFeedBack cb = bola == 'n' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);
 				}
-				while(feedBackSolution.size() < nivel.getColumna()) {
+				while(feedBackSolution.size() < nivel.getNumColumnas()) {
 				    feedBackSolution.add(ColorFeedBack.GREY);
 				}
 			}
 			else {
-				String feedBack = nivel.comprobarCombinacion(this.solution, combSolution);
+				String feedBack = nivel.comprobarCombinacionPista(this.solution, combSolution);
 				for(char bola : feedBack.toCharArray()) {
 					ColorFeedBack cb;
 					if(bola == ' ') cb = ColorFeedBack.GREY;
@@ -186,7 +197,11 @@ public class Partida {
 	*Devuelve la fecha de la partida 
 	 * @return 
 	*/
-	public Object getFecha() {
+	public Date getFecha() {
         return this.data;
+	}
+
+	public Boolean getAyuda() {
+		return this.ayuda;
 	}
 }

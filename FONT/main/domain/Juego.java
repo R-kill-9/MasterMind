@@ -2,18 +2,30 @@ package main.domain;
 
 
 public class Juego {
-    //clase que representa el juego con dos strings informacionSistema y  informacionPuntuacion
+	 //clase que representa el juego con dos strings informacionSistema y  informacionPuntuacion
     private String informacionSistema;
     private String informacionPuntuacion;
-    
+    private static Juego INSTANCE;
+
     /**
-     * Constructora de la clase Juego
+     * Constructor privado de la clase Juego
      * @param informacionSistema informacion del sistema
      * @param informacionPuntuacion informacion de la puntuacion
      */
-    public Juego(String informacionSistema, String informacionPuntuacion) {
+    private Juego(String informacionSistema, String informacionPuntuacion) {
         this.informacionSistema = informacionSistema;
         this.informacionPuntuacion = informacionPuntuacion;
+    }
+    /**
+     * Devuelve la única instancia de la clase Juego
+     * @param informacionSistema informacion del sistema
+     * @param informacionPuntuacion informacion de la puntuacion
+     */
+    public static Juego getInstance(String informacionSistema, String informacionPuntuacion) {
+        if(INSTANCE == null) {
+            INSTANCE = new Juego(informacionSistema, informacionPuntuacion);
+        }
+        return INSTANCE;
     }
     
     /**
