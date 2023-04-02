@@ -33,6 +33,10 @@ public class Combinacion {
 	public void setCombination(ArrayList<Color> combination) {
 		this.combination = combination;
 	}
+
+	public Color getPosition(Integer i) {
+		return combination.get(i);
+	}
 	
 
 

@@ -8,14 +8,8 @@ import java.util.HashMap;
 
 
 
-public class NivelDificultadBajo implements NivelDificultad {
+public class NivelDificultadBajo extends NivelDificultad {
 
-    static final boolean  tieneBlancas = false;
-    static final boolean  sePuedeRepetir = false;
-    static final private int numColors = 6;
-    static final private  int numcolumnas = 4;
-    static boolean solucionEncontrada = false;
-    static private Integer turn;
 
     static private List< List<Integer>> possibleCodes;
     static private List< List<Integer>> totalcombinacionesPosibles;
@@ -25,7 +19,16 @@ public class NivelDificultadBajo implements NivelDificultad {
     static private List< List<Integer>> enviosCandidatos;
     
     
-
+    public NivelDificultadBajo() {
+	    tieneBlancas = false;
+	    sePuedeRepetir = false;
+	    numColors = 6;
+	    numcolumnas = 4;
+	    solucionEncontrada = false;
+    }
+    public Integer getNumColumnas() {
+    	return this.numcolumnas;
+    }
     
     @Override
     public void setSolucion(List<Integer> solucionProporcionada) {
@@ -84,46 +87,7 @@ public class NivelDificultadBajo implements NivelDificultad {
         return null;
     }
 
-    @Override
-    public String comprobarCombinacion(List<Integer> intento, List<Integer> solucionProporcionada){
-    	
-        int aciertos = 0;
-    	int semiaciertos = 0;
-        String feedback = "";
-        
-        for(int i = 0; i < numcolumnas; i++){
-            if(intento.get(i) == solucion.get(i)){
-                aciertos++;
-                feedback += "N";
-            }
-            else if(intento.contains(solucion.get(i))){
-                semiaciertos++;
-            }
-        }  
-        if(aciertos == numcolumnas)  solucionEncontrada = true;
-        for(int i = aciertos; i < aciertos + semiaciertos; i++){
-            feedback += "B";
-        }
-        return feedback;
-    }
-    
-    public String comprobarCombinacionPista(List<Integer> combinacionJugador, List<Integer> solucionProporcionada){
-        int aciertos = 0;
-    	String feedback = "";
-        for(int i = 0; i < numcolumnas; i++){
-            if(combinacionJugador.get(i) == solucion.get(i)){
-                feedback += "N";
-               aciertos++;
-            }
-            else if(combinacionJugador.contains(solucion.get(i))){
-                feedback += "B";
-            }
-            else feedback += " ";
-        }  
-        if(aciertos == numcolumnas)  solucionEncontrada = true;
-        return feedback;
-    }
-    
+   
     private void inicialize(Boolean[] visto,Integer i, List<Integer> sol ){
         if(i >= numcolumnas ){
             totalcombinacionesPosibles.add(sol);
@@ -152,77 +116,81 @@ public class NivelDificultadBajo implements NivelDificultad {
     }
 
 
-  private void eliminaCombinacions( List< List<Integer>> conjunto, String respuestaComprobacion){
-    for(int i = 0; i < conjunto.size() ; i++){
-        if(!comprobarCombinacion(conjunto.get(i),solucion).equals(respuestaComprobacion)){
-            possibleCodes.remove(i);
-        }
-    }
-  }
+	 private void eliminaCombinacions( List< List<Integer>> conjunto, String respuestaComprobacion){
+	    for(int i = 0; i < conjunto.size() ; i++){
+	        if(!NivelDificultad.comprobarCombinacion(conjunto.get(i),solucion).equals(respuestaComprobacion)){
+	            possibleCodes.remove(i);
+	        }
+	    }
+	  }
 
 
+	 private  void generaNuevoEnvio() {
 
-  private  void generaNuevoEnvio() {
-
-    //Aqui iremos contando para cada posible solucion cuantas veces aparece
-    Map<String, Integer> contadorPuntuaciones = new HashMap<String, Integer>() ;
-    //Aqui guardaremos el maixmo de apariciones que haya de una solucion
-    Map<List<Integer>, Integer> puntuaciones = new HashMap<List<Integer>, Integer>(); 
-    // Aqui guardamos las posibles soluciones que nos interesaria probar a enviar
-    List<List<Integer>> enviosCandidatos = new ArrayList<List<Integer>>() ;
-
-    int max, min;
-
-    for (int i = 0; i < totalcombinacionesPosibles.size(); ++i) {
-
-        for (int j = 0; j < possibleCodes.size(); ++j) {
-
-            String resutltadoFicha = comprobarCombinacion(totalcombinacionesPosibles.get(i), possibleCodes.get(j));
-          
-            // Si existe se incrementa las veces que aparece
-            if(contadorPuntuaciones.get(resutltadoFicha) > 0 ){
-                int num =  contadorPuntuaciones.get(resutltadoFicha);
-                contadorPuntuaciones.put(resutltadoFicha, num + 1 );
-            } 
-            // Si no se inicializa a 1
-            else{
-                contadorPuntuaciones.put(resutltadoFicha, 1);
-            }
-        }
-
-        max = getMaxScore(contadorPuntuaciones);
-        puntuaciones.put(totalcombinacionesPosibles.get(i), max);
-        contadorPuntuaciones.clear();   
-    }
-
-    min = getMinScore(puntuaciones);
-
-    for (Map.Entry<List<Integer>, Integer> elem : puntuaciones.entrySet()) {
-        if (elem.getValue() == min) {
-            enviosCandidatos.add(elem.getKey());
-        }
-    }
-    return;
-}
-
-private int getMaxScore( Map<String, Integer> m){
-    int maximo = 0;
-    for (Map.Entry<String, Integer> elem : m.entrySet()) {
-        if (elem.getValue() > maximo) {
-            maximo = elem.getValue();
-        }
-    }
-    return maximo;
-}
+	    //Aqui iremos contando para cada posible solucion cuantas veces aparece
+	    Map<String, Integer> contadorPuntuaciones = new HashMap<String, Integer>() ;
+	    //Aqui guardaremos el maixmo de apariciones que haya de una solucion
+	    Map<List<Integer>, Integer> puntuaciones = new HashMap<List<Integer>, Integer>(); 
+	    // Aqui guardamos las posibles soluciones que nos interesaria probar a enviar
+	    List<List<Integer>> enviosCandidatos = new ArrayList<List<Integer>>() ;
+	
+	    int max, min;
+	
+	    for (int i = 0; i < totalcombinacionesPosibles.size(); ++i) {
+	
+	        for (int j = 0; j < possibleCodes.size(); ++j) {
+	
+	            String resutltadoFicha = comprobarCombinacion(totalcombinacionesPosibles.get(i), possibleCodes.get(j));
+	          
+	            // Si existe se incrementa las veces que aparece
+	            if(contadorPuntuaciones.get(resutltadoFicha) > 0 ){
+	                int num =  contadorPuntuaciones.get(resutltadoFicha);
+	                contadorPuntuaciones.put(resutltadoFicha, num + 1 );
+	            } 
+	            // Si no se inicializa a 1
+	            else{
+	                contadorPuntuaciones.put(resutltadoFicha, 1);
+	            }
+	        }
+	
+	        max = getMaxScore(contadorPuntuaciones);
+	        puntuaciones.put(totalcombinacionesPosibles.get(i), max);
+	        contadorPuntuaciones.clear();   
+	    }
+	
+	    min = getMinScore(puntuaciones);
+	
+	    for (Map.Entry<List<Integer>, Integer> elem : puntuaciones.entrySet()) {
+	        if (elem.getValue() == min) {
+	            enviosCandidatos.add(elem.getKey());
+	        }
+	    }
+	    return;
     
-private static int getMinScore(Map<List<Integer>, Integer> m){
-        int minimo = Integer.MAX_VALUE;
-        for (Map.Entry<List<Integer>, Integer> elem : m.entrySet()){
-            if (elem.getValue() < minimo )  minimo = elem.getValue();
-        }
-        return minimo;
+  }
+	
+	private int getMaxScore( Map<String, Integer> m){
+	    int maximo = 0;
+	    for (Map.Entry<String, Integer> elem : m.entrySet()) {
+	        if (elem.getValue() > maximo) {
+	            maximo = elem.getValue();
+	        }
+	    }
+	    return maximo;
+	}
+	    
+	private static int getMinScore(Map<List<Integer>, Integer> m){
+	        int minimo = Integer.MAX_VALUE;
+	        for (Map.Entry<List<Integer>, Integer> elem : m.entrySet()){
+	            if (elem.getValue() < minimo )  minimo = elem.getValue();
+	        }
+	        return minimo;
     }
 
+	@Override
+	public Integer getDificultad() {
+		return 1;
+	}
 
 }
 

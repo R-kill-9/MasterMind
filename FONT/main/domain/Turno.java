@@ -15,7 +15,6 @@ public class Turno {
 	/** Constructora **/
 	
 	public Turno(boolean rolEscogido) {
-		/** 1 = CodeMaker, 2 = CodeBreaker**/
 		this.rol = rolEscogido;
 		this.combinations = new ArrayList<>();
 	}
