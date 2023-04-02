@@ -86,19 +86,8 @@ public class CtrlPartida {
      * @param estado el estado de las partidas: guardadas o pausadas.
      * @return la partida jugada por ese usuario, o null si no hay ninguna
      */
-    public static ArrayList<Pair<String, Date>> getInfoPartidaSegunEstado(String usuario, PossiblesEstadosPartida estado) {
-    	ArrayList<Pair<String, Date>> result = new ArrayList<>();
-    	switch(estado) {
-	    	case SAVED:
-	    		result = HistorialPartidasGuardadas.getPartidas(usuario);
-	    	break;
-	    	case PAUSED:
-	    		result = HistorialPartidasPausadas.getPartidas(usuario);
-	    	break;
-	    	default:
-			break;
-    	}
-        return result;
+    public static ArrayList<Pair<String, Date>> getInfoPartidasGuardadas(String usuario) {
+        return HistorialPartidasGuardadas.getPartidas(usuario);
     }
 	public static HashMap<Date,Integer> getInfoPartida(Partida partida) {
 		Date dataP = partida.getData();

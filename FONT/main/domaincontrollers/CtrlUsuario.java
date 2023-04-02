@@ -93,9 +93,9 @@ public class CtrlUsuario {
      * @param username Nombre de usuario.
      * @return ArrayList<Pair<String, Date>> where string = username, date = dateCreation
      */
-    public static ArrayList<Pair<String, Date>> getPartidasSegunEstado(PossiblesEstadosPartida posEstado) {
+    public static ArrayList<Pair<String, Date>> getPartidasGuardadas() {
     	String username = userAct.getUsername();
-    	return CtrlPartida.getInfoPartidaSegunEstado(username,posEstado);
+    	return CtrlPartida.getInfoPartidasGuardadas(username);
     }
 
     /**
@@ -130,8 +130,5 @@ public class CtrlUsuario {
     		userAct.deletePartida(data);
     	}
     }
-
-   
-
 
 }
