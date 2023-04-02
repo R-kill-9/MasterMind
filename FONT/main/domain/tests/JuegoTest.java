@@ -18,7 +18,7 @@ public class JuegoTest {
 	 */
 	@Before
 	public void setUp() {
-        newJuego = new Juego("Ejemplo información del sistema", "Ejemplo información de la puntuación");
+        newJuego = Juego.getInstance("informacion del sistema", "informacion de la puntuacion");
 	}
 	
 	/*
