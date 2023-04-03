@@ -1,0 +1,14 @@
+package main.domain;
+
+public class Dificultad {
+
+	public Dificultad(int dificultadEscogida) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Dificultad getDificultad() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

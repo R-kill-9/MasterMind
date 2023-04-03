@@ -1,0 +1,18 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+package JUnit;
+import domain.Partida;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+import org.junit.runners.*;
+class TestPartida {
+
+	@Test
+	void test() {
+		Partida p = new Partid();
+		fail("Not yet implemented");
+	}
+
+}
