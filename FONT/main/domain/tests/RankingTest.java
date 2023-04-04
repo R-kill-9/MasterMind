@@ -9,33 +9,34 @@ import main.domain.Ranking;
 
 public class RankingTest {
 	
-	/*
-	 * Atributos
-	 */
-	private Ranking newRanking;
-	
-	/*
-	 * Método que se ejecuta antes de cada test
-	 */
-	@Before
-	public void setUp() {
-		 Map<String, Integer> posicionesActual = new HashMap<String, Integer>();
-	     posicionesActual.put("Eren", 100);
-	     posicionesActual.put("Gaara", 200);
-	     newRanking = new Ranking("Fácil", posicionesActual);
-	}
-	
-	/*
-	 * TESTS
-	 */
+
 	/*
 	 * Comprueba que se añada correctamente una partida al ranking
 	 */
 	@Test
-    public void testAddPartida() {
-		newRanking.addPartida("Kirito", 400);
-        assertTrue(newRanking.getPosiciones().containsKey("Kirito"));
-        assertTrue(newRanking.getPosiciones().containsValue(400));
+	public void addPartidaTest() {
+		Ranking testRanking = new Ranking();
+        testRanking.addPartida("Gaara", 200, 1);
+        Map<String, Integer> expected = new HashMap<>();
+        expected.put("Gaara", 200);
+        assertEquals(expected, testRanking.getRanking(1));
+        
+        /*
+         * Comprueba que se actualice el valor de Gaara
+         */
+        testRanking.addPartida("Gaara", 250, 1);
+        testRanking.addPartida("Eren", 150, 1);
+        testRanking.addPartida("Sasuke", 300, 1);
+        expected.put("Sasuke", 300);
+        expected.put("Gaara", 250);
+        expected.put("Eren", 150);
+        assertEquals(expected, testRanking.getRanking(1));
+ 
+        /*
+         * Comprueba que si a Sasuke se le da una puntuación menor en el ranking sigue estando la más alta
+         */
+        testRanking.addPartida("Sasuke", 100, 1);
+        assertEquals(expected, testRanking.getRanking(1));
     }
 	
 	/*
@@ -43,11 +44,14 @@ public class RankingTest {
 	 */
 	@Test
     public void testGetPosiciones() {
-        Map<String, Integer> posiciones = new HashMap<String, Integer>();
-        posiciones.put("Eren", 100);
-        posiciones.put("Gaara", 200);
-
-        assertEquals(posiciones, newRanking.getPosiciones());
-        assertTrue(newRanking.getPosiciones().size() == 2);
+		Ranking testRanking = new Ranking();
+        testRanking.addPartida("Gaara", 200, 1);
+        testRanking.addPartida("Eren", 150, 1);
+        testRanking.addPartida("Sasuke", 300, 1);
+        Map<String, Integer> expected = new HashMap<>();
+        expected.put("Sasuke", 300);
+        expected.put("Gaara", 200);
+        expected.put("Eren", 150);
+        assertEquals(expected, testRanking.getRanking(1));
     }
 }
