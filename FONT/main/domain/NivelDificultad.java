@@ -9,7 +9,7 @@ public abstract class NivelDificultad {
 	protected boolean  sePuedeRepetir;
 	protected int numColors;
 	protected int numcolumnas;
-	protected boolean solucionEncontrada;
+    boolean solucionEncontrada;
 	protected Integer turn;
     
     public abstract void setSolucion(Combinacion solucion);
@@ -22,18 +22,18 @@ public abstract class NivelDificultad {
 	
 	public abstract Integer getNumColumnas();
 	
-	public String comprobarCombinacion(Combinacion solution, Combinacion combSolution){
+	public String comprobarCombinacion(Combinacion solution, Combinacion solEnviada){
     	
         int aciertos = 0;
     	int semiaciertos = 0;
         String feedback = "";
         
         for(int i = 0; i < numcolumnas; i++){
-            if(combSolution.getPosition(i) == solution.getPosition(i)){
+            if(solEnviada.getPosition(i) == solution.getPosition(i)){
                 aciertos++;
                 feedback += "N";
             }
-            else if(combSolution.contains(solution.getPosition(i))){
+            else if(solEnviada.contains(solution.getPosition(i))){
                 semiaciertos++;
             }
         }  
@@ -41,22 +41,25 @@ public abstract class NivelDificultad {
         for(int i = aciertos; i < aciertos + semiaciertos; i++){
             feedback += "B";
         }
+
+        System.out.print("Comprobado  ");
         return feedback;
     }
     
-    public String comprobarCombinacionPista(Combinacion solution, Combinacion combSolution){
+    public String comprobarCombinacionPista(Combinacion solution, Combinacion solEnviada){
         int aciertos = 0;
     	String feedback = "";
         for(int i = 0; i < numcolumnas; i++){
-            if(combSolution.getPosition(i) == solution.getPosition(i)){
+            if(solution.getPosition(i) == solEnviada.getPosition(i)){
                 feedback += "N";
                aciertos++;
             }
-            else if(combSolution.contains(solution.getPosition(i))){
+            else if(solution.contains(solEnviada.getPosition(i))){
                 feedback += "B";
             }
-            else feedback += " ";
-        }  
+            else {
+                feedback += " ";
+        }  }
         if(aciertos == numcolumnas)  solucionEncontrada = true;
         return feedback;
     }

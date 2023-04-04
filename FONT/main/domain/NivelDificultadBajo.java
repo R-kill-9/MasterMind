@@ -2,11 +2,11 @@ package main.domain;
 
 import java.util.Map;
 import java.util.List;
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import main.domain.Combinacion;
+import main.domain.Color;
+
 import static org.junit.Assert.*;
 
 
@@ -17,7 +17,7 @@ public class NivelDificultadBajo extends NivelDificultad {
     static private List< Combinacion> totalcombinacionesPosibles;
     static private List< Combinacion> solucionesEnviadas;
     static private Combinacion solucion;
-    static private Combinacion envioActual;
+    private Combinacion envioActual;
     static private List< Combinacion> enviosCandidatos;
     
     
@@ -27,15 +27,16 @@ public class NivelDificultadBajo extends NivelDificultad {
 	    numColors = 6;
 	    numcolumnas = 4;
 	    solucionEncontrada = false;
+	    totalcombinacionesPosibles = new ArrayList<>();
+	    solucionesEnviadas = new ArrayList<>();
+	    possibleCodes = new ArrayList<>();
+	    enviosCandidatos = new ArrayList<>();
+	     
     }
     public Integer getNumColumnas() {
     	return this.numcolumnas;
     }
     
-    @Override
-    public void setSolucion(Combinacion solucionProporcionada) {
-     solucion = solucionProporcionada;
-    }
 
     //NumIntentCodeMaker son los intentos que necesita el rival para obtener la solucion, siendo el jugador el codeMaker
     //NumIntentCodeBreaker son los intentos que necesita el jugador para obtener la solucion
@@ -49,29 +50,34 @@ public class NivelDificultadBajo extends NivelDificultad {
     @Override
     public int resolve(Combinacion solucionUsuario) {
         solucion = solucionUsuario;
+        solucionUsuario.print();
         turn = 1;
         ArrayList<Color> colores = new ArrayList<Color>();
         
         colores.add(Color.RED);
-        colores.add(Color.RED);
         colores.add(Color.BLUE);
-        colores.add(Color.BLUE);
+        colores.add(Color.GREEN);
+        colores.add(Color.YELLOW);
 
-        envioActual.setCombination(colores);
+        this.envioActual = new Combinacion(colores);
 
         incializarPosiblesCodigos();
+        possibleCodes.addAll(totalcombinacionesPosibles);
         
         while( !solucionEncontrada && turn <= 10 ){
-        	
+
+        	System.out.print(solucionEncontrada);
             solucionesEnviadas.add(envioActual);
             possibleCodes.remove(envioActual);
             totalcombinacionesPosibles.remove(envioActual);
 
             String respuestaComprobacion = comprobarCombinacion(envioActual, solucion);
-           
-            if(solucionEncontrada) return turn;
 
-            else eliminaCombinacions(possibleCodes, respuestaComprobacion);
+            if(solucionEncontrada) {
+            	System.out.print(turn);
+            	return turn;
+            }
+            else eliminaCombinacions(respuestaComprobacion);
 
             generaNuevoEnvio();
 
@@ -100,15 +106,19 @@ public class NivelDificultadBajo extends NivelDificultad {
     private void inicialize(Boolean[] visto,Integer i, ArrayList<Color> sol ){
         if(i >= numcolumnas ){
             Combinacion combi = new Combinacion(sol); 
+           // System.out.println(" combinacion " );
+           // combi.print();
+         
             totalcombinacionesPosibles.add(combi);
+           // System.out.println(" combinacion " + combi);
             return;
         }
         if(i < numcolumnas) {
             for(int j = 0; j < visto.length; j++){
                 if(!visto[j]){
-                    visto[j] = true;
-                    Color c;
-
+                    visto[j] = true;                    
+                    Color c = null;
+                    
                     switch (j) {
                         case 0:
                             c = Color.RED;   break;
@@ -120,8 +130,9 @@ public class NivelDificultadBajo extends NivelDificultad {
                             c = Color.YELLOW; break;
                         case 4:
                             c = Color.PURPLE; break;
-                        default:
-                            break;
+                        case 5:
+                            c = Color.ORANGE; break;
+                        default: break;
                     }
                     
                     sol.add(c);
@@ -138,14 +149,16 @@ public class NivelDificultadBajo extends NivelDificultad {
     private void incializarPosiblesCodigos(){
         Boolean[] visto = {false,false,false,false,false,false};
         ArrayList<Color> sol  = new ArrayList<Color>();
-        Integer i = numColors;
+        Integer i = 0;
         inicialize(visto, i, sol );
     }
 
 
-	 private void eliminaCombinacions( List< Combinacion> conjunto, String respuestaComprobacion){
-	    for(int i = 0; i < conjunto.size() ; i++){
-	        if(!NivelDificultad.comprobarCombinacion(conjunto.get(i), solucion).equals(respuestaComprobacion)){
+	 private void eliminaCombinacions(  String respuestaComprobacion){
+		 //System.out.print(respuestaComprobacion);
+		 //possibleCodes.get(0).print();
+	    for(int i = 0; i < possibleCodes.size() ; i++){
+	        if(comprobarCombinacion(possibleCodes.get(i), solucion).equals(respuestaComprobacion)){
 	            possibleCodes.remove(i);
 	        }
 	    }

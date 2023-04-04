@@ -22,6 +22,7 @@ public class Combinacion {
 		this.combination = combination; 
 	}
 
+
 	/*
 	 * Métodos públicos
 	 */
@@ -49,6 +50,14 @@ public class Combinacion {
     public void remove(Color colorEliminado) {
 		this.combination.remove(colorEliminado);
     }
+
+	public void print() {
+		System.out.print(" COMBI: ");
+		for(int i = 0; i < combination.size(); i++) {
+			System.out.print(combination.get(i)+ " ");
+			
+		}
+	}
 
 
 
