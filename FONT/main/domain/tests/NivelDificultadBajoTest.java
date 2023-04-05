@@ -138,12 +138,12 @@ public class NivelDificultadBajoTest {
 	@Test
 	public void TestSolveWinRoundX() {
 		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.RED);
 		colores.add(Color.BLUE);
+		colores.add(Color.PURPLE);
 		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
+		colores.add(Color.ORANGE);
         Combinacion solucionUsuario = new Combinacion(colores);
-        
+        System.out.print(ndb.resolve(solucionUsuario));
 		assertEquals( 1 ,ndb.resolve(solucionUsuario));
 		
 	}

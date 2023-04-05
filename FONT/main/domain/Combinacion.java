@@ -44,7 +44,7 @@ public class Combinacion {
 	}
 
 	public void add(Color colorAñadido) {
-		this.combination.add(colorAñadido);
+		combination.add(colorAñadido);
 	}
 
     public void remove(Color colorEliminado) {
@@ -52,11 +52,8 @@ public class Combinacion {
     }
 
 	public void print() {
-		System.out.print(" COMBI: ");
-		for(int i = 0; i < combination.size(); i++) {
-			System.out.print(combination.get(i)+ " ");
-			
-		}
+		System.out.print(" COMBI: " + combination.get(0)+ " "+ combination.get(1)+" "+combination.get(2)+" "+combination.get(3)+ "\n");
+	
 	}
 
 

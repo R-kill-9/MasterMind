@@ -35,14 +35,13 @@ public abstract class NivelDificultad {
             }
             else if(solEnviada.contains(solution.getPosition(i))){
                 semiaciertos++;
-            }
+            }   
         }  
         if(aciertos == numcolumnas)  solucionEncontrada = true;
         for(int i = aciertos; i < aciertos + semiaciertos; i++){
             feedback += "B";
         }
 
-        System.out.print("Comprobado  ");
         return feedback;
     }
     

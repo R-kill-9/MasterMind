@@ -13,13 +13,13 @@ import static org.junit.Assert.*;
 public class NivelDificultadBajo extends NivelDificultad {
 
 
-    static private List< Combinacion> possibleCodes;
-    static private List< Combinacion> totalcombinacionesPosibles;
+    static public List< Combinacion> possibleCodes;
+    static public List< Combinacion> totalcombinacionesPosibles;
     static private List< Combinacion> solucionesEnviadas;
     static private Combinacion solucion;
     private Combinacion envioActual;
     static private List< Combinacion> enviosCandidatos;
-    
+    int index ;
     
     public NivelDificultadBajo() {
 	    tieneBlancas = false;
@@ -31,6 +31,8 @@ public class NivelDificultadBajo extends NivelDificultad {
 	    solucionesEnviadas = new ArrayList<>();
 	    possibleCodes = new ArrayList<>();
 	    enviosCandidatos = new ArrayList<>();
+	    turn = 1;
+	    index = 0;
 	     
     }
     public Integer getNumColumnas() {
@@ -50,8 +52,7 @@ public class NivelDificultadBajo extends NivelDificultad {
     @Override
     public int resolve(Combinacion solucionUsuario) {
         solucion = solucionUsuario;
-        solucionUsuario.print();
-        turn = 1;
+
         ArrayList<Color> colores = new ArrayList<Color>();
         
         colores.add(Color.RED);
@@ -59,24 +60,26 @@ public class NivelDificultadBajo extends NivelDificultad {
         colores.add(Color.GREEN);
         colores.add(Color.YELLOW);
 
-        this.envioActual = new Combinacion(colores);
+        envioActual = new Combinacion(colores);
 
         incializarPosiblesCodigos();
-        possibleCodes.addAll(totalcombinacionesPosibles);
         
+System.out.print("AHORA IMPROME LISTA ");
+		totalcombinacionesPosibles.get(0).print();
+		
+		possibleCodes.addAll(totalcombinacionesPosibles);
         while( !solucionEncontrada && turn <= 10 ){
-
-        	System.out.print(solucionEncontrada);
-            solucionesEnviadas.add(envioActual);
-            possibleCodes.remove(envioActual);
-            totalcombinacionesPosibles.remove(envioActual);
+        	
+        	
+           solucionesEnviadas.add(envioActual);
+           possibleCodes.remove(envioActual);
+           totalcombinacionesPosibles.remove(envioActual);
 
             String respuestaComprobacion = comprobarCombinacion(envioActual, solucion);
 
-            if(solucionEncontrada) {
-            	System.out.print(turn);
-            	return turn;
-            }
+            if(solucionEncontrada) return turn;
+         
+            
             else eliminaCombinacions(respuestaComprobacion);
 
             generaNuevoEnvio();
@@ -107,9 +110,11 @@ public class NivelDificultadBajo extends NivelDificultad {
         if(i >= numcolumnas ){
             Combinacion combi = new Combinacion(sol); 
            // System.out.println(" combinacion " );
-           // combi.print();
-         
+            combi.print();
             totalcombinacionesPosibles.add(combi);
+            System.out.println(" AÑADIENDO :  ");
+            totalcombinacionesPosibles.get(index).print();
+            index++;
            // System.out.println(" combinacion " + combi);
             return;
         }
@@ -155,11 +160,13 @@ public class NivelDificultadBajo extends NivelDificultad {
 
 
 	 private void eliminaCombinacions(  String respuestaComprobacion){
-		 //System.out.print(respuestaComprobacion);
-		 //possibleCodes.get(0).print();
-	    for(int i = 0; i < possibleCodes.size() ; i++){
-	        if(comprobarCombinacion(possibleCodes.get(i), solucion).equals(respuestaComprobacion)){
-	            possibleCodes.remove(i);
+System.out.print(respuestaComprobacion);
+	    for(int i = 0; i < possibleCodes.size() ; i++){	  
+	    	System.out.print("PACO");
+	    	possibleCodes.get(i).print();
+System.out.print("Resultado" + comprobarCombinacion(solucion, possibleCodes.get(i)));
+	        if(comprobarCombinacion(solucion, possibleCodes.get(i)).equals(respuestaComprobacion)){
+	        possibleCodes.remove(i);
 	        }
 	    }
 	  }
@@ -230,6 +237,11 @@ public class NivelDificultadBajo extends NivelDificultad {
 	@Override
 	public Integer getDificultad() {
 		return 1;
+	}
+	@Override
+	public void setSolucion(Combinacion solucion) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
