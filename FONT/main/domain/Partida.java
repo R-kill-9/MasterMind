@@ -82,6 +82,17 @@ public class Partida {
 			boolean choosenRol = this.turnos.get(0).getRol();
 			this.turnos.add(new Turno(!choosenRol));
 		}
+		else {
+			Integer turnosCM = turnos.get(0).getNumberComb();
+			Integer turnosCB = turnos.get(0).getNumberComb();
+			if(!turnos.get(0).getRol()){
+				Integer aux = turnosCM;
+				turnosCM = turnosCB;
+				turnosCB = aux;
+			}
+			nivel.calculaPuntuacion(turnosCM, turnosCB);
+			HistorialPartidasGuardadas.agregarPartidaGuardada(username, data);
+		}
 	}
 	private boolean checkIfAllCorrects(ArrayList<ColorFeedBack> feedBackSolution){
 		ColorFeedBack firstElem = feedBackSolution.get(0);
@@ -122,7 +133,7 @@ public class Partida {
 	*Activa el modo ayuda dentro de la partida
 	 * @return 
 	*/
-	public void setAyuda(boolean ayuda) { 
+	public void setAyuda() { 
 		this.ayuda = ayuda ? this.ayuda : !this.ayuda;
 	}
 	/**
@@ -145,11 +156,14 @@ public class Partida {
 	 * @return 
 	 * @throws Exception 
 	*/
-	public void setSolution(ArrayList<Color> combSolution) throws Exception{
+	public Integer setSolution(ArrayList<Color> combSolution) throws Exception{
 		Combinacion newCombinacion = new Combinacion(combSolution);
 		Turno lastTurno = this.turnos.get(turnos.size() -1);
 		if(lastTurno.getRol()) this.solution = newCombinacion;
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
+		Integer numIntentos = nivel.resolve(newCombinacion);
+		donePartida();
+		return numIntentos;
 	}
 	/**
 	* Introduce un intento para este turno 
@@ -203,5 +217,10 @@ public class Partida {
 
 	public Boolean getAyuda() {
 		return this.ayuda;
+	}
+
+	public void reiniciarPartida() {
+		Turno lastTurno = turnos.get(turnos.size() - 1);
+		lastTurno.eraseCombinations();
 	}
 }

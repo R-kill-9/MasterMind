@@ -37,8 +37,6 @@ public class Combinacion {
 	public Color getPosition(Integer i) {
 		return combination.get(i);
 	}
-	
-
 
 
 }
