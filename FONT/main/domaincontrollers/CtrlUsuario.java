@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import main.domain.Usuario;
+import main.domain.Pair;
 import main.domain.Partida;
 import main.domain.PossiblesEstadosPartida;
 
@@ -16,14 +17,13 @@ public class CtrlUsuario {
      * Array que contiene los usuarios del sistema.
      */
     private final ArrayList<Usuario> usuarios;
-    private Usuario userAct;
-    private CtrlPartida partidaController;
+    private static Usuario userAct;
     /**
      * Constructora por defecto.
      */
     public CtrlUsuario(String username) {
         this.usuarios = new ArrayList<>();
-        this.userAct = new Usuario(username);
+        userAct = new Usuario(username);
     }
 
     /**
@@ -66,7 +66,7 @@ public class CtrlUsuario {
      * En caso de que la puntuación sea mayor que la máxima que ha conseguido el usuario, se actualiza el record.
      */
     public void setRecord(int puntuacion) {
-        this.userAct.setMaxScore(puntuacion);
+        userAct.setMaxScore(puntuacion);
     }
 
     /**
@@ -75,7 +75,7 @@ public class CtrlUsuario {
      * @return Record del usuario con el nombre de usuario dado.
      */
     public int getRecord() {
-        return this.userAct.getMaxScore();
+        return userAct.getMaxScore();
     }
 
     /**
@@ -84,25 +84,18 @@ public class CtrlUsuario {
      * @param p Partida.
      */
     public void addPartida(Date fecha) {
-        this.userAct.addPartida(fecha);
+        userAct.addPartida(fecha);
     }
 
 
     /**
      * Obtenemos el ArrayList de partidas del usuario con el nombre de usuario dado.
      * @param username Nombre de usuario.
-     * @return HashMap<Integer,Date> where integer = level, date = dateCreation
+     * @return ArrayList<Pair<String, Date>> where string = username, date = dateCreation
      */
-    public HashMap<Date,Integer> getPartidasSegunEstado(PossiblesEstadosPartida posEstado) {
-    	ArrayList<Partida> partidas = new ArrayList<>(partidaController.getInfoPartidaSegunEstado(userAct.getUsuario(),posEstado));
-        HashMap<Date,Integer> infoPartidas = new HashMap<>();
-        for(Partida partida : partidas) {
-        	if(partida.getEstadoPartida().equals(posEstado)) {
-        		HashMap<Date, Integer> partidaInfo = partidaController.getInfoPartida(partida); //añadir el resultado en el map
-        		infoPartidas.putAll(partidaInfo);
-        	}
-        }
-        return infoPartidas;
+    public static ArrayList<Pair<String, Date>> getPartidasGuardadas() {
+    	String username = userAct.getUsername();
+    	return CtrlPartida.getInfoPartidasGuardadas(username);
     }
 
     /**
@@ -110,15 +103,15 @@ public class CtrlUsuario {
      * @param username Nombre de usuario.
      * @param fecha Fecha de la partida.
      */
-    public void deletePartida(Date fecha) {
-       this.userAct.deletePartida(fecha);
+    public static void deletePartida(Date fecha) {
+       userAct.deletePartida(fecha);
        CtrlPartida.borrarPartida(userAct.getUsername(), fecha);
     }
 
     /**
      * Crea una nueva partida
      */
-    public void crearPartida(int dificultadEscogida, boolean ayuda, boolean rol) {
+    public static void crearPartida(int dificultadEscogida, boolean ayuda, boolean rol) {
         Partida newPartida = CtrlPartida.crearPartida(dificultadEscogida, userAct.getUsername(), ayuda, rol);
         Date dataPartida = newPartida.getData();
         userAct.addPartida(dataPartida);
@@ -129,16 +122,13 @@ public class CtrlUsuario {
      * @throws Exception 
      */
     public void borrarPartida(Date data) throws Exception {
-    	String username = this.userAct.getUsername();
-    	Partida removedPartida = CtrlPartida.borrarPartida(username, data);
+    	String username = userAct.getUsername();
+    	Boolean removedPartida = CtrlPartida.borrarPartida(username, data);
     	if(removedPartida == null) throw new Exception("The partida does not exists");
     	else {
     		deletePartida(data);
     		userAct.deletePartida(data);
     	}
     }
-
-   
-
 
 }
