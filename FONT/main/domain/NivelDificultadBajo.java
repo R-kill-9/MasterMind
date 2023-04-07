@@ -27,13 +27,13 @@ public class NivelDificultadBajo extends NivelDificultad {
 	    numColors = 6;
 	    numcolumnas = 4;
 	    solucionEncontrada = false;
-	    totalcombinacionesPosibles = new ArrayList<>();
-	    solucionesEnviadas = new ArrayList<>();
-	    possibleCodes = new ArrayList<>();
-	    enviosCandidatos = new ArrayList<>();
+	    totalcombinacionesPosibles = new ArrayList<Combinacion>();
+	    solucionesEnviadas = new ArrayList<Combinacion>();
+	    possibleCodes = new ArrayList<Combinacion>();
+	    enviosCandidatos = new ArrayList<Combinacion>();
 	    turn = 1;
 	    index = 0;
-	     
+
     }
     public Integer getNumColumnas() {
     	return this.numcolumnas;
@@ -62,10 +62,10 @@ public class NivelDificultadBajo extends NivelDificultad {
 
         envioActual = new Combinacion(colores);
 
-        incializarPosiblesCodigos();
+        totalcombinacionesPosibles.addAll(inicializarPosiblesCodigos());
         
 System.out.print("AHORA IMPROME LISTA ");
-		totalcombinacionesPosibles.get(0).print();
+
 		
 		possibleCodes.addAll(totalcombinacionesPosibles);
         while( !solucionEncontrada && turn <= 10 ){
@@ -106,57 +106,55 @@ System.out.print("AHORA IMPROME LISTA ");
     }
 
    
-    private void inicialize(Boolean[] visto,Integer i, ArrayList<Color> sol ){
-        if(i >= numcolumnas ){
-            Combinacion combi = new Combinacion(sol); 
-           // System.out.println(" combinacion " );
-            combi.print();
-            totalcombinacionesPosibles.add(combi);
-            System.out.println(" AÑADIENDO :  ");
-            totalcombinacionesPosibles.get(index).print();
+    private List<Combinacion> generarCombinaciones(Boolean[] visto, int i, ArrayList<Color> sol ){
+        List<Combinacion> combinaciones = new ArrayList<>();
+
+        if(i >= numcolumnas) {
+            Combinacion combi = new Combinacion(sol);
+            combinaciones.add(combi);
             index++;
-           // System.out.println(" combinacion " + combi);
-            return;
+            combi.print();
+            return combinaciones;
         }
-        if(i < numcolumnas) {
-            for(int j = 0; j < visto.length; j++){
-                if(!visto[j]){
-                    visto[j] = true;                    
-                    Color c = null;
-                    
-                    switch (j) {
-                        case 0:
-                            c = Color.RED;   break;
-                        case 1: 
-                            c = Color.BLUE;  break;
-                        case 2:
-                            c = Color.GREEN; break;
-                        case 3:
-                            c = Color.YELLOW; break;
-                        case 4:
-                            c = Color.PURPLE; break;
-                        case 5:
-                            c = Color.ORANGE; break;
-                        default: break;
-                    }
-                    
-                    sol.add(c);
-                    int z = i;
-                    inicialize(visto, i + 1, sol );
-                    i = z;
-                    sol.remove(c);
-                    visto[j] = false;
-                }   
-            }
+
+        for(int j = 0; j < visto.length; j++) {
+            if(!visto[j]) {
+                visto[j] = true;
+                Color c = null;
+                switch (j) {
+                    case 0:
+                        c = Color.RED;   break;
+                    case 1: 
+                        c = Color.BLUE;  break;
+                    case 2:
+                        c = Color.GREEN; break;
+                    case 3:
+                        c = Color.YELLOW; break;
+                    case 4:
+                        c = Color.PURPLE; break;
+                    case 5:
+                        c = Color.ORANGE; break;
+                    default: break;
+                }
+
+                sol.add(c);
+                List<Combinacion> combinacionesSiguientes = generarCombinaciones(visto, i + 1, sol);
+                combinaciones.addAll(combinacionesSiguientes);
+                sol.remove(c);
+                visto[j] = false;
+                
+            }   
         }
+        return combinaciones;
     }
-    
-    private void incializarPosiblesCodigos(){
+
+    private List<Combinacion> inicializarPosiblesCodigos() {
         Boolean[] visto = {false,false,false,false,false,false};
         ArrayList<Color> sol  = new ArrayList<Color>();
-        Integer i = 0;
-        inicialize(visto, i, sol );
+        int i = 0;
+        return generarCombinaciones(visto, i, sol);
     }
+
 
 
 	 private void eliminaCombinacions(  String respuestaComprobacion){
