@@ -4,10 +4,6 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-import main.domain.Combinacion;
-import main.domain.Color;
-
-import static org.junit.Assert.*;
 
 
 public class NivelDificultadBajo extends NivelDificultad {
@@ -67,7 +63,7 @@ public class NivelDificultadBajo extends NivelDificultad {
 System.out.print("AHORA IMPROME LISTA ");
 
 		
-		possibleCodes.addAll(totalcombinacionesPosibles);
+		possibleCodes=totalcombinacionesPosibles;
         while( !solucionEncontrada && turn <= 10 ){
         	
         	
@@ -91,6 +87,7 @@ System.out.print("AHORA IMPROME LISTA ");
         return turn ;
     }
 
+    
 
     private Combinacion obtenSiguienteEnvio() {
 
@@ -114,6 +111,7 @@ System.out.print("AHORA IMPROME LISTA ");
             combinaciones.add(combi);
             index++;
             combi.print();
+            totalcombinacionesPosibles.add(combi);
             return combinaciones;
         }
 
@@ -145,6 +143,7 @@ System.out.print("AHORA IMPROME LISTA ");
                 
             }   
         }
+        
         return combinaciones;
     }
 
