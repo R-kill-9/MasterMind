@@ -2,9 +2,7 @@ package main.domain.tests;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
-import java.util.Map;
 import java.util.TreeMap;
-import java.util.HashMap;
 import org.junit.Test;
 import main.domain.Ranking;
 
