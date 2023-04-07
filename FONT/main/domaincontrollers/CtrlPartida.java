@@ -7,7 +7,6 @@ import main.domain.Usuario;
 import main.domain.Color;
 import main.domain.ColorFeedBack;
 import main.domain.Partida;
-import main.domain.PossiblesEstadosPartida;
 import main.domain.HistorialPartidas;
 import main.domain.HistorialPartidasGuardadas;
 import main.domain.Pair;
@@ -75,9 +74,21 @@ public class CtrlPartida {
      * @return la partida jugada por ese usuario, o null si no hay ninguna
      * @throws Exception 
      */
-    public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
+    public static ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
         return partidaActual.setCombinacion(combination);
     }
+    
+    /**
+     * Obtiene una la partida actual del usuario.
+     * 
+     * @param Vector<Color> la solucion de la partida
+     * @return el numero de intentos en resolver la solucion
+     * @throws Exception 
+     */
+    public static Integer setSolution(ArrayList<Color> combination) throws Exception{
+        return partidaActual.setSolution(combination);
+    }
+    
     /**
      * Obtiene información de las partidas guardadas por el usuario.
      * 
@@ -88,11 +99,30 @@ public class CtrlPartida {
     public static ArrayList<Pair<String, Date>> getInfoPartidasGuardadas(String usuario) {
         return HistorialPartidasGuardadas.getPartidas(usuario);
     }
+    
+    /**
+     * Obtiene información de las partidas guardadas por el usuario.
+     * 
+     * @param una partida
+     * @return la informacion de la partida, cuando se ha jugado y la puntuacion.
+     */
 	public static HashMap<Date,Integer> getInfoPartida(Partida partida) {
 		Date dataP = partida.getData();
 		Integer nivel = partida.getDificultad();
 		HashMap<Date, Integer> infoPartida = new HashMap<>();
 		infoPartida.put(dataP, nivel);
 	    return infoPartida;
+	}
+	
+	public static void solicitarAyuda() {
+		partidaActual.setAyuda();
+	}
+	
+	public static void salirPartida() {
+		partidaActual = null;
+	}
+	public static void reiniciarPartida() {
+		partidaActual.reiniciarPartida();
+		
 	}
 }

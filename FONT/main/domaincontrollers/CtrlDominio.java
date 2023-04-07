@@ -1,39 +1,39 @@
-package domaincontrollers;
+package main.domaincontrollers;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Date;
 import java.util.Map;
+import java.util.TreeMap;
 
-import data.CtrlAsignaturaFichero;
-import domain.Alumno;
-import domain.Asignatura;
+import main.domain.Color;
+import main.domain.ColorFeedBack;
+import main.domain.Pair;
+import main.domain.Juego;
+import main.domain.Ranking;
 
 /** Ejemplo de Controlador de Dominio. **/
 public class CtrlDominio {
 
 	/** Atributos **/
 	
-	private CtrlAsignaturaFichero controladorAsignaturaFichero;
-	private Map<String, Asignatura> asignaturas;
-	private Map<String, Alumno> alumnos;
-	private String alumnoSeleccionado;
+	private CtrlUsuario controladorUsuario;
+	private static CtrlDominio instance;
+	private static Juego juego;
+	private static Ranking rankingGlobal;
 
 	/** Constructor y metodos de inicializacion **/
 
-	public CtrlDominio() {
-		inicializarCtrlDominio();
+	private CtrlDominio() {
+		setControladorUsuario(new CtrlUsuario());
+		setRankingGlobal(new Ranking());
+		setJuego(Juego.getInstance());
 	}
-
-	public void inicializarCtrlDominio() {
-		controladorAsignaturaFichero = CtrlAsignaturaFichero.getInstance();
-		asignaturas = new HashMap<String, Asignatura>();
-		alumnos = new HashMap<String, Alumno>();
-		alumnoSeleccionado = null;
+	
+	public static CtrlDominio getInstance(){
+		if (instance == null) {
+			instance = new CtrlDominio();
+		}
+		return instance;
 	}
 
 	/**
@@ -41,70 +41,81 @@ public class CtrlDominio {
 	 * convención, únicamente se usan Strings para la comunicación entre las dos
 	 * capas.
 	 **/
+	
+	public CtrlUsuario getControladorUsuario() {
+		return controladorUsuario;
+	}
+	
+	public void setControladorUsuario(CtrlUsuario controladorUsuario) {
+		this.controladorUsuario = controladorUsuario;
+	}
+	
+	public void loginUser(String username) throws Exception {
+		controladorUsuario.loginUser(username);
+	}
+	
+	public void newUser(String username){
+		controladorUsuario.addUsuario(username);
+	}
+	
+	public void crearPartida(int dificultadEscogida, boolean ayuda, boolean rol) {
+		CtrlUsuario.crearPartida(dificultadEscogida, ayuda, rol);
+	}
+	
+	public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
+       return controladorUsuario.newCombinacion(combination);
+	}
+	
+	/**
+     * Obtiene una la partida actual del usuario.
+     * 
+     * @param Vector<Color> la solucion de la partida
+     * @return el numero de intentos en resolver la solucion
+     * @throws Exception 
+     */
+    public static Integer setSolution(ArrayList<Color> combination) throws Exception{
+        return CtrlUsuario.setSolution(combination);
+    }
+    
+    public static void salirPartida() {
+		CtrlUsuario.salirPartida();
+	}
+	
+    public static void reiniciarPartida() {
+    	CtrlUsuario.reiniciarPartida();
+    }
+    /**
+	 * Obtenemos el ArrayList de partidas del usuario actual.
+	 * @return ArrayList<Pair<String, Date>> where string = username, date =
+	 *         dateCreation
+	 */
+	public static ArrayList<Pair<String, Date>> getPartidasGuardadas() {
+		return CtrlUsuario.getPartidasGuardadas();
+	}
+	
+	public static TreeMap<String, Integer> getRankingGlobalUnNivel(Integer nivel) {
+		return rankingGlobal.getRanking(nivel);
+	}
+	
 
-	public ArrayList<String> cargarAsignaturas(String filename)
-			throws FileNotFoundException {
-		List<String> asignaturasdata = controladorAsignaturaFichero
-				.getAll(filename + ".txt");
-		LinkedList<Asignatura> asignaturas = new LinkedList<Asignatura>();
-		for (String asignaturadata : asignaturasdata)
-			asignaturas.add(new Asignatura(asignaturadata));
-		ArrayList<String> lista = new ArrayList<String>();
-		for (Asignatura asignatura : asignaturas) {
-			lista.add(asignatura.toString());
-			this.asignaturas.put(asignatura.toString(), asignatura);
-		}
-		Collections.sort(lista);
-		return lista;
+	public static Map<Integer,TreeMap<String, Integer>> getAllRankingGlobal() {
+		return rankingGlobal.getAllRanking();
 	}
 
-	public boolean crearAlumno(String nombreAlumno) {
-		if (alumnos.containsKey(nombreAlumno))
-			return false;
-		alumnos.put(nombreAlumno, new Alumno(nombreAlumno));
-		return true;
-	}
-     
-     // por consistencia se elimina tb de la asignatura
-	public void eliminarAlumno(String nombreAlumno) {
-		if (nombreAlumno.equals(alumnoSeleccionado))
-			alumnoSeleccionado = null;
-		alumnos.remove(nombreAlumno);
-           for (String asignatura : asignaturas.keySet()) {
-                Alumno alumno1= alumnos.get(nombreAlumno);
-		 asignaturas.get(asignatura).eliminarAlumno(alumno1);
-		}
 
+	public static void setRankingGlobal(Ranking rankingGlobal) {
+		CtrlDominio.rankingGlobal = rankingGlobal;
 	}
 
-	public void asignarNota(String nombreAlumno, String nombreAsignatura,
-			String nota) {
-		alumnos.get(nombreAlumno).anadirAsignatura(
-				asignaturas.get(nombreAsignatura), Double.parseDouble(nota));
+	public static String getJuegoInfo() {
+		return juego.getInformacionSistema();
+	}
+	public static String getJuegoInfoPuntuacion() {
+		return juego.getInformacionPuntuacion();
 	}
 
-	public String calcularMedia(String nombreAlumno) {
-		return alumnos.get(nombreAlumno).calcularMedia() + "";
+	public static void setJuego(Juego juego) {
+		CtrlDominio.juego = juego;
 	}
-
-	public String[] getAllAlumnos() {
-		Collection<Alumno> alumnos = this.alumnos.values();
-		String[] result = new String[alumnos.size()];
-		int i = 0;
-		for (Alumno alumno : alumnos)
-			result[i++] = alumno.toString();
-		return result;
-	}
-
-	public String getNota(String nombreAlumno, String nombreAsignatura) {
-		return alumnos.get(nombreAlumno).getNota(nombreAsignatura) + "";
-	}
-
-	public String getAlumnoSeleccionado() {
-		return alumnoSeleccionado;
-	}
-
-	public void setAlumnoSeleccionado(String alumno) {
-		alumnoSeleccionado = alumno;
-	}
+	
 }
