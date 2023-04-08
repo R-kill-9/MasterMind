@@ -45,6 +45,13 @@ public class Turno {
 	public int getNumberComb() {
 		return combinations.size();
 	}
-
-
+	
+	public void setNumberComb(Integer numComb) {
+		for (int i = 0; i < numComb; i++) {
+	        combinations.add(new Combinacion(new ArrayList<Color>()));
+	    }
+	}
+	public void eraseCombinations() {
+		combinations.clear();
+	}
 }

@@ -3,6 +3,7 @@ package main.domain.tests;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.HashMap;
 import org.junit.Test;
 import main.domain.Ranking;
@@ -19,35 +20,47 @@ public class RankingTest {
 	 */
 	@Before
 	public void setUp() {
-		 Map<String, Integer> posicionesActual = new HashMap<String, Integer>();
-	     posicionesActual.put("Eren", 100);
-	     posicionesActual.put("Gaara", 200);
-	     newRanking = new Ranking("Fácil", posicionesActual);
+	     newRanking = new Ranking();
+	     newRanking.addPartida("Test-Player1", 100, 1);
+	     newRanking.addPartida("Test-Player1", 200, 2);
+	     newRanking.addPartida("Test-Player1", 400, 3);
 	}
 	
 	/*
 	 * TESTS
 	 */
 	/*
-	 * Comprueba que se añada correctamente una partida al ranking
+	 * Comprueba que se añada correctamente una partida de nivel de dificultad 1 al ranking
 	 */
 	@Test
     public void testAddPartida() {
-		newRanking.addPartida("Kirito", 400);
-        assertTrue(newRanking.getPosiciones().containsKey("Kirito"));
-        assertTrue(newRanking.getPosiciones().containsValue(400));
+        assertTrue(newRanking.getRanking(1).containsKey("Test-Player1"));
+        assertTrue(newRanking.getRanking(2).containsKey("Test-Player1"));
+        assertTrue(newRanking.getRanking(3).containsKey("Test-Player1"));
     }
 	
 	/*
-	 * Comprueba que se devuelva correctamente el Map que guarda las posiciones de los distintos usuarios
+	 * Comprueba que se devuelva correctamente el TreeMap que guarda las posiciones de los distintos usuarios
 	 */
 	@Test
-    public void testGetPosiciones() {
-        Map<String, Integer> posiciones = new HashMap<String, Integer>();
-        posiciones.put("Eren", 100);
-        posiciones.put("Gaara", 200);
-
-        assertEquals(posiciones, newRanking.getPosiciones());
-        assertTrue(newRanking.getPosiciones().size() == 2);
+    public void testOrderCorrect() {
+		newRanking.addPartida("Test-Player2", 50, 1);
+		
+        TreeMap<String, Integer> expectedOrder = new TreeMap<String, Integer>();
+        expectedOrder.put("Test-Player1", 100);
+        expectedOrder.put("Test-Player2", 50);
+        
+        assertEquals("The ranking should order correctly", expectedOrder, newRanking.getRanking(1));
+    }
+	
+	@Test
+    public void testNewMaxPuntuation() {
+		newRanking.addPartida("Test-Player1", 150, 1);
+		
+        TreeMap<String, Integer> expectedPlayer = new TreeMap<String, Integer>();
+        expectedPlayer.put("Test-Player1", 150);
+        
+        assertEquals("The puntuation of the player should be 150", expectedPlayer, newRanking.getRanking(1));
     }
 }
+
