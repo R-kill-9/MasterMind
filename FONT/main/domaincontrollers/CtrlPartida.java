@@ -28,7 +28,7 @@ public class CtrlPartida {
      * @param ayuda true si se activa la ayuda, false en caso contrario
      * @param rol true si el usuario es el CodeMaker, false si es el CodeBreaker
      */
-    public static Partida crearPartida(int dificultadEscogida, String username, boolean ayuda, boolean rol) {
+    public Partida crearPartida(int dificultadEscogida, String username, boolean ayuda, boolean rol) {
         Partida partida = new Partida(dificultadEscogida, username, ayuda, rol);
         Date dataPartida = partida.getData();
         HistorialPartidas.agregarPartida(username,dataPartida);
@@ -40,14 +40,14 @@ public class CtrlPartida {
      * 
      * @param data la fecha de la partida
      * @param usuario el usuario que quiere borrar la partida
-     * @return 
+     * @return valor booleano dependiendo de si exisita la partida en el historial
      */
     public static Boolean borrarPartida(String username, Date dataPartida) {
         return HistorialPartidas.borrarPartida(username,dataPartida);
     }
 
      /**
-     * Obtiene la lista de partidas.
+     * Obtiene la lista de partidas que hay en el historial.
      * 
      * @return la lista de partidas
      */
@@ -57,16 +57,23 @@ public class CtrlPartida {
 
      
     /**
-     * Obtiene una la partida actual del usuario.
-     * 
-     * @param usuario el usuario que ha jugado la partida
-     * @return la partida jugada por ese usuario, o null si no hay ninguna
-     * @throws Exception 
+     * Obtiene la partida actual del usuario.
+     * @return la partida jugada por ese usuario, o null si no hay ninguna 
      */
-    public Partida getPartidaActual(Usuario usuario) throws Exception {
-        if(partidaActual != null) return partidaActual;
-        else throw new Exception("No hay ninguna partida actual");
+    public Partida getPartidaActual()  {
+    	return this.partidaActual;
+
     }
+    
+    /**
+     * Devuelve un valor booleano dependiendo de la existencia de una partida actual.
+     */
+    public static Boolean existsPartidaActual()  {
+        if(partidaActual != null) return true;
+        else return false;
+    }
+    
+    
     /**
      * Obtiene una la partida actual del usuario.
      * 
@@ -103,6 +110,17 @@ public class CtrlPartida {
     /**
      * Obtiene información de las partidas guardadas por el usuario.
      * 
+     * @param usuario el usuario que ha jugado la partida
+     * @param estado el estado de las partidas: guardadas o pausadas.
+     * @return la partida jugada por ese usuario, o null si no hay ninguna
+     */
+    public static ArrayList<Pair<String, Date>> getPartidasHistorial() {
+        return HistorialPartidas.getPartidas();
+    }
+    
+    /**
+     * Obtiene información de las partidas guardadas por el usuario.
+     * 
      * @param una partida
      * @return la informacion de la partida, cuando se ha jugado y la puntuacion.
      */
@@ -116,6 +134,10 @@ public class CtrlPartida {
 	
 	public static void solicitarAyuda() {
 		partidaActual.setAyuda();
+	}
+	
+	public static  boolean getAyuda() {
+		return partidaActual.getAyuda();
 	}
 	
 	public static void salirPartida() {

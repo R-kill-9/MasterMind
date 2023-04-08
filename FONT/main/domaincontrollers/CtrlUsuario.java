@@ -34,6 +34,13 @@ public class CtrlUsuario {
 	public void addUsuario(String username) {
 		this.usuarios.add(username);
 	}
+	
+	/**
+	 * Devuele la lista de usuarios existentes
+	 */
+	public ArrayList<String> getUsuarios() {
+		return this.usuarios;
+	}
 
 	public void loginUser(String username) throws Exception {
 		Boolean exists = false;
@@ -43,9 +50,9 @@ public class CtrlUsuario {
 			}
 		}
 		if (!exists) {
-			userAct = new Usuario(username);
 			usuarios.add(username);
 		}
+		userAct = new Usuario(username);
 	}
 
 	/**
@@ -54,7 +61,7 @@ public class CtrlUsuario {
 	 * @param username Nombre de usuario.
 	 * @return Usuario con el nombre de usuario dado.
 	 */
-	public String getUsuarioActual(String username) {
+	public String getUsuarioActual() {
 		return userAct.getUsername();
 	}
 
@@ -77,15 +84,13 @@ public class CtrlUsuario {
 	}
 
 	/**
-	 * Añade una partida al usuario con el nombre de usuario dado.
-	 * 
-	 * @param username Nombre de usuario.
-	 * @param p        Partida.
+	 * Obtenemos el ArrayList de partidas del usuario.
+	 * @return ArrayList<Date> where date =  dateCreation
 	 */
-	public void addPartida(Date fecha) {
-		userAct.addPartida(fecha);
+	public static ArrayList<Date> getDataPartidasGuardadas() {
+		return userAct.getDataPartidasGuardadas();
 	}
-
+	
 	/**
 	 * Obtenemos el ArrayList de partidas del usuario con el nombre de usuario dado.
 	 * @return ArrayList<Pair<String, Date>> where string = username, date =
@@ -95,18 +100,17 @@ public class CtrlUsuario {
 		String username = userAct.getUsername();
 		return CtrlPartida.getInfoPartidasGuardadas(username);
 	}
-
+	
 	/**
-	 * Borra la partida con el identificador dado del usuario con el nombre de
-	 * usuario dado.
-	 * 
-	 * @param username Nombre de usuario.
-	 * @param fecha    Fecha de la partida.
+	 * Obtenemos el ArrayList de partidas guardadas en el historial
+	 * @return ArrayList<Pair<String, Date>> where string = username, date =
+	 *         dateCreation
 	 */
-	public static void deletePartida(Date fecha) {
-		userAct.deletePartida(fecha);
-		CtrlPartida.borrarPartida(userAct.getUsername(), fecha);
+	public static ArrayList<Pair<String, Date>> getPartidasHistorial() {
+		return CtrlPartida.getPartidasHistorial();
 	}
+	
+
 
 	/**
 	 * Crea una nueva partida
@@ -120,23 +124,26 @@ public class CtrlUsuario {
 	}
 
 	/**
-	 * Borra una partida
+	 * Borra una partida tanto del historial de partidas como de  la lista de partidas de usuario
 	 * @param la fecha de la partida que queremos borrar
 	 * @throws Exception
 	 */
 	public void borrarPartida(Date data) throws Exception {
 		String username = userAct.getUsername();
 		Boolean removedPartida = CtrlPartida.borrarPartida(username, data);
-		if (removedPartida == null)
+		if (removedPartida == false)
 			throw new Exception("The partida does not exists");
 		else {
-			deletePartida(data);
 			userAct.deletePartida(data);
 		}
 	}
 	
 	public void solicitarAyuda() {
 		CtrlPartida.solicitarAyuda();
+	}
+	
+	public static boolean getAyuda() {
+		return CtrlPartida.getAyuda();
 	}
 	
 	 /**
@@ -165,9 +172,17 @@ public class CtrlUsuario {
 		CtrlPartida.salirPartida();
 	}
 	
+	/*
+	 * Devuelve un valor booleano dependiend de si existe una partida actuals
+	 */
+	public static Boolean existsPartidaActual() {
+		return CtrlPartida.existsPartidaActual();
+	}
+	
 	public static void reiniciarPartida() {
     	CtrlPartida.reiniciarPartida();
     }
-	
+
+
 
 }
