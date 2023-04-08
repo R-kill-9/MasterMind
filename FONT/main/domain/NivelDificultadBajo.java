@@ -14,8 +14,12 @@ public class NivelDificultadBajo extends NivelDificultad {
 	    sePuedeRepetir = false;
 	    numColors = 6;
 	    numcolumnas = 4;
-        
-
+	    totalcombinacionesPosibles = new ArrayList<Combinacion>();
+	    solucionesEnviadas = new ArrayList<Combinacion>();
+	    possibleCodes = new ArrayList<Combinacion>();
+	    enviosCandidatos = new ArrayList<Combinacion>();
+	    turn = 1;
+	    
     }
     public Integer getNumColumnas() {
     	return this.numcolumnas;
@@ -33,6 +37,7 @@ public class NivelDificultadBajo extends NivelDificultad {
     public Integer getDificultad() {
         return 1;
     }
+    
 
 
     }

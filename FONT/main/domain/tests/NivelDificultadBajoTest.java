@@ -50,7 +50,7 @@ public class NivelDificultadBajoTest {
 
         Combinacion envio = new Combinacion(colores);
 		String solucionIguales = new String("NNNN");
-		assertEquals( solucionIguales, ndb.comprobarCombinacion(solucion, envio) ); 
+		assertEquals( solucionIguales, ndb.comprobarCombinacion(solucion, envio)); 
 	}
 
 	@Test
@@ -120,7 +120,7 @@ public class NivelDificultadBajoTest {
 		colores2.add(Color.GREEN);
         Combinacion envio = new Combinacion(colores2);
 		String solucionIguales = new String("NN B");
-		assertEquals( solucionIguales, ndb.comprobarCombinacionPista(solucion, envio) ); 
+		assertEquals( solucionIguales, ndb.comprobarCombinacionPista(solucion, envio)); 
 	}
 
 	@Test
@@ -138,13 +138,13 @@ public class NivelDificultadBajoTest {
 	@Test
 	public void TestSolveWinRoundX() {
 		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.BLUE);
 		colores.add(Color.PURPLE);
-		colores.add(Color.GREEN);
+		colores.add(Color.BLUE);
 		colores.add(Color.ORANGE);
+		colores.add(Color.RED);
         Combinacion solucionUsuario = new Combinacion(colores);
         System.out.print(ndb.resolve(solucionUsuario));
-		assertEquals( 1 ,ndb.resolve(solucionUsuario));
+		assertEquals( 2 ,ndb.resolve(solucionUsuario));
 		
 	}
 
