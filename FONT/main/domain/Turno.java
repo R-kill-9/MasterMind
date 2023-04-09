@@ -41,6 +41,11 @@ public class Turno {
 	public ArrayList<Combinacion> getCombinaciones() {
 		return this.combinations;
 	}
+	
+	public Combinacion getLastCombinacion(){
+		Combinacion lastCombinacion = combinations.get(getNumberComb()-1);
+		return lastCombinacion;
+	}
 
 	public int getNumberComb() {
 		return combinations.size();

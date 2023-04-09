@@ -1,29 +1,17 @@
 package main.domain;
 
-import java.util.Collection;
-import java.util.GregorianCalendar;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import main.domain.Combinacion;
-import main.domain.EstadoPartida;
-import main.domain.Color;
-import main.domain.Turno;
-import main.domain.Dificultad;
-import main.domain.ColorFeedBack;
 /** 
 *Clase Partida
 */
 public class Partida {
 	
 	/** 
-	*Atributos 
+	* Atributos 
 	*/
 	private Date data;
 	private int puntos;
@@ -51,17 +39,17 @@ public class Partida {
 				this.nivel = new NivelDificultadBajo();
 				break;
 			case 2:
-				this.nivel = new NivelDificultadBajo();
+				this.nivel = new NivelDificultadMedio();
 				break;
 			case 3:
-				this.nivel = new NivelDificultadBajo();
+				this.nivel = new NivelDificultadAlto();
 				break;
 			default:
 				throw new  IllegalArgumentException("Nivel de dificultad: 1, 2 o 3");
 		}
 		this.turnos = new ArrayList<Turno>();
 		this.turnos.add(new Turno(rol));
-		this.solution = null;
+		if(!rol) this.solution = nivel.genCombinacion();
 		this.ayuda = ayuda;
 		this.puntos = 0;
 		this.username = usuario;
@@ -94,6 +82,20 @@ public class Partida {
 			nivel.calculaPuntuacion(turnosCM, turnosCB);
 			HistorialPartidasGuardadas.agregarPartidaGuardada(username, data);
 		}
+	}
+	private void checkIfReps(ArrayList<Color> combinacion) throws Exception  {
+		 HashSet<Color> seenColors = new HashSet<Color>();
+		    for (Color color : combinacion) {
+		        if (seenColors.contains(color)) throw new Exception("For level 1 it's not allowed to repeat colors");
+		        seenColors.add(color);
+		    }
+	}
+	
+	private void checkLevelExceptions(ArrayList<Color> combinacion) throws Exception {
+		Integer nivelDif = nivel.getDificultad();
+		if(nivelDif == 1) checkIfReps(combinacion);
+		Integer numColums = combinacion.size();
+		if(numColums + 1 == 5 && nivelDif < 3) throw new Exception("For level 1 and 2 only 4 colors are allowed");
 	}
 	private boolean checkIfAllCorrects(ArrayList<ColorFeedBack> feedBackSolution){
 		ColorFeedBack firstElem = feedBackSolution.get(0);
@@ -146,7 +148,7 @@ public class Partida {
 	}
 
 	/**
-	*Introduce la solución para este turno 
+	* Introduce la solución para este turno 
 	*/
 	public Combinacion getSolution() {
 		return this.solution != null ? this.solution : null;
@@ -161,7 +163,8 @@ public class Partida {
 	*/
 	public Integer setSolution(ArrayList<Color> combSolution) throws Exception{
 		Combinacion newCombinacion = new Combinacion(combSolution);
-		Turno lastTurno = this.turnos.get(turnos.size() -1);
+		Turno lastTurno = this.turnos.get(turnos.size() - 1);
+		checkLevelExceptions(combSolution);
 		if(lastTurno.getRol()) this.solution = newCombinacion;
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
 		Integer numIntentos = nivel.resolve(newCombinacion);
@@ -174,11 +177,13 @@ public class Partida {
 	public ArrayList<ColorFeedBack> setCombinacion(ArrayList<Color> combSolution) throws Exception{
 		Turno lastTurno = this.turnos.get(turnos.size() -1);
 		lastTurno.setCombinacion(combSolution);
+		Combinacion lastComb = lastTurno.getLastCombinacion();
+		checkLevelExceptions(combSolution);
 		if(!lastTurno.getRol()){
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
 			Combinacion combinacionSolution = new Combinacion(combSolution);
 			if(!ayuda) {
-				String feedBack = nivel.comprobarCombinacion(this.solution, combinacionSolution);
+				String feedBack = nivel.comprobarCombinacion(this.solution, combSolution);
 				for(char bola : feedBack.toCharArray()) {
 				    ColorFeedBack cb = bola == 'n' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);
@@ -188,7 +193,7 @@ public class Partida {
 				}
 			}
 			else {
-				String feedBack = nivel.comprobarCombinacionPista(this.solution, combinacionSolution);
+				String feedBack = nivel.comprobarCombinacionPista(this.solution, combSolution);
 				for(char bola : feedBack.toCharArray()) {
 					ColorFeedBack cb;
 					if(bola == ' ') cb = ColorFeedBack.GREY;
