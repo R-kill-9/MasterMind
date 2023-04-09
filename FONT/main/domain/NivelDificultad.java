@@ -80,7 +80,6 @@ public abstract class NivelDificultad {
 		possibleCodes=totalcombinacionesPosibles;
 		while(  turn < 10 ){
         	enviosCandidatos = new ArrayList<>();
-        	System.out.print("ENVIO ACTUAL ");envioActual.printL();
            solucionesEnviadas.add(envioActual);
            possibleCodes.remove(envioActual);
            totalcombinacionesPosibles.remove(envioActual);
