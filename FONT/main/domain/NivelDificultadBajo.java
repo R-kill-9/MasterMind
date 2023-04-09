@@ -16,11 +16,22 @@ public class NivelDificultadBajo extends NivelDificultad {
 	    possibleCodes = new ArrayList<Combinacion>();
 	    enviosCandidatos = new ArrayList<Combinacion>();
 	    turn = 1;
-	    
+	    NumNegras ="NNNN";
     }
+    
     @Override
     public Integer getNumColumnas() {
     	return this.numcolumnas;
+    }
+    
+    @Override
+    public Integer getNumColors() {
+    	return this.numColors;
+    }
+    
+    @Override
+    public String getNumNegras() {
+    	return this.NumNegras;
     }
 
     //NumIntentCodeMaker son los intentos que necesita el rival para obtener la solucion, siendo el jugador el codeMaker

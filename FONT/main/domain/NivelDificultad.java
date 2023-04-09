@@ -8,8 +8,8 @@ import java.util.Random;
 
 
 public abstract class NivelDificultad {
- 
-	
+
+	String NumNegras;
 	protected int numcolumnas;
 	protected int numColors = 6;
 	protected boolean  sePuedeRepetir;
@@ -20,6 +20,7 @@ public abstract class NivelDificultad {
     static public List< Combinacion> totalcombinacionesPosibles;
     static public List< Combinacion> solucionesEnviadas;
     static public List< Combinacion> enviosCandidatos;
+    
     
     
     
@@ -34,10 +35,11 @@ public abstract class NivelDificultad {
     public abstract Integer getDificultad();
 
     public abstract Integer getNumColumnas();
-
     public Integer getNumColors() {
     	return numColors;
     }
+    public abstract String getNumNegras();
+    
 	
 	public String comprobarCombinacion(Combinacion solution, Combinacion solEnviada){
     	
@@ -88,8 +90,9 @@ public abstract class NivelDificultad {
             possibleCodes.remove(envioActual);
             totalcombinacionesPosibles.remove(envioActual);
             String respuestaComprobacion = comprobarCombinacion(envioActual, solucion );
-            System.out.println(respuestaComprobacion);
-            if(respuestaComprobacion.equals("NNNN")) return turn;
+
+            if(respuestaComprobacion.equals(getNumNegras())) return turn;
+
             else eliminaCombinacions(respuestaComprobacion);
 
             generaNuevoEnvio();
@@ -172,7 +175,7 @@ private List<Combinacion> inicializarPosiblesCodigos() {
     for(int i = 0; i < possibleCodes.size() ; i++){	  
         if(!comprobarCombinacion(envioActual, possibleCodes.get(i)).equals(respuestaComprobacion)){
         possibleCodes.remove(i);
-        i--;
+       i--;
         }
     }
   }
@@ -197,12 +200,11 @@ private List<Combinacion> inicializarPosiblesCodigos() {
         for (int j = 0; j < possibleCodes.size(); ++j) {
 
           String resutltadoFicha = comprobarCombinacion(possibleCodes.get(j), totalcombinacionesPosibles.get(i));
-            // Si existe se incrementa las veces que aparece
             if(contadorPuntuaciones.get(resutltadoFicha) != null ){
                 int num = contadorPuntuaciones.get(resutltadoFicha);
                 contadorPuntuaciones.put(resutltadoFicha, num + 1 );
             } 
-            // Si no se inicializa a 1
+         
             else{
             	String s = new String(resutltadoFicha);
                 contadorPuntuaciones.put(s, 1);
@@ -210,7 +212,6 @@ private List<Combinacion> inicializarPosiblesCodigos() {
         }
 
         max = getMaxScore(contadorPuntuaciones);
-        System.out.print(max+" ");
         puntuaciones.put(totalcombinacionesPosibles.get(i), max);
         contadorPuntuaciones.clear();   
     }
@@ -219,8 +220,7 @@ private List<Combinacion> inicializarPosiblesCodigos() {
 
     for (Map.Entry<Combinacion, Integer> elem : puntuaciones.entrySet()) {
         if (elem.getValue() == min) {
-        	//Combinacion comb = new Combinacion(elem.getKey().getCombination());
-            enviosCandidatos.add(elem.getKey());
+        	enviosCandidatos.add(elem.getKey());
         }
     }
     return;

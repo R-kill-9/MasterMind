@@ -11,6 +11,7 @@ public class NivelDificultadAlto extends NivelDificultadMedio {
    	    possibleCodes = new ArrayList<Combinacion>();
    	    enviosCandidatos = new ArrayList<Combinacion>();
    	    turn = 1;
+   	    NumNegras ="NNNNN";
     }
     /**
      * @param puntuacion obtenida por el codemaker
@@ -37,5 +38,9 @@ public class NivelDificultadAlto extends NivelDificultadMedio {
     public Integer getNumColumnas() {
     	return this.numcolumnas;
     }
-      
+    
+    @Override
+    public String getNumNegras() {
+    	return this.NumNegras;
+    }
 }

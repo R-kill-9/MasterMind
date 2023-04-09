@@ -10,7 +10,7 @@ public class NivelDificultadMedio extends NivelDificultad{
    	    possibleCodes = new ArrayList<Combinacion>();
    	    enviosCandidatos = new ArrayList<Combinacion>();
    	    turn = 1;
-   	    
+   	    NumNegras ="NNNN";
        }
     
     /**
@@ -39,6 +39,15 @@ public class NivelDificultadMedio extends NivelDificultad{
      public Integer getDificultad() {
         return 2;
      }
-       
-
+     
+  
+    @Override
+    public Integer getNumColors() {
+    	return this.numColors;
+    }
+    
+    @Override
+    public String getNumNegras() {
+    	return this.NumNegras;
+    }
 }
