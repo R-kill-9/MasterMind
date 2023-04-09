@@ -11,6 +11,7 @@ public class NivelDificultadAlto extends NivelDificultadMedio {
    	    possibleCodes = new ArrayList<Combinacion>();
    	    enviosCandidatos = new ArrayList<Combinacion>();
    	    turn = 1;
+   	    NumNegras ="NNNNN";
     }
     @Override
     public int calculaPuntuacion(int numIntentCodeMaker, int numIntentCodeBraker) {
@@ -26,11 +27,13 @@ public class NivelDificultadAlto extends NivelDificultadMedio {
     public Integer getNumColumnas() {
     	return this.numcolumnas;
     }
-    
     @Override
     public Integer getNumColors() {
-       	return this.numColors;
-       }
-       
-
+    	return this.numColors;
+    }
+    
+    @Override
+    public String getNumNegras() {
+    	return this.NumNegras;
+    }
 }
