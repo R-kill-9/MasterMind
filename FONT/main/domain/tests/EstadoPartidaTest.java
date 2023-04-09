@@ -2,7 +2,9 @@ package main.domain.tests;
 
 import static org.junit.Assert.*;
 import main.domain.EstadoPartida;
+import main.domain.PossiblesEstadosPartida;
 import org.junit.Test;
+
 
 public class EstadoPartidaTest {
 	
@@ -11,13 +13,16 @@ public class EstadoPartidaTest {
 	 */
 	@Test
     public void testSetEstado() {
-        EstadoPartida newEstadoPartida = new EstadoPartida("Running");
-        newEstadoPartida.setEstado("Paused");
-        assertEquals("Paused", newEstadoPartida.getEstado());
-        newEstadoPartida.setEstado("Saved");
-        assertEquals("Saved", newEstadoPartida.getEstado());
-        newEstadoPartida.setEstado("Running");
-        assertEquals("Running", newEstadoPartida.getEstado());
+		PossiblesEstadosPartida paused = PossiblesEstadosPartida.PAUSED;
+		PossiblesEstadosPartida saved = PossiblesEstadosPartida.SAVED;
+		PossiblesEstadosPartida running = PossiblesEstadosPartida.RUNNING;
+        EstadoPartida newEstadoPartida = new EstadoPartida("running");
+        newEstadoPartida.setEstado("paused");
+        assertEquals(paused, newEstadoPartida.getEstado());
+        newEstadoPartida.setEstado("saved");
+        assertEquals(saved, newEstadoPartida.getEstado());
+        newEstadoPartida.setEstado("running");
+        assertEquals(running, newEstadoPartida.getEstado());
     }
 	
 	/*
@@ -25,7 +30,8 @@ public class EstadoPartidaTest {
 	 */
 	@Test
     public void testGetEstado() {
-        EstadoPartida newEstadoPartida = new EstadoPartida("Running");
-        assertEquals("Running", newEstadoPartida.getEstado());
+		PossiblesEstadosPartida running = PossiblesEstadosPartida.RUNNING;
+        EstadoPartida newEstadoPartida = new EstadoPartida("running");
+        assertEquals(running, newEstadoPartida.getEstado());
     }
 }

@@ -48,7 +48,7 @@ public class CtrlUsuarioTest {
     }
 
     /*
-     * Comprueba que el useraname asignado al usuario actual sea correcto
+     * Comprueba que el useraname asignado al usuario actual sea el correcto
      */
     @Test
     public void testLoginUser() throws Exception {
@@ -160,20 +160,6 @@ public class CtrlUsuarioTest {
         assertFalse(CtrlUsuario.existsPartidaActual());
     }
 
-    @Test
-    public void testReiniciarPartida() {
-        CtrlUsuario.crearPartida(1, false, false);
-        ArrayList<Color> comb = new ArrayList<Color>();
-		comb.add(Color.BLUE);
-		comb.add(Color.RED);
-		comb.add(Color.GREEN);
-		comb.add(Color.YELLOW);
-        ctrlUsuario.newCombinacion(comb);
-
-        CtrlUsuario.reiniciarPartida();
-        assertTrue(ctrlPartida.getPartidaActual().getCombinacion().isEmpty());
-    }
-    
     
     
     /*

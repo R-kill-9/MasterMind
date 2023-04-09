@@ -7,6 +7,7 @@ import main.domain.Usuario;
 import main.domain.Color;
 import main.domain.ColorFeedBack;
 import main.domain.Partida;
+import main.domain.PossiblesEstadosPartida;
 import main.domain.HistorialPartidas;
 import main.domain.HistorialPartidasGuardadas;
 import main.domain.Pair;
@@ -147,4 +148,25 @@ public class CtrlPartida {
 		partidaActual.reiniciarPartida();
 		
 	}
+	
+	/*
+	 * Cambia el estado de una partida a running
+	 */
+	public static void reanudarPartida() {
+    	partidaActual.cambiarEstadoPartida(PossiblesEstadosPartida.RUNNING);
+    }
+	
+	/*
+	 * Cambia el estado de una partida a saved
+	 */
+	public static void guardarPartida() {
+    	partidaActual.cambiarEstadoPartida(PossiblesEstadosPartida.SAVED);
+    }
+	
+	/*
+	 * Cambia el estado de una partida a paused
+	 */
+	public static void pausarPartida() {
+    	partidaActual.cambiarEstadoPartida(PossiblesEstadosPartida.PAUSED);
+    }
 }

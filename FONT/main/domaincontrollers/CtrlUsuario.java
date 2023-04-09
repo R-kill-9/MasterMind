@@ -7,6 +7,7 @@ import main.domain.Color;
 import main.domain.ColorFeedBack;
 import main.domain.Pair;
 import main.domain.Partida;
+import main.domain.PossiblesEstadosPartida;
 
 /**
  * Clase que representa el controlador de dominio de la clase Usuario.
@@ -138,10 +139,16 @@ public class CtrlUsuario {
 		}
 	}
 	
+	/*
+	 * Solicita ayuda en la partida actual
+	 */
 	public void solicitarAyuda() {
 		CtrlPartida.solicitarAyuda();
 	}
 	
+	/*
+	 * Obtiene elvalor de ayuda en la partida actual
+	 */
 	public static boolean getAyuda() {
 		return CtrlPartida.getAyuda();
 	}
@@ -168,6 +175,9 @@ public class CtrlUsuario {
         return CtrlPartida.setSolution(combination);
     }
 
+    /*
+     * Sale de la partida actual
+     */
 	public static void salirPartida() {
 		CtrlPartida.salirPartida();
 	}
@@ -179,10 +189,33 @@ public class CtrlUsuario {
 		return CtrlPartida.existsPartidaActual();
 	}
 	
+	/*
+	 * Reinicia los valores para el mismo turno
+	 */
 	public static void reiniciarPartida() {
     	CtrlPartida.reiniciarPartida();
     }
-
+	
+	/*
+	 * Cambia el estado de una partida a running
+	 */
+	public static void reanudarPartida() {
+    	CtrlPartida.reanudarPartda();
+    }
+	
+	/*
+	 * Cambia el estado de una partida a saved
+	 */
+	public static void guardarPartida() {
+		CtrlPartida.guardarPartda();
+    }
+	
+	/*
+	 * Cambia el estado de una partida a paused
+	 */
+	public static void pausarPartida() {
+		CtrlPartida.pausarPartda();
+    }
 
 
 }

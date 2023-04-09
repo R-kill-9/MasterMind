@@ -128,13 +128,6 @@ public class Partida {
 	public String getUsuario() {
         return this.username;
     }
-	
-	/**
-	*Devuelve un booleano dependiendo de si hay solucion
-	*/
-	public Boolean existsSolution() {
-        return this.solution != null;
-    }
 
 
 	/**
@@ -158,6 +151,8 @@ public class Partida {
 	public Combinacion getSolution() {
 		return this.solution != null ? this.solution : null;
 	}
+	
+
 
 	/**
 	*Introduce la solución para este turno 
@@ -181,8 +176,9 @@ public class Partida {
 		lastTurno.setCombinacion(combSolution);
 		if(!lastTurno.getRol()){
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
+			Combinacion combinacionSolution = new Combinacion(combSolution);
 			if(!ayuda) {
-				String feedBack = nivel.comprobarCombinacion(this.solution, combSolution);
+				String feedBack = nivel.comprobarCombinacion(this.solution, combinacionSolution);
 				for(char bola : feedBack.toCharArray()) {
 				    ColorFeedBack cb = bola == 'n' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);
@@ -192,7 +188,7 @@ public class Partida {
 				}
 			}
 			else {
-				String feedBack = nivel.comprobarCombinacionPista(this.solution, combSolution);
+				String feedBack = nivel.comprobarCombinacionPista(this.solution, combinacionSolution);
 				for(char bola : feedBack.toCharArray()) {
 					ColorFeedBack cb;
 					if(bola == ' ') cb = ColorFeedBack.GREY;

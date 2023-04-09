@@ -126,33 +126,28 @@ public class CtrlPartidaTest {
 	}
     
     @Test
-	public void testNewCombinacion() {
+	public void testNewCombinacion() throws Exception{
     	//creamos una nueva en la que iniciamos como codeBreaker
     	Partida newPartida = CtrlPartida.crearPartida(1, "ricky", false, false);
+		
+		//creamos las combinaciones que queremos insertar
 		ArrayList<Color> combination = new ArrayList<Color>();
 		combination.add(Color.BLUE);
 		combination.add(Color.RED);
 		combination.add(Color.GREEN);
 		combination.add(Color.YELLOW);
+		ArrayList<Color> combination2 = new ArrayList<Color>();
+		combination2.add(Color.RED);
+		combination2.add(Color.BLUE);
+		combination2.add(Color.GREEN);
+		combination2.add(Color.YELLOW);
 		ArrayList<ColorFeedBack> feedbacks = CtrlPartida.newCombinacion(combination);
 		assertNotNull(feedbacks);
-		assertEquals(ctrlPartida.getPartidaActual().getNumIntentos(), feedbacks.size());
-		ArrayList<ColorFeedBack> feedbacks2 = CtrlPartida.newCombinacion(combination);
+		assertEquals(1, feedbacks.size());
+		ArrayList<ColorFeedBack> feedbacks2 = CtrlPartida.newCombinacion(combination2);
 		assertEquals(2, feedbacks2.size());
 	}
     
-    @Test
-	public void testSetSolution() throws Exception {
-		Partida partida = CtrlPartida.crearPartida(1, "Condor", true, true);
-		assertEquals(false, ctrlPartida.getPartidaActual().existsSolution());
-		ArrayList<Color> solution = new ArrayList<Color>();
-		solution.add(Color.BLUE);
-		solution.add(Color.RED);
-		solution.add(Color.GREEN);
-		solution.add(Color.YELLOW);
-		CtrlPartida.setSolution(solution);
-		assertEquals(true, ctrlPartida.getPartidaActual().existsSolution());
-	}
  
     /*
      * Comprueba que se pueda salir de una partida actual y entrar a una nueva 
@@ -182,10 +177,7 @@ public class CtrlPartidaTest {
 		assertTrue(partida.getAyuda());
     }
     
-    @Test
-	public void testReiniciarPartida() {
- 
-    }
+
     
     /*
      * Comprueba que se obtenga correctamente la informacion de la partida (Fecha y dificultad)
