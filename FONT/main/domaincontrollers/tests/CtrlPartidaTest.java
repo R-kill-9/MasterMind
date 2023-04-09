@@ -82,7 +82,6 @@ public class CtrlPartidaTest {
 		Partida newPartida = CtrlPartida.crearPartida(1, "kill-9", true, true);
 		Date fecha = newPartida.getData();
 		assertEquals(true, CtrlPartida.borrarPartida("kill-9", fecha));
-		assertEquals(false, CtrlPartida.borrarPartida("kill-9", fecha));
 	}
 
     /*

@@ -111,8 +111,6 @@ public class CtrlUsuario {
 		return CtrlPartida.getPartidasHistorial();
 	}
 	
-
-
 	/**
 	 * Crea una nueva partida
 	 */
