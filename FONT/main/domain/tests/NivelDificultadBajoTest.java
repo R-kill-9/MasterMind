@@ -126,25 +126,24 @@ public class NivelDificultadBajoTest {
 	@Test
 	public void TestSolveWinRound1() {
 		ArrayList<Color> colores = new ArrayList<Color>();
+		colores.add(Color.PURPLE);
 		colores.add(Color.RED);
-		colores.add(Color.BLUE);
 		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
+		colores.add(Color.BLUE);
         Combinacion solucionUsuario = new Combinacion(colores);
         
-		assertEquals( 1 ,ndb.resolve(solucionUsuario));
+		assertEquals( 3 ,ndb.resolve(solucionUsuario));
 		
 	}
 	@Test
 	public void TestSolveWinRoundX() {
 		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.PURPLE);
-		colores.add(Color.BLUE);
-		colores.add(Color.ORANGE);
 		colores.add(Color.RED);
+		colores.add(Color.GREEN);
+		colores.add(Color.YELLOW);
+		colores.add(Color.PURPLE);
         Combinacion solucionUsuario = new Combinacion(colores);
-        System.out.print(ndb.resolve(solucionUsuario));
-		assertEquals( 2 ,ndb.resolve(solucionUsuario));
+		assertEquals( 4 ,ndb.resolve(solucionUsuario));
 		
 	}
 
