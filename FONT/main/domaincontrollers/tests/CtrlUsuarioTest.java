@@ -161,12 +161,4 @@ public class CtrlUsuarioTest {
     }
 
     
-    
-    /*
-     * Comprueba que se introduzca bien una nueva solucion
-     */
-    @Test
-    public void testsSetCombinacion() throws Exception{
-    	CtrlUsuario.crearPartida(1, false, false);
-    }
 }

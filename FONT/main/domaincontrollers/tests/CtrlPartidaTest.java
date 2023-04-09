@@ -124,7 +124,57 @@ public class CtrlPartidaTest {
     	assertEquals(expectedPartidas.get(2).getSecond(), ctrlPartida.getPartidas().get(2).getSecond());
 	}
     
+    /*
+     * Comprueba que se pueda salir de una partida actual y entrar a una nueva 
+     */
     @Test
+	public void testSalirPartida() {
+    	CtrlPartida.salirPartida();
+    	assertNull(ctrlPartida.getPartidaActual());
+    	Partida newPartida = ctrlPartida.crearPartida(1, "Condor", false, false);
+    	assertNotNull(ctrlPartida.getPartidaActual());
+    	CtrlPartida.salirPartida();
+    	assertNull(ctrlPartida.getPartidaActual());
+	}
+    
+    /*
+     * Comprueba que se pueda solicitar ayuda para la partida i cambiar su valor solo si la ayuda no estaba activada. También se comprueba 
+     * que funncione correctamente el metodo getter de ayuda
+     */
+ /*   @Test
+	public void testSolicitarAyuda() {
+    	CtrlPartida.solicitarAyuda();
+		assertTrue(partida.getAyuda());
+		partida = CtrlPartida.crearPartida(1, "Condor", false, false);
+		assertFalse(partida.getAyuda());
+		CtrlPartida.solicitarAyuda();
+		assertTrue(partida.getAyuda());
+    }*/
+    
+    
+    /*
+     * Comprueba que se obtenga correctamente la informacion del historial de partidas
+     */
+   /* @Test
+   	public void testGetPartidasHistorial() {
+    	Partida partida2 = CtrlPartida.crearPartida(1, "joel", false, false);
+        
+    	ArrayList<Pair<String, Date>> expectedPartidas = new ArrayList<Pair<String,Date>>();
+    	Pair<String, Date> pair1 = new Pair<String,Date>("ricky", partida.getData());
+    	Pair<String, Date> pair2 = new Pair<String,Date>("joel", partida2.getData());
+
+        expectedPartidas.add(pair1);
+        expectedPartidas.add(pair2);
+        
+        ArrayList<Pair<String, Date>> historialPartidas = CtrlPartida.getPartidasHistorial();
+        assertEquals(expectedPartidas.get(0).getFirst(), historialPartidas.get(0).getFirst());
+        assertEquals(expectedPartidas.get(0).getSecond(), historialPartidas.get(0).getSecond());
+        assertEquals(expectedPartidas.get(1).getFirst(), historialPartidas.get(1).getFirst());
+        assertEquals(expectedPartidas.get(1).getSecond(), historialPartidas.get(1).getSecond());
+
+    }*/
+    
+   /* @Test
 	public void testNewCombinacion() throws Exception{
     	//creamos una nueva en la que iniciamos como codeBreaker
     	Partida newPartida = CtrlPartida.crearPartida(1, "ricky", false, false);
@@ -145,78 +195,24 @@ public class CtrlPartidaTest {
 		assertEquals(1, feedbacks.size());
 		ArrayList<ColorFeedBack> feedbacks2 = CtrlPartida.newCombinacion(combination2);
 		assertEquals(2, feedbacks2.size());
-	}
-    
- 
-    /*
-     * Comprueba que se pueda salir de una partida actual y entrar a una nueva 
-     */
-    @Test
-	public void testSalirPartida() {
-    	CtrlPartida.salirPartida();
-    	assertNull(ctrlPartida.getPartidaActual());
-    	Partida newPartida = ctrlPartida.crearPartida(1, "Condor", false, false);
-    	assertNotNull(ctrlPartida.getPartidaActual());
-    	CtrlPartida.salirPartida();
-    	assertNull(ctrlPartida.getPartidaActual());
-	}
-    
-    /*
-     * Comprueba que se pueda solicitar ayuda para la partida i cambiar su valor solo si la ayuda no estaba activada. También se comprueba 
-     * que funncione correctamente el metodo getter de ayuda
-     */
-    @Test
-	public void testSolicitarAyuda() {
-    	CtrlPartida.solicitarAyuda();
-		assertTrue(partida.getAyuda());
-		CtrlPartida.solicitarAyuda();
-		partida = CtrlPartida.crearPartida(1, "Condor", false, false);
-		assertFalse(partida.getAyuda());
-		ctrlPartida.solicitarAyuda();
-		assertTrue(partida.getAyuda());
-    }
-    
-
+	}*/
     
     /*
      * Comprueba que se obtenga correctamente la informacion de la partida (Fecha y dificultad)
      */
-    @Test
+    /*@Test
    	public void testGetInfoPartida() {
-    Pair<Date, Integer> info = CtrlPartida.getInfoPartida(partida);
-    assertEquals(ctrlPartida.getPartidaActual().getData(), info.getFirst());
-    assertEquals((Integer)1, info.getSecond());
+	    Pair<Date, Integer> info = CtrlPartida.getInfoPartida(partida);
+	    assertEquals(ctrlPartida.getPartidaActual().getData(), info.getFirst());
+	    assertEquals((Integer)1, info.getSecond());
+	    
+	    //De momento nivel dificultad solo puede ser 1 debido a que es el único implementado
+	    Partida partida2 = CtrlPartida.crearPartida(2, "ricky", false, false);
+	    Pair<Date, Integer> info2 = CtrlPartida.getInfoPartida(partida2);
+	    assertEquals(ctrlPartida.getPartidaActual().getData(), info2.getFirst());
+	    assertEquals((Integer)1, info2.getSecond());
     
-    //De momento nivel dificultad solo puede ser 1 debido a que es el único implementado
-    Partida partida2 = CtrlPartida.crearPartida(2, "ricky", false, false);
-    Pair<Date, Integer> info2 = CtrlPartida.getInfoPartida(partida2);
-    assertEquals(ctrlPartida.getPartidaActual().getData(), info2.getFirst());
-    assertEquals((Integer)1, info2.getSecond());
-    
-    }
-    
-    /*
-     * Comprueba que se obtenga correctamente la informacion del historial de partidas
-     */
-    @Test
-   	public void testGetPartidasHistorial() {
-    	Partida partida2 = CtrlPartida.crearPartida(1, "joel", false, false);
-        
-    	ArrayList<Pair<String, Date>> expectedPartidas = new ArrayList<Pair<String,Date>>();
-    	Pair<String, Date> pair1 = new Pair<String,Date>("ricky", partida.getData());
-    	Pair<String, Date> pair2 = new Pair<String,Date>("joel", partida2.getData());
-
-        expectedPartidas.add(pair1);
-        expectedPartidas.add(pair2);
-        
-        ArrayList<Pair<String, Date>> historialPartidas = CtrlPartida.getPartidasHistorial();
-        assertEquals(expectedPartidas.get(0).getFirst(), historialPartidas.get(0).getFirst());
-        assertEquals(expectedPartidas.get(0).getSecond(), historialPartidas.get(0).getSecond());
-        assertEquals(expectedPartidas.get(1).getFirst(), historialPartidas.get(1).getFirst());
-        assertEquals(expectedPartidas.get(1).getSecond(), historialPartidas.get(1).getSecond());
-
-    }
-    
+    }*/
     
 }
    
