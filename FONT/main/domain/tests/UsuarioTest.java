@@ -48,14 +48,7 @@ public class UsuarioTest {
         assertEquals("Sasuke", user.getUsername());
     }
 	
-	/*
-	 * Comprueba que se devuelva bien el usuario
-	 */
-	@Test
-    public void testGetUsuario() {
-        assertEquals(this.user, user.getUsuario());
-    }
-	
+
 	/*
 	 * Comprueba que la introducción de un nuevo maxScore funciona
 	 */

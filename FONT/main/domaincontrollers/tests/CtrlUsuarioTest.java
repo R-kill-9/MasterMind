@@ -76,9 +76,9 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testCrearPartidaUsuario() {
-    	ctrlUsuario.crearPartida(1, false, true);
-		ArrayList<Date> dataPartidas = CtrlUsuario.getDataPartidasGuardadas();
-		assertEquals(1, CtrlUsuario.getDataPartidasGuardadas().size());
+    	CtrlUsuario.crearPartida(1, false, true);
+		ArrayList<Date> dataPartidas = CtrlUsuario.getDataPartidasUsuario();
+		assertEquals(1, CtrlUsuario.getDataPartidasUsuario().size());
     }
     
     
@@ -88,7 +88,7 @@ public class CtrlUsuarioTest {
     @Test
     public void testCrearPartidaHistorial() {
     	CtrlUsuario.crearPartida(1, false, false);
-    	Date dataPartida = CtrlUsuario.getDataPartidasGuardadas().get(0);
+    	Date dataPartida = CtrlUsuario.getDataPartidasUsuario().get(0);
     	Pair<String, Date> expectedPartida = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida);
     	Pair<String, Date> historialPartida = CtrlUsuario.getPartidasHistorial().get(0);
     	
@@ -96,9 +96,9 @@ public class CtrlUsuarioTest {
         assertEquals(expectedPartida.getSecond(), historialPartida.getSecond());
         
         CtrlUsuario.crearPartida(1, false, false);
-    	Date dataPartida2 = CtrlUsuario.getDataPartidasGuardadas().get(1);
+    	Date dataPartida2 = CtrlUsuario.getDataPartidasUsuario().get(1);
     	Pair<String, Date> expectedPartida2 = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida2);
-    	Pair<String, Date> historialPartida2 = ctrlUsuario.getPartidasHistorial().get(1);
+    	Pair<String, Date> historialPartida2 = CtrlUsuario.getPartidasHistorial().get(1);
     	
         assertEquals(expectedPartida2.getFirst(), historialPartida2.getFirst());
         assertEquals(expectedPartida2.getSecond(), historialPartida2.getSecond());
@@ -109,16 +109,16 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testBorrarPartidaUsuario() throws Exception {
-        ctrlUsuario.crearPartida(1, false, false);
-        ctrlUsuario.crearPartida(1, true, false);
+        CtrlUsuario.crearPartida(1, false, false);
+        CtrlUsuario.crearPartida(1, true, false);
         
-        ArrayList<Date> newPartidas = ctrlUsuario.getDataPartidasGuardadas();
+        ArrayList<Date> newPartidas = CtrlUsuario.getDataPartidasUsuario();
         assertEquals(2, newPartidas.size());
         ctrlUsuario.borrarPartida(newPartidas.get(1));
-        ArrayList<Date> newPartidas2 = ctrlUsuario.getDataPartidasGuardadas();
+        ArrayList<Date> newPartidas2 = CtrlUsuario.getDataPartidasUsuario();
         assertEquals(1, newPartidas.size());
         ctrlUsuario.borrarPartida(newPartidas.get(0));
-        ArrayList<Date> newPartidas3 = ctrlUsuario.getDataPartidasGuardadas();
+        ArrayList<Date> newPartidas3 = CtrlUsuario.getDataPartidasUsuario();
         assertEquals(0, newPartidas.size());
         
     }
@@ -129,9 +129,9 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testCorrectDate() throws Exception {
-        ctrlUsuario.crearPartida(1, true, false);
-        ArrayList<Date> newPartidas = ctrlUsuario.getDataPartidasGuardadas();
-        assertEquals(newPartidas.get(0), ctrlUsuario.getPartidasHistorial().get(0).getSecond());
+        CtrlUsuario.crearPartida(1, true, false);
+        ArrayList<Date> newPartidas = CtrlUsuario.getDataPartidasUsuario();
+        assertEquals(newPartidas.get(0), CtrlUsuario.getPartidasHistorial().get(0).getSecond());
     }
     
     
@@ -140,11 +140,12 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testBorrarPartidaHistorial() throws Exception {
-        ctrlUsuario.crearPartida(1, false, false);
-        ctrlUsuario.crearPartida(1, true, false);
-        ArrayList<Date> newPartidas = ctrlUsuario.getDataPartidasGuardadas();
+        CtrlUsuario.crearPartida(1, false, false);
+        CtrlUsuario.crearPartida(1, true, false);
+        ArrayList<Date> newPartidas = CtrlUsuario.getDataPartidasUsuario();
         ctrlUsuario.borrarPartida(newPartidas.get(0));
-        assertEquals(1, ctrlUsuario.getPartidasHistorial().size());
+        
+        assertEquals(1, CtrlUsuario.getPartidasHistorial().size());
     }
 
 
@@ -153,18 +154,24 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testSalirPartida() {
-        ctrlUsuario.crearPartida(1, false, false);
+        CtrlUsuario.crearPartida(1, false, false);
         assertTrue(CtrlUsuario.existsPartidaActual());
-        ctrlUsuario.salirPartida();
+        CtrlUsuario.salirPartida();
         assertFalse(CtrlUsuario.existsPartidaActual());
     }
 
     @Test
     public void testReiniciarPartida() {
-        ctrlUsuario.crearPartida(1, false, false);
-        CtrlUsuario.getPartidaActual().setCombinacion(new ArrayList<Color>());
-        ctrlUsuario.reiniciarPartida();
-        assertTrue(CtrlPartida.getPartidaActual().getCombinacion().isEmpty());
+        CtrlUsuario.crearPartida(1, false, false);
+        ArrayList<Color> comb = new ArrayList<Color>();
+		comb.add(Color.BLUE);
+		comb.add(Color.RED);
+		comb.add(Color.GREEN);
+		comb.add(Color.YELLOW);
+        ctrlUsuario.newCombinacion(comb);
+
+        CtrlUsuario.reiniciarPartida();
+        assertTrue(ctrlPartida.getPartidaActual().getCombinacion().isEmpty());
     }
     
     
@@ -174,6 +181,6 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testsSetCombinacion() throws Exception{
-    	ctrlUsuario.crearPartida(1, false, false);
+    	CtrlUsuario.crearPartida(1, false, false);
     }
 }

@@ -84,7 +84,7 @@ public abstract class NivelDificultad {
 		
         while(  turn <= 10 ){
         	
-        	System.out.print("ENVIO ACTUAL ");envioActual.print();
+        	//System.out.print("ENVIO ACTUAL ");envioActual.print();
            solucionesEnviadas.add(envioActual);
            possibleCodes.remove(envioActual);
            totalcombinacionesPosibles.remove(envioActual);

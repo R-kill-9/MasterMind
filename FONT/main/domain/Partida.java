@@ -61,6 +61,7 @@ public class Partida {
 		}
 		this.turnos = new ArrayList<Turno>();
 		this.turnos.add(new Turno(rol));
+		this.solution = null;
 		this.ayuda = ayuda;
 		this.puntos = 0;
 		this.username = usuario;
@@ -126,6 +127,13 @@ public class Partida {
 	*/
 	public String getUsuario() {
         return this.username;
+    }
+	
+	/**
+	*Devuelve un booleano dependiendo de si hay solucion
+	*/
+	public Boolean existsSolution() {
+        return this.solution != null;
     }
 
 

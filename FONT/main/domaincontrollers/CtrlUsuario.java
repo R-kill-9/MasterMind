@@ -87,7 +87,7 @@ public class CtrlUsuario {
 	 * Obtenemos el ArrayList de partidas del usuario.
 	 * @return ArrayList<Date> where date =  dateCreation
 	 */
-	public static ArrayList<Date> getDataPartidasGuardadas() {
+	public static ArrayList<Date> getDataPartidasUsuario() {
 		return userAct.getDataPartidasGuardadas();
 	}
 	

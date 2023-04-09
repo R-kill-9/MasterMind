@@ -30,7 +30,7 @@ public class CtrlPartidaTest {
         ctrlPartida = new CtrlPartida();
         HistorialPartidas historial = new HistorialPartidas();
         HistorialPartidasGuardadas historialGuardadas = new HistorialPartidasGuardadas();
-        partida = ctrlPartida.crearPartida(1, "ricky", true, true);
+        partida = CtrlPartida.crearPartida(1, "ricky", true, true);
     }
 
     /*
@@ -44,7 +44,7 @@ public class CtrlPartidaTest {
         assertEquals(partida.getUsuario(), expectedPartida.getUsuario());
         assertEquals(true, expectedPartida.getAyuda());
         
-        Partida newPartida = ctrlPartida.crearPartida(1, "rickyVillano", true, true);
+        Partida newPartida = CtrlPartida.crearPartida(1, "kill-9", true, true);
         int tamaño = ctrlPartida.getPartidas().size();
 		assertEquals(2, tamaño);
         }
@@ -69,7 +69,7 @@ public class CtrlPartidaTest {
     @Test
     public void getPartidaActualTest() throws Exception {
         assertNotNull(ctrlPartida.getPartidaActual());
-        partida = ctrlPartida.crearPartida(1, "ricky2", true, true);
+        partida = CtrlPartida.crearPartida(1, "ricky2", true, true);
         assertNotNull(ctrlPartida.getPartidaActual());
         assertEquals(ctrlPartida.getPartidaActual(), partida);
     }
@@ -79,10 +79,10 @@ public class CtrlPartidaTest {
      */
     @Test
 	public void testBorrarPartidaHistorial() {
-		Partida newPartida = ctrlPartida.crearPartida(1, "rickyHeroe", true, true);
+		Partida newPartida = CtrlPartida.crearPartida(1, "kill-9", true, true);
 		Date fecha = newPartida.getData();
-		assertEquals(true, ctrlPartida.borrarPartida("rickyHeroe", fecha));
-		assertEquals(false, ctrlPartida.borrarPartida("rickyHeroe", fecha));
+		assertEquals(true, CtrlPartida.borrarPartida("kill-9", fecha));
+		assertEquals(false, CtrlPartida.borrarPartida("kill-9", fecha));
 	}
 
     /*
@@ -90,10 +90,10 @@ public class CtrlPartidaTest {
      */
     @Test
 	public void testExistsPartidaActual() {
-        assertTrue(ctrlPartida.existsPartidaActual());
-		Partida newPartida = ctrlPartida.crearPartida(1, "rickyVillano", true, true);
-		assertTrue(ctrlPartida.existsPartidaActual());
-		assertEquals("rickyVillano", ctrlPartida.getPartidaActual().getUsuario());
+        assertTrue(CtrlPartida.existsPartidaActual());
+		Partida newPartida = CtrlPartida.crearPartida(1, "kill-9", true, true);
+		assertTrue(CtrlPartida.existsPartidaActual());
+		assertEquals("kill-9", ctrlPartida.getPartidaActual().getUsuario());
 	}
     
     /*
@@ -101,8 +101,8 @@ public class CtrlPartidaTest {
      */
     @Test
 	public void testGetPartidas() {
-    	Partida newPartida2 = ctrlPartida.crearPartida(1, "ricky2", true, true);
-    	Partida newPartida3 = ctrlPartida.crearPartida(1, "ricky3", true, true);
+    	Partida newPartida2 = CtrlPartida.crearPartida(1, "ricky2", true, true);
+    	Partida newPartida3 = CtrlPartida.crearPartida(1, "ricky3", true, true);
     	
     	Date fecha1 = partida.getData();
     	Date fecha2 = newPartida2.getData();
@@ -128,28 +128,30 @@ public class CtrlPartidaTest {
     @Test
 	public void testNewCombinacion() {
     	//creamos una nueva en la que iniciamos como codeBreaker
-    	Partida newPartida = ctrlPartida.crearPartida(1, "ricky", false, false);
+    	Partida newPartida = CtrlPartida.crearPartida(1, "ricky", false, false);
 		ArrayList<Color> combination = new ArrayList<Color>();
 		combination.add(Color.BLUE);
 		combination.add(Color.RED);
 		combination.add(Color.GREEN);
 		combination.add(Color.YELLOW);
-		ArrayList<ColorFeedBack> feedbacks = ctrlPartida.newCombinacion(combination);
+		ArrayList<ColorFeedBack> feedbacks = CtrlPartida.newCombinacion(combination);
 		assertNotNull(feedbacks);
-		assertEquals(partida.getNumIntentos()+1, feedbacks.size());
+		assertEquals(ctrlPartida.getPartidaActual().getNumIntentos(), feedbacks.size());
+		ArrayList<ColorFeedBack> feedbacks2 = CtrlPartida.newCombinacion(combination);
+		assertEquals(2, feedbacks2.size());
 	}
     
     @Test
 	public void testSetSolution() throws Exception {
-		Partida partida = CtrlPartida.crearPartida(3, "testUser", true, true);
+		Partida partida = CtrlPartida.crearPartida(1, "Condor", true, true);
+		assertEquals(false, ctrlPartida.getPartidaActual().existsSolution());
 		ArrayList<Color> solution = new ArrayList<Color>();
 		solution.add(Color.BLUE);
 		solution.add(Color.RED);
 		solution.add(Color.GREEN);
 		solution.add(Color.YELLOW);
-		assertEquals(0, partida.getNumIntentos());
-		assertEquals((Integer)4, CtrlPartida.setSolution(solution));
-		assertEquals(1, partida.getNumIntentos());
+		CtrlPartida.setSolution(solution);
+		assertEquals(true, ctrlPartida.getPartidaActual().existsSolution());
 	}
  
     /*
@@ -157,23 +159,24 @@ public class CtrlPartidaTest {
      */
     @Test
 	public void testSalirPartida() {
-    	ctrlPartida.salirPartida();
+    	CtrlPartida.salirPartida();
     	assertNull(ctrlPartida.getPartidaActual());
-    	Partida newPartida = ctrlPartida.crearPartida(1, "FelipeVI", false, false);
+    	Partida newPartida = ctrlPartida.crearPartida(1, "Condor", false, false);
     	assertNotNull(ctrlPartida.getPartidaActual());
-    	ctrlPartida.salirPartida();
+    	CtrlPartida.salirPartida();
     	assertNull(ctrlPartida.getPartidaActual());
 	}
     
     /*
-     * Comprueba que se pueda solicitar ayuda para la partida i cambiar su valor solo si la ayuda no estaba activada
+     * Comprueba que se pueda solicitar ayuda para la partida i cambiar su valor solo si la ayuda no estaba activada. También se comprueba 
+     * que funncione correctamente el metodo getter de ayuda
      */
     @Test
 	public void testSolicitarAyuda() {
-    	ctrlPartida.solicitarAyuda();
+    	CtrlPartida.solicitarAyuda();
 		assertTrue(partida.getAyuda());
-		ctrlPartida.solicitarAyuda();
-		partida = ctrlPartida.crearPartida(1, "Leonor", false, false);
+		CtrlPartida.solicitarAyuda();
+		partida = CtrlPartida.crearPartida(1, "Condor", false, false);
 		assertFalse(partida.getAyuda());
 		ctrlPartida.solicitarAyuda();
 		assertTrue(partida.getAyuda());
@@ -189,15 +192,40 @@ public class CtrlPartidaTest {
      */
     @Test
    	public void testGetInfoPartida() {
-    Pair<Date, Integer> info = ctrlPartida.getInfoPartida(partida);
+    Pair<Date, Integer> info = CtrlPartida.getInfoPartida(partida);
     assertEquals(ctrlPartida.getPartidaActual().getData(), info.getFirst());
     assertEquals((Integer)1, info.getSecond());
     
-    Partida partida2 = ctrlPartida.crearPartida(2, "ricky", false, false);
-    Pair<Date, Integer> info2 = ctrlPartida.getInfoPartida(partida2);
+    //De momento nivel dificultad solo puede ser 1 debido a que es el único implementado
+    Partida partida2 = CtrlPartida.crearPartida(2, "ricky", false, false);
+    Pair<Date, Integer> info2 = CtrlPartida.getInfoPartida(partida2);
     assertEquals(ctrlPartida.getPartidaActual().getData(), info2.getFirst());
-    assertEquals((Integer)2, info2.getSecond());
+    assertEquals((Integer)1, info2.getSecond());
     
     }
+    
+    /*
+     * Comprueba que se obtenga correctamente la informacion del historial de partidas
+     */
+    @Test
+   	public void testGetPartidasHistorial() {
+    	Partida partida2 = CtrlPartida.crearPartida(1, "joel", false, false);
+        
+    	ArrayList<Pair<String, Date>> expectedPartidas = new ArrayList<Pair<String,Date>>();
+    	Pair<String, Date> pair1 = new Pair<String,Date>("ricky", partida.getData());
+    	Pair<String, Date> pair2 = new Pair<String,Date>("joel", partida2.getData());
+
+        expectedPartidas.add(pair1);
+        expectedPartidas.add(pair2);
+        
+        ArrayList<Pair<String, Date>> historialPartidas = CtrlPartida.getPartidasHistorial();
+        assertEquals(expectedPartidas.get(0).getFirst(), historialPartidas.get(0).getFirst());
+        assertEquals(expectedPartidas.get(0).getSecond(), historialPartidas.get(0).getSecond());
+        assertEquals(expectedPartidas.get(1).getFirst(), historialPartidas.get(1).getFirst());
+        assertEquals(expectedPartidas.get(1).getSecond(), historialPartidas.get(1).getSecond());
+
+    }
+    
+    
 }
    
