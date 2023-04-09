@@ -155,7 +155,7 @@ public class CtrlPartidaTest {
     /*
      * Comprueba que se obtenga correctamente la informacion del historial de partidas
      */
-   /* @Test
+    @Test
    	public void testGetPartidasHistorial() {
     	Partida partida2 = CtrlPartida.crearPartida(1, "joel", false, false);
         
@@ -172,9 +172,9 @@ public class CtrlPartidaTest {
         assertEquals(expectedPartidas.get(1).getFirst(), historialPartidas.get(1).getFirst());
         assertEquals(expectedPartidas.get(1).getSecond(), historialPartidas.get(1).getSecond());
 
-    }*/
+    }
     
-   /* @Test
+    @Test
 	public void testNewCombinacion() throws Exception{
     	//creamos una nueva en la que iniciamos como codeBreaker
     	Partida newPartida = CtrlPartida.crearPartida(1, "ricky", false, false);
@@ -195,12 +195,12 @@ public class CtrlPartidaTest {
 		assertEquals(1, feedbacks.size());
 		ArrayList<ColorFeedBack> feedbacks2 = CtrlPartida.newCombinacion(combination2);
 		assertEquals(2, feedbacks2.size());
-	}*/
+	}
     
     /*
      * Comprueba que se obtenga correctamente la informacion de la partida (Fecha y dificultad)
      */
-    /*@Test
+    @Test
    	public void testGetInfoPartida() {
 	    Pair<Date, Integer> info = CtrlPartida.getInfoPartida(partida);
 	    assertEquals(ctrlPartida.getPartidaActual().getData(), info.getFirst());
@@ -212,7 +212,7 @@ public class CtrlPartidaTest {
 	    assertEquals(ctrlPartida.getPartidaActual().getData(), info2.getFirst());
 	    assertEquals((Integer)1, info2.getSecond());
     
-    }*/
+    }
     
 }
    
