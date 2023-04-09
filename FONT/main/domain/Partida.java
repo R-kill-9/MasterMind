@@ -1,29 +1,16 @@
 package main.domain;
 
-import java.util.Collection;
-import java.util.GregorianCalendar;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import main.domain.Combinacion;
-import main.domain.EstadoPartida;
-import main.domain.Color;
-import main.domain.Turno;
-import main.domain.Dificultad;
-import main.domain.ColorFeedBack;
 /** 
 *Clase Partida
 */
 public class Partida {
 	
 	/** 
-	*Atributos 
+	* Atributos 
 	*/
 	private Date data;
 	private int puntos;
@@ -64,6 +51,7 @@ public class Partida {
 		this.ayuda = ayuda;
 		this.puntos = 0;
 		this.username = usuario;
+		this.solution = null;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
 	}
@@ -145,7 +133,7 @@ public class Partida {
 	}
 
 	/**
-	*Introduce la solución para este turno 
+	* Introduce la solución para este turno 
 	*/
 	public Combinacion getSolution() {
 		return this.solution != null ? this.solution : null;
@@ -171,10 +159,11 @@ public class Partida {
 	public ArrayList<ColorFeedBack> setCombinacion(ArrayList<Color> combSolution) throws Exception{
 		Turno lastTurno = this.turnos.get(turnos.size() -1);
 		lastTurno.setCombinacion(combSolution);
+		Combinacion lastComb = lastTurno.getLastCombinacion();
 		if(!lastTurno.getRol()){
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
 			if(!ayuda) {
-				String feedBack = nivel.comprobarCombinacion(this.solution, combSolution);
+				String feedBack = nivel.comprobarCombinacion(this.solution, lastComb);
 				for(char bola : feedBack.toCharArray()) {
 				    ColorFeedBack cb = bola == 'n' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);
@@ -184,7 +173,7 @@ public class Partida {
 				}
 			}
 			else {
-				String feedBack = nivel.comprobarCombinacionPista(this.solution, combSolution);
+				String feedBack = nivel.comprobarCombinacionPista(this.solution, lastComb);
 				for(char bola : feedBack.toCharArray()) {
 					ColorFeedBack cb;
 					if(bola == ' ') cb = ColorFeedBack.GREY;

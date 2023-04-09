@@ -1,12 +1,12 @@
 package main.domain;
 
 public class NivelDificultadMedio extends NivelDificultad{
+	
     public NivelDificultadMedio() {
 	    tieneBlancas = false;
 	    sePuedeRepetir = true;
 	    numColors = 6;
 	    numcolumnas = 4;
-	    solucionEncontrada = false;
 	    turn = 1;
     }
     @Override

@@ -22,7 +22,8 @@ public class HistorialPartidas {
 	public static boolean borrarPartida(String username, Date dataIni) {
 		Pair<String,Date> infoPartida = new Pair<String, Date>(username,dataIni);
 		Integer posPartida = partidas.indexOf(infoPartida);
+		if(posPartida == null) return false;
 		partidas.remove(posPartida);
-		return posPartida == null ? false : true;
+		return true;
 	}
 }

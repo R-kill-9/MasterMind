@@ -6,7 +6,6 @@ public class NivelDificultadAlto extends NivelDificultad {
 	    sePuedeRepetir = true;
 	    numColors = 6;
 	    numcolumnas = 5;
-	    solucionEncontrada = false;
 	    turn = 1;
     }
     @Override
