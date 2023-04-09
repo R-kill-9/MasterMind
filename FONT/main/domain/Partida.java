@@ -38,20 +38,21 @@ public class Partida {
 				this.nivel = new NivelDificultadBajo();
 				break;
 			case 2:
-				this.nivel = new NivelDificultadBajo();
+				this.nivel = new NivelDificultadMedio();
 				break;
 			case 3:
-				this.nivel = new NivelDificultadBajo();
+				this.nivel = new NivelDificultadAlto();
 				break;
 			default:
 				throw new  IllegalArgumentException("Nivel de dificultad: 1, 2 o 3");
 		}
 		this.turnos = new ArrayList<Turno>();
 		this.turnos.add(new Turno(rol));
+		if(!rol) this.solution = nivel.genCombinacion();
+		else this.solution = null;
 		this.ayuda = ayuda;
 		this.puntos = 0;
 		this.username = usuario;
-		this.solution = null;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
 	}
@@ -146,10 +147,12 @@ public class Partida {
 	*/
 	public Integer setSolution(ArrayList<Color> combSolution) throws Exception{
 		Combinacion newCombinacion = new Combinacion(combSolution);
-		Turno lastTurno = this.turnos.get(turnos.size() -1);
+		Turno lastTurno = this.turnos.get(turnos.size() - 1);
 		if(lastTurno.getRol()) this.solution = newCombinacion;
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
 		Integer numIntentos = nivel.resolve(newCombinacion);
+		System.out.print(numIntentos);
+		
 		donePartida();
 		return numIntentos;
 	}

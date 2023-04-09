@@ -1,12 +1,16 @@
 package main.domain;
 
-public class NivelDificultadAlto extends NivelDificultad {
+import java.util.ArrayList;
+
+public class NivelDificultadAlto extends NivelDificultadMedio {
     public NivelDificultadAlto() {
-	    tieneBlancas = true;
-	    sePuedeRepetir = true;
-	    numColors = 6;
-	    numcolumnas = 5;
-	    turn = 1;
+    	numColors = 6;
+   	    numcolumnas = 5;
+   	    totalcombinacionesPosibles = new ArrayList<Combinacion>();
+   	    solucionesEnviadas = new ArrayList<Combinacion>();
+   	    possibleCodes = new ArrayList<Combinacion>();
+   	    enviosCandidatos = new ArrayList<Combinacion>();
+   	    turn = 1;
     }
     @Override
     public int calculaPuntuacion(int numIntentCodeMaker, int numIntentCodeBraker) {
@@ -20,8 +24,13 @@ public class NivelDificultadAlto extends NivelDificultad {
 
     @Override
     public Integer getNumColumnas() {
-      return 5;
+    	return this.numcolumnas;
     }
     
+    @Override
+    public Integer getNumColors() {
+       	return this.numColors;
+       }
+       
 
 }
