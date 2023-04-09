@@ -1,6 +1,7 @@
 package main.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -49,7 +50,6 @@ public class Partida {
 		this.turnos = new ArrayList<Turno>();
 		this.turnos.add(new Turno(rol));
 		if(!rol) this.solution = nivel.genCombinacion();
-		else this.solution = null;
 		this.ayuda = ayuda;
 		this.puntos = 0;
 		this.username = usuario;
@@ -82,6 +82,20 @@ public class Partida {
 			nivel.calculaPuntuacion(turnosCM, turnosCB);
 			HistorialPartidasGuardadas.agregarPartidaGuardada(username, data);
 		}
+	}
+	private void checkIfReps(ArrayList<Color> combinacion) throws Exception  {
+		 HashSet<Color> seenColors = new HashSet<Color>();
+		    for (Color color : combinacion) {
+		        if (seenColors.contains(color)) throw new Exception("For level 1 it's not allowed to repeat colors");
+		        seenColors.add(color);
+		    }
+	}
+	
+	private void checkLevelExceptions(ArrayList<Color> combinacion) throws Exception {
+		Integer nivelDif = nivel.getDificultad();
+		if(nivelDif == 1) checkIfReps(combinacion);
+		Integer numColums = combinacion.size();
+		if(numColums + 1 == 5 && nivelDif < 3) throw new Exception("For level 1 and 2 only 4 colors are allowed");
 	}
 	private boolean checkIfAllCorrects(ArrayList<ColorFeedBack> feedBackSolution){
 		ColorFeedBack firstElem = feedBackSolution.get(0);
@@ -148,11 +162,10 @@ public class Partida {
 	public Integer setSolution(ArrayList<Color> combSolution) throws Exception{
 		Combinacion newCombinacion = new Combinacion(combSolution);
 		Turno lastTurno = this.turnos.get(turnos.size() - 1);
+		checkLevelExceptions(combSolution);
 		if(lastTurno.getRol()) this.solution = newCombinacion;
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
 		Integer numIntentos = nivel.resolve(newCombinacion);
-		System.out.print(numIntentos);
-		
 		donePartida();
 		return numIntentos;
 	}
@@ -163,6 +176,7 @@ public class Partida {
 		Turno lastTurno = this.turnos.get(turnos.size() -1);
 		lastTurno.setCombinacion(combSolution);
 		Combinacion lastComb = lastTurno.getLastCombinacion();
+		checkLevelExceptions(combSolution);
 		if(!lastTurno.getRol()){
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
 			if(!ayuda) {

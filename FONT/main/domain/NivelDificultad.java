@@ -4,12 +4,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
 public abstract class NivelDificultad {
  
-	protected int numColors;
+	
 	protected int numcolumnas;
+	protected int numColors = 6;
+	protected boolean  sePuedeRepetir;
 	protected Integer turn;
     public Combinacion solucion;
     public Combinacion envioActual;
@@ -32,7 +35,9 @@ public abstract class NivelDificultad {
 
     public abstract Integer getNumColumnas();
 
-    public abstract Integer getNumColors();
+    public Integer getNumColors() {
+    	return numColors;
+    }
 	
 	public String comprobarCombinacion(Combinacion solution, Combinacion solEnviada){
     	
@@ -219,47 +224,63 @@ private List<Combinacion> inicializarPosiblesCodigos() {
         }
     }
     return;
-
-}
-
-private int getMaxScore( Map<String, Integer> m){
-    int maximo = 0;
-    for (Map.Entry<String, Integer> elem : m.entrySet()) {
-        if (elem.getValue() > maximo) {
-            maximo = elem.getValue();
-        }
-    }
-    return maximo;
-}
-    
-
-private static int getMinScore(Map<Combinacion, Integer> m){
-        int minimo = Integer.MAX_VALUE;
-        for (Map.Entry<Combinacion, Integer> elem : m.entrySet()){
-            if (elem.getValue() < minimo )  minimo = elem.getValue();
-        }
-        return minimo;
-} 
-/**
- * Genera una combinación aleatoria que se usará como solución
- */
-
-public Combinacion genCombinacion() {
-   ArrayList<Color> colores = new ArrayList<Color>();
-    colores.add(Color.RED);
-    colores.add(Color.BLUE);
-    colores.add(Color.GREEN);
-    colores.add(Color.YELLOW);
-    colores.add(Color.ORANGE);
-    colores.add(Color.PURPLE);
-   Collections.shuffle(colores);
-   ArrayList<Color> solucion = new ArrayList<Color>();
-   for(int i = 0; i < getNumColumnas(); i++){
-       solucion.add(colores.get(i));
-   }
-     return new Combinacion(solucion);
-}
-
-
-
+	
+	}
+	
+	private int getMaxScore( Map<String, Integer> m){
+	    int maximo = 0;
+	    for (Map.Entry<String, Integer> elem : m.entrySet()) {
+	        if (elem.getValue() > maximo) {
+	            maximo = elem.getValue();
+	        }
+	    }
+	    return maximo;
+	}
+	    
+	
+	private static int getMinScore(Map<Combinacion, Integer> m){
+	        int minimo = Integer.MAX_VALUE;
+	        for (Map.Entry<Combinacion, Integer> elem : m.entrySet()){
+	            if (elem.getValue() < minimo )  minimo = elem.getValue();
+	        }
+	        return minimo;
+	} 
+	
+	protected static Color getColorNumber(Integer randomNumber) {
+		switch (randomNumber) {
+			case 1:
+				return Color.RED;
+			case 2:
+				return Color.GREEN;
+			case 3:
+				return Color.BLUE;
+			case 4:
+				return Color.YELLOW;
+			case 5:
+				return Color.PURPLE;
+			case 6:
+				return Color.ORANGE;
+		}
+		return null;
+	}
+	
+	/**
+	 * Genera una combinación aleatoria que se usará como solución
+	 */
+	
+	public Combinacion genCombinacion() {
+		 	Random random = new Random();
+	        ArrayList<Color> combinacion = new ArrayList<Color>();
+	        boolean doneComb = false;
+	        ArrayList<Boolean> visto = new ArrayList<Boolean>(Collections.nCopies(6, false));
+	        while(!doneComb){
+	        	Integer randomNumber = random.nextInt(this.getNumColumnas());
+	        	if(!visto.get(randomNumber)) {
+		        	combinacion.add(getColorNumber(randomNumber));
+		        	visto.set(randomNumber,true);
+	        	}
+	        	if(combinacion.size() - 1 == getNumColumnas()) doneComb = true;
+	        }
+	        return new Combinacion(combinacion);
+	}
 }
