@@ -22,6 +22,7 @@ public class Combinacion {
 		this.combination = combination; 
 	}
 
+
 	/*
 	 * Métodos públicos
 	 */
@@ -37,6 +38,26 @@ public class Combinacion {
 	public Color getPosition(Integer i) {
 		return combination.get(i);
 	}
+
+	public boolean contains(Color color) {
+		return combination.contains(color);
+	}
+
+	public void add(Color colorAñadido) {
+		combination.add(colorAñadido);
+	}
+
+    public void remove(Color colorEliminado) {
+		this.combination.remove(colorEliminado);
+    }
+
+	public void print() {
+		System.out.print(" COMBI: " + combination.get(0)+ " "+ combination.get(1)+" "+combination.get(2)+" "+combination.get(3)+ "\n");
+	
+	}
+
+
+
 
 
 }
