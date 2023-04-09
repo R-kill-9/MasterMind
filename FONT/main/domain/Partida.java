@@ -95,7 +95,7 @@ public class Partida {
 		Integer nivelDif = nivel.getDificultad();
 		if(nivelDif == 1) checkIfReps(combinacion);
 		Integer numColums = combinacion.size();
-		if(numColums + 1 == 5 && nivelDif < 3) throw new Exception("For level 1 and 2 only 4 colors are allowed");
+		if(numColums > 4 && nivelDif < 3) throw new Exception("For level 1 and 2 only 4 colors are allowed");
 	}
 	private boolean checkIfAllCorrects(ArrayList<ColorFeedBack> feedBackSolution){
 		ColorFeedBack firstElem = feedBackSolution.get(0);
@@ -151,7 +151,7 @@ public class Partida {
 	* Introduce la solución para este turno 
 	*/
 	public Combinacion getSolution() {
-		return this.solution != null ? this.solution : null;
+		return this.solution;
 	}
 	
 

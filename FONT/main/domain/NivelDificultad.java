@@ -274,12 +274,13 @@ private List<Combinacion> inicializarPosiblesCodigos() {
 	        boolean doneComb = false;
 	        ArrayList<Boolean> visto = new ArrayList<Boolean>(Collections.nCopies(6, false));
 	        while(!doneComb){
-	        	Integer randomNumber = random.nextInt(this.getNumColumnas());
+	        	Integer randomNumber = random.nextInt(6);
+	        	System.out.println(randomNumber);
 	        	if(!visto.get(randomNumber)) {
 		        	combinacion.add(getColorNumber(randomNumber));
 		        	visto.set(randomNumber,true);
 	        	}
-	        	if(combinacion.size() - 1 == getNumColumnas()) doneComb = true;
+	        	if(combinacion.size() == getNumColumnas()) doneComb = true;
 	        }
 	        return new Combinacion(combinacion);
 	}
