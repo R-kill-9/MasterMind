@@ -7,28 +7,32 @@ import java.util.Map;
 
 
 public abstract class NivelDificultad {
-   
-	protected boolean  tieneBlancas;
-	protected boolean  sePuedeRepetir;
+ 
 	protected int numColors;
 	protected int numcolumnas;
 	protected Integer turn;
+    public Combinacion solucion;
+    public Combinacion envioActual;
     static public List< Combinacion> possibleCodes;
     static public List< Combinacion> totalcombinacionesPosibles;
     static public List< Combinacion> solucionesEnviadas;
-    public Combinacion solucion;
-    public Combinacion envioActual;
     static public List< Combinacion> enviosCandidatos;
+    
+    
     
     public void setSolucion(Combinacion solution){
        this.solucion = solution;
     }
-
+    
+    public NivelDificultad() {};
+    
     public abstract int calculaPuntuacion(int numIntentCodeMaker, int numIntentCodeBraker);
 
     public abstract Integer getDificultad();
 
-	public abstract Integer getNumColumnas();
+    public abstract Integer getNumColumnas();
+
+    public abstract Integer getNumColors();
 	
 	public String comprobarCombinacion(Combinacion solution, Combinacion solEnviada){
     	
@@ -69,22 +73,13 @@ public abstract class NivelDificultad {
   
     public int resolve(Combinacion solucionUsuario) {
     	setSolucion(solucionUsuario);
-       
-        ArrayList<Color> colores = new ArrayList<Color>();
         
-        colores.add(Color.RED);
-        colores.add(Color.BLUE);
-        colores.add(Color.GREEN);
-        colores.add(Color.YELLOW);
-
-        envioActual = new Combinacion(colores);
+        envioActual = genCombinacion();
         
         totalcombinacionesPosibles.addAll(inicializarPosiblesCodigos());
 		possibleCodes=totalcombinacionesPosibles;
-		
-        while(  turn <= 10 ){
-        	
-        	System.out.print("ENVIO ACTUAL ");envioActual.print();
+		while(  turn < 10 ){
+        	enviosCandidatos = new ArrayList<>();
            solucionesEnviadas.add(envioActual);
            possibleCodes.remove(envioActual);
            totalcombinacionesPosibles.remove(envioActual);
@@ -110,28 +105,29 @@ public abstract class NivelDificultad {
 
     	for (int i = 0; i < enviosCandidatos.size(); ++i) {
     	
-    		if (possibleCodes.indexOf(enviosCandidatos.get(i)) >= 0) return enviosCandidatos.get(i);
+    		if (possibleCodes.contains(enviosCandidatos.get(i))) {
+    			return enviosCandidatos.get(i);
+    		}
     	}
     	for (int j = 0; j < enviosCandidatos.size(); ++j) {
     		
-    		if (totalcombinacionesPosibles.indexOf(enviosCandidatos.get(j)) >= 0 ) return enviosCandidatos.get(j);
+    		if (totalcombinacionesPosibles.contains(enviosCandidatos.get(j))) return enviosCandidatos.get(j);
         }
-        return null;
+        return enviosCandidatos.get(0);
     }
 
 	
-	private List<Combinacion> generarCombinaciones(Boolean[] visto, int i, ArrayList<Color> sol ){
+	public List<Combinacion> generarCombinaciones(Boolean[] visto, int i, ArrayList<Color> sol ){
 	    List<Combinacion> combinaciones = new ArrayList<>();
 
 	    if(i >= getNumColumnas()) {
 	    	ArrayList<Color> ac = new ArrayList<>(sol);
 	        Combinacion combi = new Combinacion(ac);
 	        combinaciones.add(combi);
-	        //totalcombinacionesPosibles.add(combi);
 	        return combinaciones;
 	    }
 
-	    for(int j = 0; j < visto.length; j++) {
+	    for(int j = 0; j < getNumColors(); j++) {
 	        if(!visto[j]) {
 	            visto[j] = true;
 	            Color c = null;
@@ -149,14 +145,12 @@ public abstract class NivelDificultad {
 	                case 5:
 	                    c = Color.ORANGE; break;
 	                default: break;
-	            }
-	            
+	            }      
 	            sol.add(c) ;// Se crea un objeto nuevo cada vez
 	            List<Combinacion> combinacionesSiguientes = generarCombinaciones(visto, i + 1, sol);
 	            combinaciones.addAll(combinacionesSiguientes);
 	            sol.remove(sol.size() - 1); // Se elimina la última referencia agregada
-	            visto[j] = false;
-	            
+	            visto[j] = false;   
 	        }   
 	    }
 	    
@@ -173,10 +167,11 @@ private List<Combinacion> inicializarPosiblesCodigos() {
 
 
 
- private void eliminaCombinacions(  String respuestaComprobacion){
+ private void eliminaCombinacions(  String respuestaComprobacion) {
     for(int i = 0; i < possibleCodes.size() ; i++){	  
-        if(comprobarCombinacion(this.solucion, possibleCodes.get(i)).equals(respuestaComprobacion)){
+        if(!comprobarCombinacion(envioActual, possibleCodes.get(i)).equals(respuestaComprobacion)){
         possibleCodes.remove(i);
+        i--;
         }
     }
   }
@@ -194,15 +189,13 @@ private List<Combinacion> inicializarPosiblesCodigos() {
     
     // Aqui guardamos las posibles soluciones que nos interesaria probar a enviar
     
-    List<Combinacion> enviosCandidatos = new ArrayList<Combinacion>() ;
-
     int max, min;
 
     for (int i = 0; i < totalcombinacionesPosibles.size(); ++i) {
 
         for (int j = 0; j < possibleCodes.size(); ++j) {
 
-          String resutltadoFicha = comprobarCombinacion(totalcombinacionesPosibles.get(i), possibleCodes.get(j));
+          String resutltadoFicha = comprobarCombinacion(possibleCodes.get(j), totalcombinacionesPosibles.get(i));
             // Si existe se incrementa las veces que aparece
             if(contadorPuntuaciones.get(resutltadoFicha) != null ){
                 int num = contadorPuntuaciones.get(resutltadoFicha);
@@ -216,7 +209,8 @@ private List<Combinacion> inicializarPosiblesCodigos() {
         }
 
         max = getMaxScore(contadorPuntuaciones);
-        puntuaciones.put(totalcombinacionesPosibles.get(i), new Integer(max));
+        System.out.print(max+" ");
+        puntuaciones.put(totalcombinacionesPosibles.get(i), max);
         contadorPuntuaciones.clear();   
     }
 
@@ -224,8 +218,8 @@ private List<Combinacion> inicializarPosiblesCodigos() {
 
     for (Map.Entry<Combinacion, Integer> elem : puntuaciones.entrySet()) {
         if (elem.getValue() == min) {
-        	Combinacion comb = elem.getKey();
-            enviosCandidatos.add(comb);
+        	//Combinacion comb = new Combinacion(elem.getKey().getCombination());
+            enviosCandidatos.add(elem.getKey());
         }
     }
     return;
@@ -242,6 +236,7 @@ private int getMaxScore( Map<String, Integer> m){
     return maximo;
 }
     
+
 private static int getMinScore(Map<Combinacion, Integer> m){
         int minimo = Integer.MAX_VALUE;
         for (Map.Entry<Combinacion, Integer> elem : m.entrySet()){

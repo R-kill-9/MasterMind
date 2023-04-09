@@ -55,7 +55,10 @@ public class Combinacion {
 		System.out.print(" COMBI: " + combination.get(0)+ " "+ combination.get(1)+" "+combination.get(2)+" "+combination.get(3)+ "\n");
 	
 	}
-
+	public void printL() {
+		System.out.print(" COMBI: " + combination.get(0)+ " "+ combination.get(1)+" "+combination.get(2)+" "+combination.get(3)+" "+ combination.get(4)+ "\n");
+	
+	}
 
 
 
