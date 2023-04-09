@@ -15,7 +15,7 @@ import main.domain.Pair;
  * Clase que representa el controlador de dominio de la clase Partida.
  */
 public class CtrlPartida {
-    private static Partida partidaActual;
+    private static  Partida partidaActual;
     /**
      * Constructora por defecto.
      */
@@ -28,7 +28,7 @@ public class CtrlPartida {
      * @param ayuda true si se activa la ayuda, false en caso contrario
      * @param rol true si el usuario es el CodeMaker, false si es el CodeBreaker
      */
-    public Partida crearPartida(int dificultadEscogida, String username, boolean ayuda, boolean rol) {
+    public static Partida crearPartida(int dificultadEscogida, String username, boolean ayuda, boolean rol) {
         Partida partida = new Partida(dificultadEscogida, username, ayuda, rol);
         Date dataPartida = partida.getData();
         HistorialPartidas.agregarPartida(username,dataPartida);
@@ -75,7 +75,7 @@ public class CtrlPartida {
     
     
     /**
-     * Obtiene una la partida actual del usuario.
+     * Introduce una nueva combinacion.
      * 
      * @param Vector<Color> la combinacion de la partida
      * @return la partida jugada por ese usuario, o null si no hay ninguna
@@ -124,11 +124,10 @@ public class CtrlPartida {
      * @param una partida
      * @return la informacion de la partida, cuando se ha jugado y la puntuacion.
      */
-	public static HashMap<Date,Integer> getInfoPartida(Partida partida) {
+	public static Pair<Date, Integer> getInfoPartida(Partida partida) {
 		Date dataP = partida.getData();
 		Integer nivel = partida.getDificultad();
-		HashMap<Date, Integer> infoPartida = new HashMap<>();
-		infoPartida.put(dataP, nivel);
+		Pair<Date, Integer> infoPartida = new Pair<>(dataP, nivel);
 	    return infoPartida;
 	}
 	
@@ -143,6 +142,7 @@ public class CtrlPartida {
 	public static void salirPartida() {
 		partidaActual = null;
 	}
+	
 	public static void reiniciarPartida() {
 		partidaActual.reiniciarPartida();
 		

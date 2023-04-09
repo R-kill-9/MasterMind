@@ -21,7 +21,6 @@ public class CtrlUsuarioTest {
 	 * Atributos
 	 */
     private CtrlUsuario ctrlUsuario;
-    private CtrlPartida ctrlPartida;
 
     @Before
     public void setUp() throws Exception {
@@ -88,18 +87,18 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testCrearPartidaHistorial() {
-    	ctrlUsuario.crearPartida(1, false, false);
+    	CtrlUsuario.crearPartida(1, false, false);
     	Date dataPartida = CtrlUsuario.getDataPartidasGuardadas().get(0);
-    	Pair expectedPartida = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida);
-    	Pair historialPartida = ctrlUsuario.getPartidasHistorial().get(0);
+    	Pair<String, Date> expectedPartida = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida);
+    	Pair<String, Date> historialPartida = CtrlUsuario.getPartidasHistorial().get(0);
     	
         assertEquals(expectedPartida.getFirst(), historialPartida.getFirst());
         assertEquals(expectedPartida.getSecond(), historialPartida.getSecond());
         
-        ctrlUsuario.crearPartida(1, false, false);
+        CtrlUsuario.crearPartida(1, false, false);
     	Date dataPartida2 = CtrlUsuario.getDataPartidasGuardadas().get(1);
-    	Pair expectedPartida2 = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida2);
-    	Pair historialPartida2 = ctrlUsuario.getPartidasHistorial().get(1);
+    	Pair<String, Date> expectedPartida2 = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida2);
+    	Pair<String, Date> historialPartida2 = ctrlUsuario.getPartidasHistorial().get(1);
     	
         assertEquals(expectedPartida2.getFirst(), historialPartida2.getFirst());
         assertEquals(expectedPartida2.getSecond(), historialPartida2.getSecond());
