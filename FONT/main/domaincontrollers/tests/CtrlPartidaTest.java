@@ -141,7 +141,7 @@ public class CtrlPartidaTest {
      * Comprueba que se pueda solicitar ayuda para la partida i cambiar su valor solo si la ayuda no estaba activada. También se comprueba 
      * que funncione correctamente el metodo getter de ayuda
      */
- /*   @Test
+    @Test
 	public void testSolicitarAyuda() {
     	CtrlPartida.solicitarAyuda();
 		assertTrue(partida.getAyuda());
@@ -149,7 +149,7 @@ public class CtrlPartidaTest {
 		assertFalse(partida.getAyuda());
 		CtrlPartida.solicitarAyuda();
 		assertTrue(partida.getAyuda());
-    }*/
+    }
     
     
     /*
