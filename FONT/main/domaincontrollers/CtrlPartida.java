@@ -169,4 +169,11 @@ public class CtrlPartida {
 	public static int getScore() {
     	return partidaActual.getScore();
     }
+
+    /*
+     * Devuelve el rol de la partida
+     */
+    public static boolean getRol() {  
+        return partidaActual.getRol();
+    }
 }

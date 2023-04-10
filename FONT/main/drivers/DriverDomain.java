@@ -21,6 +21,11 @@ public class DriverDomain {
      */
     private boolean rol;
 
+    /**
+     * Boolean para saber si el usuario ha ganado
+     */
+    private boolean win;
+
 
     /**
      * String para la estetica de la consola
@@ -53,7 +58,7 @@ public class DriverDomain {
 
         } catch (Exception e) {
             System.out.println(separator);
-            System.out.println("Login incorrecto");
+            System.out.println(e);
         }
     }
 
@@ -133,13 +138,16 @@ public class DriverDomain {
             System.out.println(separator);
             System.out.println("Combinacion enviada");
             System.out.println("Feedback: ");
+            int aciertos=0;
             for (int i = 0; i < feedback.size(); ++i) {
                 System.out.println(feedback.get(i));
+                if (feedback.get(i) == ColorFeedBack.BLACK) ++aciertos;
             }
+            if (aciertos == 4) win = true;
 
         } catch (Exception e) {
             System.out.println(separator);
-            System.out.println("Combinacion incorrecta");
+            System.out.println(e);
             return;
         }
 
@@ -194,7 +202,7 @@ public class DriverDomain {
             System.out.println("Se ha resuelto en un número de rondas de : " + rondas);
         } catch (Exception e) {
             System.out.println(separator);
-            System.out.println("Solucion incorrecta");
+            System.out.println(e);
             return;
         }
     }
@@ -204,27 +212,43 @@ public class DriverDomain {
      */
     public void jugar() {
         testCrearPartida();
-        System.out.println("Empiezas siendo " + (rol ? "CodeMaker" : "CodeBreaker"));
+        System.out.println("Empiezas siendo " + (cDominio.getRol() ? "CodeMaker" : "CodeBreaker"));
         
-        if (rol) {
-            rol = !rol;
+        if (cDominio.getRol()) {
             testSetSolucion();
         }
         else {
-            rol =!rol;
-            for (int i = 0; i < 10; ++i) {
+            for (int i = 0; i < 10 && !win; ++i) {
                 System.out.println("Ronda " + (i + 1) + " de 10");
                 testnewCombinacion();
             }
         }
-        System.out.println("Cambio de turno, ahora eres " + (rol ? "CodeMaker" : "CodeBreaker"));
-        if (rol) testSetSolucion();
+        System.out.println("Cambio de turno, ahora eres " + (cDominio.getRol() ? "CodeMaker" : "CodeBreaker"));
+        if (cDominio.getRol()) testSetSolucion();
         else {
-            for (int i = 0; i < 10; ++i) {
+            for (int i = 0; i < 10 && !win; ++i) {
                 System.out.println("Ronda " + (i + 1) + " de 10");
                 testnewCombinacion();
 
             }
+        }
+    }
+
+    /**
+     * Funcion para imprimir la puntuacion de la partida
+     */
+    public void testPrintPuntuacion() {
+        System.out.println(separator);
+        System.out.println("La puntuación de la partida ha sido de: " + cDominio.getScore());
+
+    }
+
+    public void testPrintRecords() {
+        System.out.println(separator);
+        System.out.println("Los records son: ");
+        int records[] = cDominio.getRecord();
+        for (int i = 0; i < records.length; ++i) {
+            System.out.println(records[i]);
         }
     }
 
@@ -237,6 +261,9 @@ public class DriverDomain {
                 driver.input = new Scanner(System.in);
                 driver.testLogin();
                 driver.jugar();
+                driver.testPrintPuntuacion();
+                driver.testPrintRecords();
+                
             }
         }
 

@@ -261,4 +261,11 @@ public class Partida {
 	public Integer getLastTurno() {
 		return turnos.size();
 	}
+
+	/*
+	 * Devuelve el rol actual
+	 */
+	public boolean getRol() {
+		return this.turnos.get(turnos.size() - 1).getRol();
+	}
 }

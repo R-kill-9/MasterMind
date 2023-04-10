@@ -14,7 +14,7 @@ public class Usuario {
 	*/
 	
 	private String username;
-	private Integer maxScore;
+	private int[] maxScore;
 	private ArrayList<Date> fechaPartidas;
 
 	/** 
@@ -23,7 +23,10 @@ public class Usuario {
 	
 	public Usuario(String username) {
 		this.username = username;
-		this.maxScore = 0;
+		this.maxScore = new int[5];
+		for (int i = 0; i < 5; ++i) {
+			this.maxScore[i] = 0;
+		}
 		this.fechaPartidas = new ArrayList<>();
 	}
 
@@ -39,17 +42,22 @@ public class Usuario {
 	/**
      * Devuelve la puntuación más alta que ha conseguido el jugador
      */
-    public int getMaxScore() {
+    public int[] getMaxScore() {
         return maxScore;
     }
 
 	/**
      * Establece la puntuación más alta que ha conseguido el jugador
      */
-    public void setMaxScore(int maxScore) {
-        if (maxScore > this.maxScore){
-        this.maxScore = maxScore;
-        }
+    public void setMaxScore(int Score) {
+        int pos;
+		//Busca la posición en la que se debe insertar la puntuación
+		for (pos = 0; pos < maxScore.length && maxScore[pos]< Score; ++pos);
+		//Desplazamos los valores a la derecha
+		for (int i = maxScore.length-1; i > pos; --i) {
+			maxScore[i] = maxScore[i-1];
+		}
+		maxScore[pos] = Score;
     }
 
 	/**

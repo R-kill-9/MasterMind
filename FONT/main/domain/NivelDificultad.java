@@ -274,6 +274,7 @@ private List<Combinacion> inicializarPosiblesCodigos() {
 		        combinacion.add(getColorNumber(randomNumber));
 	        	if(combinacion.size() == getNumColumnas()) doneComb = true;
 	        }
+	
 	        return new Combinacion(combinacion);
 	}
 }
