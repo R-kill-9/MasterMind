@@ -63,7 +63,6 @@ public class CtrlPartida {
      */
     public Partida getPartidaActual()  {
     	return this.partidaActual;
-
     }
     
     /**
@@ -159,28 +158,9 @@ public class CtrlPartida {
 		partidaActual.reiniciarPartida();
 		
 	}
-	
-	/*
-	 * Cambia el estado de una partida a running
-	 */
-	public static void reanudarPartida() {
-    	partidaActual.setEstado(PossiblesEstadosPartida.RUNNING);
-    }
-	
-	/*
-	 * Cambia el estado de una partida a saved
-	 */
-	public static void guardarPartida() {
-    	partidaActual.setEstado(PossiblesEstadosPartida.SAVED);
-    }
-	
-	/*
-	 * Cambia el estado de una partida a paused
-	 */
-	public static void pausarPartida() {
-    	partidaActual.setEstado(PossiblesEstadosPartida.PAUSED);
-    }
-	
+	public static void cambiarEstadoPartida(String estado) {
+		partidaActual.setEstadoPartida(estado);
+	}
 	/*
 	 * Devuelve el score de una partida
 	 */
