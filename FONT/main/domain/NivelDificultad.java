@@ -75,14 +75,14 @@ public abstract class NivelDificultad {
         return feedback;
     }
   
-    public int resolve(Combinacion solucionUsuario) {
+    public List<Combinacion> resolve(Combinacion solucionUsuario) {
     	setSolucion(solucionUsuario);
         
         envioActual = genCombinacion();
         
         totalcombinacionesPosibles.addAll(inicializarPosiblesCodigos());
 		possibleCodes=totalcombinacionesPosibles;
-		while(  turn < 10 ){
+		while(  turn <= 10 ){
         	enviosCandidatos = new ArrayList<>();
            solucionesEnviadas.add(envioActual);
            possibleCodes.remove(envioActual);
@@ -90,7 +90,7 @@ public abstract class NivelDificultad {
 
             String respuestaComprobacion = comprobarCombinacion(envioActual, solucion );
 
-            if(respuestaComprobacion.equals(getNumNegras())) return turn;
+            if(respuestaComprobacion.equals(getNumNegras())) return solucionesEnviadas;
          
             
             else eliminaCombinacions(respuestaComprobacion);
@@ -101,7 +101,7 @@ public abstract class NivelDificultad {
 
             turn++;
         }
-        return turn ;
+        return solucionesEnviadas ;
     }
 
     

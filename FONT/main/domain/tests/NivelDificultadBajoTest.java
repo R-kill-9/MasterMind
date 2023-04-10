@@ -132,18 +132,18 @@ public class NivelDificultadBajoTest {
 		colores.add(Color.BLUE);
         Combinacion solucionUsuario = new Combinacion(colores);
         
-        int resultado = ndb.resolve(solucionUsuario);
+        int resultado = ndb.resolve(solucionUsuario).size();
         assertTrue(resultado >= 1 && resultado <= 10);
 	}
 	@Test
-	public void TestSolveWinRoundX() {
+	public void TestSolveWinRoundV() {
 		ArrayList<Color> colores = new ArrayList<Color>();
 		colores.add(Color.RED);
 		colores.add(Color.GREEN);
 		colores.add(Color.YELLOW);
 		colores.add(Color.PURPLE);
         Combinacion solucionUsuario = new Combinacion(colores);
-        int resultado = ndb.resolve(solucionUsuario);
+        int resultado = ndb.resolve(solucionUsuario).size();
         assertTrue(resultado >= 1 && resultado <= 10);
 	}
 

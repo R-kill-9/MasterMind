@@ -41,7 +41,7 @@ public class NivelDificultadAltoTest {
 		colores.add(Color.YELLOW);
 		colores.add(Color.YELLOW);
         Combinacion solucionUsuario = new Combinacion(colores);
-        int resultado = nda.resolve(solucionUsuario);
+        int resultado = nda.resolve(solucionUsuario).size();
         assertTrue(resultado >= 1 && resultado <= 10);
 		
 		
