@@ -14,6 +14,7 @@ public class FiveGuess implements Maquina {
 	  public Combinacion envioActual;
 	  public Combinacion solucion;
 	  public NivelDificultad nivel;
+
 	  
 	  public FiveGuess(NivelDificultad nivel) {
 		  this.nivel = nivel;
@@ -132,6 +133,44 @@ public class FiveGuess implements Maquina {
 		    
 		    return combinaciones;
 		}
+	  public List<Combinacion> generarCombinacionesRepes(Boolean[] visto, int i, ArrayList<Color> sol ){
+		    List<Combinacion> combinaciones = new ArrayList<>();
+
+		    if(i >= nivel.getNumColumnas()) {
+		    	ArrayList<Color> ac = new ArrayList<>(sol);
+		        Combinacion combi = new Combinacion(ac);
+		        combinaciones.add(combi);
+		        return combinaciones;
+		    }
+
+		    for(int j = 0; j < nivel.getNumColors(); j++) {
+		        
+		            Color c = null;
+		            switch (j) {
+		                case 0:
+		                    c = Color.RED;   break;
+		                case 1: 
+		                    c = Color.BLUE;  break;
+		                case 2:
+		                    c = Color.GREEN; break;
+		                case 3:
+		                    c = Color.YELLOW; break;
+		                case 4:
+		                    c = Color.PURPLE; break;
+		                case 5:
+		                    c = Color.ORANGE; break;
+		                default: break;
+		            }      
+		            sol.add(c) ;// Se crea un objeto nuevo cada vez
+		            List<Combinacion> combinacionesSiguientes = generarCombinaciones(visto, i + 1, sol);
+		            combinaciones.addAll(combinacionesSiguientes);
+		            sol.remove(sol.size() - 1); // Se elimina la última referencia agregada
+		           
+		        
+		    }
+		    
+		    return combinaciones;
+		}
 	  public String comprobarCombinacion(Combinacion solution, Combinacion solEnviada){
 	    	
 	        int aciertos = 0;
@@ -165,7 +204,8 @@ public class FiveGuess implements Maquina {
 		    Boolean[] visto = {false,false,false,false,false,false};
 		    ArrayList<Color> sol  = new ArrayList<Color>();
 		    int i = 0;
-		    return generarCombinaciones(visto, i, sol);
+		    if(nivel.getDificultad() == 1) return generarCombinaciones(visto, i, sol);
+		    else return generarCombinacionesRepes(visto, i, sol);
 	  }
 	  
 	  private Combinacion obtenSiguienteEnvio() {
@@ -183,21 +223,23 @@ public class FiveGuess implements Maquina {
 	        return enviosCandidatos.get(0);
 	  }
 	  
-	  public int resolve(Combinacion solucionUsuario) {
+	  public List<Combinacion> resolve(Combinacion solucionUsuario) {
     	setSolucion(solucionUsuario);
         envioActual = nivel.genCombinacion();
-        System.out.println(envioActual.getCombination());
+        solucionUsuario.print();
         totalcombinacionesPosibles.addAll(inicializarPosiblesCodigos());
 		possibleCodes=totalcombinacionesPosibles;
-		while(  turn < 10 ){
+		while(  turn <= 10 ){
+			
 			enviosCandidatos = new ArrayList<>();
-			solucionesEnviadas.add(envioActual);
-	        System.out.println(solucionesEnviadas);
+			solucionesEnviadas.add( new Combinacion(envioActual.getCombination()));
 
             possibleCodes.remove(envioActual);
             totalcombinacionesPosibles.remove(envioActual);
             String respuestaComprobacion = comprobarCombinacion(envioActual, solucion );
-            if(respuestaComprobacion.equals("NNNN")) return turn;
+           
+            
+            if(respuestaComprobacion.equals(nivel.getNsolucion())) return solucionesEnviadas;
             else eliminaCombinacions(respuestaComprobacion);
 
             generaNuevoEnvio();
@@ -205,7 +247,7 @@ public class FiveGuess implements Maquina {
             envioActual = obtenSiguienteEnvio();
             turn++;
         }
-        return turn ;
+        return solucionesEnviadas;
     }
 
 }

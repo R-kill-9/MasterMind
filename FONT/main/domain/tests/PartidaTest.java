@@ -39,6 +39,7 @@ public class PartidaTest {
         historial = new HistorialPartidasGuardadas();
     }
     
+    
     /*
      * Comprueba que se introduzcan bien todos los parametros
      */
