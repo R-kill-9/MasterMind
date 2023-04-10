@@ -154,8 +154,15 @@ public class Partida {
 		return this.solution;
 	}
 	
+	public void setEstadoPartida(String estado){
+		this.setEstadoPartida(estado);
+	}
+	
 
-
+    public Integer getScore() {
+    	return this.puntos;
+    }
+	
 	/**
 	*Introduce la solución para este turno 
 	 * @return 

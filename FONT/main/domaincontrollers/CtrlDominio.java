@@ -118,4 +118,7 @@ public class CtrlDominio {
 		CtrlDominio.juego = juego;
 	}
 	
+	public static void cambiarEstadoPartida(String estado) {
+		CtrlUsuario.cambiarEstadoPartida(estado);;
+	}
 }
