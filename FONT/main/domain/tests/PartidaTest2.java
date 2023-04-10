@@ -8,7 +8,7 @@ import org.junit.Test;
 import main.domain.Partida;
 import main.domain.PossiblesEstadosPartida;
 
-public class PartidaTest {
+public class PartidaTest2 {
 	/*Atributos*/
     private Partida testPartidaAyuda;
     private Partida testPartidaSinAyuda;
@@ -31,6 +31,5 @@ public class PartidaTest {
 		assertEquals("The ayuda should be false", true, testPartidaSinAyuda.getAyuda());
 		assertEquals("The estado Partida should be running", testPartidaSinAyuda.getEstadoPartida(), PossiblesEstadosPartida.RUNNING);
 	}
-	
-
 }
+	

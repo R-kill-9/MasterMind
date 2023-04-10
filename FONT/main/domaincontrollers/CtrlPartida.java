@@ -20,7 +20,8 @@ public class CtrlPartida {
     /**
      * Constructora por defecto.
      */
-    public CtrlPartida() {}
+    public CtrlPartida() {
+    }
      /**
      * Crea una nueva partida y la añade a la lista de partidas.
      * 
@@ -32,6 +33,7 @@ public class CtrlPartida {
     public static Partida crearPartida(int dificultadEscogida, String username, boolean ayuda, boolean rol) {
         Partida partida = new Partida(dificultadEscogida, username, ayuda, rol);
         Date dataPartida = partida.getData();
+        
         HistorialPartidas.agregarPartida(username,dataPartida);
         partidaActual = partida;
         return partida;

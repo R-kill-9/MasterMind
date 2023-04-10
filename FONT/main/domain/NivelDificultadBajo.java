@@ -11,12 +11,8 @@ public class NivelDificultadBajo extends NivelDificultad {
     public NivelDificultadBajo() {
 	    sePuedeRepetir = false;
 	    numcolumnas = 4;
-	    totalcombinacionesPosibles = new ArrayList<Combinacion>();
-	    solucionesEnviadas = new ArrayList<Combinacion>();
-	    possibleCodes = new ArrayList<Combinacion>();
-	    enviosCandidatos = new ArrayList<Combinacion>();
 	    turn = 1;
-	    
+	    maquinaResolve = new FiveGuess(this);
     }
     @Override
     public Integer getNumColumnas() {
@@ -42,13 +38,10 @@ public class NivelDificultadBajo extends NivelDificultad {
         ArrayList<Color> combinacion = new ArrayList<Color>();
         boolean doneComb = false;
         ArrayList<Boolean> visto = new ArrayList<Boolean>(Collections.nCopies(6, false));
-        System.out.println(visto);
         while(!doneComb){
-        	Integer randomNumber = random.nextInt(6);
-        	System.out.println(randomNumber);
+        	Integer randomNumber = random.nextInt(5) + 1;
         	if(!visto.get(randomNumber)) {
 	        	combinacion.add(getColorNumber(randomNumber));
-	        	System.out.println(combinacion);
 	        	visto.set(randomNumber,true);
         	}
         	if(combinacion.size() == getNumColumnas()) doneComb = true;

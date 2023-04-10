@@ -142,12 +142,14 @@ public class CtrlUsuarioTest {
     public void testBorrarPartidaHistorial() throws Exception {
         CtrlUsuario.crearPartida(1, false, false);
         CtrlUsuario.crearPartida(1, true, false);
+        System.out.println(HistorialPartidas.getPartidas());
         ArrayList<Date> newPartidas = CtrlUsuario.getDataPartidasUsuario();
         ctrlUsuario.borrarPartida(newPartidas.get(0));
-        assertEquals("The size of Partidas in HistorialPartidas should be 1", 1, CtrlUsuario.getPartidasHistorial().size());
+        
+        assertEquals(1, CtrlUsuario.getPartidasHistorial().size());
     }
 
-
+/*
     /*
      * Comprueba que se pueda salir de una partida
      */
@@ -159,5 +161,5 @@ public class CtrlUsuarioTest {
         assertFalse("There shouldn't be an actual Partida", CtrlUsuario.existsPartidaActual());
     }
 
-    
+   
 }
