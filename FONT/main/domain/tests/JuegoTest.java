@@ -11,62 +11,58 @@ public class JuegoTest {
 	/*
 	 * Atributos
 	 */
-	private Juego newJuego;
+	private Juego juego;
 	
 	/*
 	 * Método que se ejecuta antes de cada test
 	 */
 	@Before
 	public void setUp() {
-        newJuego = Juego.getInstance("informacion del sistema", "informacion de la puntuacion");
+        juego = Juego.getInstance();
 	}
 	
 	/*
 	 * TESTS
 	 */
 	/*
-	 * Comprueba que se introduzca bien la información de la puntuación
+	 * Comprueba la correcta creación de la instancia
 	 */
 	@Test
-    public void testSetInformacionPuntuacion() {
-        newJuego.setInformacionPuntuacion("Nueva informacion de la puntuacion");
-        assertEquals("Nueva informacion de la puntuacion", newJuego.getInformacionPuntuacion());
+    public void testGetInstance() {
+        assertNotNull(juego);
+        assertSame(juego, Juego.getInstance());
     }
-	
+
 	/*
-	 * Comprueba que se introduzca bien la información del sistema
+	 * Comprueba que se obtiene y se introduce correctamente la informacion de sistema
 	 */
-	@Test
-    public void testSetInformacionSistema() {
-        newJuego.setInformacionSistema("Reimplementación de la información del sistema");
-        assertEquals("Reimplementación de la información del sistema", newJuego.getInformacionSistema());
+    @Test
+    public void testSetAndGetInformacionSistema() {
+        String informacionSistema = "informacion del sistema";
+        juego.setInformacionSistema(informacionSistema);
+        assertEquals(informacionSistema, juego.getInformacionSistema());
     }
-	
+
 	/*
-	 * Comprueba que se obtenga bien la información de puntuación
+	 * Comprueba que se obtiene y se introduce correctamente la informacion de puntuacion
 	 */
-	@Test
-	public void testGetInformacionPuntuacion() {
-	    assertEquals("Ejemplo información de la puntuación", newJuego.getInformacionPuntuacion());
-	    newJuego.setInformacionPuntuacion("Otra versión de informacion de la puntuacion");
-        assertEquals("Otra versión de informacion de la puntuacion", newJuego.getInformacionPuntuacion());
-	}
-	
-	/*
-	 * Comprueba que se obtenga bien la información de sistema
-	 */
-	@Test
-    public void testGetInformacionSistema() {
-        assertEquals("Ejemplo información del sistema", newJuego.getInformacionSistema());
-        newJuego.setInformacionSistema("Versión mejorada de la información del sistema");
-        assertEquals("Versión mejorada de la información del sistema", newJuego.getInformacionSistema());
+    @Test
+    public void testSetAndGetInformacionPuntuacion() {
+        String informacionPuntuacion = "informacion de la puntuacion";
+        juego.setInformacionPuntuacion(informacionPuntuacion);
+        assertEquals(informacionPuntuacion, juego.getInformacionPuntuacion());
     }
-	
-	/*
-	 * Comprueba que al pasar a string devuelva la información correcta
-	 */
-	@Test
+
+/*
+ * Comprueba que se devuelva un string con la informacion del sistema y la de la puntuacion
+ */
+    @Test
     public void testToString() {
-        assertEquals("Juego [informacionSistema=Ejemplo información del sistema, informacionPuntuacion=Ejemplo información de la puntuación]", newJuego.toString());
+        Juego juego = Juego.getInstance();
+        String informacionSistema = "informacion del sistema";
+        String informacionPuntuacion = "informacion de la puntuacion";
+        juego.setInformacionSistema(informacionSistema);
+        juego.setInformacionPuntuacion(informacionPuntuacion);
+        assertEquals("Juego [informacionSistema=" + informacionSistema + ", informacionPuntuacion=" + informacionPuntuacion + "]", juego.toString());
     }
 }

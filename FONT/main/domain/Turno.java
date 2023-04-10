@@ -8,6 +8,7 @@ public class Turno {
 	
 	/** Atributos **/
     /** true = CodeMaker, false = CodeBreaker**/
+	
 	private boolean rol;
 	public ArrayList<Combinacion> combinations;
 
@@ -18,8 +19,6 @@ public class Turno {
 		this.rol = rolEscogido;
 		this.combinations = new ArrayList<>();
 	}
-	
-	/** Métodos privados **/
     
 	/** Métodos públicos **/
 	
@@ -41,17 +40,22 @@ public class Turno {
 	public ArrayList<Combinacion> getCombinaciones() {
 		return this.combinations;
 	}
+	
+	public Combinacion getLastCombinacion(){
+		Combinacion lastCombinacion = combinations.get(getNumberComb()-1);
+		return lastCombinacion;
+	}
 
 	public int getNumberComb() {
 		return combinations.size();
 	}
 	
-	public void setNumberComb(Integer numComb) {
-		for (int i = 0; i < numComb; i++) {
-	        combinations.add(new Combinacion(new ArrayList<Color>()));
-	    }
+	public void setAllComb(ArrayList<Combinacion> combinations) {
+		combinations.addAll(combinations);
 	}
 	public void eraseCombinations() {
 		combinations.clear();
 	}
+
+
 }

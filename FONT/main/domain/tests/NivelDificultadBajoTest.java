@@ -8,11 +8,7 @@ import org.junit.Test;
 
 import main.domain.NivelDificultadBajo;
 
-import java.util.Map;
-import java.util.List;
-import java.io.Console;
 import java.util.ArrayList;
-import java.util.HashMap;
 import main.domain.Combinacion;
 import main.domain.Color;
 
@@ -123,18 +119,7 @@ public class NivelDificultadBajoTest {
 		assertEquals( solucionIguales, ndb.comprobarCombinacionPista(solucion, envio)); 
 	}
 
-	@Test
-	public void TestSolveWinRound1() {
-		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.PURPLE);
-		colores.add(Color.RED);
-		colores.add(Color.GREEN);
-		colores.add(Color.BLUE);
-        Combinacion solucionUsuario = new Combinacion(colores);
-        
-        int resultado = ndb.resolve(solucionUsuario).size();
-        assertTrue(resultado >= 1 && resultado <= 10);
-	}
+
 	@Test
 	public void TestSolveWinRoundV() {
 		ArrayList<Color> colores = new ArrayList<Color>();

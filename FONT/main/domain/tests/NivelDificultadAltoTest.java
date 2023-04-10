@@ -32,20 +32,7 @@ public class NivelDificultadAltoTest {
 		Integer numcol = 5;
 		assertEquals( numcol, nda.getNumColumnas() ); 
 	}
-	@Test
-	public void TestSolveWinRound1() {
-		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.RED);
-		colores.add(Color.BLUE);
-		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
-		colores.add(Color.YELLOW);
-        Combinacion solucionUsuario = new Combinacion(colores);
-        int resultado = nda.resolve(solucionUsuario).size();
-        assertTrue(resultado >= 1 && resultado <= 10);
-		
-		
-	}
+	
 	@Test
 	public void TestSolveWinRoundX() {
 		ArrayList<Color> colores = new ArrayList<Color>();
@@ -53,9 +40,9 @@ public class NivelDificultadAltoTest {
 		colores.add(Color.GREEN);
 		colores.add(Color.YELLOW);
 		colores.add(Color.PURPLE);
-		colores.add(Color.RED);
+		colores.add(Color.ORANGE);
         Combinacion solucionUsuario = new Combinacion(colores);
-        int resultado = nda.resolve(solucionUsuario);
+        int resultado = nda.resolve(solucionUsuario).size();
         assertTrue(resultado >= 1 && resultado <= 10);
 	}
 

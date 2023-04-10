@@ -7,6 +7,7 @@ import java.util.TreeMap;
 
 import main.domain.Color;
 import main.domain.ColorFeedBack;
+import main.domain.HistorialPartidas;
 import main.domain.Pair;
 import main.domain.Juego;
 import main.domain.Ranking;
@@ -27,6 +28,7 @@ public class CtrlDominio {
 		setControladorUsuario(new CtrlUsuario());
 		setRankingGlobal(new Ranking());
 		setJuego(Juego.getInstance());
+		
 	}
 	
 	public static CtrlDominio getInstance(){
@@ -118,4 +120,7 @@ public class CtrlDominio {
 		CtrlDominio.juego = juego;
 	}
 	
+	public static void cambiarEstadoPartida(String estado) {
+		CtrlUsuario.cambiarEstadoPartida(estado);;
+	}
 }

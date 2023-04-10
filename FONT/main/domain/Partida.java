@@ -1,35 +1,24 @@
 package main.domain;
 
-import java.util.Collection;
-import java.util.GregorianCalendar;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.List;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import main.domain.Combinacion;
-import main.domain.EstadoPartida;
-import main.domain.Color;
-import main.domain.Turno;
-import main.domain.Dificultad;
-import main.domain.ColorFeedBack;
 /** 
 *Clase Partida
 */
 public class Partida {
 	
 	/** 
-	*Atributos 
+	* Atributos 
 	*/
 	private Date data;
 	private int puntos;
 	private boolean ayuda; 
 	private EstadoPartida estadoPartida;
-	public Combinacion solution;
+	public ArrayList<Combinacion> solutions;
 	private NivelDificultad nivel;
 	private String username;
 	private ArrayList<Turno> turnos;
@@ -51,16 +40,18 @@ public class Partida {
 				this.nivel = new NivelDificultadBajo();
 				break;
 			case 2:
-				this.nivel = new NivelDificultadBajo();
+				this.nivel = new NivelDificultadMedio();
 				break;
 			case 3:
-				this.nivel = new NivelDificultadBajo();
+				this.nivel = new NivelDificultadAlto();
 				break;
 			default:
 				throw new  IllegalArgumentException("Nivel de dificultad: 1, 2 o 3");
 		}
 		this.turnos = new ArrayList<Turno>();
 		this.turnos.add(new Turno(rol));
+		this.solutions = new ArrayList<Combinacion>();
+		if(!rol) solutions.add(nivel.genCombinacion());
 		this.ayuda = ayuda;
 		this.puntos = 0;
 		this.username = usuario;
@@ -81,19 +72,35 @@ public class Partida {
 		if(turnos.size() == 1) {
 			boolean choosenRol = this.turnos.get(0).getRol();
 			this.turnos.add(new Turno(!choosenRol));
+			if(!this.turnos.get(1).getRol()) solutions.add(nivel.genCombinacion());
 		}
 		else {
 			Integer turnosCM = turnos.get(0).getNumberComb();
-			Integer turnosCB = turnos.get(0).getNumberComb();
+			Integer turnosCB = turnos.get(1).getNumberComb();
 			if(!turnos.get(0).getRol()){
 				Integer aux = turnosCM;
 				turnosCM = turnosCB;
 				turnosCB = aux;
 			}
-			nivel.calculaPuntuacion(turnosCM, turnosCB);
+			this.puntos = ayuda ? nivel.calculaPuntuacion(turnosCM, turnosCB)/2 : nivel.calculaPuntuacion(turnosCM, turnosCB);
 			HistorialPartidasGuardadas.agregarPartidaGuardada(username, data);
 		}
 	}
+	private void checkIfReps(ArrayList<Color> combinacion) throws Exception  {
+		 HashSet<Color> seenColors = new HashSet<Color>();
+		    for (Color color : combinacion) {
+		        if (seenColors.contains(color)) throw new Exception("For level 1 it's not allowed to repeat colors");
+		        seenColors.add(color);
+		    }
+	}
+	
+	private void checkLevelExceptions(ArrayList<Color> combinacion) throws Exception {
+		Integer nivelDif = nivel.getDificultad();
+		if(nivelDif == 1) checkIfReps(combinacion);
+		Integer numColums = combinacion.size();
+		if(numColums > 4 && nivelDif < 3) throw new Exception("For level 1 and 2 only 4 columns are allowed");
+	}
+	
 	private boolean checkIfAllCorrects(ArrayList<ColorFeedBack> feedBackSolution){
 		ColorFeedBack firstElem = feedBackSolution.get(0);
 		if(firstElem != ColorFeedBack.BLACK) return false;
@@ -106,7 +113,7 @@ public class Partida {
 	/** 
 	*Métodos públicos 
 	*/
-
+	
 	/**
 	*Devuelve el estado de la partida 
 	*/
@@ -145,12 +152,23 @@ public class Partida {
 	}
 
 	/**
-	*Introduce la solución para este turno 
+	* 	Devuelve la solución para este turno 
 	*/
-	public Combinacion getSolution() {
-		return this.solution != null ? this.solution : null;
+	public Combinacion getSolutionTorn(Integer numTorn) {
+		return this.solutions.get(numTorn);
 	}
+	
+	
+	
+	public void setEstadoPartida(String estado){
+		this.estadoPartida.setEstado(estado);
+	}
+	
 
+    public Integer getScore() {
+    	return this.puntos;
+    }
+	
 	/**
 	*Introduce la solución para este turno 
 	 * @return 
@@ -158,12 +176,14 @@ public class Partida {
 	*/
 	public Integer setSolution(ArrayList<Color> combSolution) throws Exception{
 		Combinacion newCombinacion = new Combinacion(combSolution);
-		Turno lastTurno = this.turnos.get(turnos.size() -1);
-		if(lastTurno.getRol()) this.solution = newCombinacion;
+		Turno lastTurno = this.turnos.get(turnos.size() - 1);
+		checkLevelExceptions(combSolution);
+		if(lastTurno.getRol()) solutions.add(newCombinacion);
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
-		Integer numIntentos = nivel.resolve(newCombinacion);
+		List<Combinacion> combHechas = nivel.resolve(newCombinacion);
+		turnos.get(getLastTurno() - 1).setAllComb(combHechas);
 		donePartida();
-		return numIntentos;
+		return combHechas.size();
 	}
 	/**
 	* Introduce un intento para este turno 
@@ -171,12 +191,14 @@ public class Partida {
 	public ArrayList<ColorFeedBack> setCombinacion(ArrayList<Color> combSolution) throws Exception{
 		Turno lastTurno = this.turnos.get(turnos.size() -1);
 		lastTurno.setCombinacion(combSolution);
+		Combinacion lastComb = lastTurno.getLastCombinacion();
+		checkLevelExceptions(combSolution);
 		if(!lastTurno.getRol()){
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
 			if(!ayuda) {
-				String feedBack = nivel.comprobarCombinacion(this.solution, combSolution);
+				String feedBack = nivel.comprobarCombinacion(solutions.get(solutions.size()-1), lastComb);
 				for(char bola : feedBack.toCharArray()) {
-				    ColorFeedBack cb = bola == 'n' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
+				    ColorFeedBack cb = bola == 'N' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);
 				}
 				while(feedBackSolution.size() < nivel.getNumColumnas()) {
@@ -184,21 +206,32 @@ public class Partida {
 				}
 			}
 			else {
-				String feedBack = nivel.comprobarCombinacionPista(this.solution, combSolution);
+				String feedBack = nivel.comprobarCombinacionPista(this.solutions.get(solutions.size()-1), lastComb);
 				for(char bola : feedBack.toCharArray()) {
 					ColorFeedBack cb;
-					if(bola == ' ') cb = ColorFeedBack.GREY;
-					else cb = bola == 'n' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
+					if(bola == 'N') cb = ColorFeedBack.BLACK;
+					else if(bola == 'B') cb = ColorFeedBack.WHITE ;
+					else cb = ColorFeedBack.GREY;
 					feedBackSolution.add(cb);
 				}
 			}
-			Boolean lastChance = lastTurno.getNumberComb() - 1 == 10 ? true : false;
+			Boolean lastChance = lastTurno.getNumberComb() == 10 ? true : false;
 			if(lastChance || checkIfAllCorrects(feedBackSolution)) donePartida();
 			return feedBackSolution;
 		}
 		else throw new Exception("Sólo el CodeMaker puede hacer combinaciones");
 	}
-
+	
+	public Combinacion getLastCombination() {
+		if(turnos.size() == 0) return null;
+		return this.turnos.get(turnos.size()-1).getLastCombinacion();
+	}
+	
+	public Integer getNumCombinations() {
+		if(turnos.size() == 0) return 0;
+		return this.turnos.get(turnos.size()-1).getNumberComb();
+	}
+	
 	/**
 	*Devuelve la puntuación de la partida 
 	 * @return 
@@ -221,6 +254,12 @@ public class Partida {
 
 	public void reiniciarPartida() {
 		Turno lastTurno = turnos.get(turnos.size() - 1);
+		this.solutions.remove(solutions.size()-1);
+		this.solutions.add(nivel.genCombinacion());
 		lastTurno.eraseCombinations();
+	}
+	
+	public Integer getLastTurno() {
+		return turnos.size();
 	}
 }

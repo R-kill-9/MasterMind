@@ -3,16 +3,14 @@ package main.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class NivelDificultadMedio extends NivelDificultad{
     public NivelDificultadMedio() {
     	numColors = 6;
    	    numcolumnas = 4;
-   	    totalcombinacionesPosibles = new ArrayList<Combinacion>();
-   	    solucionesEnviadas = new ArrayList<Combinacion>();
-   	    possibleCodes = new ArrayList<Combinacion>();
-   	    enviosCandidatos = new ArrayList<Combinacion>();
    	    turn = 1;
-   	    NumNegras ="NNNN";
+   	    Nsolucion ="NNNN";
+   	    maquinaResolve = new FiveGuess(this);
        }
     @Override
     public Integer getNumColumnas() {
@@ -23,11 +21,6 @@ public class NivelDificultadMedio extends NivelDificultad{
     	return this.numColors;
     }
     
-    @Override
-    public String getNumNegras() {
-    	return this.NumNegras;
-    }
-
        //NumIntentCodeMaker son los intentos que necesita el rival para obtener la solucion, siendo el jugador el codeMaker
        //NumIntentCodeBreaker son los intentos que necesita el jugador para obtener la solucion
        @Override
@@ -76,6 +69,10 @@ public class NivelDificultadMedio extends NivelDificultad{
    	    
    	    return combinaciones;
    	}
+	@Override
+	public String getNsolucion() {
+		return Nsolucion;
+	}
 
 
        }

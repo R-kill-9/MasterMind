@@ -7,6 +7,7 @@ import main.domain.Usuario;
 import main.domain.Color;
 import main.domain.ColorFeedBack;
 import main.domain.Partida;
+import main.domain.PossiblesEstadosPartida;
 import main.domain.HistorialPartidas;
 import main.domain.HistorialPartidasGuardadas;
 import main.domain.Pair;
@@ -15,11 +16,12 @@ import main.domain.Pair;
  * Clase que representa el controlador de dominio de la clase Partida.
  */
 public class CtrlPartida {
-    private static Partida partidaActual;
+    private static  Partida partidaActual;
     /**
      * Constructora por defecto.
      */
-    public CtrlPartida() {}
+    public CtrlPartida() {
+    }
      /**
      * Crea una nueva partida y la añade a la lista de partidas.
      * 
@@ -31,6 +33,7 @@ public class CtrlPartida {
     public static Partida crearPartida(int dificultadEscogida, String username, boolean ayuda, boolean rol) {
         Partida partida = new Partida(dificultadEscogida, username, ayuda, rol);
         Date dataPartida = partida.getData();
+        
         HistorialPartidas.agregarPartida(username,dataPartida);
         partidaActual = partida;
         return partida;
@@ -40,14 +43,14 @@ public class CtrlPartida {
      * 
      * @param data la fecha de la partida
      * @param usuario el usuario que quiere borrar la partida
-     * @return 
+     * @return valor booleano dependiendo de si exisita la partida en el historial
      */
     public static Boolean borrarPartida(String username, Date dataPartida) {
         return HistorialPartidas.borrarPartida(username,dataPartida);
     }
 
      /**
-     * Obtiene la lista de partidas.
+     * Obtiene la lista de partidas que hay en el historial.
      * 
      * @return la lista de partidas
      */
@@ -57,18 +60,24 @@ public class CtrlPartida {
 
      
     /**
-     * Obtiene una la partida actual del usuario.
-     * 
-     * @param usuario el usuario que ha jugado la partida
-     * @return la partida jugada por ese usuario, o null si no hay ninguna
-     * @throws Exception 
+     * Obtiene la partida actual del usuario.
+     * @return la partida jugada por ese usuario, o null si no hay ninguna 
      */
-    public Partida getPartidaActual(Usuario usuario) throws Exception {
-        if(partidaActual != null) return partidaActual;
-        else throw new Exception("No hay ninguna partida actual");
+    public Partida getPartidaActual()  {
+    	return this.partidaActual;
     }
+    
     /**
-     * Obtiene una la partida actual del usuario.
+     * Devuelve un valor booleano dependiendo de la existencia de una partida actual.
+     */
+    public static Boolean existsPartidaActual()  {
+        if(partidaActual != null) return true;
+        else return false;
+    }
+    
+    
+    /**
+     * Introduce una nueva combinacion.
      * 
      * @param Vector<Color> la combinacion de la partida
      * @return la partida jugada por ese usuario, o null si no hay ninguna
@@ -101,28 +110,63 @@ public class CtrlPartida {
     }
     
     /**
-     * Obtiene información de las partidas guardadas por el usuario.
+     * Obtiene información del historial de partidas.s
      * 
+     * @param usuario el usuario que ha jugado la partida
+     * @param estado el estado de las partidas: guardadas o pausadas.
+     * @return la partida jugada por ese usuario, o null si no hay ninguna
+     */
+    public static ArrayList<Pair<String, Date>> getPartidasHistorial() {
+        return HistorialPartidas.getPartidas();
+    }
+    
+    /**
+     * Obtiene información de las partidas.
      * @param una partida
      * @return la informacion de la partida, cuando se ha jugado y la puntuacion.
      */
-	public static HashMap<Date,Integer> getInfoPartida(Partida partida) {
+	public static Pair<Date, Integer> getInfoPartida(Partida partida) {
 		Date dataP = partida.getData();
 		Integer nivel = partida.getDificultad();
-		HashMap<Date, Integer> infoPartida = new HashMap<>();
-		infoPartida.put(dataP, nivel);
+		Pair<Date, Integer> infoPartida = new Pair<>(dataP, nivel);
 	    return infoPartida;
 	}
 	
+	/*
+	 * Activa la opción de ayuda en la partida actual
+	 */
 	public static void solicitarAyuda() {
 		partidaActual.setAyuda();
 	}
 	
+	/*
+	 * Obtiene el valor de ayuda en la partida actual
+	 */
+	public static  boolean getAyuda() {
+		return partidaActual.getAyuda();
+	}
+	
+	/*
+	 * Sale de la partida actual
+	 */
 	public static void salirPartida() {
 		partidaActual = null;
 	}
+	
+	/*
+	 * Reinicia la partida actual
+	 */
 	public static void reiniciarPartida() {
 		partidaActual.reiniciarPartida();
 		
 	}
+	public static void cambiarEstadoPartida(String estado) {
+		partidaActual.setEstadoPartida(estado);
+	}
+	/*
+	 * Devuelve el score de una partida
+	 */
+	public static int getScore() {
+    	return partidaActual.getScore();
+    }
 }
