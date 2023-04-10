@@ -109,7 +109,7 @@ public class CtrlPartida {
     }
     
     /**
-     * Obtiene información de las partidas guardadas por el usuario.
+     * Obtiene información del historial de partidas.s
      * 
      * @param usuario el usuario que ha jugado la partida
      * @param estado el estado de las partidas: guardadas o pausadas.
@@ -120,8 +120,7 @@ public class CtrlPartida {
     }
     
     /**
-     * Obtiene información de las partidas guardadas por el usuario.
-     * 
+     * Obtiene información de las partidas.
      * @param una partida
      * @return la informacion de la partida, cuando se ha jugado y la puntuacion.
      */
@@ -132,18 +131,30 @@ public class CtrlPartida {
 	    return infoPartida;
 	}
 	
+	/*
+	 * Activa la opción de ayuda en la partida actual
+	 */
 	public static void solicitarAyuda() {
 		partidaActual.setAyuda();
 	}
 	
+	/*
+	 * Obtiene el valor de ayuda en la partida actual
+	 */
 	public static  boolean getAyuda() {
 		return partidaActual.getAyuda();
 	}
 	
+	/*
+	 * Sale de la partida actual
+	 */
 	public static void salirPartida() {
 		partidaActual = null;
 	}
 	
+	/*
+	 * Reinicia la partida actual
+	 */
 	public static void reiniciarPartida() {
 		partidaActual.reiniciarPartida();
 		
@@ -153,20 +164,27 @@ public class CtrlPartida {
 	 * Cambia el estado de una partida a running
 	 */
 	public static void reanudarPartida() {
-    	partidaActual.cambiarEstadoPartida(PossiblesEstadosPartida.RUNNING);
+    	partidaActual.setEstado(PossiblesEstadosPartida.RUNNING);
     }
 	
 	/*
 	 * Cambia el estado de una partida a saved
 	 */
 	public static void guardarPartida() {
-    	partidaActual.cambiarEstadoPartida(PossiblesEstadosPartida.SAVED);
+    	partidaActual.setEstado(PossiblesEstadosPartida.SAVED);
     }
 	
 	/*
 	 * Cambia el estado de una partida a paused
 	 */
 	public static void pausarPartida() {
-    	partidaActual.cambiarEstadoPartida(PossiblesEstadosPartida.PAUSED);
+    	partidaActual.setEstado(PossiblesEstadosPartida.PAUSED);
+    }
+	
+	/*
+	 * Devuelve el score de una partida
+	 */
+	public static int getScore() {
+    	return partidaActual.getScore();
     }
 }

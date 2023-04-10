@@ -14,10 +14,12 @@ import main.domaincontrollers.CtrlPartida;
 import main.domaincontrollers.CtrlUsuario;
 import main.domain.Color;
 import main.domain.ColorFeedBack;
+import main.domain.Combinacion;
 import main.domain.HistorialPartidas;
 import main.domain.HistorialPartidasGuardadas;
 import main.domain.Pair;
 import main.domain.Partida;
+import main.domain.PossiblesEstadosPartida;
 import main.domain.Usuario;
 
 public class CtrlPartidaTest {
@@ -142,7 +144,7 @@ public class CtrlPartidaTest {
      * que funncione correctamente el metodo getter de ayuda
      */
     @Test
-	public void testSolicitarAyuda() {
+	public void testSolicitarGetAyuda() {
     	CtrlPartida.solicitarAyuda();
 		assertTrue(partida.getAyuda());
 		partida = CtrlPartida.crearPartida(1, "Condor", false, false);
@@ -192,9 +194,31 @@ public class CtrlPartidaTest {
 		combination2.add(Color.YELLOW);
 		ArrayList<ColorFeedBack> feedbacks = CtrlPartida.newCombinacion(combination);
 		assertNotNull(feedbacks);
-		assertEquals(1, feedbacks.size());
+		assertEquals(4, feedbacks.size());
 		ArrayList<ColorFeedBack> feedbacks2 = CtrlPartida.newCombinacion(combination2);
-		assertEquals(2, feedbacks2.size());
+		assertEquals(4, feedbacks2.size());
+	}
+    
+    /*
+     * Comprueba que se añada correctamente un código solucion.
+     */
+    @Test
+	public void testNewSolution() throws Exception{
+    	//creamos una nueva en la que iniciamos como codeMaker
+    	Partida newPartida = CtrlPartida.crearPartida(1, "ricky", true, true);
+		
+		//creamos la combinacion que queremos insertar
+		ArrayList<Color> combination = new ArrayList<Color>();
+		combination.add(Color.BLUE);
+		combination.add(Color.RED);
+		combination.add(Color.GREEN);
+		combination.add(Color.YELLOW);
+		Combinacion expectedSolution = new Combinacion(combination);
+		CtrlPartida.setSolution(combination);
+		assertEquals(expectedSolution.getPosition(0), newPartida.getSolution().getPosition(0));
+		assertEquals(expectedSolution.getPosition(1), newPartida.getSolution().getPosition(1));
+		assertEquals(expectedSolution.getPosition(2), newPartida.getSolution().getPosition(2));
+		assertEquals(expectedSolution.getPosition(3), newPartida.getSolution().getPosition(3));
 	}
     
     /*
@@ -210,9 +234,11 @@ public class CtrlPartidaTest {
 	    Partida partida2 = CtrlPartida.crearPartida(2, "ricky", false, false);
 	    Pair<Date, Integer> info2 = CtrlPartida.getInfoPartida(partida2);
 	    assertEquals(ctrlPartida.getPartidaActual().getData(), info2.getFirst());
-	    assertEquals((Integer)1, info2.getSecond());
+	    assertEquals((Integer)2, info2.getSecond());
     
     }
+	
+
     
 }
    

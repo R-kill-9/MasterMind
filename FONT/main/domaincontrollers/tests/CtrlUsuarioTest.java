@@ -102,6 +102,7 @@ public class CtrlUsuarioTest {
     	
         assertEquals(expectedPartida2.getFirst(), historialPartida2.getFirst());
         assertEquals(expectedPartida2.getSecond(), historialPartida2.getSecond());
+
     }
 
     /*
@@ -144,7 +145,6 @@ public class CtrlUsuarioTest {
         CtrlUsuario.crearPartida(1, true, false);
         ArrayList<Date> newPartidas = CtrlUsuario.getDataPartidasUsuario();
         ctrlUsuario.borrarPartida(newPartidas.get(0));
-        
         assertEquals(1, CtrlUsuario.getPartidasHistorial().size());
     }
 

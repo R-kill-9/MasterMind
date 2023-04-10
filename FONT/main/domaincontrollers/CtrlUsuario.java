@@ -198,22 +198,21 @@ public class CtrlUsuario {
 	 * Cambia el estado de una partida a running
 	 */
 	public static void reanudarPartida() {
-    	CtrlPartida.reanudarPartda();
+    	CtrlPartida.reanudarPartida();
     }
 	
 	/*
 	 * Cambia el estado de una partida a saved
 	 */
 	public static void guardarPartida() {
-		CtrlPartida.guardarPartda();
+		CtrlPartida.guardarPartida();
     }
 	
 	/*
 	 * Cambia el estado de una partida a paused
 	 */
 	public static void pausarPartida() {
-		CtrlPartida.pausarPartda();
+		CtrlPartida.pausarPartida();
     }
-
 
 }
