@@ -2,6 +2,7 @@ package main.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 public class HistorialPartidas {
     private static ArrayList<Pair<String,Date>> partidas;
@@ -21,10 +22,15 @@ public class HistorialPartidas {
     }
 
 	public static boolean borrarPartida(String username, Date dataIni) {
-		Pair<String,Date> infoPartida = new Pair<String, Date>(username,dataIni);
-		Integer posPartida = partidas.indexOf(infoPartida);
-		if(posPartida == -1) return false;
-		partidas.remove(infoPartida);
-		return true;
+		Pair<String,Date> infoPartida = new Pair<String, Date>(username, dataIni);
+	    Iterator<Pair<String, Date>> it = partidas.iterator();
+	    while (it.hasNext()) {
+	        Pair<String, Date> partida = it.next();
+	        if (partida.getFirst().equals(username) && partida.getSecond().equals(dataIni)) {
+	            it.remove();
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 }
