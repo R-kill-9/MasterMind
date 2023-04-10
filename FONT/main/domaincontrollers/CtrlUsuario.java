@@ -158,7 +158,7 @@ public class CtrlUsuario {
      * @return la partida jugada por ese usuario, o null si no hay ninguna
      * @throws Exception 
      */
-    public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
+    public static ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
         return CtrlPartida.newCombinacion(combination);
     }
     
@@ -194,9 +194,11 @@ public class CtrlUsuario {
     	CtrlPartida.reiniciarPartida();
     }
 	
-	
+	/*
+	 * Cambia el estado de una partida al estado pasado por parametro
+	 */
 	public static void cambiarEstadoPartida(String estado) {
-		CtrlPartida.cambiarEstadoPartida(estado);;
+		CtrlPartida.cambiarEstadoPartida(estado);
 	}
 
 }

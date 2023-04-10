@@ -46,6 +46,19 @@ public class CtrlUsuarioTest {
 		}
         assertTrue("The boolean value exists should be true if the user has been added", exists);
     }
+    
+    /*
+     * Comprueba que no se añada un usuario a la lista de usuarios mediante la funcion de loginUser si este usuario ya existe
+     */
+    @Test
+    public void testAddUsuarioExistente()  throws Exception {
+        String username = "Levi";
+    	ctrlUsuario.loginUser(username);
+    	String username2 = "Levi";
+    	ctrlUsuario.loginUser(username2);
+        ArrayList<String> usuariosExistentes = ctrlUsuario.getUsuarios();
+        assertEquals("usuariosExistentes size should be 2 because Levi was already added", 2, usuariosExistentes.size());
+    }
 
     /*
      * Comprueba que el useraname asignado al usuario actual sea el correcto
@@ -102,6 +115,31 @@ public class CtrlUsuarioTest {
         assertEquals("The username for the created Partida should be the given one", expectedPartida2.getFirst(), historialPartida2.getFirst());
         assertEquals("The Date for the created Partida should be the given one", expectedPartida2.getSecond(), historialPartida2.getSecond());
 
+    }
+    
+    /*
+     * Comprueba que se añada la partida al historial de partidas guardadas una vex la partida ha finalizado
+     */
+    @Test
+    public void testCrearPartidaHistorialGuardadas() throws Exception {
+    	CtrlUsuario.crearPartida(1, false, false);
+    	Date dataPartida = CtrlUsuario.getDataPartidasUsuario().get(0);
+    	Pair<String, Date> expectedPartida = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida);
+    	ArrayList<Color> combination = new ArrayList<Color>();
+		combination.add(Color.BLUE);
+		combination.add(Color.RED);
+		combination.add(Color.GREEN);
+		combination.add(Color.YELLOW);
+		int i = 0;
+    	while (i < 10) {
+    		ArrayList<ColorFeedBack> feedback = CtrlUsuario.newCombinacion(combination);
+    		++i;
+    	}
+    	CtrlUsuario.setSolution(combination);
+    	String expectedUsername = CtrlUsuario.getPartidasGuardadas().get(0).getFirst();
+    	Date expectedDate = CtrlUsuario.getPartidasGuardadas().get(0).getSecond();
+    	assertEquals("The saved username should be the same as the logged user, in this case Pikachu", expectedPartida.getFirst(), expectedUsername);
+    	assertEquals("The saved Date should be the same as the logged one assigned to the created Partida", expectedPartida.getSecond(), expectedDate);
     }
 
     /*

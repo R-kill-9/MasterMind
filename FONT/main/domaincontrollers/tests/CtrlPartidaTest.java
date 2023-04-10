@@ -192,10 +192,10 @@ public class CtrlPartidaTest {
 		combination.add(Color.YELLOW);
 		Combinacion expectedSolution = new Combinacion(combination);
 		CtrlPartida.setSolution(combination);
-		assertEquals("The first position of solution should be the expected one", expectedSolution.getPosition(0), newPartida.getSolution().getPosition(0));
-		assertEquals("The second position of solution should be the expected one", expectedSolution.getPosition(1), newPartida.getSolution().getPosition(1));
-		assertEquals("The third position of solution should be the expected one", expectedSolution.getPosition(2), newPartida.getSolution().getPosition(2));
-		assertEquals("The fourth position of solution should be the expected one", expectedSolution.getPosition(3), newPartida.getSolution().getPosition(3));
+		assertEquals("The first position of solution should be the expected one", expectedSolution.getPosition(0), newPartida.getSolutionTorn(0).getPosition(0));
+		assertEquals("The second position of solution should be the expected one", expectedSolution.getPosition(1), newPartida.getSolutionTorn(0).getPosition(1));
+		assertEquals("The third position of solution should be the expected one", expectedSolution.getPosition(2), newPartida.getSolutionTorn(0).getPosition(2));
+		assertEquals("The fourth position of solution should be the expected one", expectedSolution.getPosition(3), newPartida.getSolutionTorn(0).getPosition(3));
 	}
     
     /*
