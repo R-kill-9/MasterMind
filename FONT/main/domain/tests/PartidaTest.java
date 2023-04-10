@@ -31,6 +31,9 @@ public class PartidaTest {
         testPartidaSinAyuda = new Partida(1, "Juan", false, true);
     }
     
+    /*
+     * Comprueba que se introduzcan bien todos los parametros
+     */
 	@Test
 	public void testParameters() {
 		System.out.println(testPartidaAyuda);

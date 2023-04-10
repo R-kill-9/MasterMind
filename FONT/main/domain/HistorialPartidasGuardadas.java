@@ -27,7 +27,7 @@ public class HistorialPartidasGuardadas {
 
 	public static void borrarPartidaGuardada(String username, Date dataIni) {
 		Pair<String,Date> infoPartida = new Pair<String, Date>(username,dataIni);
-		Integer posPartida = partidas.indexOf(infoPartida);
+		int posPartida = partidas.indexOf(infoPartida);
 		partidas.remove(posPartida);
 	}
 }

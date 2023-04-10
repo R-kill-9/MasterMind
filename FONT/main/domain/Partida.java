@@ -148,11 +148,13 @@ public class Partida {
 	}
 
 	/**
-	* Introduce la solución para este turno 
+	* 	Devuelve la solución para este turno 
 	*/
 	public Combinacion getSolution() {
 		return this.solution;
 	}
+	
+
 
 	/**
 	*Introduce la solución para este turno 
@@ -179,6 +181,7 @@ public class Partida {
 		checkLevelExceptions(combSolution);
 		if(!lastTurno.getRol()){
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
+
 			if(!ayuda) {
 				String feedBack = nivel.comprobarCombinacion(this.solution, lastComb);
 				for(char bola : feedBack.toCharArray()) {

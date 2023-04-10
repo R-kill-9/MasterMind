@@ -7,6 +7,7 @@ import main.domain.Color;
 import main.domain.ColorFeedBack;
 import main.domain.Pair;
 import main.domain.Partida;
+import main.domain.PossiblesEstadosPartida;
 
 /**
  * Clase que representa el controlador de dominio de la clase Usuario.
@@ -34,6 +35,13 @@ public class CtrlUsuario {
 	public void addUsuario(String username) {
 		this.usuarios.add(username);
 	}
+	
+	/**
+	 * Devuele la lista de usuarios existentes
+	 */
+	public ArrayList<String> getUsuarios() {
+		return this.usuarios;
+	}
 
 	public void loginUser(String username) throws Exception {
 		Boolean exists = false;
@@ -43,9 +51,9 @@ public class CtrlUsuario {
 			}
 		}
 		if (!exists) {
-			userAct = new Usuario(username);
 			usuarios.add(username);
 		}
+		userAct = new Usuario(username);
 	}
 
 	/**
@@ -54,7 +62,7 @@ public class CtrlUsuario {
 	 * @param username Nombre de usuario.
 	 * @return Usuario con el nombre de usuario dado.
 	 */
-	public String getUsuarioActual(String username) {
+	public String getUsuarioActual() {
 		return userAct.getUsername();
 	}
 
@@ -77,15 +85,13 @@ public class CtrlUsuario {
 	}
 
 	/**
-	 * Añade una partida al usuario con el nombre de usuario dado.
-	 * 
-	 * @param username Nombre de usuario.
-	 * @param p        Partida.
+	 * Obtenemos el ArrayList de partidas del usuario.
+	 * @return ArrayList<Date> where date =  dateCreation
 	 */
-	public void addPartida(Date fecha) {
-		userAct.addPartida(fecha);
+	public static ArrayList<Date> getDataPartidasUsuario() {
+		return userAct.getDataPartidasGuardadas();
 	}
-
+	
 	/**
 	 * Obtenemos el ArrayList de partidas del usuario con el nombre de usuario dado.
 	 * @return ArrayList<Pair<String, Date>> where string = username, date =
@@ -95,19 +101,16 @@ public class CtrlUsuario {
 		String username = userAct.getUsername();
 		return CtrlPartida.getInfoPartidasGuardadas(username);
 	}
-
+	
 	/**
-	 * Borra la partida con el identificador dado del usuario con el nombre de
-	 * usuario dado.
-	 * 
-	 * @param username Nombre de usuario.
-	 * @param fecha    Fecha de la partida.
+	 * Obtenemos el ArrayList de partidas guardadas en el historial
+	 * @return ArrayList<Pair<String, Date>> where string = username, date =
+	 *         dateCreation
 	 */
-	public static void deletePartida(Date fecha) {
-		userAct.deletePartida(fecha);
-		CtrlPartida.borrarPartida(userAct.getUsername(), fecha);
+	public static ArrayList<Pair<String, Date>> getPartidasHistorial() {
+		return CtrlPartida.getPartidasHistorial();
 	}
-
+	
 	/**
 	 * Crea una nueva partida
 	 */
@@ -120,23 +123,32 @@ public class CtrlUsuario {
 	}
 
 	/**
-	 * Borra una partida
+	 * Borra una partida tanto del historial de partidas como de  la lista de partidas de usuario
 	 * @param la fecha de la partida que queremos borrar
 	 * @throws Exception
 	 */
 	public void borrarPartida(Date data) throws Exception {
 		String username = userAct.getUsername();
 		Boolean removedPartida = CtrlPartida.borrarPartida(username, data);
-		if (removedPartida == null)
+		if (removedPartida == false)
 			throw new Exception("The partida does not exists");
 		else {
-			deletePartida(data);
 			userAct.deletePartida(data);
 		}
 	}
 	
+	/*
+	 * Solicita ayuda en la partida actual
+	 */
 	public void solicitarAyuda() {
 		CtrlPartida.solicitarAyuda();
+	}
+	
+	/*
+	 * Obtiene elvalor de ayuda en la partida actual
+	 */
+	public static boolean getAyuda() {
+		return CtrlPartida.getAyuda();
 	}
 	
 	 /**
@@ -161,13 +173,46 @@ public class CtrlUsuario {
         return CtrlPartida.setSolution(combination);
     }
 
+    /*
+     * Sale de la partida actual
+     */
 	public static void salirPartida() {
 		CtrlPartida.salirPartida();
 	}
 	
+	/*
+	 * Devuelve un valor booleano dependiend de si existe una partida actuals
+	 */
+	public static Boolean existsPartidaActual() {
+		return CtrlPartida.existsPartidaActual();
+	}
+	
+	/*
+	 * Reinicia los valores para el mismo turno
+	 */
 	public static void reiniciarPartida() {
     	CtrlPartida.reiniciarPartida();
     }
 	
+	/*
+	 * Cambia el estado de una partida a running
+	 */
+	public static void reanudarPartida() {
+    	CtrlPartida.reanudarPartida();
+    }
+	
+	/*
+	 * Cambia el estado de una partida a saved
+	 */
+	public static void guardarPartida() {
+		CtrlPartida.guardarPartida();
+    }
+	
+	/*
+	 * Cambia el estado de una partida a paused
+	 */
+	public static void pausarPartida() {
+		CtrlPartida.pausarPartida();
+    }
 
 }
