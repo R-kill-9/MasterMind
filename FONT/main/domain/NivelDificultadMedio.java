@@ -3,15 +3,12 @@ package main.domain;
 import java.util.ArrayList;
 
 public class NivelDificultadMedio extends NivelDificultad{
-    public NivelDificultadMedio() {
+    
+	public NivelDificultadMedio() {
    	    numcolumnas = 4;
-   	    totalcombinacionesPosibles = new ArrayList<Combinacion>();
-   	    solucionesEnviadas = new ArrayList<Combinacion>();
-   	    possibleCodes = new ArrayList<Combinacion>();
-   	    enviosCandidatos = new ArrayList<Combinacion>();
    	    turn = 1;
-   	    
-       }
+   	    maquinaResolve = new FiveGuess(this);
+     }
     
     /**
      * 
