@@ -8,6 +8,7 @@ public class Turno {
 	
 	/** Atributos **/
     /** true = CodeMaker, false = CodeBreaker**/
+	
 	private boolean rol;
 	public ArrayList<Combinacion> combinations;
 
@@ -18,8 +19,6 @@ public class Turno {
 		this.rol = rolEscogido;
 		this.combinations = new ArrayList<>();
 	}
-	
-	/** Métodos privados **/
     
 	/** Métodos públicos **/
 	
@@ -59,4 +58,6 @@ public class Turno {
 	public void eraseCombinations() {
 		combinations.clear();
 	}
+
+
 }
