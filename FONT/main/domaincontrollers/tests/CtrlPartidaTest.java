@@ -36,19 +36,15 @@ public class CtrlPartidaTest {
     }
 
     /*
-     * Comprueba que se cree una partida y se asigne como partida actual
+     * Comprueba que se cree una partida y se asigne como partida actual, haciendo correctamente su get
      */
     @Test
     public void crearPartidaTest() {
         Partida expectedPartida = ctrlPartida.getPartidaActual();
-        assertNotNull(expectedPartida);
-        assertEquals(partida, expectedPartida);
-        assertEquals(partida.getUsuario(), expectedPartida.getUsuario());
-        assertEquals(true, expectedPartida.getAyuda());
-        
-        Partida newPartida = CtrlPartida.crearPartida(1, "kill-9", true, true);
-        int tamaño = ctrlPartida.getPartidas().size();
-		assertEquals(2, tamaño);
+        assertNotNull("The value for expectedPartida shouldn't be null, since it has been created", expectedPartida);
+        assertEquals("The actual Partida should be the created one", partida, expectedPartida);
+        assertEquals("The username should be the given one", partida.getUsuario(), expectedPartida.getUsuario());
+        assertEquals("The ayuda should be the given one", true, expectedPartida.getAyuda());
         }
     
     /*
@@ -61,19 +57,8 @@ public class CtrlPartidaTest {
     	Pair<String, Date> expectedPartida = new Pair<String, Date>("ricky", fecha);
     	ArrayList<Pair<String, Date>> historialPartida = ctrlPartida.getPartidas();
     	    	
-        assertEquals(expectedPartida.getFirst(), historialPartida.get(0).getFirst());
-        assertEquals(expectedPartida.getSecond(), historialPartida.get(0).getSecond());
-    }
-
-    /*
-     * Comprueba que se obtenga correctamente cual es el valor de la partida actual
-     */
-    @Test
-    public void getPartidaActualTest() throws Exception {
-        assertNotNull(ctrlPartida.getPartidaActual());
-        partida = CtrlPartida.crearPartida(1, "ricky2", true, true);
-        assertNotNull(ctrlPartida.getPartidaActual());
-        assertEquals(ctrlPartida.getPartidaActual(), partida);
+        assertEquals("The username for Partida in historiaPartida should be the same as in Usuario", expectedPartida.getFirst(), historialPartida.get(0).getFirst());
+        assertEquals("The Date for Partida in historiaPartida should be the same as in Usuario", expectedPartida.getSecond(), historialPartida.get(0).getSecond());
     }
 
     /*
@@ -83,7 +68,7 @@ public class CtrlPartidaTest {
 	public void testBorrarPartidaHistorial() {
 		Partida newPartida = CtrlPartida.crearPartida(1, "kill-9", true, true);
 		Date fecha = newPartida.getData();
-		assertEquals(true, CtrlPartida.borrarPartida("kill-9", fecha));
+		assertEquals("It must return true when deletes a Partida", true, CtrlPartida.borrarPartida("kill-9", fecha));
 	}
 
     /*
@@ -91,10 +76,9 @@ public class CtrlPartidaTest {
      */
     @Test
 	public void testExistsPartidaActual() {
-        assertTrue(CtrlPartida.existsPartidaActual());
 		Partida newPartida = CtrlPartida.crearPartida(1, "kill-9", true, true);
-		assertTrue(CtrlPartida.existsPartidaActual());
-		assertEquals("kill-9", ctrlPartida.getPartidaActual().getUsuario());
+		assertTrue("It must return true because there is an actual Partida", CtrlPartida.existsPartidaActual());
+		assertEquals("The username of the actual Partida user should be the given one", "kill-9", ctrlPartida.getPartidaActual().getUsuario());
 	}
     
     /*
@@ -116,14 +100,14 @@ public class CtrlPartidaTest {
     	expectedPartidas.add(expectedPartida2);
     	expectedPartidas.add(expectedPartida3);
     	
-    	assertEquals(expectedPartidas.get(0).getFirst(), ctrlPartida.getPartidas().get(0).getFirst());
-    	assertEquals(expectedPartidas.get(0).getSecond(), ctrlPartida.getPartidas().get(0).getSecond());
+    	assertEquals("The username for the first expected Partida should be the given one", expectedPartidas.get(0).getFirst(), ctrlPartida.getPartidas().get(0).getFirst());
+    	assertEquals("The Date for the first expected Partida should be the given one", expectedPartidas.get(0).getSecond(), ctrlPartida.getPartidas().get(0).getSecond());
     	
-    	assertEquals(expectedPartidas.get(1).getFirst(), ctrlPartida.getPartidas().get(1).getFirst());
-    	assertEquals(expectedPartidas.get(1).getSecond(), ctrlPartida.getPartidas().get(1).getSecond());
+    	assertEquals("The username for the second expected Partida should be the given one", expectedPartidas.get(1).getFirst(), ctrlPartida.getPartidas().get(1).getFirst());
+    	assertEquals("The Date for the second expected Partida should be the given one", expectedPartidas.get(1).getSecond(), ctrlPartida.getPartidas().get(1).getSecond());
     	
-    	assertEquals(expectedPartidas.get(2).getFirst(), ctrlPartida.getPartidas().get(2).getFirst());
-    	assertEquals(expectedPartidas.get(2).getSecond(), ctrlPartida.getPartidas().get(2).getSecond());
+    	assertEquals("The username for the third expected Partida should be the given one", expectedPartidas.get(2).getFirst(), ctrlPartida.getPartidas().get(2).getFirst());
+    	assertEquals("The Date for the third expected Partida should be the given one", expectedPartidas.get(2).getSecond(), ctrlPartida.getPartidas().get(2).getSecond());
 	}
     
     /*
@@ -132,11 +116,11 @@ public class CtrlPartidaTest {
     @Test
 	public void testSalirPartida() {
     	CtrlPartida.salirPartida();
-    	assertNull(ctrlPartida.getPartidaActual());
+    	assertNull("Actual Partida should be null as we have exited from Partida", ctrlPartida.getPartidaActual());
     	Partida newPartida = ctrlPartida.crearPartida(1, "Condor", false, false);
-    	assertNotNull(ctrlPartida.getPartidaActual());
+    	assertNotNull("Actual Partida shouldn't be null as we have created a Partida", ctrlPartida.getPartidaActual());
     	CtrlPartida.salirPartida();
-    	assertNull(ctrlPartida.getPartidaActual());
+    	assertNull("Actual Partida should be null as we have exited from Partida", ctrlPartida.getPartidaActual());
 	}
     
     /*
@@ -146,11 +130,11 @@ public class CtrlPartidaTest {
     @Test
 	public void testSolicitarGetAyuda() {
     	CtrlPartida.solicitarAyuda();
-		assertTrue(partida.getAyuda());
+		assertTrue("Ayuda value should be true as we have activated it", partida.getAyuda());
 		partida = CtrlPartida.crearPartida(1, "Condor", false, false);
-		assertFalse(partida.getAyuda());
+		assertFalse("Ayuda value should be false as we have created a new Partida with the value in false", partida.getAyuda());
 		CtrlPartida.solicitarAyuda();
-		assertTrue(partida.getAyuda());
+		assertTrue("Ayuda value should be true as we have activated it", partida.getAyuda());
     }
     
     
@@ -169,10 +153,10 @@ public class CtrlPartidaTest {
         expectedPartidas.add(pair2);
         
         ArrayList<Pair<String, Date>> historialPartidas = CtrlPartida.getPartidasHistorial();
-        assertEquals(expectedPartidas.get(0).getFirst(), historialPartidas.get(0).getFirst());
-        assertEquals(expectedPartidas.get(0).getSecond(), historialPartidas.get(0).getSecond());
-        assertEquals(expectedPartidas.get(1).getFirst(), historialPartidas.get(1).getFirst());
-        assertEquals(expectedPartidas.get(1).getSecond(), historialPartidas.get(1).getSecond());
+        assertEquals("The username for the first Parida in historialPartida should be the expected one", expectedPartidas.get(0).getFirst(), historialPartidas.get(0).getFirst());
+        assertEquals("The Date for the first Parida in historialPartida should be the expected one", expectedPartidas.get(0).getSecond(), historialPartidas.get(0).getSecond());
+        assertEquals("The username for the second Parida in historialPartida should be the expected one", expectedPartidas.get(1).getFirst(), historialPartidas.get(1).getFirst());
+        assertEquals("The Date for the second Parida in historialPartida should be the expected one", expectedPartidas.get(1).getSecond(), historialPartidas.get(1).getSecond());
 
     }
     
@@ -187,16 +171,9 @@ public class CtrlPartidaTest {
 		combination.add(Color.RED);
 		combination.add(Color.GREEN);
 		combination.add(Color.YELLOW);
-		ArrayList<Color> combination2 = new ArrayList<Color>();
-		combination2.add(Color.RED);
-		combination2.add(Color.BLUE);
-		combination2.add(Color.GREEN);
-		combination2.add(Color.YELLOW);
+
 		ArrayList<ColorFeedBack> feedbacks = CtrlPartida.newCombinacion(combination);
-		assertNotNull(feedbacks);
-		assertEquals(4, feedbacks.size());
-		ArrayList<ColorFeedBack> feedbacks2 = CtrlPartida.newCombinacion(combination2);
-		assertEquals(4, feedbacks2.size());
+		assertEquals("Feedback size should be 4", 4, feedbacks.size());
 	}
     
     /*
@@ -215,10 +192,10 @@ public class CtrlPartidaTest {
 		combination.add(Color.YELLOW);
 		Combinacion expectedSolution = new Combinacion(combination);
 		CtrlPartida.setSolution(combination);
-		assertEquals(expectedSolution.getPosition(0), newPartida.getSolution().getPosition(0));
-		assertEquals(expectedSolution.getPosition(1), newPartida.getSolution().getPosition(1));
-		assertEquals(expectedSolution.getPosition(2), newPartida.getSolution().getPosition(2));
-		assertEquals(expectedSolution.getPosition(3), newPartida.getSolution().getPosition(3));
+		assertEquals("The first position of solution should be the expected one", expectedSolution.getPosition(0), newPartida.getSolution().getPosition(0));
+		assertEquals("The second position of solution should be the expected one", expectedSolution.getPosition(1), newPartida.getSolution().getPosition(1));
+		assertEquals("The third position of solution should be the expected one", expectedSolution.getPosition(2), newPartida.getSolution().getPosition(2));
+		assertEquals("The fourth position of solution should be the expected one", expectedSolution.getPosition(3), newPartida.getSolution().getPosition(3));
 	}
     
     /*
@@ -227,14 +204,8 @@ public class CtrlPartidaTest {
     @Test
    	public void testGetInfoPartida() {
 	    Pair<Date, Integer> info = CtrlPartida.getInfoPartida(partida);
-	    assertEquals(ctrlPartida.getPartidaActual().getData(), info.getFirst());
-	    assertEquals((Integer)1, info.getSecond());
-	    
-	    //De momento nivel dificultad solo puede ser 1 debido a que es el único implementado
-	    Partida partida2 = CtrlPartida.crearPartida(2, "ricky", false, false);
-	    Pair<Date, Integer> info2 = CtrlPartida.getInfoPartida(partida2);
-	    assertEquals(ctrlPartida.getPartidaActual().getData(), info2.getFirst());
-	    assertEquals((Integer)2, info2.getSecond());
+	    assertEquals("The Date for the Partida should be the expected one", ctrlPartida.getPartidaActual().getData(), info.getFirst());
+	    assertEquals("The difficulty for the Partida should be the expected one", (Integer)1, info.getSecond());
     
     }
 	

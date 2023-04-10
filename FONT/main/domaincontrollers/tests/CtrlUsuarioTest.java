@@ -44,7 +44,7 @@ public class CtrlUsuarioTest {
 				exists = true;
 			}
 		}
-        assertTrue(exists);
+        assertTrue("The boolean value exists should be true if the user has been added", exists);
     }
 
     /*
@@ -53,9 +53,9 @@ public class CtrlUsuarioTest {
     @Test
     public void testLoginUser() throws Exception {
         ctrlUsuario.loginUser("Pikachu");
-        assertTrue(ctrlUsuario.getUsuarioActual().equals("Pikachu"));
+        assertTrue("The actual User username should be the given one", ctrlUsuario.getUsuarioActual().equals("Pikachu"));
         ctrlUsuario.loginUser("Ash");
-        assertTrue(ctrlUsuario.getUsuarioActual().equals("Ash"));
+        assertTrue("The actual User username should be the given one", ctrlUsuario.getUsuarioActual().equals("Ash"));
     }
 
     /*
@@ -64,11 +64,11 @@ public class CtrlUsuarioTest {
     @Test
     public void testSetRecord() {
         ctrlUsuario.setRecord(0);
-        assertTrue(ctrlUsuario.getRecord() == 0);
+        assertTrue("The record should be the given one if it's higher than the last record", ctrlUsuario.getRecord() == 0);
         ctrlUsuario.setRecord(1000);
-        assertTrue(ctrlUsuario.getRecord() == 1000);
+        assertTrue("The record should be the given one if it's higher than the last record", ctrlUsuario.getRecord() == 1000);
         ctrlUsuario.setRecord(20);
-        assertTrue(ctrlUsuario.getRecord() == 1000);
+        assertTrue("The record shouldn't be the given one because it's not higher than the last record, ", ctrlUsuario.getRecord() == 1000);
     }
 
     /*
@@ -77,8 +77,7 @@ public class CtrlUsuarioTest {
     @Test
     public void testCrearPartidaUsuario() {
     	CtrlUsuario.crearPartida(1, false, true);
-		ArrayList<Date> dataPartidas = CtrlUsuario.getDataPartidasUsuario();
-		assertEquals(1, CtrlUsuario.getDataPartidasUsuario().size());
+		assertEquals("The size of partidas for the user should be one", 1, CtrlUsuario.getDataPartidasUsuario().size());
     }
     
     
@@ -92,16 +91,16 @@ public class CtrlUsuarioTest {
     	Pair<String, Date> expectedPartida = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida);
     	Pair<String, Date> historialPartida = CtrlUsuario.getPartidasHistorial().get(0);
     	
-        assertEquals(expectedPartida.getFirst(), historialPartida.getFirst());
-        assertEquals(expectedPartida.getSecond(), historialPartida.getSecond());
+        assertEquals("The username for the created Partida should be the given one", expectedPartida.getFirst(), historialPartida.getFirst());
+        assertEquals("The Date for the created Partida should be the given one", expectedPartida.getSecond(), historialPartida.getSecond());
         
         CtrlUsuario.crearPartida(1, false, false);
     	Date dataPartida2 = CtrlUsuario.getDataPartidasUsuario().get(1);
     	Pair<String, Date> expectedPartida2 = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida2);
     	Pair<String, Date> historialPartida2 = CtrlUsuario.getPartidasHistorial().get(1);
     	
-        assertEquals(expectedPartida2.getFirst(), historialPartida2.getFirst());
-        assertEquals(expectedPartida2.getSecond(), historialPartida2.getSecond());
+        assertEquals("The username for the created Partida should be the given one", expectedPartida2.getFirst(), historialPartida2.getFirst());
+        assertEquals("The Date for the created Partida should be the given one", expectedPartida2.getSecond(), historialPartida2.getSecond());
 
     }
 
@@ -114,13 +113,13 @@ public class CtrlUsuarioTest {
         CtrlUsuario.crearPartida(1, true, false);
         
         ArrayList<Date> newPartidas = CtrlUsuario.getDataPartidasUsuario();
-        assertEquals(2, newPartidas.size());
+        assertEquals("The size of Partidas for the User should be 2", 2, newPartidas.size());
         ctrlUsuario.borrarPartida(newPartidas.get(1));
         ArrayList<Date> newPartidas2 = CtrlUsuario.getDataPartidasUsuario();
-        assertEquals(1, newPartidas.size());
+        assertEquals("The size of Partidas for the User should be 1", 1, newPartidas.size());
         ctrlUsuario.borrarPartida(newPartidas.get(0));
         ArrayList<Date> newPartidas3 = CtrlUsuario.getDataPartidasUsuario();
-        assertEquals(0, newPartidas.size());
+        assertEquals("The size of Partidas for the User should be 0", 0, newPartidas.size());
         
     }
     
@@ -132,7 +131,7 @@ public class CtrlUsuarioTest {
     public void testCorrectDate() throws Exception {
         CtrlUsuario.crearPartida(1, true, false);
         ArrayList<Date> newPartidas = CtrlUsuario.getDataPartidasUsuario();
-        assertEquals(newPartidas.get(0), CtrlUsuario.getPartidasHistorial().get(0).getSecond());
+        assertEquals("The Date for the user and HistorialPartida should match", newPartidas.get(0), CtrlUsuario.getPartidasHistorial().get(0).getSecond());
     }
     
     
@@ -145,7 +144,7 @@ public class CtrlUsuarioTest {
         CtrlUsuario.crearPartida(1, true, false);
         ArrayList<Date> newPartidas = CtrlUsuario.getDataPartidasUsuario();
         ctrlUsuario.borrarPartida(newPartidas.get(0));
-        assertEquals(1, CtrlUsuario.getPartidasHistorial().size());
+        assertEquals("The size of Partidas in HistorialPartidas should be 1", 1, CtrlUsuario.getPartidasHistorial().size());
     }
 
 
@@ -155,9 +154,9 @@ public class CtrlUsuarioTest {
     @Test
     public void testSalirPartida() {
         CtrlUsuario.crearPartida(1, false, false);
-        assertTrue(CtrlUsuario.existsPartidaActual());
+        assertTrue("There should be an actual Partida", CtrlUsuario.existsPartidaActual());
         CtrlUsuario.salirPartida();
-        assertFalse(CtrlUsuario.existsPartidaActual());
+        assertFalse("There shouldn't be an actual Partida", CtrlUsuario.existsPartidaActual());
     }
 
     

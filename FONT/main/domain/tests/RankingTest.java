@@ -34,9 +34,9 @@ public class RankingTest {
 	 */
 	@Test
     public void testAddPartida() {
-        assertTrue(newRanking.getRanking(1).containsKey("Test-Player1"));
-        assertTrue(newRanking.getRanking(2).containsKey("Test-Player1"));
-        assertTrue(newRanking.getRanking(3).containsKey("Test-Player1"));
+        assertTrue("The first ranking should contain the given Partida",newRanking.getRanking(1).containsKey("Test-Player1"));
+        assertTrue("The second ranking should contain the given Partida",newRanking.getRanking(2).containsKey("Test-Player1"));
+        assertTrue("The third ranking should contain the given Partida",newRanking.getRanking(3).containsKey("Test-Player1"));
     }
 	
 	/*

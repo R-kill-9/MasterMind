@@ -18,11 +18,11 @@ public class EstadoPartidaTest {
 		PossiblesEstadosPartida running = PossiblesEstadosPartida.RUNNING;
         EstadoPartida newEstadoPartida = new EstadoPartida("running");
         newEstadoPartida.setEstado("paused");
-        assertEquals(paused, newEstadoPartida.getEstado());
+        assertEquals("The estado Partida should be paused", paused, newEstadoPartida.getEstado());
         newEstadoPartida.setEstado("saved");
-        assertEquals(saved, newEstadoPartida.getEstado());
+        assertEquals("The estado Partida should be saved", saved, newEstadoPartida.getEstado());
         newEstadoPartida.setEstado("running");
-        assertEquals(running, newEstadoPartida.getEstado());
+        assertEquals("The estado Partida should be running", running, newEstadoPartida.getEstado());
     }
 	
 	/*
@@ -32,6 +32,6 @@ public class EstadoPartidaTest {
     public void testGetEstado() {
 		PossiblesEstadosPartida running = PossiblesEstadosPartida.RUNNING;
         EstadoPartida newEstadoPartida = new EstadoPartida("running");
-        assertEquals(running, newEstadoPartida.getEstado());
+        assertEquals("The estado Partida should be running", running, newEstadoPartida.getEstado());
     }
 }

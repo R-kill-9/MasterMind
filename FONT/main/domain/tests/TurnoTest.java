@@ -26,25 +26,16 @@ public class TurnoTest {
      * TESTS
      */
     /*
-     * Comprueba que la función changeTurno cambie su variable privada Rol correctamente
+     * Comprueba que la función changeTurno cambie su variable privada Rol correctamente y que se haga bien el get de rol.
      */
     @Test
     public void testChangeTurno() {
     	turnoActual.changeTurno();
-        assertFalse(this.turnoActual.getRol());
+        assertFalse("The actual Rol should be CodeBreaker(false)", this.turnoActual.getRol());
         turnoActual.changeTurno();
-        assertTrue(this.turnoActual.getRol());
+        assertTrue("The actual Rol should be CodeBreaker(true)",this.turnoActual.getRol());
     }
 	
-    /*
-     * Comprueba que se haga bien el get del Rol del turno
-     */
-    @Test
-    public void testGetRol() {
-        assertTrue(this.turnoActual.getRol());
-        this.turnoActual.changeTurno();
-        assertFalse(this.turnoActual.getRol());
-    }
     
     /*
      * Comprueba que se añada la combinacion de colores a la lista de combinaciones
@@ -62,8 +53,8 @@ public class TurnoTest {
         ArrayList<Combinacion> totalComb = turnoActual.getCombinaciones();
         Combinacion lastCombination = totalComb.get(turnoActual.getNumberComb()-1);
         
-        assertEquals("Tiene que devolver el último valor del totalde combinaciones guardadas, que debe coincidir con el recién añadido", createdCombination.getCombination(), lastCombination.getCombination());
-        assertEquals(1, turnoActual.getNumberComb());
+        assertEquals("It must return the last value of the total saved combinations, which should match the newly added one", createdCombination.getCombination(), lastCombination.getCombination());
+        
     }
     
     
@@ -81,6 +72,6 @@ public class TurnoTest {
         colores.add(Color.YELLOW);
         turnoActual.setCombinacion(colores);
         
-        assertEquals(1, turnoActual.getNumberComb());
+        assertEquals("It should return the number of combinations, in this case 1", 1, turnoActual.getNumberComb());
     }
 }

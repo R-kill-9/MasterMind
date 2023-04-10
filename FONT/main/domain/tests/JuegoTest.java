@@ -29,8 +29,8 @@ public class JuegoTest {
 	 */
 	@Test
     public void testGetInstance() {
-        assertNotNull(juego);
-        assertSame(juego, Juego.getInstance());
+        assertNotNull("The instance juego should be not null", juego);
+        assertSame("The instance juego should be the given one", juego, Juego.getInstance());
     }
 
 	/*
@@ -40,7 +40,7 @@ public class JuegoTest {
     public void testSetAndGetInformacionSistema() {
         String informacionSistema = "informacion del sistema";
         juego.setInformacionSistema(informacionSistema);
-        assertEquals(informacionSistema, juego.getInformacionSistema());
+        assertEquals("The informacion sistema should be the given one", informacionSistema, juego.getInformacionSistema());
     }
 
 	/*
@@ -50,7 +50,7 @@ public class JuegoTest {
     public void testSetAndGetInformacionPuntuacion() {
         String informacionPuntuacion = "informacion de la puntuacion";
         juego.setInformacionPuntuacion(informacionPuntuacion);
-        assertEquals(informacionPuntuacion, juego.getInformacionPuntuacion());
+        assertEquals("The informacion puntuacion should be the given one", informacionPuntuacion, juego.getInformacionPuntuacion());
     }
 
 /*
@@ -63,6 +63,6 @@ public class JuegoTest {
         String informacionPuntuacion = "informacion de la puntuacion";
         juego.setInformacionSistema(informacionSistema);
         juego.setInformacionPuntuacion(informacionPuntuacion);
-        assertEquals("Juego [informacionSistema=" + informacionSistema + ", informacionPuntuacion=" + informacionPuntuacion + "]", juego.toString());
+        assertEquals("The informacion sistema and informacion puntuacion should be the given ones passed to a string","Juego [informacionSistema=" + informacionSistema + ", informacionPuntuacion=" + informacionPuntuacion + "]", juego.toString());
     }
 }
