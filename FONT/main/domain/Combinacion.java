@@ -21,7 +21,7 @@ public class Combinacion {
 		
 		this.combination = combination; 
 	}
-
+	
 
 	/*
 	 * Métodos públicos

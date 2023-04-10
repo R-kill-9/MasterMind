@@ -1,6 +1,5 @@
 package main.domain;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +87,6 @@ public abstract class NivelDificultad {
             possibleCodes.remove(envioActual);
             totalcombinacionesPosibles.remove(envioActual);
             String respuestaComprobacion = comprobarCombinacion(envioActual, solucion );
-            System.out.println(respuestaComprobacion);
             if(respuestaComprobacion.equals("NNNN")) return turn;
             else eliminaCombinacions(respuestaComprobacion);
 
@@ -210,7 +208,6 @@ private List<Combinacion> inicializarPosiblesCodigos() {
         }
 
         max = getMaxScore(contadorPuntuaciones);
-        System.out.print(max+" ");
         puntuaciones.put(totalcombinacionesPosibles.get(i), max);
         contadorPuntuaciones.clear();   
     }
@@ -272,14 +269,9 @@ private List<Combinacion> inicializarPosiblesCodigos() {
 		 	Random random = new Random();
 	        ArrayList<Color> combinacion = new ArrayList<Color>();
 	        boolean doneComb = false;
-	        ArrayList<Boolean> visto = new ArrayList<Boolean>(Collections.nCopies(6, false));
 	        while(!doneComb){
-	        	Integer randomNumber = random.nextInt(6);
-	        	System.out.println(randomNumber);
-	        	if(!visto.get(randomNumber)) {
-		        	combinacion.add(getColorNumber(randomNumber));
-		        	visto.set(randomNumber,true);
-	        	}
+	        	Integer randomNumber = random.nextInt(5) + 1;
+		        combinacion.add(getColorNumber(randomNumber));
 	        	if(combinacion.size() == getNumColumnas()) doneComb = true;
 	        }
 	        return new Combinacion(combinacion);
