@@ -21,6 +21,7 @@ public class CtrlDominio {
 	private static CtrlDominio instance;
 	private static Juego juego;
 	private static Ranking rankingGlobal;
+	private static HistorialPartidas historialPartidas;
 
 	/** Constructor y metodos de inicializacion **/
 
@@ -28,6 +29,7 @@ public class CtrlDominio {
 		setControladorUsuario(new CtrlUsuario());
 		setRankingGlobal(new Ranking());
 		setJuego(Juego.getInstance());
+		historialPartidas = new HistorialPartidas();
 		
 	}
 	
