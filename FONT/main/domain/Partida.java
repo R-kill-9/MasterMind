@@ -179,10 +179,10 @@ public class Partida {
 		checkLevelExceptions(combSolution);
 		if(lastTurno.getRol()) solutions.add(newCombinacion);
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
-		Integer numIntentos = nivel.resolve(newCombinacion);
-		turnos.get(getLastTurno() - 1).setNumberComb(numIntentos);
+		ArrayList<Combinacion> combHechas = nivel.resolve(newCombinacion);
+		turnos.get(getLastTurno() - 1).setAllComb(combHechas);
 		donePartida();
-		return numIntentos;
+		return combHechas.size();
 	}
 	/**
 	* Introduce un intento para este turno 
