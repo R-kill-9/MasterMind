@@ -1,7 +1,5 @@
 package main.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class NivelDificultadMedio extends NivelDificultad{
@@ -33,42 +31,7 @@ public class NivelDificultadMedio extends NivelDificultad{
            return 2;
        }
        
-       @Override
-   	public List<Combinacion> generarCombinaciones(Boolean[] visto, int i, ArrayList<Color> sol ){
-   	    List<Combinacion> combinaciones = new ArrayList<>();
-
-   	    if(i >= getNumColumnas()) {
-   	    	ArrayList<Color> ac = new ArrayList<>(sol);
-   	        Combinacion combi = new Combinacion(ac);
-   	        combinaciones.add(combi);
-   	        return combinaciones;
-   	    }
-   	    for(int j = 0; j < getNumColors(); j++) {
-   	            Color c = null;
-   	            switch (j) {
-   	                case 0:
-   	                    c = Color.RED;   break;
-   	                case 1: 
-   	                    c = Color.BLUE;  break;
-   	                case 2:
-   	                    c = Color.GREEN; break;
-   	                case 3:
-   	                    c = Color.YELLOW; break;
-   	                case 4:
-   	                    c = Color.PURPLE; break;
-   	                case 5:
-   	                    c = Color.ORANGE; break;
-   	                default: break;
-   	            }
-   	            
-   	            sol.add(c) ;// Se crea un objeto nuevo cada vez
-   	            List<Combinacion> combinacionesSiguientes = generarCombinaciones(visto, i + 1, sol);
-   	            combinaciones.addAll(combinacionesSiguientes);
-   	            sol.remove(sol.size() - 1); // Se elimina la última referencia agregada
-   	    }
-   	    
-   	    return combinaciones;
-   	}
+     
 	@Override
 	public String getNsolucion() {
 		return Nsolucion;

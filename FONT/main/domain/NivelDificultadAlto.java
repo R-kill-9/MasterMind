@@ -1,8 +1,9 @@
 package main.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class NivelDificultadAlto extends NivelDificultadMedio {
+public class NivelDificultadAlto extends NivelDificultad {
     
 	public NivelDificultadAlto() {
    	    numcolumnas = 5;
@@ -39,5 +40,6 @@ public class NivelDificultadAlto extends NivelDificultadMedio {
     public Integer getNumColumnas() {
     	return numcolumnas;
     }
+
       
 }
