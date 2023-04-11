@@ -76,12 +76,26 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testSetRecord() {
-        ctrlUsuario.setRecord(0);
-        assertTrue("The record should be the given one if it's higher than the last record", ctrlUsuario.getRecord() == 0);
-        ctrlUsuario.setRecord(1000);
-        assertTrue("The record should be the given one if it's higher than the last record", ctrlUsuario.getRecord() == 1000);
-        ctrlUsuario.setRecord(20);
-        assertTrue("The record shouldn't be the given one because it's not higher than the last record, ", ctrlUsuario.getRecord() == 1000);
+    	CtrlUsuario.setRecord(1000);
+    	CtrlUsuario.setRecord(2000);
+    	CtrlUsuario.setRecord(3000);
+    	CtrlUsuario.setRecord(4000);
+    	CtrlUsuario.setRecord(5000);
+        int[] scores = CtrlUsuario.getRecord();
+        assertEquals("It must return the first maxScore for the user, in this case 5000", 5000, scores[0]);
+        assertEquals("It must return the second maxScore for the user, in this case 4000", 4000, scores[1]);
+        assertEquals("It must return the third maxScore for the user, in this case 3000", 3000, scores[2]);
+        assertEquals("It must return the fourth maxScore for the user, in this case 2000", 2000, scores[3]);
+        assertEquals("It must return the fifth maxScore for the user, in this case 1000", 1000, scores[4]);
+        CtrlUsuario.setRecord(22);
+        CtrlUsuario.setRecord(6000);
+        CtrlUsuario.setRecord(2500);
+        int[] newScores = CtrlUsuario.getRecord();
+        assertEquals("It must return the first maxScore for the user, in this case 5000", 6000, newScores[0]);
+        assertEquals("It must return the second maxScore for the user, in this case 5000", 5000, newScores[1]);
+        assertEquals("It must return the third maxScore for the user, in this case 5000", 4000, newScores[2]);
+        assertEquals("It must return the fourth maxScore for the user, in this case 5000", 3000, newScores[3]);
+        assertEquals("It must return the fifth maxScore for the user, in this case 5000", 2500, newScores[4]);
     }
 
     /*

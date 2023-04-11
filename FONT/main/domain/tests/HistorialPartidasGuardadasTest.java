@@ -34,9 +34,8 @@ public class HistorialPartidasGuardadasTest {
 	public void testBorrarPartidaGuardada() {
 		String username = "Murakami";
 		Date dataIni = new Date();
-		Date dataIni2 = new Date();
 		HistorialPartidasGuardadas.agregarPartidaGuardada(username, dataIni);
-		HistorialPartidasGuardadas.borrarPartidaGuardada(username, dataIni2);
+		HistorialPartidasGuardadas.borrarPartidaGuardada(username, dataIni);
 		ArrayList<Pair<String,Date>> partidasUsuario = HistorialPartidasGuardadas.getPartidas(username);
 		assertEquals("The size of Historial Partidas Guardadas should be 1", 0, partidasUsuario.size());
 	}

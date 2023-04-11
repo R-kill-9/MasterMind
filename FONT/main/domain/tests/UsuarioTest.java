@@ -47,9 +47,30 @@ public class UsuarioTest {
 	@Test
     public void testSetMaxScore() {
         user.setMaxScore(1000);
-        assertEquals("It must return the maxScore for the user, in this case 1000", 1000, user.getMaxScore());
+        user.setMaxScore(2000);
+        user.setMaxScore(3000);
+        user.setMaxScore(4000);
+        user.setMaxScore(5000);
+        int[] scores = user.getMaxScore();
+        System.out.println(scores[0]);
+        System.out.println(scores[1]);
+        System.out.println(scores[2]);
+        System.out.println(scores[3]);
+        System.out.println(scores[4]);
+        assertEquals("It must return the first maxScore for the user, in this case 5000", 5000, scores[0]);
+        assertEquals("It must return the second maxScore for the user, in this case 4000", 4000, scores[1]);
+        assertEquals("It must return the third maxScore for the user, in this case 3000", 3000, scores[2]);
+        assertEquals("It must return the fourth maxScore for the user, in this case 2000", 2000, scores[3]);
+        assertEquals("It must return the fifth maxScore for the user, in this case 1000", 1000, scores[4]);
         user.setMaxScore(22);
-        assertEquals("It must return the maxScore for the user, in this case 1000", 1000, user.getMaxScore());
+        user.setMaxScore(6000);
+        user.setMaxScore(2500);
+        int[] newScores = user.getMaxScore();
+        assertEquals("It must return the first maxScore for the user, in this case 5000", 6000, newScores[0]);
+        assertEquals("It must return the second maxScore for the user, in this case 5000", 5000, newScores[1]);
+        assertEquals("It must return the third maxScore for the user, in this case 5000", 4000, newScores[2]);
+        assertEquals("It must return the fourth maxScore for the user, in this case 5000", 3000, newScores[3]);
+        assertEquals("It must return the fifth maxScore for the user, in this case 5000", 2500, newScores[4]);
     }
 	
 	

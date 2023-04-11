@@ -52,12 +52,14 @@ public class Usuario {
     public void setMaxScore(int Score) {
         int pos;
 		//Busca la posición en la que se debe insertar la puntuación
-		for (pos = 0; pos < maxScore.length && maxScore[pos]< Score; ++pos);
+		for (pos = 0; pos < maxScore.length && maxScore[pos]> Score; ++pos);
 		//Desplazamos los valores a la derecha
 		for (int i = maxScore.length-1; i > pos; --i) {
 			maxScore[i] = maxScore[i-1];
 		}
+		if (pos<maxScore.length)
 		maxScore[pos] = Score;
+		
     }
 
 	/**
