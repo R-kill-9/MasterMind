@@ -77,6 +77,8 @@ public class Partida {
 		else {
 			Integer turnosCM = turnos.get(0).getNumberComb();
 			Integer turnosCB = turnos.get(1).getNumberComb();
+			System.out.println("A" + turnosCM);
+			System.out.println("A" + turnosCB);
 			if(!turnos.get(0).getRol()){
 				Integer aux = turnosCM;
 				turnosCM = turnosCB;
