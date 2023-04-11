@@ -1,6 +1,7 @@
 package main.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /** Clase Turno. **/
@@ -50,8 +51,8 @@ public class Turno {
 		return combinations.size();
 	}
 	
-	public void setAllComb(ArrayList<Combinacion> combinations) {
-		combinations.addAll(combinations);
+	public void setAllComb(List<Combinacion> combHechas) {
+		combinations.addAll(combHechas);
 	}
 	public void eraseCombinations() {
 		combinations.clear();
