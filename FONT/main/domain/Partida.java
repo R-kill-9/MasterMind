@@ -51,7 +51,7 @@ public class Partida {
 		this.turnos = new ArrayList<Turno>();
 		this.turnos.add(new Turno(rol));
 		this.solutions = new ArrayList<Combinacion>();
-		if(!rol) solutions.add(nivel.genCombinacion());
+		if(!rol) solutions.add(convertIntegerToColor(nivel.genCombinacion()));
 		this.ayuda = ayuda;
 		this.puntos = 0;
 		this.username = usuario;
@@ -59,6 +59,64 @@ public class Partida {
 		this.estadoPartida = new EstadoPartida(estado);
 	}
 	
+	private Combinacion convertIntegerToColor(List<Integer> combInteger) {
+	    ArrayList<Color> result = new ArrayList<>(); 
+	   	for (Integer num: combInteger) {
+	        switch (num) {
+	            case 0:
+	                result.add(Color.RED);
+	                break;
+	            case 1:
+	                result.add(Color.GREEN);
+	                break;
+	            case 2:
+	                result.add(Color.BLUE);
+	                break;
+	            case 3:
+	                result.add(Color.YELLOW);
+	                break;
+	            case 4:
+	                result.add(Color.PURPLE);
+	                break;
+	            case 5:
+	                result.add(Color.ORANGE);
+	                break;
+	            default:
+	                break;
+	        }
+	    }
+	    return new Combinacion(result);
+	}
+	
+	private List<Integer> convertColorToInteger(Combinacion comb) {
+	    List<Integer> result = new ArrayList<>(); 
+	    ArrayList<Color> combination = comb.getCombination();
+	    for (Color color : combination) {
+	        switch (color) {
+	            case RED:
+	                result.add(0);
+	                break;
+	            case GREEN:
+	                result.add(1);
+	                break;
+	            case BLUE:
+	                result.add(2);
+	                break;
+	            case YELLOW:
+	                result.add(3);
+	                break;
+	            case PURPLE:
+	                result.add(4);
+	                break;
+	            case ORANGE:
+	                result.add(5);
+	                break;
+	            default:
+	                break;
+	        }
+	    }
+	    return result;
+	}
 	/** 
 	 * Métodos privados 
 	 */
@@ -72,7 +130,7 @@ public class Partida {
 		if(turnos.size() == 1) {
 			boolean choosenRol = this.turnos.get(0).getRol();
 			this.turnos.add(new Turno(!choosenRol));
-			if(!this.turnos.get(1).getRol()) solutions.add(nivel.genCombinacion());
+			if(!this.turnos.get(1).getRol()) solutions.add(convertIntegerToColor(nivel.genCombinacion()));
 		}
 		else {
 			Integer turnosCM = turnos.get(0).getNumberComb();
@@ -182,7 +240,11 @@ public class Partida {
 		checkLevelExceptions(combSolution);
 		if(lastTurno.getRol()) solutions.add(newCombinacion);
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
-		List<Combinacion> combHechas = nivel.resolve(newCombinacion);
+		List<List<Integer>> combHechasInteger = nivel.resolve(convertColorToInteger(newCombinacion));
+		ArrayList<Combinacion> combHechas = new ArrayList<Combinacion>();
+		for(List<Integer> lista : combHechasInteger) {
+			combHechas.add(convertIntegerToColor(lista));
+		}
 		turnos.get(getLastTurno() - 1).setAllComb(combHechas);
 		donePartida();
 		return combHechas.size();
@@ -198,7 +260,7 @@ public class Partida {
 		if(!lastTurno.getRol()){
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
 			if(!ayuda) {
-				String feedBack = nivel.comprobarCombinacion(solutions.get(solutions.size()-1), lastComb);
+				String feedBack = nivel.comprobarCombinacion(convertColorToInteger(solutions.get(solutions.size()-1)), convertColorToInteger(lastComb));
 				for(char bola : feedBack.toCharArray()) {
 				    ColorFeedBack cb = bola == 'N' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);
@@ -208,7 +270,7 @@ public class Partida {
 				}
 			}
 			else {
-				String feedBack = nivel.comprobarCombinacionPista(this.solutions.get(solutions.size()-1), lastComb);
+				String feedBack = nivel.comprobaCombinacionPista(convertColorToInteger(this.solutions.get(solutions.size()-1)), convertColorToInteger(lastComb));
 				for(char bola : feedBack.toCharArray()) {
 					ColorFeedBack cb;
 					if(bola == 'N') cb = ColorFeedBack.BLACK;
@@ -257,7 +319,7 @@ public class Partida {
 	public void reiniciarPartida() {
 		Turno lastTurno = turnos.get(turnos.size() - 1);
 		this.solutions.remove(solutions.size()-1);
-		this.solutions.add(nivel.genCombinacion());
+		this.solutions.add(convertIntegerToColor(nivel.genCombinacion()));
 		lastTurno.eraseCombinations();
 	}
 	
