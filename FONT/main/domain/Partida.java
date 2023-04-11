@@ -274,7 +274,7 @@ public class Partida {
 				for(char bola : feedBack.toCharArray()) {
 					ColorFeedBack cb;
 					if(bola == 'N') cb = ColorFeedBack.BLACK;
-					else if(bola == 'B') cb = ColorFeedBack.WHITE ;
+					else if(bola == 'B') cb = ColorFeedBack.WHITE;
 					else cb = ColorFeedBack.GREY;
 					feedBackSolution.add(cb);
 				}
@@ -283,7 +283,7 @@ public class Partida {
 			if(lastChance || checkIfAllCorrects(feedBackSolution)) donePartida();
 			return feedBackSolution;
 		}
-		else throw new Exception("Sólo el CodeMaker puede hacer combinaciones");
+		else throw new Exception("Sólo el CodeBreaker puede hacer combinaciones");
 	}
 	
 	public Combinacion getLastCombination() {

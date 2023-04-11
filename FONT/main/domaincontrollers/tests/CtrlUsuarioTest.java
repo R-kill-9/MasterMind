@@ -136,7 +136,7 @@ public class CtrlUsuarioTest {
      */
     @Test
     public void testCrearPartidaHistorialGuardadas() throws Exception {
-    	CtrlUsuario.crearPartida(1, false, false);
+    	CtrlUsuario.crearPartida(1, true, false);
     	Date dataPartida = CtrlUsuario.getDataPartidasUsuario().get(0);
     	Pair<String, Date> expectedPartida = new Pair<>(ctrlUsuario.getUsuarioActual(), dataPartida);
     	ArrayList<Color> combination = new ArrayList<Color>();
@@ -146,7 +146,7 @@ public class CtrlUsuarioTest {
 		combination.add(Color.YELLOW);
 		int i = 0;
     	while (i < 10) {
-    		ArrayList<ColorFeedBack> feedback = CtrlUsuario.newCombinacion(combination);
+    		ArrayList<ColorFeedBack> feedback = ctrlUsuario.newCombinacion(combination);
     		++i;
     	}
     	CtrlUsuario.setSolution(combination);
