@@ -5,22 +5,22 @@ import java.util.ArrayList;
 
 
 /**
-*Clase Usuario.
-*/
+ *Clase Usuario.
+ */
 public class Usuario {
-	
-	/** 
-	*Atributos 
-	*/
-	
+
+	/**
+	 *Atributos
+	 */
+
 	private String username;
 	private int[] maxScore;
 	private ArrayList<Date> fechaPartidas;
 
-	/** 
-	*Constructora 
-	*/
-	
+	/**
+	 *Constructora
+	 */
+
 	public Usuario(String username) {
 		this.username = username;
 		this.maxScore = new int[5];
@@ -37,28 +37,29 @@ public class Usuario {
 	public String getUsername() {
 		return username;
 	}
-	
+
 
 	/**
-     * Devuelve la puntuación más alta que ha conseguido el jugador
-     */
-    public int[] getMaxScore() {
-        return maxScore;
-    }
+	 * Devuelve la puntuación más alta que ha conseguido el jugador
+	 */
+	public int[] getMaxScore() {
+		return maxScore;
+	}
 
 	/**
-     * Establece la puntuación más alta que ha conseguido el jugador
-     */
-    public void setMaxScore(int Score) {
-        int pos;
+	 * Establece la puntuación más alta que ha conseguido el jugador
+	 */
+	public void setMaxScore(int Score) {
+		int pos;
 		//Busca la posición en la que se debe insertar la puntuación
-		for (pos = 0; pos < maxScore.length && maxScore[pos]< Score; ++pos);
+		for (pos = 0; pos < maxScore.length && maxScore[pos]> Score; ++pos);
 		//Desplazamos los valores a la derecha
 		for (int i = maxScore.length-1; i > pos; --i) {
 			maxScore[i] = maxScore[i-1];
 		}
-		maxScore[pos] = Score;
-    }
+		if (pos < maxScore.length)
+			maxScore[pos] = Score;
+	}
 
 	/**
 	 * Añade una partida al ArrayList de partidas del usuario
@@ -67,7 +68,7 @@ public class Usuario {
 		this.fechaPartidas.add(data);
 	}
 
-	
+
 	/**
 	 * Borra una partida del ArrayList de partidas del usuario
 	 */
@@ -96,6 +97,5 @@ public class Usuario {
 	public ArrayList<Date> getDataPartidasGuardadas() {
 		return this.fechaPartidas;
 	}
-	
+
 }
-	

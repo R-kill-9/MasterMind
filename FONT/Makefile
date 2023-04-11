@@ -1,0 +1,22 @@
+JAVAC=javac 
+.SUFFIXES: .java .class
+.java.class:
+	$(JAVAC) $*.java
+
+DOMAIN_DIR=main/domain/
+DOMAINCONTROLLERS_DIR=main/domaincontrollers/
+
+DOMAIN_SRCS=$(wildcard $(DOMAIN_DIR)*.java)
+DOMAINCONTROLLERS_SRCS=$(wildcard $(DOMAINCONTROLLERS_DIR)*.java)
+
+DOMAIN_CLASSES=$(DOMAIN_SRCS:.java=.class)
+DOMAINCONTROLLERS_CLASSES=$(DOMAINCONTROLLERS_SRCS:.java=.class)
+
+CLASSES=$(DOMAIN_CLASSES) $(DOMAINCONTROLLERS_CLASSES)
+
+default: classes
+
+classes: $(CLASSES)
+
+clean:
+	$(RM) $(DOMAIN_CLASSES) $(DOMAINCONTROLLERS_CLASSES)

@@ -29,13 +29,13 @@ public class CtrlUsuario {
 
 	/**
 	 * Añade un usuario al sistema.
-	 * 
+	 *
 	 * @param username Nombre de usuario.
 	 */
 	public void addUsuario(String username) {
 		this.usuarios.add(username);
 	}
-	
+
 	/**
 	 * Devuele la lista de usuarios existentes
 	 */
@@ -58,7 +58,7 @@ public class CtrlUsuario {
 
 	/**
 	 * Obtenemos el usuario con el nombre de usuario dado.
-	 * 
+	 *
 	 * @param username Nombre de usuario.
 	 * @return Usuario con el nombre de usuario dado.
 	 */
@@ -76,7 +76,7 @@ public class CtrlUsuario {
 
 	/**
 	 * Obtenemos el record del usuario con el nombre de usuario dado.
-	 * 
+	 *
 	 * @param username Nombre de usuario.
 	 * @return Record del usuario con el nombre de usuario dado.
 	 */
@@ -91,7 +91,7 @@ public class CtrlUsuario {
 	public static ArrayList<Date> getDataPartidasUsuario() {
 		return userAct.getDataPartidasGuardadas();
 	}
-	
+
 	/**
 	 * Obtenemos el ArrayList de partidas del usuario con el nombre de usuario dado.
 	 * @return ArrayList<Pair<String, Date>> where string = username, date =
@@ -101,7 +101,7 @@ public class CtrlUsuario {
 		String username = userAct.getUsername();
 		return CtrlPartida.getInfoPartidasGuardadas(username);
 	}
-	
+
 	/**
 	 * Obtenemos el ArrayList de partidas guardadas en el historial
 	 * @return ArrayList<Pair<String, Date>> where string = username, date =
@@ -110,7 +110,7 @@ public class CtrlUsuario {
 	public static ArrayList<Pair<String, Date>> getPartidasHistorial() {
 		return CtrlPartida.getPartidasHistorial();
 	}
-	
+
 	/**
 	 * Crea una nueva partida
 	 */
@@ -136,65 +136,65 @@ public class CtrlUsuario {
 			userAct.deletePartida(data);
 		}
 	}
-	
+
 	/*
 	 * Solicita ayuda en la partida actual
 	 */
 	public void solicitarAyuda() {
 		CtrlPartida.solicitarAyuda();
 	}
-	
+
 	/*
 	 * Obtiene elvalor de ayuda en la partida actual
 	 */
 	public static boolean getAyuda() {
 		return CtrlPartida.getAyuda();
 	}
-	
-	 /**
-     * Obtiene una la partida actual del usuario.
-     * 
-     * @param Vector<Color> la combinacion de la partida
-     * @return la partida jugada por ese usuario, o null si no hay ninguna
-     * @throws Exception 
-     */
-    public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
-        return CtrlPartida.newCombinacion(combination);
-    }
-    
-    /**
-     * Obtiene una la partida actual del usuario.
-     * 
-     * @param Vector<Color> la solucion de la partida
-     * @return el numero de intentos en resolver la solucion
-     * @throws Exception 
-     */
-    public static Integer setSolution(ArrayList<Color> combination) throws Exception{
-        return CtrlPartida.setSolution(combination);
-    }
 
-    /*
-     * Sale de la partida actual
-     */
+	/**
+	 * Obtiene una la partida actual del usuario.
+	 *
+	 * @param Vector<Color> la combinacion de la partida
+	 * @return la partida jugada por ese usuario, o null si no hay ninguna
+	 * @throws Exception
+	 */
+	public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
+		return CtrlPartida.newCombinacion(combination);
+	}
+
+	/**
+	 * Obtiene una la partida actual del usuario.
+	 *
+	 * @param Vector<Color> la solucion de la partida
+	 * @return el numero de intentos en resolver la solucion
+	 * @throws Exception
+	 */
+	public static Integer setSolution(ArrayList<Color> combination) throws Exception{
+		return CtrlPartida.setSolution(combination);
+	}
+
+	/*
+	 * Sale de la partida actual
+	 */
 	public static void salirPartida() {
 		CtrlPartida.salirPartida();
 	}
-	
+
 	/*
 	 * Devuelve un valor booleano dependiend de si existe una partida actuals
 	 */
 	public static Boolean existsPartidaActual() {
 		return CtrlPartida.existsPartidaActual();
 	}
-	
+
 	/*
 	 * Reinicia los valores para el mismo turno
 	 */
 	public static void reiniciarPartida() {
-    	CtrlPartida.reiniciarPartida();
-    }
-	
-	
+		CtrlPartida.reiniciarPartida();
+	}
+
+
 	public static void cambiarEstadoPartida(String estado) {
 		CtrlPartida.cambiarEstadoPartida(estado);;
 	}
@@ -210,10 +210,10 @@ public class CtrlUsuario {
 	 * Devuelve la puntuacion de la partida
 	 */
 	public static int getScore() {
-		//int puntuacion= CtrlPartida.getScore();
+		int puntuacion= CtrlPartida.getScore();
 
-		//setRecord(puntuacion);
-		//return puntuacion;
-		return CtrlPartida.getScore();
+		setRecord(puntuacion);
+		return puntuacion;
+		//return CtrlPartida.getScore();
 	}
 }
