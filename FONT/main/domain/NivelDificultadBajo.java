@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+
 public class NivelDificultadBajo extends NivelDificultad {
 
     protected boolean  tieneBlancas;
@@ -11,12 +12,9 @@ public class NivelDificultadBajo extends NivelDificultad {
     public NivelDificultadBajo() {
 	    sePuedeRepetir = false;
 	    numcolumnas = 4;
-	    totalcombinacionesPosibles = new ArrayList<Combinacion>();
-	    solucionesEnviadas = new ArrayList<Combinacion>();
-	    possibleCodes = new ArrayList<Combinacion>();
-	    enviosCandidatos = new ArrayList<Combinacion>();
 	    turn = 1;
-	    
+        Nsolucion = "NNNN";
+	    maquinaResolve = new FiveGuess(this);
     }
     @Override
     public Integer getNumColumnas() {
@@ -35,6 +33,10 @@ public class NivelDificultadBajo extends NivelDificultad {
     public Integer getDificultad() {
         return 1;
     }
+    @Override
+	public String getNsolucion() {
+		return Nsolucion;
+	}
     
     @Override
     public Combinacion genCombinacion() {

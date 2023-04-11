@@ -39,6 +39,7 @@ public class PartidaTest {
         historial = new HistorialPartidasGuardadas();
     }
     
+    
     /*
      * Comprueba que se introduzcan bien todos los parametros
      */
@@ -270,5 +271,12 @@ public class PartidaTest {
 		testPartidaNivel1SinAyuda.reiniciarPartida();
 		ArrayList<Color> solutionAfter = testPartidaNivel1SinAyuda.getSolutionTorn(0).getCombination();
 		assertNotEquals("The solution should change after restart", solutionAfter, solutionBefore);
+	}
+	
+	public void shouldEndTheRoundWhenMakesSolution() throws Exception {
+		ArrayList<Color> solution = testPartidaNivel1SinAyuda.getSolutionTorn(0).getCombination();
+		testPartidaNivel1.setCombinacion(solution);
+		Integer numTurns = testPartidaNivel1.getLastTurno();
+		assertEquals("The number of torns should have increased", 2, numTurns, 0);
 	}
 }

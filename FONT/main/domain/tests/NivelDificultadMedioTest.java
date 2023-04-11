@@ -31,18 +31,7 @@ public class NivelDificultadMedioTest {
 		Integer numcol = 4;
 		assertEquals( numcol, ndm.getNumColumnas() ); 
 	}
-	@Test
-	public void TestSolveWinRound1() {
-		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.RED);
-		colores.add(Color.BLUE);
-		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
-        Combinacion solucionUsuario = new Combinacion(colores);
-        
-		assertEquals( 1 ,ndm.resolve(solucionUsuario));
-		
-	}
+
 	@Test
 	public void TestSolveWinRoundX() {
 		ArrayList<Color> colores = new ArrayList<Color>();
@@ -51,8 +40,19 @@ public class NivelDificultadMedioTest {
 		colores.add(Color.YELLOW);
 		colores.add(Color.PURPLE);
         Combinacion solucionUsuario = new Combinacion(colores);
-		assertEquals( 5 ,ndm.resolve(solucionUsuario));
-		
+        int resultado = ndm.resolve(solucionUsuario).size();
+        assertTrue(resultado >= 1 && resultado <= 10);
+	}
+	@Test
+	public void TestSolveWinRepes() {
+		ArrayList<Color> colores = new ArrayList<Color>();
+		colores.add(Color.RED);
+		colores.add(Color.GREEN);
+		colores.add(Color.YELLOW);
+		colores.add(Color.RED);
+        Combinacion solucionUsuario = new Combinacion(colores);
+        int resultado = ndm.resolve(solucionUsuario).size();
+        assertTrue(resultado >= 1 && resultado <= 10);
 	}
 
 }

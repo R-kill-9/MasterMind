@@ -2,6 +2,7 @@ package main.domain;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -179,10 +180,10 @@ public class Partida {
 		checkLevelExceptions(combSolution);
 		if(lastTurno.getRol()) solutions.add(newCombinacion);
 		else throw new Exception("Sólo el CodeBreaker puede hacer la solucion");
-		Integer numIntentos = nivel.resolve(newCombinacion);
-		turnos.get(getLastTurno() - 1).setNumberComb(numIntentos);
+		List<Combinacion> combHechas = nivel.resolve(newCombinacion);
+		turnos.get(getLastTurno() - 1).setAllComb(combHechas);
 		donePartida();
-		return numIntentos;
+		return combHechas.size();
 	}
 	/**
 	* Introduce un intento para este turno 

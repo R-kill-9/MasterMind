@@ -3,14 +3,13 @@ package main.domain;
 import java.util.ArrayList;
 
 public class NivelDificultadAlto extends NivelDificultadMedio {
-    public NivelDificultadAlto() {
+    
+	public NivelDificultadAlto() {
    	    numcolumnas = 5;
    	    sePuedeRepetir = true;
-   	    totalcombinacionesPosibles = new ArrayList<Combinacion>();
-   	    solucionesEnviadas = new ArrayList<Combinacion>();
-   	    possibleCodes = new ArrayList<Combinacion>();
-   	    enviosCandidatos = new ArrayList<Combinacion>();
    	    turn = 1;
+        Nsolucion = "NNNNN";
+   	    maquinaResolve = new FiveGuess(this);
     }
     /**
      * @param puntuacion obtenida por el codemaker
@@ -29,13 +28,16 @@ public class NivelDificultadAlto extends NivelDificultadMedio {
     public Integer getDificultad() {
        return 3;
     }
-    
+    @Override
+	public String getNsolucion() {
+		return Nsolucion;
+	}
     /**
      * @return numero de columnas permitido en el nivel
      */
     @Override
     public Integer getNumColumnas() {
-    	return this.numcolumnas;
+    	return numcolumnas;
     }
       
 }
