@@ -211,6 +211,7 @@ public class DriverDomain {
      * Función de jugar
      */
     public void jugar() {
+        System.out.println("CONFIGURACIÓN DE LA PARTIDA");
         testCrearPartida();
         System.out.println("Empiezas siendo " + (cDominio.getRol() ? "CodeMaker" : "CodeBreaker"));
         
@@ -262,54 +263,34 @@ public class DriverDomain {
                 driver.testLogin();
                 driver.jugar();
                 driver.testPrintPuntuacion();
-                driver.testPrintRecords();
+                //Una vez acabada la partida se pregunta al usuario que quiere hacer
+                int option;
+                do {
+                    System.out.println(separator);
+                    System.out.println("1. Jugar otra partida");
+                    System.out.println("2. Ver records");
+                    System.out.println("3. Salir");
+                    System.out.println(separator);
+                    option = driver.input.nextInt();
+                    switch (option) {
+                        case 1:
+                            driver.jugar();
+                            driver.testPrintPuntuacion();
+                            break;
+                        case 2:
+                            driver.testPrintRecords();
+                            break;
+                        case 3:
+                            System.out.println("Hasta la proxima!");
+                            break;
+                        default:
+                            System.out.println("Opcion no valida");
+                            break;
+                    }
+                } while (option != 3);
+
                 
             }
         }
 
      
-    
-
-
-    /**
-     * Main del driver
-     */
-    /* public static void main(String[] args) {
-        DriverDomain driver = new DriverDomain();
-        driver.input = new Scanner(System.in);
-        int option;
-        do{
-            System.out.println(separator);
-            System.out.println("1. Login");
-            System.out.println("2. Crear partida");
-            System.out.println("3. Enviar combinacion");
-            System.out.println("4. Enviar solucion");
-            System.out.println("5. Salir");
-            System.out.println(separator);
-            option = driver.input.nextInt();
-            switch (option){
-                case 1:
-                    driver.testLogin();
-                    break;
-                case 2:
-                    driver.testCrearPartida();
-                    break;
-                case 3:
-                    driver.testnewCombinacion();
-                    break;
-                case 4:
-                    driver.testSetSolucion();
-                    break;
-                case 5:
-                    break;
-                default:
-                    System.out.println("Opcion incorrecta");
-                    break;
-            }
-        } while (option != 5);
-    }
-}
-*/
-
-
-
