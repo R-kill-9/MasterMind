@@ -8,6 +8,7 @@ public class NivelDificultadAlto extends NivelDificultadMedio {
    	    numcolumnas = 5;
    	    sePuedeRepetir = true;
    	    turn = 1;
+        Nsolucion = "NNNNN";
    	    maquinaResolve = new FiveGuess(this);
     }
     /**
@@ -27,13 +28,16 @@ public class NivelDificultadAlto extends NivelDificultadMedio {
     public Integer getDificultad() {
        return 3;
     }
-    
+    @Override
+	public String getNsolucion() {
+		return Nsolucion;
+	}
     /**
      * @return numero de columnas permitido en el nivel
      */
     @Override
     public Integer getNumColumnas() {
-    	return this.numcolumnas;
+    	return numcolumnas;
     }
       
 }

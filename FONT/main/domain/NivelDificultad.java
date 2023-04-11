@@ -15,7 +15,9 @@ public abstract class NivelDificultad {
 	protected Integer turn;
     public Combinacion solucion;
     public Combinacion envioActual;
-    protected Maquina maquinaResolve;    
+    protected Maquina maquinaResolve;
+    protected String Nsolucion;
+        
     
     public void setSolucion(Combinacion solution){
        this.solucion = solution;
@@ -28,7 +30,7 @@ public abstract class NivelDificultad {
     public abstract Integer getDificultad();
 
     public abstract Integer getNumColumnas();
-
+    public abstract String getNsolucion();
     public Integer getNumColors() {
     	return numColors;
     }
@@ -70,9 +72,8 @@ public abstract class NivelDificultad {
         return feedback;
     }
   
-    public int resolve(Combinacion solucionUsuario) {
-    	System.out.println(maquinaResolve);
-    	return this.maquinaResolve.resolve(solucionUsuario);
+    public List<Combinacion> resolve(Combinacion solucionUsuario) {
+    	return maquinaResolve.resolve(solucionUsuario);
     }
 
  
@@ -107,6 +108,9 @@ public abstract class NivelDificultad {
 		        combinacion.add(getColorNumber(randomNumber));
 	        	if(combinacion.size() == getNumColumnas()) doneComb = true;
 	        }
+	
 	        return new Combinacion(combinacion);
 	}
+
+	public abstract List<Combinacion> generarCombinaciones(Boolean[] visto, int i, ArrayList<Color> sol);
 }

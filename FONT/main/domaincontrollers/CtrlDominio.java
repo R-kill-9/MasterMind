@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import main.domain.Color;
 import main.domain.ColorFeedBack;
 import main.domain.HistorialPartidas;
+import main.domain.HistorialPartidasGuardadas;
 import main.domain.Pair;
 import main.domain.Juego;
 import main.domain.Ranking;
@@ -21,6 +22,8 @@ public class CtrlDominio {
 	private static CtrlDominio instance;
 	private static Juego juego;
 	private static Ranking rankingGlobal;
+	private static HistorialPartidas historialPartidas;
+	private static HistorialPartidasGuardadas historialPartidasGuardadas;
 
 	/** Constructor y metodos de inicializacion **/
 
@@ -28,6 +31,8 @@ public class CtrlDominio {
 		setControladorUsuario(new CtrlUsuario());
 		setRankingGlobal(new Ranking());
 		setJuego(Juego.getInstance());
+		historialPartidas = new HistorialPartidas();
+		historialPartidasGuardadas = new HistorialPartidasGuardadas();
 		
 	}
 	
@@ -99,6 +104,19 @@ public class CtrlDominio {
 		return rankingGlobal.getRanking(nivel);
 	}
 	
+	/*
+	 * Obtenemos los records del usuario
+	 */
+	public static int[] getRecord(){
+		return CtrlUsuario.getRecord();
+	}
+
+	/*
+	* Obtenemos la puntuacion de la partida
+	 */
+	public static int  getScore(){
+		return CtrlUsuario.getScore();
+	}
 
 	public static Map<Integer,TreeMap<String, Integer>> getAllRankingGlobal() {
 		return rankingGlobal.getAllRanking();
@@ -107,6 +125,10 @@ public class CtrlDominio {
 
 	public static void setRankingGlobal(Ranking rankingGlobal) {
 		CtrlDominio.rankingGlobal = rankingGlobal;
+	}
+
+	public static boolean getRol() {
+		return CtrlUsuario.getRol();
 	}
 
 	public static String getJuegoInfo() {

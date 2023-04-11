@@ -50,10 +50,8 @@ public class Turno {
 		return combinations.size();
 	}
 	
-	public void setNumberComb(Integer numComb) {
-		for (int i = 0; i < numComb; i++) {
-	        combinations.add(new Combinacion(new ArrayList<Color>()));
-	    }
+	public void setAllComb(ArrayList<Combinacion> combinations) {
+		combinations.addAll(combinations);
 	}
 	public void eraseCombinations() {
 		combinations.clear();

@@ -1,6 +1,8 @@
 package main.domain;
 
+import java.util.List;
+
 public interface Maquina {
 	public void setSolucion(Combinacion solution);
-	public int resolve(Combinacion solucionUsuario);
+	public List<Combinacion> resolve(Combinacion solucionUsuario);
 }

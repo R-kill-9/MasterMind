@@ -70,7 +70,7 @@ public class CtrlUsuario {
 	 * En caso de que la puntuación sea mayor que la máxima que ha conseguido el
 	 * usuario, se actualiza el record.
 	 */
-	public void setRecord(int puntuacion) {
+	public static void setRecord(int puntuacion) {
 		userAct.setMaxScore(puntuacion);
 	}
 
@@ -80,7 +80,7 @@ public class CtrlUsuario {
 	 * @param username Nombre de usuario.
 	 * @return Record del usuario con el nombre de usuario dado.
 	 */
-	public int getRecord() {
+	public static int[] getRecord() {
 		return userAct.getMaxScore();
 	}
 
@@ -201,4 +201,21 @@ public class CtrlUsuario {
 		CtrlPartida.cambiarEstadoPartida(estado);
 	}
 
+	/*
+	 * Devuelve el rol de la partida
+	 */
+	public static boolean getRol() {
+		return CtrlPartida.getRol();
+	}
+
+	/*
+	 * Devuelve la puntuacion de la partida
+	 */
+	public static int getScore() {
+		//int puntuacion= CtrlPartida.getScore();
+
+		//setRecord(puntuacion);
+		//return puntuacion;
+		return CtrlPartida.getScore();
+	}
 }
