@@ -1,6 +1,7 @@
 package main.domain;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 
@@ -39,19 +40,23 @@ public class NivelDificultadBajo extends NivelDificultad {
 	}
     
     @Override
-    public Combinacion genCombinacion() {
-	 	Random random = new Random();
-        ArrayList<Color> combinacion = new ArrayList<Color>();
+    public List<Integer> genCombinacion() {
+	 	
+    	Random random = new Random();
+        List<Integer> combinacion = new ArrayList<Integer>();
         boolean doneComb = false;
         ArrayList<Boolean> visto = new ArrayList<Boolean>(Collections.nCopies(6, false));
         while(!doneComb){
-        	Integer randomNumber = random.nextInt(5) + 1;
+        	Integer randomNumber = random.nextInt(5);
         	if(!visto.get(randomNumber)) {
-	        	combinacion.add(getColorNumber(randomNumber));
+	        	combinacion.add(randomNumber);
 	        	visto.set(randomNumber,true);
         	}
         	if(combinacion.size() == getNumColumnas()) doneComb = true;
         }
-        return new Combinacion(combinacion);
+        return new ArrayList<Integer>(combinacion);
     }
 }
+    
+    
+	

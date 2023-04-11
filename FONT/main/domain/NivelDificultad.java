@@ -13,13 +13,13 @@ public abstract class NivelDificultad {
 	protected int numColors = 6;
 	protected boolean  sePuedeRepetir;
 	protected Integer turn;
-    public Combinacion solucion;
-    public Combinacion envioActual;
+    public List<Integer> solucion;
+    public List<Integer> envioActual;
     protected Maquina maquinaResolve;
     protected String Nsolucion;
         
     
-    public void setSolucion(Combinacion solution){
+    public void setSolucion(List<Integer> solution){
        this.solucion = solution;
     }
     
@@ -35,18 +35,18 @@ public abstract class NivelDificultad {
     	return numColors;
     }
 	
-	public String comprobarCombinacion(Combinacion solution, Combinacion solEnviada){
+	public String comprobarCombinacion(List<Integer> solution, List<Integer> solEnviada){
     	
         int aciertos = 0;
     	int semiaciertos = 0;
         String feedback = "";
         
         for(int i = 0; i < getNumColumnas(); i++){
-            if(solEnviada.getPosition(i) == solution.getPosition(i)){
+            if(solEnviada.get(i) == solution.get(i)){
                 aciertos++;
                 feedback += "N";
             }
-            else if(solEnviada.contains(solution.getPosition(i))){
+            else if(solEnviada.contains(solution.get(i))){
                 semiaciertos++;
             }   
         }  
@@ -57,13 +57,13 @@ public abstract class NivelDificultad {
         return feedback;
     }
     
-    public String comprobarCombinacionPista(Combinacion solution, Combinacion solEnviada){
+    public String comprobaCombinacionPista(List<Integer> solution, List<Integer> solEnviada){
     	String feedback = "";
         for(int i = 0; i < getNumColumnas(); i++){
-            if(solution.getPosition(i) == solEnviada.getPosition(i)){
+            if(solution.get(i) == solEnviada.get(i)){
                 feedback += "N";
             }
-            else if(solution.contains(solEnviada.getPosition(i))){
+            else if(solution.contains(solEnviada.get(i))){
                 feedback += "B";
             }
             else {
@@ -72,45 +72,25 @@ public abstract class NivelDificultad {
         return feedback;
     }
   
-    public List<Combinacion> resolve(Combinacion solucionUsuario) {
+    public List<List<Integer>> resolve(List<Integer> solucionUsuario) {
     	return maquinaResolve.resolve(solucionUsuario);
     }
 
  
-	protected static Color getColorNumber(Integer randomNumber) {
-		switch (randomNumber) {
-			case 1:
-				return Color.RED;
-			case 2:
-				return Color.GREEN;
-			case 3:
-				return Color.BLUE;
-			case 4:
-				return Color.YELLOW;
-			case 5:
-				return Color.PURPLE;
-			case 6:
-				return Color.ORANGE;
-		}
-		return null;
-	}
 	
 	/**
 	 * Genera una combinación aleatoria que se usará como solución
 	 */
 	
-	public Combinacion genCombinacion() {
+	public List<Integer> genCombinacion() {
 		 	Random random = new Random();
-	        ArrayList<Color> combinacion = new ArrayList<Color>();
-	        boolean doneComb = false;
-	        while(!doneComb){
-	        	Integer randomNumber = random.nextInt(5) + 1;
-		        combinacion.add(getColorNumber(randomNumber));
-	        	if(combinacion.size() == getNumColumnas()) doneComb = true;
+	        List<Integer> Combinacion= new ArrayList<Integer>();
+	        for(int i= 0; i< getNumColumnas(); i++) {
+	        	Combinacion.add(random.nextInt(5));
 	        }
 	
-	        return new Combinacion(combinacion);
+	        return new ArrayList<Integer>(Combinacion);
 	}
 
-	public abstract List<Combinacion> generarCombinaciones(Boolean[] visto, int i, ArrayList<Color> sol);
+
 }
