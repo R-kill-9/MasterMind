@@ -304,13 +304,7 @@ public class Partida {
         return this.puntos;
 	}
 
-	/**
-	*Devuelve la fecha de la partida 
-	 * @return 
-	*/
-	public Date getFecha() {
-        return this.data;
-	}
+
 
 	public Boolean getAyuda() {
 		return this.ayuda;
