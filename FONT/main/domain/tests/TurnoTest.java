@@ -77,7 +77,7 @@ public class TurnoTest {
     	turnoActual.setCombinacion(colores1);
     	turnoActual.setCombinacion(colores2);
     	Combinacion ultimaCombinacion = turnoActual.getLastCombinacion();
-    	assertEquals("It should return colores2, the las combination setted", colores2, ultimaCombinacion.getCombination());
+    	assertEquals("It should return colores2, the las combination set", colores2, ultimaCombinacion.getCombination());
     }
     
     
