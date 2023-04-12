@@ -39,86 +39,71 @@ public class NivelDificultadBajoTest {
 	@Test
 	public void testCombinacionesIguales() {
 
-		ArrayList<Integer> colores = new ArrayList<Integer>();
-		colores.add(1);
-		colores.add(2);
-		colores.add(3);
-		colores.add(4);
-        List<Integer> solucion = new ArrayList<Integer>(colores);
-
-        List<Integer> envio = new ArrayList<Integer>(colores);
+		ArrayList<Integer> solucion = new ArrayList<Integer>();
+		solucion.add(1);
+		solucion.add(5);
+		solucion.add(3);
+		solucion.add(0);
+        
+		ArrayList<Integer> envio = new ArrayList<Integer>();
+		envio.add(1);
+		envio.add(5);
+		envio.add(3);
+		envio.add(0);
 		String solucionIguales = new String("NNNN");
 		assertEquals( solucionIguales, ndb.comprobarCombinacion(solucion, envio)); 
 	}
+	
 
 	@Test
 	public void testCombinaciones2Iguales1Semi() {
 
-		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.RED);
-		colores.add(Color.BLUE);
-		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
-        Combinacion solucion = new Combinacion(colores);
-		ArrayList<Color> colores2 = new ArrayList<Color>();
-		colores2.add(Color.RED);
-		colores2.add(Color.BLUE);
-		colores2.add(Color.RED);
-		colores2.add(Color.GREEN);
-        Combinacion envio = new Combinacion(colores2);
+		ArrayList<Integer> solucion = new ArrayList<Integer>();
+		solucion.add(1);
+		solucion.add(5);
+		solucion.add(3);
+		solucion.add(0);
+        
+		ArrayList<Integer> envio = new ArrayList<Integer>();
+		envio.add(1);
+		envio.add(4);
+		envio.add(3);
+		envio.add(5);
+		
 		String solucionIguales = new String("NNB");
 		assertEquals( solucionIguales, ndb.comprobarCombinacion(solucion, envio) ); 
 	}
-	@Test
-	public void testCombinacionesDiferentes() {
-
-		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.RED);
-		colores.add(Color.RED);
-		colores.add(Color.RED);
-		colores.add(Color.RED);
-        Combinacion solucion = new Combinacion(colores);
-		ArrayList<Color> colores2 = new ArrayList<Color>();
-		colores2.add(Color.BLUE);
-		colores2.add(Color.BLUE);
-		colores2.add(Color.BLUE);
-		colores2.add(Color.BLUE);
-        Combinacion envio = new Combinacion(colores2);
-		String solucionIguales = new String("");
-		assertEquals( solucionIguales, ndb.comprobarCombinacion(solucion, envio) ); 
-	}
+		
 	@Test
 	public void testCombinacionesIgualesConPista() {
 
-		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.RED);
-		colores.add(Color.BLUE);
-		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
-        Combinacion solucion = new Combinacion(colores);
-
-        Combinacion envio = new Combinacion(colores);
+		ArrayList<Integer> solucion = new ArrayList<Integer>();
+		solucion.add(1);
+		solucion.add(5);
+		solucion.add(3);
+		solucion.add(0);
+		ArrayList<Integer> envio = solucion;
 		String solucionIguales = new String("NNNN");
-		assertEquals( solucionIguales, ndb.comprobarCombinacion(solucion, envio) ); 
+		assertEquals( solucionIguales, ndb.comprobaCombinacionPista(solucion, envio) ); 
 	}
 
 	@Test
 	public void testCombinaciones2Iguales1SemiConPista() {
 
-		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.RED);
-		colores.add(Color.BLUE);
-		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
-        Combinacion solucion = new Combinacion(colores);
-		ArrayList<Color> colores2 = new ArrayList<Color>();
-		colores2.add(Color.RED);
-		colores2.add(Color.BLUE);
-		colores2.add(Color.PURPLE);
-		colores2.add(Color.GREEN);
-        Combinacion envio = new Combinacion(colores2);
-		String solucionIguales = new String("NN B");
-		assertEquals( solucionIguales, ndb.comprobarCombinacionPista(solucion, envio)); 
+		ArrayList<Integer> solucion = new ArrayList<Integer>();
+		solucion.add(1);
+		solucion.add(5);
+		solucion.add(3);
+		solucion.add(0);
+        
+		ArrayList<Integer> envio = new ArrayList<Integer>();
+		envio.add(1);
+		envio.add(4);
+		envio.add(3);
+		envio.add(5);
+		
+		String solucionIguales = new String("N NB");
+		assertEquals( solucionIguales, ndb.comprobaCombinacionPista(solucion, envio)); 
 	}
 
 
@@ -131,9 +116,11 @@ public class NivelDificultadBajoTest {
 		colores.add(4);
         List<Integer> solucion = new ArrayList<Integer>(colores);
 
-        List<Integer> envio = new ArrayList<Integer>(colores);
 		int resultado = ndb.resolve(solucion).size();
         assertTrue(resultado >= 1 && resultado <= 10);
 	}
+	
+	
+
 
 }

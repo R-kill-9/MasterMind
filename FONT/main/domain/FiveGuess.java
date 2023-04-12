@@ -127,7 +127,7 @@ public class FiveGuess implements Maquina {
 
 		    for(int j = 0; j < nivel.getNumColors(); j++) {		   
 		            sol.add(j) ;// Se crea un objeto nuevo cada vez
-		            List<List<Integer>> combinacionesSiguientes = generarCombinaciones(visto, i + 1, sol);
+		            List<List<Integer>> combinacionesSiguientes = generarCombinacionesRepes(visto, i + 1, sol);
 		            combinaciones.addAll(combinacionesSiguientes);
 		            sol.remove(sol.size() - 1); // Se elimina la última referencia agregada
 		           
@@ -191,6 +191,7 @@ public class FiveGuess implements Maquina {
 	  public List<List<Integer>> resolve(List<Integer> solucionUsuario) {
     	setSolucion(solucionUsuario);
         envioActual = nivel.genCombinacion();
+        
         totalcombinacionesPosibles.addAll(inicializarPosiblesCodigos());
 		possibleCodes=totalcombinacionesPosibles;
 		while(  turn <= 10 ){
