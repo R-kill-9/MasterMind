@@ -26,6 +26,15 @@ public class DriverDomain {
      */
     private boolean win;
 
+    /**
+     * int para saber la ronda
+     */
+    private int ronda;
+
+    /*
+     * Int para saber el número de ronda de codeBreaker
+     */
+    private int rondaCB;
 
     /**
      * String para la estetica de la consola
@@ -148,6 +157,7 @@ public class DriverDomain {
         } catch (Exception e) {
             System.out.println(separator);
             System.out.println(e);
+            --rondaCB;
             return;
         }
 
@@ -203,6 +213,7 @@ public class DriverDomain {
         } catch (Exception e) {
             System.out.println(separator);
             System.out.println(e);
+            --ronda;
             return;
         }
     }
@@ -211,29 +222,25 @@ public class DriverDomain {
      * Función de jugar
      */
     public void jugar() {
+        ronda =0;
         System.out.println("CONFIGURACIÓN DE LA PARTIDA");
         testCrearPartida();
         System.out.println("Empiezas siendo " + (cDominio.getRol() ? "CodeMaker" : "CodeBreaker"));
-        
+        while (ronda <2 && !win){
         if (cDominio.getRol()) {
+            ++ronda;
             testSetSolucion();
         }
         else {
-            for (int i = 0; i < 10 && !win; ++i) {
-                System.out.println("Ronda " + (i + 1) + " de 10");
+            ++ronda;
+            for (rondaCB = 0; rondaCB < 10 && !win; ++rondaCB) {
+                System.out.println("Ronda " + (rondaCB + 1) + " de 10");
                 testnewCombinacion();
-            }
-        }
-        System.out.println("Cambio de turno, ahora eres " + (cDominio.getRol() ? "CodeMaker" : "CodeBreaker"));
-        if (cDominio.getRol()) testSetSolucion();
-        else {
-            for (int i = 0; i < 10 && !win; ++i) {
-                System.out.println("Ronda " + (i + 1) + " de 10");
-                testnewCombinacion();
-
             }
         }
     }
+     
+}
 
     /**
      * Funcion para imprimir la puntuacion de la partida
