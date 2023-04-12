@@ -1,0 +1,17 @@
+Instruccions per compilar i executar tant els tests com el driver del programa.
+
+1. Posar-se dins el directori FONT, on es troba l'arxiu Makefile
+
+2. Executar la comanda desitjada:
+make
+Això compilarà tots els arxius .java
+
+make run_driver
+Compilarà tots els arxius .java i executarà el driverDomain
+
+make run_test_domain
+Compilarà tots el tests.java i executarà els tests del domain
+
+make run_test_domainControllers
+Compilarà tots el tests.java i executarà els tests del domainController
+
