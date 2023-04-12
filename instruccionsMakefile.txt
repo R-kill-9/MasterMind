@@ -15,3 +15,5 @@ Compilarà tots el tests.java i executarà els tests del domain
 make run_test_domainControllers
 Compilarà tots el tests.java i executarà els tests del domainController
 
+make clean
+Elimina tots els arxius .class generats a la compilació
