@@ -47,8 +47,9 @@ public class Combinacion {
 		combination.add(colorAñadido);
 	}
 
-    public void remove(Color colorEliminado) {
-		this.combination.remove(colorEliminado);
+    public void remove(Color colorEliminado) throws Exception {
+    	boolean removed = this.combination.remove(colorEliminado);
+    	if(!removed) throw new Exception("The color does not exists");
     }
 
 	public void print() {

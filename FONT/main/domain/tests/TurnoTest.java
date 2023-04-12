@@ -15,6 +15,9 @@ public class TurnoTest {
 	 * Atributos
 	 */
 	private Turno turnoActual;
+    private ArrayList<Color> colores1;
+    private ArrayList<Color> colores2;
+    private ArrayList<Color> colores3;
     
 	/*
 	 * Método que se aplica siempre antes de hacer un test
@@ -22,6 +25,21 @@ public class TurnoTest {
     @Before
     public void setUp() {
         turnoActual = new Turno(true);
+        colores1 = new ArrayList<Color>();
+		colores1.add(Color.RED);
+        colores1.add(Color.BLUE);
+        colores1.add(Color.GREEN);
+        colores1.add(Color.YELLOW);
+        colores2 = new ArrayList<Color>();
+        colores1.add(Color.BLUE);
+        colores1.add(Color.RED);
+        colores1.add(Color.GREEN);
+        colores1.add(Color.YELLOW);
+        colores3 = new ArrayList<Color>();
+        colores1.add(Color.BLUE);
+        colores1.add(Color.RED);
+        colores1.add(Color.YELLOW);
+        colores1.add(Color.GREEN);
     }
     
     /*
@@ -44,14 +62,9 @@ public class TurnoTest {
      */
     @Test
     public void testSetCombinacion() {
-    	ArrayList<Color> colores = new ArrayList<Color>();
-        colores.add(Color.RED);
-        colores.add(Color.BLUE);
-        colores.add(Color.GREEN);
-        colores.add(Color.YELLOW);
         
-        Combinacion createdCombination = new Combinacion(colores);
-        turnoActual.setCombinacion(colores);
+        Combinacion createdCombination = new Combinacion(colores1);
+        turnoActual.setCombinacion(colores1);
         ArrayList<Combinacion> totalComb = turnoActual.getCombinaciones();
         Combinacion lastCombination = totalComb.get(turnoActual.getNumberComb()-1);
         
@@ -64,19 +77,11 @@ public class TurnoTest {
      */
     @Test
     public void testGetLastCombinacion() {
-    	ArrayList<Color> colores1 = new ArrayList<Color>();
-        colores1.add(Color.RED);
-        colores1.add(Color.BLUE);
-        colores1.add(Color.GREEN);
-        colores1.add(Color.YELLOW);
-        ArrayList<Color> colores2 = new ArrayList<Color>();
-        colores1.add(Color.BLUE);
-        colores1.add(Color.RED);
-        colores1.add(Color.GREEN);
-        colores1.add(Color.YELLOW);
     	turnoActual.setCombinacion(colores1);
-    	turnoActual.setCombinacion(colores2);
     	Combinacion ultimaCombinacion = turnoActual.getLastCombinacion();
+    	assertEquals("It should return colores1, the las combination set", colores1, ultimaCombinacion.getCombination());
+    	turnoActual.setCombinacion(colores2);
+    	ultimaCombinacion = turnoActual.getLastCombinacion();
     	assertEquals("It should return colores2, the las combination set", colores2, ultimaCombinacion.getCombination());
     }
     
@@ -86,15 +91,8 @@ public class TurnoTest {
      */
     @Test
     public void testGetNumberComb() {
-    	assertEquals(0, turnoActual.getNumberComb());
-    	
-    	ArrayList<Color> colores = new ArrayList<Color>();
-        colores.add(Color.RED);
-        colores.add(Color.BLUE);
-        colores.add(Color.GREEN);
-        colores.add(Color.YELLOW);
-        turnoActual.setCombinacion(colores);
-        
+    	assertEquals("The actual number of combinations should be 0", 0, turnoActual.getNumberComb());
+        turnoActual.setCombinacion(colores1);
         assertEquals("It should return the number of combinations, in this case 1", 1, turnoActual.getNumberComb());
     }
     
@@ -104,21 +102,6 @@ public class TurnoTest {
     @Test
 	public void testSetAllComb() {
 		Turno turno = new Turno(false);
-		ArrayList<Color> colores1 = new ArrayList<Color>();
-		colores1.add(Color.RED);
-        colores1.add(Color.BLUE);
-        colores1.add(Color.GREEN);
-        colores1.add(Color.YELLOW);
-        ArrayList<Color> colores2 = new ArrayList<Color>();
-        colores1.add(Color.BLUE);
-        colores1.add(Color.RED);
-        colores1.add(Color.GREEN);
-        colores1.add(Color.YELLOW);
-        ArrayList<Color> colores3 = new ArrayList<Color>();
-        colores1.add(Color.BLUE);
-        colores1.add(Color.RED);
-        colores1.add(Color.YELLOW);
-        colores1.add(Color.GREEN);
 		Combinacion comb1 = new Combinacion(colores1);
 		Combinacion comb2 = new Combinacion(colores2);
 		Combinacion comb3 = new Combinacion(colores3);
@@ -136,28 +119,14 @@ public class TurnoTest {
 		assertEquals("The third combination should be the same as the third one set", comb3, combinaciones.get(2));
 	}
     
+    
+    
     /*
      * Comprueba que se hace un borrado de todas las combinaciones
      */
     @Test
 	public void testEraseCombinations() {
     	Turno turno = new Turno(false);
-		ArrayList<Color> colores1 = new ArrayList<Color>();
-		colores1.add(Color.RED);
-        colores1.add(Color.BLUE);
-        colores1.add(Color.GREEN);
-        colores1.add(Color.YELLOW);
-        ArrayList<Color> colores2 = new ArrayList<Color>();
-        colores1.add(Color.BLUE);
-        colores1.add(Color.RED);
-        colores1.add(Color.GREEN);
-        colores1.add(Color.YELLOW);
-        ArrayList<Color> colores3 = new ArrayList<Color>();
-        colores1.add(Color.BLUE);
-        colores1.add(Color.RED);
-        colores1.add(Color.YELLOW);
-        colores1.add(Color.GREEN);
-	
 		turno.setCombinacion(colores1);
 		turno.setCombinacion(colores2);
 		turno.setCombinacion(colores3);
