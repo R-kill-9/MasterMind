@@ -9,6 +9,8 @@ import org.junit.Test;
 import main.domain.NivelDificultadMedio;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import main.domain.Combinacion;
 import main.domain.NivelDificultadAlto;
 import main.domain.Color;
@@ -34,16 +36,30 @@ public class NivelDificultadAltoTest {
 	}
 	
 	@Test
-	public void TestSolveWinRoundX() {
-		ArrayList<Color> colores = new ArrayList<Color>();
-		colores.add(Color.RED);
-		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
-		colores.add(Color.PURPLE);
-		colores.add(Color.ORANGE);
-        Combinacion solucionUsuario = new Combinacion(colores);
-        int resultado = nda.resolve(solucionUsuario).size();
+	public void TestSolveWin() {
+		ArrayList<Integer> solucion = new ArrayList<Integer>();
+		solucion.add(1);
+		solucion.add(2);
+		solucion.add(3);
+		solucion.add(4);
+		solucion.add(5);
+		
+		int resultado = nda.resolve(solucion).size();
         assertTrue(resultado >= 1 && resultado <= 10);
 	}
+	@Test
+	public void TestSolveWinRepetidos() {
+		ArrayList<Integer> solucion = new ArrayList<Integer>();
+		solucion.add(1);
+		solucion.add(1);
+		solucion.add(1);
+		solucion.add(1);
+		solucion.add(1);
+
+		int resultado = nda.resolve(solucion).size();
+        assertTrue(resultado >= 1 && resultado <= 10);
+	}
+	
+	
 
 }
