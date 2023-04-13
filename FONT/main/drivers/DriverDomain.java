@@ -36,6 +36,16 @@ public class DriverDomain {
      */
     private int rondaCB;
 
+    /** 
+     * int para saber la dificultad
+     */
+    int dificultad;
+
+    /**
+     * String para saber el nombre del usuario
+     */
+    private String username;
+
     /**
      * String para la estetica de la consola
      */
@@ -53,7 +63,6 @@ public class DriverDomain {
      * Funcion para hacer login
      */
     public void testLogin() {
-        String username;
         do {
             System.out.println("Introduce el nombre de usuario");
             username = input.nextLine();
@@ -76,7 +85,6 @@ public class DriverDomain {
      * Funcion para crear partida
      */
     public void testCrearPartida() {
-        int dificultad;
         int aux; //Para leer el booleano
         boolean ayuda;
 
@@ -241,6 +249,29 @@ public class DriverDomain {
     }
      
 }
+    /**
+     * Funcion para imprimir el ranking
+     */
+
+    public void testPrintRanking() {
+        cDominio.addPartidaRanking(username,cDominio.getScore(),dificultad);
+        int dificultad;
+        System.out.println(separator);
+        System.out.println("Introduce la dificultad del ranking");
+        System.out.println("1. Facil");
+        System.out.println("2. Medio");
+        System.out.println("3. Dificil");
+        do {
+            dificultad = input.nextInt();
+            if (dificultad < 1 || dificultad > 3) System.out.println("La dificultad debe ser 1, 2 o 3");
+        } while (dificultad < 1 || dificultad > 3);
+        System.out.println("El ranking es: ");
+        TreeMap<String, Integer> ranking = cDominio.getRankingGlobalUnNivel(dificultad);
+        for (Map.Entry<String, Integer> entry : ranking.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+    }
+
 
     /**
      * Funcion para imprimir la puntuacion de la partida
@@ -276,7 +307,8 @@ public class DriverDomain {
                     System.out.println(separator);
                     System.out.println("1. Jugar otra partida");
                     System.out.println("2. Ver records");
-                    System.out.println("3. Salir");
+                    System.out.println("3. Ver ranking");
+                    System.out.println("4. Salir");
                     System.out.println(separator);
                     option = driver.input.nextInt();
                     switch (option) {
@@ -288,7 +320,10 @@ public class DriverDomain {
                             driver.testPrintRecords();
                             break;
                         case 3:
-                            System.out.println("Hasta la proxima!");
+                            driver.testPrintRanking();
+                            break;
+                        case 4:
+                            System.out.println("Saliendo...");
                             break;
                         default:
                             System.out.println("Opcion no valida");

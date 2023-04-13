@@ -145,4 +145,14 @@ public class CtrlDominio {
 	public static void cambiarEstadoPartida(String estado) {
 		CtrlUsuario.cambiarEstadoPartida(estado);;
 	}
+
+	/**
+	 * Funcion para añadir partida al ranking
+	 */
+	public static void addPartidaRanking(String jugador, Integer puntuacion, Integer nivelDificultad) {
+		rankingGlobal.addPartida(jugador,puntuacion,nivelDificultad);
+	}
+
+
 }
+
