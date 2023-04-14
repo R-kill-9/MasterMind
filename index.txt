@@ -1,0 +1,16 @@
+Descripció dels fitxers:
+
+DOC -> Directori on van els documents relacionats amb les entregues
+
+FONT -> Directori on van els arxius de les classes implementades, així com els tests i el driver, juntament amb un Makefile
+
+README.md -> Arxiu que conté l'informació dels participants del grup
+
+instruccions-Makefile.txt -> Arxiu que conté les instruccions per compilar i executar el programa i els tests del programa a partir del Makefile
+
+Altres aclaracions:
+
+-Sobre el joc de proves: Creiem que fer un joc de proves no té sentit degut a la naturalesa del projecte, es a dir, no podem deixar un joc de proves preparat ja que cada partida es comporta de manera diferent, no tindria sentit crear un joc de proves que sempre enviés un número exacte de combinacions ja que la partida es pot resoldre en un número de entre 1 i 10 combinacions.
+Per veure el si el funcionament del programa és correcte hem fet els tests unitaris de totes les funcions i per probar la funcionalitat general del programa hem anat "jugant" a través del driver del domini.
+
+
