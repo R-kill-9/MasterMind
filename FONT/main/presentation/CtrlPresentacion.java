@@ -1,90 +1,97 @@
-package presentation;
+package main.presentation;
 
-import java.io.FileNotFoundException;
+import main.domain.ColorFeedBack;
+import main.domaincontrollers.*;
+
+import java.awt.Color;
 import java.util.ArrayList;
 
-import domaincontrollers.CtrlDominio;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 /** Ejemplo de Controlador de Presentación. **/
 public class CtrlPresentacion {
 
 	/** Atributos **/
 
-	private CtrlDominio controladorDominio;
-	private VistaPrincipal vistaPrincipal;
-	private VistaSecundaria vistaSecundaria;
-	private VistaLEEME vistaLEEME;
-
+	private static CtrlDominio controladorDominio = CtrlDominio.getInstance();
+	private static Integer numCols;
 	/** Constructor y metodos de inicializacion **/
 
-	public CtrlPresentacion() {
-		controladorDominio = new CtrlDominio();
-		vistaPrincipal = new VistaPrincipal(this);
-		vistaSecundaria = new VistaSecundaria(this);
-		vistaLEEME = new VistaLEEME();
+	
+
+	public static void carregarvistaLogin() {
+		LoginScreen vistaLogin = new LoginScreen();
+	}
+	public static void carregarvistaMastermindGame() {
+		MastermindGame vistaGame = new MastermindGame(numCols);
+		vistaGame.setVisible(true);
+	}
+	
+	public static void loginUser(String username) throws Exception {
+		controladorDominio.loginUser(username);
 	}
 
-	public void inicializarPresentacion() {
-		controladorDominio.inicializarCtrlDominio();
-
-		vistaLEEME.hacerVisible();
-		vistaPrincipal
-				.hacerVisible(controladorDominio.getAlumnoSeleccionado() != null);
+	public static PantallaConfiguracion carregarVistaConfiguracion() {
+		PantallaConfiguracion configuracion = new PantallaConfiguracion();
+		configuracion.setTitle("Set up game");
+        configuracion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        configuracion.setVisible(true);
+		return null;
 	}
+	
+	public static void newGame(Integer level, Boolean rol, Boolean ayuda) {
+		numCols = level == 3 ? 6 : 5;
+		controladorDominio.crearPartida(level, rol, ayuda);
 
-	/** Métodos de sincronizacion entre vistas **/
-
-	public void sincronizacionVistaPrincipalASecundaria() {
-		vistaPrincipal.desactivar();
-		vistaSecundaria.hacerVisible();
 	}
-
-	public void sincronizacionVistaSecundariaAPrincipal() {
-		// Se hace invisible la vista secundaria (podria anularse)
-		vistaPrincipal
-				.activar(controladorDominio.getAlumnoSeleccionado() != null);
-		vistaSecundaria.hacerInvisible();
+	
+	public static Color[] submit(Color[] colors) {
+		ArrayList<main.domain.Color> intento = new ArrayList<main.domain.Color>();
+		Color red = Color.red;
+		for(Color c: colors) {
+		    if(c.getRed() == 255 && c.getGreen() == 0 && c.getBlue() == 0) {
+		        intento.add(main.domain.Color.RED);
+		    } else if(c.getRed() == 0 && c.getGreen() == 255 && c.getBlue() == 0) {
+		        intento.add(main.domain.Color.GREEN);
+		    } else if(c.getRed() == 0 && c.getGreen() == 0 && c.getBlue() == 255) {
+		        intento.add(main.domain.Color.BLUE);
+		    } else if(c.getRed() == 255 && c.getGreen() == 255 && c.getBlue() == 0) {
+		        intento.add(main.domain.Color.YELLOW);
+		    } else if(c.getRed() == 255 && c.getGreen() == 0 && c.getBlue() == 255) {
+		        intento.add(main.domain.Color.PURPLE);
+		    } else if(c.getRed() == 255 && c.getGreen() == 200 && c.getBlue() == 0) {
+		        intento.add(main.domain.Color.ORANGE);
+		    }
+		}
+		
+		try {
+			ArrayList<ColorFeedBack> fb = controladorDominio.newCombinacion(intento);
+			Color[] feedBack = new Color[fb.size()];
+			System.out.println(fb);
+			for(int i = 0; i < fb.size(); i++) {
+			    ColorFeedBack fbColor = fb.get(i);
+			    if(fbColor == ColorFeedBack.BLACK) {
+			        feedBack[i] = new Color(0, 0, 0);
+			    } else if(fbColor == ColorFeedBack.WHITE) {
+			        feedBack[i] =  new Color(255, 255, 255);
+			    } else {
+			        feedBack[i] = new Color(128, 128, 128);
+			    }
+			}
+			for (Color c : feedBack) {
+			    System.out.println(c);
+			}
+			return feedBack;
+			
+		} catch (Exception e) {
+			  JOptionPane.showMessageDialog(null, e.getMessage(),
+                      "Error", JOptionPane.ERROR_MESSAGE);
+			  
+		}
+		return null;
+		
 	}
-
-	/** Llamadas al controlador de dominio **/
-
-	public ArrayList<String> cargarAsignaturas(String selectedItem)
-			throws FileNotFoundException {
-		return controladorDominio.cargarAsignaturas(selectedItem);
-	}
-
-	public boolean crearAlumno(String nombreAlumno) {
-		return controladorDominio.crearAlumno(nombreAlumno);
-	}
-
-	public void eliminarAlumno(String nombreAlumno) {
-		controladorDominio.eliminarAlumno(nombreAlumno);
-	}
-
-	public void asignarNota(String nombreAsignatura, Double nota) {
-		controladorDominio.asignarNota(
-				controladorDominio.getAlumnoSeleccionado(), nombreAsignatura,
-				nota+"");
-	}
-
-	public String calcularMedia(String nombreAlumno) {
-		return controladorDominio.calcularMedia(nombreAlumno);
-	}
-
-	public String[] getAllAlumnos() {
-		return controladorDominio.getAllAlumnos();
-	}
-
-	public String getNota(String nombreAsignatura) {
-		return controladorDominio.getNota(
-				controladorDominio.getAlumnoSeleccionado(), nombreAsignatura);
-	}
-
-	public String getAlumnoSeleccionado() {
-		return controladorDominio.getAlumnoSeleccionado();
-	}
-
-	public void setAlumnoSeleccionado(String alumnoSeleccionado) {
-		controladorDominio.setAlumnoSeleccionado(alumnoSeleccionado);
-	}
+	
 }

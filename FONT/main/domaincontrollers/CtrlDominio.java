@@ -18,7 +18,7 @@ public class CtrlDominio {
 
 	/** Atributos **/
 
-	private CtrlUsuario controladorUsuario;
+	private static CtrlUsuario controladorUsuario;
 	private static CtrlDominio instance;
 	private static Juego juego;
 	private static Ranking rankingGlobal;
@@ -42,7 +42,7 @@ public class CtrlDominio {
 		}
 		return instance;
 	}
-
+	
 	/**
 	 * Funciones que se llaman desde el controlador de presentacion. Por
 	 * convención, únicamente se usan Strings para la comunicación entre las dos

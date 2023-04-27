@@ -54,6 +54,7 @@ public class CtrlUsuario {
 			usuarios.add(username);
 		}
 		userAct = new Usuario(username);
+		System.out.println(userAct);
 	}
 
 	/**

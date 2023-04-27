@@ -57,6 +57,9 @@ public class Partida {
 		this.username = usuario;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
+		System.out.println(this.ayuda);
+		System.out.println(rol);
+		System.out.println(dificultadEscogida);
 	}
 	
 	private Combinacion convertIntegerToColor(List<Integer> combInteger) {
@@ -253,6 +256,7 @@ public class Partida {
 	* Introduce un intento para este turno 
 	*/
 	public ArrayList<ColorFeedBack> setCombinacion(ArrayList<Color> combSolution) throws Exception{
+		if(combSolution.size() != nivel.getNumColumnas()) throw new Exception("All columns must be fullfilled");
 		Turno lastTurno = this.turnos.get(turnos.size() -1);
 		lastTurno.setCombinacion(combSolution);
 		Combinacion lastComb = lastTurno.getLastCombinacion();
