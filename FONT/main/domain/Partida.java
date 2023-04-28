@@ -265,6 +265,7 @@ public class Partida {
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
 			if(!ayuda) {
 				String feedBack = nivel.comprobarCombinacion(convertColorToInteger(solutions.get(solutions.size()-1)), convertColorToInteger(lastComb));
+				System.out.println(feedBack);
 				for(char bola : feedBack.toCharArray()) {
 				    ColorFeedBack cb = bola == 'N' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);

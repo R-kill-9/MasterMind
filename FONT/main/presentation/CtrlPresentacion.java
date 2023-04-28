@@ -17,6 +17,7 @@ public class CtrlPresentacion {
 
 	private static CtrlDominio controladorDominio = CtrlDominio.getInstance();
 	private static Integer numCols;
+	private static Boolean setAyuda;
 	/** Constructor y metodos de inicializacion **/
 
 	
@@ -25,7 +26,7 @@ public class CtrlPresentacion {
 		LoginScreen vistaLogin = new LoginScreen();
 	}
 	public static void carregarvistaMastermindGame() {
-		MastermindGame vistaGame = new MastermindGame(numCols);
+		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda);
 		vistaGame.setVisible(true);
 	}
 	
@@ -43,6 +44,7 @@ public class CtrlPresentacion {
 	
 	public static void newGame(Integer level, Boolean rol, Boolean ayuda) {
 		numCols = level == 3 ? 6 : 5;
+		setAyuda = ayuda;
 		controladorDominio.crearPartida(level, rol, ayuda);
 
 	}
@@ -92,6 +94,15 @@ public class CtrlPresentacion {
 		}
 		return null;
 		
+	}
+	public static void reiniciarPartida() {
+		CtrlDominio.reiniciarPartida();
+		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda);
+		vistaGame.setVisible(true);
+	}
+	
+	public static void setAyudaPartida() {
+		CtrlDominio.solicitarAyuda();
 	}
 	
 }
