@@ -13,27 +13,27 @@ public class LoginScreen extends JFrame {
     public LoginScreen() {
         // Configurar la ventana
         setTitle("Inicio de Sesión");
-        setSize(400, 560);
+        setSize(470, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 5, 5, 10); // Agregamos margen entre los componentes
+        gbc.insets = new Insets(10, 5, 5, 10); 
 
         // Crear los componentes
         usernameField = new JTextField(20);
         
         loginButton = new JButton("Iniciar Sesión");
         JButton rankingButton = new JButton("Ver ranking");
-        rankingButton.setForeground(Color.RED); // RGB: blanco, alpha: 0
+        rankingButton.setForeground(Color.RED); 
         rankingButton.setOpaque(false);
-        rankingButton.setContentAreaFilled(false); // Hacer el área de contenido transparente
-        rankingButton.setBorderPainted(false); // Quitar el bord
+        rankingButton.setContentAreaFilled(false); 
+        rankingButton.setBorderPainted(false);
         rankingButton.setFont(rankingButton.getFont().deriveFont(Font.BOLD, 18));
         JLabel welcomeIcon = new JLabel("         \u265A");
         JLabel welcomeLabel = new JLabel("Welcome to Mastermind!");
 
-        // Configurar el diseño con GridBagLayout
+
         setLayout(new GridBagLayout());
         
         gbc.gridx = 0;
@@ -50,7 +50,7 @@ public class LoginScreen extends JFrame {
         add(loginButton, gbc);
    
         gbc.gridy = 6;
-        gbc.gridx = 0; // Agregar esta línea para establecer la posición en la columna 0
+        gbc.gridx = 0; 
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER; // Cambiar el valor de anchor a CENTER
         add(rankingButton, gbc);
@@ -66,7 +66,7 @@ public class LoginScreen extends JFrame {
         
         
         gbc.gridy = 1;
-        gbc.gridx = 0; // Agregar esta línea para establecer la posición en la columna 0
+        gbc.gridx = 0; 
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         add(welcomeIcon, gbc);
@@ -79,12 +79,10 @@ public class LoginScreen extends JFrame {
                     JOptionPane.showMessageDialog(LoginScreen.this, "Por favor ingresa un nombre de usuario.",
                             "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    // Crear una instancia del juego Mastermind
                 	CtrlPresentacion.carregarVistaConfiguracion();
                 	try {
 						CtrlPresentacion.loginUser(username);
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
                     setVisible(false);

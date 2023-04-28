@@ -36,6 +36,7 @@ public class CtrlUsuario {
 		this.usuarios.add(username);
 	}
 
+	
 	/**
 	 * Devuele la lista de usuarios existentes
 	 */

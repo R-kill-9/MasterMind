@@ -152,7 +152,11 @@ public class CtrlDominio {
 	public static void addPartidaRanking(String jugador, Integer puntuacion, Integer nivelDificultad) {
 		rankingGlobal.addPartida(jugador,puntuacion,nivelDificultad);
 	}
-
+	
+	public static void solicitarAyuda() {
+		controladorUsuario.solicitarAyuda();
+	}
+	
 
 }
 

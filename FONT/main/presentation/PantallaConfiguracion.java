@@ -10,7 +10,7 @@ public class PantallaConfiguracion extends JFrame {
 	        // Configurar la ventana
 	        setTitle("Configurar Nueva Partida");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setSize(400, 560);
+	        setSize(470, 600);
 	        
 	        // Crear el panel principal
 	        JPanel panel = new JPanel();

@@ -25,7 +25,7 @@ public class Bola extends JPanel {
     
     public Bola(Color colorBola, boolean sol, boolean disabled, Integer numColumna, Integer numFila) {
         seleccionada = false;
-        TAMAÑO_BOLA = sol == true ? 15 : 30;
+        TAMAÑO_BOLA = sol == true ? 10 : 35;
         setPreferredSize(new Dimension(TAMAÑO_BOLA, TAMAÑO_BOLA));
 
         Color marron = new Color(97, 48, 13);
