@@ -20,7 +20,7 @@ public class CtrlDominio {
 
 	/** Atributos **/
 
-	private CtrlUsuario controladorUsuario;
+	private static CtrlUsuario controladorUsuario;
 	private static CtrlDominio instance;
 	private static Juego juego;
 	private static Ranking rankingGlobal;
@@ -39,7 +39,6 @@ public class CtrlDominio {
 		historialPartidasGuardadas = new HistorialPartidasGuardadas();
 		userPer = new UserPersistence();
 		rankPer = new RankingPersistence();
-
 	}
 
 	public static CtrlDominio getInstance(){
@@ -48,7 +47,7 @@ public class CtrlDominio {
 		}
 		return instance;
 	}
-
+	
 	/**
 	 * Funciones que se llaman desde el controlador de presentacion. Por
 	 * convención, únicamente se usan Strings para la comunicación entre las dos
@@ -76,7 +75,7 @@ public class CtrlDominio {
 	public void loginUser(String username) throws Exception {
 		controladorUsuario.loginUser(username);
 		userPer.checkUser(username);
-		
+
 	}
 
 	public void newUser(String username){
@@ -89,14 +88,6 @@ public class CtrlDominio {
 
 	public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
 		return controladorUsuario.newCombinacion(combination);
-	}
-
-
-	/*
-	 * Devuelve el nombre del usuario actual
-	 */
-	public  String getUsuarioActual(){
-		return controladorUsuario.getUsuarioActual();
 	}
 
 	/**
@@ -187,7 +178,11 @@ public class CtrlDominio {
 	public static void guardarPartida() {
 		CtrlUsuario.guardarPartida();
 	}
-
+	
+	public static void solicitarAyuda() {
+		controladorUsuario.solicitarAyuda();
+	}
+	
 
 }
 

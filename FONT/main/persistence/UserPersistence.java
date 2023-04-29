@@ -12,7 +12,7 @@ public class UserPersistence{
     /**
      * Path donde se guardan los usuarios
      */
-    private static String path = "src/DATA/user/";
+    private static String path = "";
 
     /**
      * Constructora

@@ -8,7 +8,6 @@ import main.domain.ColorFeedBack;
 import main.domain.Pair;
 import main.domain.Partida;
 import main.domain.PossiblesEstadosPartida;
-import main.persistence.*;
 
 /**
  * Clase que representa el controlador de dominio de la clase Usuario.
@@ -37,6 +36,7 @@ public class CtrlUsuario {
 		this.usuarios.add(username);
 	}
 
+	
 	/**
 	 * Devuele la lista de usuarios existentes
 	 */
@@ -55,6 +55,7 @@ public class CtrlUsuario {
 			usuarios.add(username);
 		}
 		userAct = new Usuario(username);
+		System.out.println(userAct);
 	}
 
 	/**
@@ -118,7 +119,6 @@ public class CtrlUsuario {
 	public static void crearPartida(int dificultadEscogida, boolean ayuda, boolean rol) {
 		Partida newPartida = CtrlPartida.crearPartida(dificultadEscogida, userAct.getUsername(), ayuda, rol);
 		Date dataPartida = newPartida.getData();
-		
 		userAct.addPartida(dataPartida);
 		// Se tendria que añadir la partida al usuario falta funcion para devolver la
 		// fecha de la partida

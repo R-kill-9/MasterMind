@@ -68,7 +68,7 @@ public class Ranking {
 		return posiciones;
 	}
 
-    /*
+     /*
      * Carga un ranking de memoria
      */
     public void cargarRanking(int dificultad, TreeMap<String, Integer> ranking) {

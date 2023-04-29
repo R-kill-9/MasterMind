@@ -3,11 +3,9 @@ package main.domain;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-//import java.sql.Date;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 
 import main.persistence.UserPersistence;
 
@@ -29,6 +27,7 @@ public class Partida {
 	private ArrayList<Turno> turnos;
 	private ArrayList<ArrayList<Color>> combinacionesEnviadas;
 	private static UserPersistence userPer;
+
 	/** 
 	*Constructora 
      * @param dificultadEscogida la dificultad elegida para la partida
@@ -58,14 +57,15 @@ public class Partida {
 		this.turnos.add(new Turno(rol));
 		this.combinacionesEnviadas = new ArrayList<ArrayList<Color>>();
 		this.solutions = new ArrayList<Combinacion>();
-		if(!rol){
-			 solutions.add(convertIntegerToColor(nivel.genCombinacion()));
-		}
+		if(!rol) solutions.add(convertIntegerToColor(nivel.genCombinacion()));
 		this.ayuda = ayuda;
 		this.puntos = 0;
 		this.username = usuario;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
+		System.out.println(this.ayuda);
+		System.out.println(rol);
+		System.out.println(dificultadEscogida);
 	}
 	
 	private Combinacion convertIntegerToColor(List<Integer> combInteger) {
@@ -256,14 +256,13 @@ public class Partida {
 		}
 		turnos.get(getLastTurno() - 1).setAllComb(combHechas);
 		donePartida();
-		//Añade la solucion al arrayList
-
 		return combHechas.size();
 	}
 	/**
 	* Introduce un intento para este turno 
 	*/
 	public ArrayList<ColorFeedBack> setCombinacion(ArrayList<Color> combSolution) throws Exception{
+		if(combSolution.size() != nivel.getNumColumnas()) throw new Exception("All columns must be fullfilled");
 		Turno lastTurno = this.turnos.get(turnos.size() -1);
 		lastTurno.setCombinacion(combSolution);
 		Combinacion lastComb = lastTurno.getLastCombinacion();
@@ -272,6 +271,7 @@ public class Partida {
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
 			if(!ayuda) {
 				String feedBack = nivel.comprobarCombinacion(convertColorToInteger(solutions.get(solutions.size()-1)), convertColorToInteger(lastComb));
+				System.out.println(feedBack);
 				for(char bola : feedBack.toCharArray()) {
 				    ColorFeedBack cb = bola == 'N' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);
@@ -292,7 +292,6 @@ public class Partida {
 			}
 			Boolean lastChance = lastTurno.getNumberComb() == 10 ? true : false;
 			if(lastChance || checkIfAllCorrects(feedBackSolution)) donePartida();
-			//Añade la combinacion al array de combinaciones hechas
 			combinacionesEnviadas.add(combSolution);
 			return feedBackSolution;
 		}
@@ -341,34 +340,14 @@ public class Partida {
 		return this.turnos.get(turnos.size() - 1).getRol();
 	}
 
-	
-
-
 	/*
 	 * Guarda la partida en la base de datos
 	 */
 	public void guardarPartida() {
 		userPer = new UserPersistence();
 		userPer.showPath();
-		ArrayList<ArrayList<Color>> combinaciones = new ArrayList<ArrayList<Color>>();
-        ArrayList<Color> combinacion1 = new ArrayList<Color>();
-        combinacion1.add(Color.BLUE);
-        combinacion1.add(Color.GREEN);
-        combinacion1.add(Color.RED);
-        combinacion1.add(Color.YELLOW);
-        combinaciones.add(combinacion1);
-        ArrayList<Color> combinacion2 = new ArrayList<Color>();
-        combinacion2.add(Color.BLUE);
-        combinacion2.add(Color.GREEN);
-        combinacion2.add(Color.ORANGE);
-        combinacion2.add(Color.YELLOW);
-        combinaciones.add(combinacion2);
 		//Imprime la fecha
 		System.out.println(getFechaIni());
 		userPer.savePartida(getFechaIni(), (turnos.size()-1), getRol(), solutions, ayuda, puntos, getDificultad(), combinacionesEnviadas);
 	}
-
-	
-
-
 }

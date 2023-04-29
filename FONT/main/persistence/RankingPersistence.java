@@ -7,7 +7,7 @@ public class RankingPersistence {
     /*
      * Path donde se guardan los rankings
      */
-    private String path = "src/DATA/ranking/";
+    private String path = "";
 
     /**
      * Constructora
@@ -21,7 +21,7 @@ public class RankingPersistence {
     public void checkRanking() {
         File dataDir = new File("./DATA/");
         if (!dataDir.exists()) {
-            dataDir.mkdir();
+          //  dataDir.mkdir();
         }
         File rankingDir = new File(dataDir, "rankings");
         if (!rankingDir.exists()) {
