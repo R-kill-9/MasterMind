@@ -24,12 +24,6 @@ public class LoginScreen extends JFrame {
         usernameField = new JTextField(20);
         
         loginButton = new JButton("Iniciar Sesión");
-        JButton rankingButton = new JButton("Ver ranking");
-        rankingButton.setForeground(Color.RED); 
-        rankingButton.setOpaque(false);
-        rankingButton.setContentAreaFilled(false); 
-        rankingButton.setBorderPainted(false);
-        rankingButton.setFont(rankingButton.getFont().deriveFont(Font.BOLD, 18));
         JLabel welcomeIcon = new JLabel("         \u265A");
         JLabel welcomeLabel = new JLabel("Welcome to Mastermind!");
 
@@ -49,11 +43,6 @@ public class LoginScreen extends JFrame {
         gbc.gridwidth = 2;
         add(loginButton, gbc);
    
-        gbc.gridy = 6;
-        gbc.gridx = 0; 
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER; // Cambiar el valor de anchor a CENTER
-        add(rankingButton, gbc);
         
         welcomeLabel.setOpaque(false);
         welcomeLabel.setFont(welcomeLabel.getFont().deriveFont(Font.BOLD, 24));
@@ -79,7 +68,7 @@ public class LoginScreen extends JFrame {
                     JOptionPane.showMessageDialog(LoginScreen.this, "Por favor ingresa un nombre de usuario.",
                             "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                	CtrlPresentacion.carregarVistaConfiguracion();
+                	CtrlPresentacion.carregarVistaMenu();
                 	try {
 						CtrlPresentacion.loginUser(username);
 					} catch (Exception e1) {

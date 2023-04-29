@@ -5,6 +5,7 @@ import main.domaincontrollers.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,13 +34,77 @@ public class CtrlPresentacion {
 	public static void loginUser(String username) throws Exception {
 		controladorDominio.loginUser(username);
 	}
-
+	
+	public static Menu carregarVistaMenu() {
+		Menu menu = new Menu();
+		menu.setTitle("Set up game");
+        menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        menu.setVisible(true);
+		return null;
+	}
+	
 	public static PantallaConfiguracion carregarVistaConfiguracion() {
 		PantallaConfiguracion configuracion = new PantallaConfiguracion();
 		configuracion.setTitle("Set up game");
         configuracion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         configuracion.setVisible(true);
 		return null;
+	}
+	
+	public static Ranking carregarVistaRanking() {
+		Ranking configuracion = new Ranking();
+		configuracion.setTitle("Select Ranking");
+        configuracion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        configuracion.setVisible(true);
+		return null;
+	}
+	
+	public static RankingFacil carregarVistaRanking1() {
+		TreeMap<String, Integer> rankingFacil = CtrlDominio.getRankingGlobalUnNivel(1);
+		RankingFacil ranking = new RankingFacil();
+		ranking.insertRanking(rankingFacil);
+		ranking.setTitle("Ranking nivel Fácil");
+        ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ranking.setVisible(true);
+		return null;
+	}
+	
+	public static RankingMedio carregarVistaRanking2() {
+		TreeMap<String, Integer> rankingMedio = CtrlDominio.getRankingGlobalUnNivel(2);
+		RankingMedio ranking = new RankingMedio();
+		ranking.insertRanking(rankingMedio);
+		ranking.setTitle("Ranking nivel Medio");
+		ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		ranking.setVisible(true);
+		return null;
+	}
+	
+	public static RankingAlto carregarVistaRanking3() {
+		TreeMap<String, Integer> rankingAlto = CtrlDominio.getRankingGlobalUnNivel(3);
+		RankingAlto ranking = new RankingAlto();
+		ranking.insertRanking(rankingAlto);
+		ranking.setTitle("Ranking nivel Alto");
+		ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		ranking.setVisible(true);
+		return null;
+	}
+	
+	public static RankingPersonal carregarVistaRankingPersonal() {
+		int[] records = CtrlDominio.getRecord();
+		RankingPersonal ranking = new RankingPersonal();
+		ranking.insertRecords(records);
+		ranking.setTitle("Ranking Personal");
+        ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ranking.setVisible(true);
+		return null;
+	}
+	
+	public static String getJuegoInfo() {
+		return CtrlDominio.getJuegoInfo();
+	}
+	
+	public static String getJuegoInfoPuntuacion() {
+		return CtrlDominio.getJuegoInfoPuntuacion();
 	}
 	
 	public static void newGame(Integer level, Boolean rol, Boolean ayuda) {
