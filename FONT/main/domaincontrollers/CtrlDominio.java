@@ -13,17 +13,21 @@ import main.domain.Pair;
 import main.domain.Juego;
 import main.domain.Ranking;
 
+import main.persistence.*;
+
 /** Ejemplo de Controlador de Dominio. **/
 public class CtrlDominio {
 
 	/** Atributos **/
 
-	private static CtrlUsuario controladorUsuario;
+	private CtrlUsuario controladorUsuario;
 	private static CtrlDominio instance;
 	private static Juego juego;
 	private static Ranking rankingGlobal;
 	private static HistorialPartidas historialPartidas;
 	private static HistorialPartidasGuardadas historialPartidasGuardadas;
+	private static UserPersistence userPer;
+	private static RankingPersistence rankPer;
 
 	/** Constructor y metodos de inicializacion **/
 
@@ -33,6 +37,8 @@ public class CtrlDominio {
 		setJuego(Juego.getInstance());
 		historialPartidas = new HistorialPartidas();
 		historialPartidasGuardadas = new HistorialPartidasGuardadas();
+		userPer = new UserPersistence();
+		rankPer = new RankingPersistence();
 
 	}
 
@@ -42,7 +48,7 @@ public class CtrlDominio {
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Funciones que se llaman desde el controlador de presentacion. Por
 	 * convención, únicamente se usan Strings para la comunicación entre las dos
@@ -57,8 +63,20 @@ public class CtrlDominio {
 		this.controladorUsuario = controladorUsuario;
 	}
 
+	/*
+	 * Se encarga de la persistencia de los rankings
+	 */
+	public void restoreRanking() {
+		rankPer.checkRanking();
+		if (rankPer.existsRanking1()) {
+			rankingGlobal.cargarRanking(1, rankPer.loadRanking(1));
+		}
+	}
+
 	public void loginUser(String username) throws Exception {
 		controladorUsuario.loginUser(username);
+		userPer.checkUser(username);
+		
 	}
 
 	public void newUser(String username){
@@ -71,6 +89,14 @@ public class CtrlDominio {
 
 	public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
 		return controladorUsuario.newCombinacion(combination);
+	}
+
+
+	/*
+	 * Devuelve el nombre del usuario actual
+	 */
+	public  String getUsuarioActual(){
+		return controladorUsuario.getUsuarioActual();
 	}
 
 	/**
@@ -151,12 +177,17 @@ public class CtrlDominio {
 	 */
 	public static void addPartidaRanking(String jugador, Integer puntuacion, Integer nivelDificultad) {
 		rankingGlobal.addPartida(jugador,puntuacion,nivelDificultad);
+		rankPer.saveRanking(nivelDificultad, rankingGlobal.getRanking(nivelDificultad));
+		
 	}
-	
-	public static void solicitarAyuda() {
-		controladorUsuario.solicitarAyuda();
+
+	/*
+	 * Guarda la partida actual
+	 */
+	public static void guardarPartida() {
+		CtrlUsuario.guardarPartida();
 	}
-	
+
 
 }
 

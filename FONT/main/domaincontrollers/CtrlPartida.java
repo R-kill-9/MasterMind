@@ -12,6 +12,7 @@ import main.domain.HistorialPartidas;
 import main.domain.HistorialPartidasGuardadas;
 import main.domain.Pair;
 
+
 /**
  * Clase que representa el controlador de dominio de la clase Partida.
  */
@@ -145,6 +146,13 @@ public class CtrlPartida {
 	public static  boolean getAyuda() {
 		return partidaActual.getAyuda();
 	}
+
+    /*
+     * Guarda la partida actual
+     */
+    public static void guardarPartida() {
+        partidaActual.guardarPartida();
+    }
 	
 	/*
 	 * Sale de la partida actual
