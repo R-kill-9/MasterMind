@@ -1,10 +1,12 @@
 package main.presentation;
 
 import main.domain.ColorFeedBack;
+import main.domain.Pair;
 import main.domaincontrollers.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.TreeMap;
 
 import javax.swing.JFrame;
@@ -97,6 +99,18 @@ public class CtrlPresentacion {
         ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ranking.setVisible(true);
 		return null;
+	}
+	
+	public static CargarPartida carregarVistaCargarPartida() {
+		CargarPartida partida = new CargarPartida();
+		partida.setTitle("Cargar Partida");
+		partida.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        partida.setVisible(true);
+		return null;
+	}
+	
+	public static ArrayList<Pair<String, Date>> getPartidasGuardadas() {
+		return CtrlDominio.getPartidasGuardadas();
 	}
 	
 	public static String getJuegoInfo() {

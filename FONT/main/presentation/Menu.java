@@ -103,10 +103,10 @@ public class Menu extends JFrame {
             }
         });
 
-        // Configurar el ActionListener para el botón de inicio de partidas
+        // Configurar el ActionListener para el botón de partidas
         partidasButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CtrlPresentacion.carregarVistaConfiguracion();
+                CtrlPresentacion.carregarVistaCargarPartida();
                 setVisible(false);
             }
         });
