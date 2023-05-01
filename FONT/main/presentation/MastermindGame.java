@@ -25,6 +25,7 @@ public class MastermindGame extends JFrame {
     	NUMERO_COLUMNAS = numCols == null ? 5 : numCols;
     	setAyuda = ayuda == null ? true : ayuda;
         setTitle("Mastermind");
+        setLocationRelativeTo(null);
         setSize(300, 600); // Establecer tamaño del JFrame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -58,7 +59,6 @@ public class MastermindGame extends JFrame {
 
         JPanel panelBolas = new JPanel(new FlowLayout());
         Bola bola1 = new Bola(Color.GREEN, false, true, 0, 0);
-        
         panelBolas.add(bola1,gbc);
         bola1.setOpaque(false);
         Bola bola2 = new Bola(Color.MAGENTA, false, true, 0, 0);
@@ -73,7 +73,7 @@ public class MastermindGame extends JFrame {
         Bola bola5 = new Bola(Color.ORANGE, false, true, 0, 0);
         panelBolas.add(bola5);
         bola5.setOpaque(false);
-        Bola bola6 = new Bola(Color.YELLOW, false, true, -1, -1);
+        Bola bola6 = new Bola(Color.cyan, false, true, -1, -1);
         panelBolas.add(bola6);
         bola6.setOpaque(false);
         JPanel panelSubBotones = new JPanel();
@@ -157,13 +157,43 @@ public class MastermindGame extends JFrame {
             	Color[] feedBack = CtrlPresentacion.submit(tablero[filasRest]);
             	int pos = 0;
             	System.out.println(feedBack);
+            	Boolean finished = true;
             	if(feedBack != null) {
             		for (Color c : feedBack) {
             			System.out.println(solucion[filasRest][pos]);
                 		solucion[filasRest][pos].setColor(c);
                 		++pos;
+                		if(!c.equals(Color.black)) finished = false;
                 	}
+                	repaint();
                 	if(feedBack.length > 0) --filasRest;
+                	if(finished || filasRest < 0) {
+                		JFrame frame = new JFrame("Mi Ventana");
+                        JDialog dialogo = new JDialog(frame, "Has ganado!", true);
+                        JPanel panel = new JPanel();
+                        panel.setSize(400,400);
+                        String text = filasRest < 0 ? "<html><div style='text-align: center;'>¡Oups!<br>Te has quedado sin intentos :(</div></html>" : "\"<html><div style='text-align: center;'>¡HAS GANADO!<br>Felicidades👑</div></html>\"";
+                        JLabel mensaje = new JLabel(text);
+                        mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
+                        panel.add(mensaje);
+                        panel.add(Box.createVerticalStrut(10));
+                        JPanel panelBotones = new JPanel();
+                        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
+                        JButton botonContinuar = new JButton("Continuar");
+                        botonContinuar.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                CtrlPresentacion.finRonda("CB");
+                                dialogo.dispose();
+                                setVisible(false);
+                            }
+                        });
+                        panelBotones.add(botonContinuar);
+                        panel.add(panelBotones);
+                        dialogo.setContentPane(panel);
+                        dialogo.pack();
+                        dialogo.setLocationRelativeTo(frame);
+                        dialogo.setVisible(true);
+                	}
                 	repaint();
             	}
             }
@@ -236,10 +266,9 @@ public class MastermindGame extends JFrame {
         panelSur.add(panelBolas, BorderLayout.CENTER);
         panelSur.add(panelSalir, BorderLayout.SOUTH);
         
-        botonWelcome = new JLabel("Welcome to Mastermind!");
-        System.out.println(botonWelcome.getBackground());
-        
-        botonWelcome.setLayout(new BoxLayout(botonWelcome, BoxLayout.X_AXIS));
+        botonWelcome = new JLabel("Selecciona un color para empezar");
+        botonWelcome.setBackground(Color.gray);
+        botonWelcome.setLayout(new FlowLayout(FlowLayout.RIGHT));
         Font font = new Font(botonWelcome.getFont().getName(), Font.BOLD, 15);
         botonWelcome.setFont(font);
         
@@ -291,20 +320,34 @@ public class MastermindGame extends JFrame {
         public void mouseClicked(MouseEvent e) {
         	 super.mouseClicked(e);
              Bola bola = (Bola) e.getComponent();
-             
-	         if(bola.esColorTablero() && !bola.isDisabled()) {
+             Integer numFila = bola.getFila();
+	         if(bola.esColorTablero() && !bola.isDisabled() && numFila == filasRest) {
 	         		if(colorSeleccionado != null) {
 	         			bola.setColor(colorSeleccionado);
-	         			Integer numFila = bola.getFila();
 	         			Integer numColumna = bola.getColumna();
 	         			tablero[filasRest][numColumna] = colorSeleccionado;
-	 
 	         		}
 	         }
-	         else {
+	         else{
 	         	colorSeleccionado = bola.getColor();
 	         	botonWelcome.setBackground(colorSeleccionado);
+	         	botonWelcome.setForeground(botonWelcome.getBackground());
 	         	botonWelcome.revalidate();
+	         	String nombreColor = "";
+	         	if (colorSeleccionado.equals(Color.RED)) {
+	         	    nombreColor = "Rojo";
+	         	} else if (colorSeleccionado.equals(Color.GREEN)) {
+	         	    nombreColor = "Verde";
+	         	} else if (colorSeleccionado.equals(Color.BLUE)) {
+	         	    nombreColor = "Azul";
+	         	} else if (colorSeleccionado.equals(Color.MAGENTA)) {
+	         	    nombreColor = "Rosa";
+	         	} else if (colorSeleccionado.equals(Color.ORANGE)) {
+	         	    nombreColor = "Naranja";
+	         	} else if (colorSeleccionado.equals(Color.CYAN)) {
+	         	    nombreColor = "Cyan";
+	         	}
+	         	botonWelcome.setText("Color seleccionado -> " + nombreColor);
 	  			System.out.println(botonWelcome.getBackground());
 	         }
 	     	repaint();

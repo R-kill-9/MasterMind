@@ -11,7 +11,7 @@ public class PantallaConfiguracion extends JFrame {
 	        setTitle("Configurar Nueva Partida");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setSize(470, 600);
-	        
+	        setLocationRelativeTo(null);
 	        // Crear el panel principal
 	        JPanel panel = new JPanel();
 	        panel.setLayout(new GridBagLayout()); // Usamos un GridBagLayout para centrar los componentes
@@ -86,7 +86,8 @@ public class PantallaConfiguracion extends JFrame {
 	            CtrlPresentacion.newGame(nivel, conAyuda == "Yes",  rol == "CodeMaker");
 
 	            // Crear la instancia de mastermindGame
-	            CtrlPresentacion.carregarvistaMastermindGame();
+	            if(rol == "CodeBreaker") CtrlPresentacion.carregarvistaMastermindGame();
+	            else CtrlPresentacion.carregaCodeMaker();
 	            this.setVisible(false);
 	            dispose();
 	        });

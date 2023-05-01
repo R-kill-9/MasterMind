@@ -14,6 +14,7 @@ public class LoginScreen extends JFrame {
         // Configurar la ventana
         setTitle("Inicio de Sesión");
         setSize(470, 600);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagConstraints gbc = new GridBagConstraints();

@@ -22,7 +22,7 @@ public class CombinacionTest {
 		colores.add(Color.RED);
 		colores.add(Color.BLUE);
 		colores.add(Color.GREEN);
-		colores.add(Color.YELLOW);
+		colores.add(Color.CYAN);
 		newCombinacion = new Combinacion(colores);
     }
     /*
@@ -41,7 +41,7 @@ public class CombinacionTest {
         assertEquals("The color obtained should be red", Color.RED, newCombinacion.getPosition(0));
         assertEquals("The color obtained should be blue", Color.BLUE, newCombinacion.getPosition(1));
         assertEquals("The color obtained should be green", Color.GREEN, newCombinacion.getPosition(2));
-        assertEquals("The color obtained should be yellow", Color.YELLOW, newCombinacion.getPosition(3));
+        assertEquals("The color obtained should be yellow", Color.CYAN, newCombinacion.getPosition(3));
     }
     
     /*
