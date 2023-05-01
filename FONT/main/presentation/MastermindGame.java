@@ -25,9 +25,9 @@ public class MastermindGame extends JFrame {
     	NUMERO_COLUMNAS = numCols == null ? 5 : numCols;
     	setAyuda = ayuda == null ? true : ayuda;
         setTitle("Mastermind");
-        setLocationRelativeTo(null);
         setSize(300, 600); // Establecer tamaño del JFrame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         
         JPanel panelPausa = new JPanel(new BorderLayout());
@@ -91,7 +91,7 @@ public class MastermindGame extends JFrame {
 
         JButton botonAyuda = new JButton("  Ayuda  ");
         botonAyuda.setPreferredSize(d);
-        JButton botonSalir = new JButton("    Salir    ");
+        JButton botonSalir = new JButton("    Menú    ");
         JPanel panelSalir = new JPanel(new BorderLayout());
         panelSalir.add(botonSalir, BorderLayout.CENTER);
 
@@ -108,7 +108,44 @@ public class MastermindGame extends JFrame {
         JButton botonPausar = new JButton("  Pausar  ");
         JButton botonReiniciar = new JButton("Reiniciar");
 
-        botonSalir.addActionListener(e -> System.exit(0));
+        botonSalir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	JFrame frame = new JFrame("Mi Ventana");
+                JDialog dialogo = new JDialog(frame, "Confirmación", true);
+                JPanel panel = new JPanel();
+                panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+                JLabel mensaje = new JLabel("<html><div style='text-align: center;'>¿Quieres guardar la partida?<br></div></html>");
+                mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
+                panel.add(mensaje);
+                panel.add(Box.createVerticalStrut(10));
+                JPanel panelBotones = new JPanel();
+                panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
+                JButton botonGuardar = new JButton("Guardar");
+                botonGuardar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        CtrlPresentacion.carregarVistaMenu();
+                        dialogo.dispose();
+                        setVisible(false);
+                    }
+                });
+                JButton botonNoGuardar = new JButton("No guardar");
+                botonNoGuardar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                    	CtrlPresentacion.carregarVistaMenu();
+                        dialogo.dispose();
+                        setVisible(false);
+                    }
+                });
+                panelBotones.add(botonNoGuardar);
+                panelBotones.add(botonGuardar);
+                panel.add(panelBotones);
+                dialogo.setContentPane(panel);
+                dialogo.pack();
+                dialogo.setLocationRelativeTo(frame);
+                dialogo.setVisible(true);
+            }
+        });
         botonReiniciar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	CtrlPresentacion.reiniciarPartida();
@@ -172,7 +209,7 @@ public class MastermindGame extends JFrame {
                         JDialog dialogo = new JDialog(frame, "Has ganado!", true);
                         JPanel panel = new JPanel();
                         panel.setSize(400,400);
-                        String text = filasRest < 0 ? "<html><div style='text-align: center;'>¡Oups!<br>Te has quedado sin intentos :(</div></html>" : "\"<html><div style='text-align: center;'>¡HAS GANADO!<br>Felicidades👑</div></html>\"";
+                        String text = filasRest < 0 && !finished ? "<html><div style='text-align: center;'>¡Oups!<br>Te has quedado sin intentos :(</div></html>" : "<html><div style='text-align: center;'>¡HAS GANADO!<br>Felicidades👑</div></html>";
                         JLabel mensaje = new JLabel(text);
                         mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
                         panel.add(mensaje);
@@ -321,7 +358,8 @@ public class MastermindGame extends JFrame {
         	 super.mouseClicked(e);
              Bola bola = (Bola) e.getComponent();
              Integer numFila = bola.getFila();
-	         if(bola.esColorTablero() && !bola.isDisabled() && numFila == filasRest) {
+             System.out.println(filasRest + "numfila" + numFila);
+	         if(bola.esColorTablero() && !bola.isDisabled() && numFila == filasRest || numFila == filasRest) {
 	         		if(colorSeleccionado != null) {
 	         			bola.setColor(colorSeleccionado);
 	         			Integer numColumna = bola.getColumna();

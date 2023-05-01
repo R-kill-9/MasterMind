@@ -18,10 +18,9 @@ public class TurnosMaquina extends JFrame {
 
     public TurnosMaquina(Color[][] combinaciones) {
         setTitle("Mastermind");
-       
+        setLocationRelativeTo(null);
         setSize(300, 600); // Establecer tamaño del JFrame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         NUMERO_COLUMNAS = combinaciones[0].length;
 
@@ -88,7 +87,6 @@ public class TurnosMaquina extends JFrame {
         botonContinuar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CtrlPresentacion.finRonda("CM");
-                setVisible(false);
             }
         });
         add(botonWelcome, BorderLayout.NORTH);

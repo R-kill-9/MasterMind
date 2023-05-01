@@ -17,10 +17,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,9 +34,8 @@ public class CodeMaker extends JFrame {
 	
 	public CodeMaker(Integer numCols) {
 	    setTitle("Mastermind");
-	    setSize(300, 600); 
+	    setSize(300, 600); // Establecer tamaño del JFrame
 	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	    setLocationRelativeTo(null);
 	    setLayout(new GridBagLayout());
 	    GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -114,45 +111,8 @@ public class CodeMaker extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER; 
 	    add(panelBolas, gbc);
 	    
-	    JButton botonSalir = new JButton("Volver al menú principal");
-	    botonSalir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	JFrame frame = new JFrame("Mi Ventana");
-                JDialog dialogo = new JDialog(frame, "Confirmación", true);
-                JPanel panel = new JPanel();
-                panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-                panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-                JLabel mensaje = new JLabel("<html><div style='text-align: center;'>¿Quieres guardar la partida?<br></div></html>");
-                mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
-                panel.add(mensaje);
-                panel.add(Box.createVerticalStrut(10));
-                JPanel panelBotones = new JPanel();
-                panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
-                JButton botonGuardar = new JButton("Guardar");
-                botonGuardar.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        CtrlPresentacion.carregarVistaMenu();
-                        dialogo.dispose();
-                        setVisible(false);
-                    }
-                });
-                JButton botonNoGuardar = new JButton("No guardar");
-                botonNoGuardar.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                    	CtrlPresentacion.carregarVistaMenu();
-                        dialogo.dispose();
-                        setVisible(false);
-                    }
-                });
-                panelBotones.add(botonNoGuardar);
-                panelBotones.add(botonGuardar);
-                panel.add(panelBotones);
-                dialogo.setContentPane(panel);
-                dialogo.pack();
-                dialogo.setLocationRelativeTo(frame);
-                dialogo.setVisible(true);
-            }
-        });
+	    JButton botonSalir = new JButton("    Salir    ");
+	    botonSalir.addActionListener(e -> System.exit(0));
         JPanel panelSalir = new JPanel(new BorderLayout());
         panelSalir.add(botonSalir, BorderLayout.CENTER);
         gbc.gridx = 0;
@@ -167,10 +127,8 @@ public class CodeMaker extends JFrame {
 	    panelTablero.add(botonAceptar, BorderLayout.EAST);
 	    botonAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	            Integer x = CtrlPresentacion.setSolution(tablero);
-	            System.out.println("Num rondas -> "  + x);
+	            CtrlPresentacion.setSolution(tablero);
 	            CtrlPresentacion.cargaCombMaquina();
-	            setVisible(false);
 	        }
 	    });
 	    pack();

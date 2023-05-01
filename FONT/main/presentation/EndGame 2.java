@@ -1,9 +1,6 @@
 package main.presentation;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 public class EndGame extends JFrame {
@@ -13,26 +10,21 @@ public class EndGame extends JFrame {
     private JLabel scoreLabel;
     private JButton backButton;
     
-    public EndGame(Integer score) {
+    public EndGame() {
         super("Fin del juego");
+
         // Crear los componentes
         titleLabel = new JLabel("Fin del juego");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        scoreLabel = new JLabel("<html>Puntuación obtenida:<br><span style='font-size: 36px; color: red;'></span></html>");
+        scoreLabel = new JLabel("<html>Puntuación obtenida:<br><span style='font-size: 36px; color: red;'>1,000</span></html>");
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        scoreLabel.setText(scoreLabel.getText().replace("</span>", score.toString() + "</span>"));
-        
+
         backButton = new JButton("Volver al menu principal");
         
-       
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { 
-            	CtrlPresentacion.carregarVistaMenu();
-            	setVisible(false);
-            }});
+        
         // Crear el panel principal y añadir los componentes
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -62,10 +54,12 @@ public class EndGame extends JFrame {
         // Configurar la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 300);
-        setLocationRelativeTo(null);
         setVisible(true);
     }
 
     
+    public static void main(String[] args) {
+        new EndGame();
+    }
     
 }
