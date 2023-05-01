@@ -170,7 +170,7 @@ public class CtrlPartidaTest {
 		combination.add(Color.BLUE);
 		combination.add(Color.RED);
 		combination.add(Color.GREEN);
-		combination.add(Color.YELLOW);
+		combination.add(Color.CYAN);
 
 		ArrayList<ColorFeedBack> feedbacks = CtrlPartida.newCombinacion(combination);
 		assertEquals("Feedback size should be 4", 4, feedbacks.size());
@@ -189,7 +189,7 @@ public class CtrlPartidaTest {
 		combination.add(Color.BLUE);
 		combination.add(Color.RED);
 		combination.add(Color.GREEN);
-		combination.add(Color.YELLOW);
+		combination.add(Color.CYAN);
 		Combinacion expectedSolution = new Combinacion(combination);
 		CtrlPartida.setSolution(combination);
 		assertEquals("The first position of solution should be the expected one", expectedSolution.getPosition(0), newPartida.getSolutionTorn(0).getPosition(0));

@@ -143,7 +143,7 @@ public class CtrlUsuarioTest {
 		combination.add(Color.BLUE);
 		combination.add(Color.RED);
 		combination.add(Color.GREEN);
-		combination.add(Color.YELLOW);
+		combination.add(Color.CYAN);
 		int i = 0;
     	while (i < 10) {
     		ArrayList<ColorFeedBack> feedback = ctrlUsuario.newCombinacion(combination);
