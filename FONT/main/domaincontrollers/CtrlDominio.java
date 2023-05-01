@@ -13,6 +13,8 @@ import main.domain.Pair;
 import main.domain.Juego;
 import main.domain.Ranking;
 
+import main.persistence.*;
+
 /** Ejemplo de Controlador de Dominio. **/
 public class CtrlDominio {
 
@@ -24,6 +26,8 @@ public class CtrlDominio {
 	private static Ranking rankingGlobal;
 	private static HistorialPartidas historialPartidas;
 	private static HistorialPartidasGuardadas historialPartidasGuardadas;
+	private static UserPersistence userPer;
+	private static RankingPersistence rankPer;
 
 	/** Constructor y metodos de inicializacion **/
 
@@ -33,7 +37,8 @@ public class CtrlDominio {
 		setJuego(Juego.getInstance());
 		historialPartidas = new HistorialPartidas();
 		historialPartidasGuardadas = new HistorialPartidasGuardadas();
-
+		userPer = new UserPersistence();
+		rankPer = new RankingPersistence();
 	}
 
 	public static CtrlDominio getInstance(){
@@ -57,8 +62,20 @@ public class CtrlDominio {
 		this.controladorUsuario = controladorUsuario;
 	}
 
+	/*
+	 * Se encarga de la persistencia de los rankings
+	 */
+	public void restoreRanking() {
+		rankPer.checkRanking();
+		if (rankPer.existsRanking1()) {
+			rankingGlobal.cargarRanking(1, rankPer.loadRanking(1));
+		}
+	}
+
 	public void loginUser(String username) throws Exception {
 		controladorUsuario.loginUser(username);
+		userPer.checkUser(username);
+
 	}
 
 	public void newUser(String username){
@@ -151,6 +168,15 @@ public class CtrlDominio {
 	 */
 	public static void addPartidaRanking(String jugador, Integer puntuacion, Integer nivelDificultad) {
 		rankingGlobal.addPartida(jugador,puntuacion,nivelDificultad);
+		rankPer.saveRanking(nivelDificultad, rankingGlobal.getRanking(nivelDificultad));
+		
+	}
+
+	/*
+	 * Guarda la partida actual
+	 */
+	public static void guardarPartida() {
+		CtrlUsuario.guardarPartida();
 	}
 	
 	public static void solicitarAyuda() {

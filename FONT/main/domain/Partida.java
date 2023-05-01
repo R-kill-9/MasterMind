@@ -6,6 +6,9 @@ import java.util.List;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
+import main.persistence.UserPersistence;
+
 /** 
 *Clase Partida
 */
@@ -22,6 +25,8 @@ public class Partida {
 	private NivelDificultad nivel;
 	private String username;
 	private ArrayList<Turno> turnos;
+	private ArrayList<ArrayList<Color>> combinacionesEnviadas;
+	private static UserPersistence userPer;
 
 	/** 
 	*Constructora 
@@ -50,6 +55,7 @@ public class Partida {
 		}
 		this.turnos = new ArrayList<Turno>();
 		this.turnos.add(new Turno(rol));
+		this.combinacionesEnviadas = new ArrayList<ArrayList<Color>>();
 		this.solutions = new ArrayList<Combinacion>();
 		if(!rol) solutions.add(convertIntegerToColor(nivel.genCombinacion()));
 		this.ayuda = ayuda;
@@ -286,6 +292,7 @@ public class Partida {
 			}
 			Boolean lastChance = lastTurno.getNumberComb() == 10 ? true : false;
 			if(lastChance || checkIfAllCorrects(feedBackSolution)) donePartida();
+			combinacionesEnviadas.add(combSolution);
 			return feedBackSolution;
 		}
 		else throw new Exception("Sólo el CodeBreaker puede hacer combinaciones");
@@ -331,5 +338,16 @@ public class Partida {
 	 */
 	public boolean getRol() {
 		return this.turnos.get(turnos.size() - 1).getRol();
+	}
+
+	/*
+	 * Guarda la partida en la base de datos
+	 */
+	public void guardarPartida() {
+		userPer = new UserPersistence();
+		userPer.showPath();
+		//Imprime la fecha
+		System.out.println(getFechaIni());
+		userPer.savePartida(getFechaIni(), (turnos.size()-1), getRol(), solutions, ayuda, puntos, getDificultad(), combinacionesEnviadas);
 	}
 }

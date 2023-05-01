@@ -218,4 +218,11 @@ public class CtrlUsuario {
 		return puntuacion;
 		//return CtrlPartida.getScore();
 	}
+
+	/**
+	 * Guarda la partida
+	 */
+	public static void guardarPartida() {
+		CtrlPartida.guardarPartida();
+	}
 }
