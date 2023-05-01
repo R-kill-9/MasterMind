@@ -4,12 +4,18 @@ import main.domain.ColorFeedBack;
 import main.domain.Combinacion;
 import main.domaincontrollers.CtrlDominio;
 import java.util.*;
+import main.persistence.*;
 
 public class DriverDomain {
     /**
      * Controlador de dominio
      */
     private final CtrlDominio cDominio;
+
+    /*
+     * Controlador de persistencia de usuario
+     */
+    private final UserPersistence userPer;
 
     /**
      * Scanner para leer de la entrada estandar
@@ -56,6 +62,7 @@ public class DriverDomain {
      */
     public DriverDomain() {
         cDominio = CtrlDominio.getInstance();
+        userPer= new UserPersistence();
         //cDominio.iniDomainContoller();
     }
 
@@ -127,8 +134,8 @@ public class DriverDomain {
             do {
                 System.out.println("Introduce el color " + (i + 1));
                 color = input.nextInt();
-                if (color < 1 || color > 6) System.out.println("El color debe ser 1, 2, 3, 4, 5 o 6");
-            } while (color < 1 || color > 6);
+                if (color < 1 || color > 7) System.out.println("El color debe ser 1, 2, 3, 4, 5 o 6");
+            } while (color < 1 || color > 7);
             switch (color) {
                 case 1:
                     colores.add(Color.BLUE);
@@ -147,6 +154,9 @@ public class DriverDomain {
                     break;
                 case 6:
                     colores.add(Color.ORANGE);
+                    break;
+                case 7:
+                    cDominio.guardarPartida();
                     break;
             }
         }
@@ -189,8 +199,8 @@ public class DriverDomain {
             do {
                 System.out.println("Introduce el color " + (i + 1));
                 color = input.nextInt();
-                if (color < 1 || color > 6) System.out.println("El color debe ser 1, 2, 3, 4, 5 o 6");
-            } while (color < 1 || color > 6);
+                if (color < 1 || color > 7) System.out.println("El color debe ser 1, 2, 3, 4, 5 o 6, 9 para guardar partida");
+            } while (color < 1 || color > 7);
             switch (color) {
                 case 1:
                     colores.add(Color.BLUE);
@@ -209,6 +219,9 @@ public class DriverDomain {
                     break;
                 case 6:
                     colores.add(Color.ORANGE);
+                    break;
+                case 7:
+                    cDominio.guardarPartida();
                     break;
             }
         }
@@ -247,6 +260,7 @@ public class DriverDomain {
             }
         }
     }
+    cDominio.addPartidaRanking(username,cDominio.getScore(),dificultad);
      
 }
     /**
@@ -254,7 +268,6 @@ public class DriverDomain {
      */
 
     public void testPrintRanking() {
-        cDominio.addPartidaRanking(username,cDominio.getScore(),dificultad);
         int dificultad;
         System.out.println(separator);
         System.out.println("Introduce la dificultad del ranking");
@@ -291,6 +304,10 @@ public class DriverDomain {
         }
     }
 
+    public void restoreRanking(){
+        cDominio.restoreRanking();
+    }
+
 
             /**
              * Main del driver primero pide Login y despues jugar
@@ -299,6 +316,7 @@ public class DriverDomain {
                 DriverDomain driver = new DriverDomain();
                 driver.input = new Scanner(System.in);
                 driver.testLogin();
+                driver.restoreRanking();
                 driver.jugar();
                 driver.testPrintPuntuacion();
                 //Una vez acabada la partida se pregunta al usuario que quiere hacer

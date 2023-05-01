@@ -3,17 +3,16 @@ package main.domain;
 
 public class Juego {
 	 //clase que representa el juego con dos strings informacionSistema y  informacionPuntuacion
-    private String informacionSistema = "El juego consta de dos turnos en el que en cada uno se tendrá un rol distinto."
-    		+ "En el caso de haber escogido ser CodeMaker en el primer turno el usuario deberá crear un código que el "
-    		+ "ordenador intentará descifrar en un máximo de 10 intentos. Dependiendo de lo que tarde en adivinarlo se le "
-    		+ "asignará al jugador una puntuación u otra."
-    		+ "En el siguiente turno el jugador tomará el rol de CodeBreaker. Ahora será el ordenador el que generará"
-    		+ "un código y el usuario tendrá 10 intentos para descifrarlo. Cuando el jugador descifre el código o use"
-    		+ "los 10 intentos se le asignará la puntuación correspondiente, que se sumará a la puntuación del turno anterior."
-    		+ "El jugador puede activar el sistema de ayuda para la partida, pero su puntuación se verá reducida si se activa "
+    private String informacionSistema = "El juego consta de dos turnos en el que en cada uno se tendrá un rol distinto.\n"
+    		+ "En el caso de haber escogido ser CodeMaker en el primer turno el usuario deberá crear un código que el \n"
+    		+ "ordenador intentará descifrar en un máximo de 10 intentos. Dependiendo de lo que tarde en adivinarlo se le \n"
+    		+ "asignará al jugador una puntuación u otra. \n"
+    		+ "En el siguiente turno el jugador tomará el rol de CodeBreaker. Ahora será el ordenador el que generará\n"
+    		+ "un código y el usuario tendrá 10 intentos para descifrarlo. Cuando el jugador descifre el código o use\n"
+    		+ "los 10 intentos se le asignará la puntuación correspondiente, que se sumará a la puntuación del turno anterior.\n"
+    		+ "El jugador puede activar el sistema de ayuda para la partida, pero su puntuación se verá reducida si se activa \n"
     		+ "la ayuda.";
-    private String informacionPuntuacion = "SISTEMA DE PUNTUACIÓN:\n"
-    		+ "-NIVEL DIFICULTAD BAJO: 1000 * IntentosOrdenador + (10 - IntentosJugador + 1)  * 1000\n"
+    private String informacionPuntuacion = "-NIVEL DIFICULTAD BAJO: 1000 * IntentosOrdenador + (10 - IntentosJugador + 1)  * 1000\n"
     		+ "-NIVEL DIFICULTAD MEDIO: 10000 * IntentosOrdenador + (10 - IntentosJugador + 1)  * 10000\n"
     		+ "-NIVEL DIFICULTAD ALTO: 100000 * IntentosOrdenador + (10 - IntentosJugador + 1)  * 100000\n"
     		+ "\nIntentosOrdenador = Intentos empleados por el ordenador para descifrar el código del jugador.\n"

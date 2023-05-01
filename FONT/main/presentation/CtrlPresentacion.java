@@ -1,10 +1,13 @@
 package main.presentation;
 
 import main.domain.ColorFeedBack;
+import main.domain.Pair;
 import main.domaincontrollers.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TreeMap;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,7 +25,6 @@ public class CtrlPresentacion {
 	
 	private static ArrayList<main.domain.Color> transformCombination(Color[] colors){
 		ArrayList<main.domain.Color> intento = new ArrayList<main.domain.Color>();
-		Color red = Color.red;
 		for(Color c: colors) {
 		    if(c.getRed() == 255 && c.getGreen() == 0 && c.getBlue() == 0) {
 		        intento.add(main.domain.Color.RED);
@@ -54,6 +56,7 @@ public class CtrlPresentacion {
 	public static void loginUser(String username) throws Exception {
 		controladorDominio.loginUser(username);
 	}
+	
 	public static void carregarEndGame() {
 		Integer score = CtrlUsuario.getScore();
 		EndGame endG = new EndGame(score);
@@ -64,12 +67,90 @@ public class CtrlPresentacion {
 		vistaCM.setVisible(true);
 	}
 
+	
+	public static Menu carregarVistaMenu() {
+		System.out.println("hola");
+		Menu menu = new Menu();
+		menu.setTitle("Set up game");
+        menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        menu.setVisible(true);
+		return null;
+	}
+	
 	public static PantallaConfiguracion carregarVistaConfiguracion() {
 		PantallaConfiguracion configuracion = new PantallaConfiguracion();
 		configuracion.setTitle("Set up game");
         configuracion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         configuracion.setVisible(true);
 		return null;
+	}
+	
+	public static Ranking carregarVistaRanking() {
+		Ranking configuracion = new Ranking();
+		configuracion.setTitle("Select Ranking");
+        configuracion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        configuracion.setVisible(true);
+		return null;
+	}
+	
+	public static RankingFacil carregarVistaRanking1() {
+		TreeMap<String, Integer> rankingFacil = CtrlDominio.getRankingGlobalUnNivel(1);
+		RankingFacil ranking = new RankingFacil();
+		ranking.insertRanking(rankingFacil);
+		ranking.setTitle("Ranking nivel Fácil");
+        ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ranking.setVisible(true);
+		return null;
+	}
+	
+	public static RankingMedio carregarVistaRanking2() {
+		TreeMap<String, Integer> rankingMedio = CtrlDominio.getRankingGlobalUnNivel(2);
+		RankingMedio ranking = new RankingMedio();
+		ranking.insertRanking(rankingMedio);
+		ranking.setTitle("Ranking nivel Medio");
+		ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		ranking.setVisible(true);
+		return null;
+	}
+	
+	public static RankingAlto carregarVistaRanking3() {
+		TreeMap<String, Integer> rankingAlto = CtrlDominio.getRankingGlobalUnNivel(3);
+		RankingAlto ranking = new RankingAlto();
+		ranking.insertRanking(rankingAlto);
+		ranking.setTitle("Ranking nivel Alto");
+		ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		ranking.setVisible(true);
+		return null;
+	}
+	
+	public static RankingPersonal carregarVistaRankingPersonal() {
+		int[] records = CtrlDominio.getRecord();
+		RankingPersonal ranking = new RankingPersonal();
+		ranking.insertRecords(records);
+		ranking.setTitle("Ranking Personal");
+        ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ranking.setVisible(true);
+		return null;
+	}
+	
+	public static CargarPartida carregarVistaCargarPartida() {
+		CargarPartida partida = new CargarPartida();
+		partida.setTitle("Cargar Partida");
+		partida.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        partida.setVisible(true);
+		return null;
+	}
+	
+	public static ArrayList<Pair<String, Date>> getPartidasGuardadas() {
+		return CtrlDominio.getPartidasGuardadas();
+	}
+	
+	public static String getJuegoInfo() {
+		return CtrlDominio.getJuegoInfo();
+	}
+	
+	public static String getJuegoInfoPuntuacion() {
+		return CtrlDominio.getJuegoInfoPuntuacion();
 	}
 	
 	public static void newGame(Integer level, Boolean rol, Boolean ayuda) {
@@ -164,7 +245,7 @@ public class CtrlPresentacion {
 	                    colores[i][j] = Color.CYAN;
 	                    break;
 	                case PURPLE:
-	                    colores[i][j] = Color.MAGENTA; // Color púrpura personalizado
+	                    colores[i][j] = Color.MAGENTA; 
 	                    break;
 	                case ORANGE:
 	                    colores[i][j] = Color.ORANGE;

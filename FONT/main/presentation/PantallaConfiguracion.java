@@ -1,6 +1,8 @@
 package main.presentation;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PantallaConfiguracion extends JFrame {
 
@@ -9,6 +11,7 @@ public class PantallaConfiguracion extends JFrame {
 	public PantallaConfiguracion() {
 	        // Configurar la ventana
 	        setTitle("Configurar Nueva Partida");
+	        
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setSize(470, 600);
 	        setLocationRelativeTo(null);
@@ -99,6 +102,21 @@ public class PantallaConfiguracion extends JFrame {
 	        
 	        // Agregar el panel al contenido de la ventana
 	        setContentPane(panel);
+	        
+	        JButton exitButton = new JButton("Salir");
+	        
+	        gbc.gridx = 0;
+	        gbc.gridy = 5;
+	        gbc.anchor = GridBagConstraints.CENTER;
+	        panel.add(exitButton, gbc);
+	        
+	     // Configurar el ActionListener para el botón de exit
+	        exitButton.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	                CtrlPresentacion.carregarVistaMenu();
+	                    setVisible(false);
+	            }
+	        });
     }
 
     public static void main(String[] args) {
