@@ -23,7 +23,7 @@ public class CargarPartida extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         
-
+        setLocationRelativeTo(null);
         // Crear los componentes
         exitButton = new JButton("Salir");
         acceptButton = new JButton("Jugar");

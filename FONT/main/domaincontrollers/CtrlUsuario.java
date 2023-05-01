@@ -200,6 +200,10 @@ public class CtrlUsuario {
 	public static void cambiarEstadoPartida(String estado) {
 		CtrlPartida.cambiarEstadoPartida(estado);
 	}
+	
+	public static ArrayList<ArrayList<Color>> getAllCombLastTurno() {
+		return CtrlPartida.getAllCombLastTurno();
+	}
 
 	/*
 	 * Devuelve el rol de la partida
@@ -219,6 +223,9 @@ public class CtrlUsuario {
 		//return CtrlPartida.getScore();
 	}
 
+	public static Integer getLastTurno() {
+		return CtrlPartida.getNumRounds();
+	}
 	/**
 	 * Guarda la partida
 	 */

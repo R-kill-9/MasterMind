@@ -1,6 +1,6 @@
 package main.domain;
 
 public enum Color {
-    RED, GREEN, BLUE, YELLOW, PURPLE, ORANGE;
+    RED, GREEN, BLUE, CYAN, PURPLE, ORANGE;
     private Color() {}
 }

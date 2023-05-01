@@ -104,7 +104,7 @@ public class PartidaTest {
 	        			combinacion.add(Color.BLUE);
 	        			break;
 	        		case 4:
-	        			combinacion.add(Color.YELLOW);
+	        			combinacion.add(Color.CYAN);
 	        			break;
 	        		case 5:
 	        			combinacion.add(Color.PURPLE);

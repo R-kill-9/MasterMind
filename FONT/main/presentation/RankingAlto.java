@@ -14,6 +14,7 @@ public class RankingAlto extends JFrame {
     public RankingAlto() {
         // Configurar la ventana
         setTitle("Ranking Nivel Alto");
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         

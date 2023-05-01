@@ -29,16 +29,16 @@ public class TurnoTest {
 		colores1.add(Color.RED);
         colores1.add(Color.BLUE);
         colores1.add(Color.GREEN);
-        colores1.add(Color.YELLOW);
+        colores1.add(Color.CYAN);
         colores2 = new ArrayList<Color>();
         colores1.add(Color.BLUE);
         colores1.add(Color.RED);
         colores1.add(Color.GREEN);
-        colores1.add(Color.YELLOW);
+        colores1.add(Color.CYAN);
         colores3 = new ArrayList<Color>();
         colores1.add(Color.BLUE);
         colores1.add(Color.RED);
-        colores1.add(Color.YELLOW);
+        colores1.add(Color.CYAN);
         colores1.add(Color.GREEN);
     }
     

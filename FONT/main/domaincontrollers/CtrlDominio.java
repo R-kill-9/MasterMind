@@ -48,6 +48,10 @@ public class CtrlDominio {
 		return instance;
 	}
 	
+	public static ArrayList<ArrayList<Color>> getAllCombLastTurno() {
+		return CtrlUsuario.getAllCombLastTurno();
+	}
+	
 	/**
 	 * Funciones que se llaman desde el controlador de presentacion. Por
 	 * convención, únicamente se usan Strings para la comunicación entre las dos
@@ -88,6 +92,10 @@ public class CtrlDominio {
 
 	public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
 		return controladorUsuario.newCombinacion(combination);
+	}
+	
+	public static Integer getNumRounds() {
+		return CtrlUsuario.getLastTurno();
 	}
 
 	/**

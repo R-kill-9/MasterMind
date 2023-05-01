@@ -11,6 +11,7 @@ public class Ranking extends JFrame {
     public Ranking() {
         // Configurar la ventana
         setTitle("Consultar Ranking");
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
 

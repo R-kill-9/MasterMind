@@ -63,9 +63,6 @@ public class Partida {
 		this.username = usuario;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
-		System.out.println(this.ayuda);
-		System.out.println(rol);
-		System.out.println(dificultadEscogida);
 	}
 	
 	private Combinacion convertIntegerToColor(List<Integer> combInteger) {
@@ -82,7 +79,7 @@ public class Partida {
 	                result.add(Color.BLUE);
 	                break;
 	            case 3:
-	                result.add(Color.YELLOW);
+	                result.add(Color.CYAN);
 	                break;
 	            case 4:
 	                result.add(Color.PURPLE);
@@ -111,7 +108,7 @@ public class Partida {
 	            case BLUE:
 	                result.add(2);
 	                break;
-	            case YELLOW:
+	            case CYAN:
 	                result.add(3);
 	                break;
 	            case PURPLE:
@@ -144,8 +141,6 @@ public class Partida {
 		else {
 			Integer turnosCM = turnos.get(0).getNumberComb();
 			Integer turnosCB = turnos.get(1).getNumberComb();
-			System.out.println("A" + turnosCM);
-			System.out.println("A" + turnosCB);
 			if(!turnos.get(0).getRol()){
 				Integer aux = turnosCM;
 				turnosCM = turnosCB;
@@ -258,6 +253,15 @@ public class Partida {
 		donePartida();
 		return combHechas.size();
 	}
+	
+	public ArrayList<ArrayList<Color>> getAllCombLastTurno(){
+		ArrayList<ArrayList<Color>> combinaciones = new ArrayList<ArrayList<Color>>();		
+		for(Combinacion comb: turnos.get(getLastTurno() - 2).getCombinaciones()) {
+			combinaciones.add(comb.getCombination());
+			System.out.println("Comb1->  " + comb.getCombination());
+		}
+		return combinaciones;
+	}
 	/**
 	* Introduce un intento para este turno 
 	*/
@@ -271,7 +275,6 @@ public class Partida {
 			ArrayList<ColorFeedBack> feedBackSolution = new ArrayList<ColorFeedBack>(); 
 			if(!ayuda) {
 				String feedBack = nivel.comprobarCombinacion(convertColorToInteger(solutions.get(solutions.size()-1)), convertColorToInteger(lastComb));
-				System.out.println(feedBack);
 				for(char bola : feedBack.toCharArray()) {
 				    ColorFeedBack cb = bola == 'N' ? ColorFeedBack.BLACK : ColorFeedBack.WHITE;
 				    feedBackSolution.add(cb);

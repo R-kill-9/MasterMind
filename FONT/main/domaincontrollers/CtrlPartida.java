@@ -159,7 +159,13 @@ public class CtrlPartida {
 	public static void salirPartida() {
 		partidaActual = null;
 	}
+	public static Integer getNumRounds() {
+		return partidaActual.getLastTurno();
+	}
 	
+	public static ArrayList<ArrayList<Color>> getAllCombLastTurno() {
+		return partidaActual.getAllCombLastTurno();
+	}
 	/*
 	 * Reinicia la partida actual
 	 */

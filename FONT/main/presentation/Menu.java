@@ -14,6 +14,7 @@ public class Menu extends JFrame {
     public Menu() {
         // Configurar la ventana
         setTitle("Menú");
+        setLocationRelativeTo(null);
         setSize(470, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

@@ -14,6 +14,7 @@ public class RankingMedio extends JFrame {
     public RankingMedio() {
         // Configurar la ventana
         setTitle("Ranking NIvel Medio");
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         

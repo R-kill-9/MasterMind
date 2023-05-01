@@ -12,6 +12,7 @@ public class RankingPersonal extends JFrame {
     public RankingPersonal() {
         // Configurar la ventana
         setTitle("Records Personales");
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         

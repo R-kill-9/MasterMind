@@ -150,7 +150,7 @@ public class DriverDomain {
                     colores.add(Color.PURPLE);
                     break;
                 case 5:
-                    colores.add(Color.YELLOW);
+                    colores.add(Color.CYAN);
                     break;
                 case 6:
                     colores.add(Color.ORANGE);
@@ -215,7 +215,7 @@ public class DriverDomain {
                     colores.add(Color.PURPLE);
                     break;
                 case 5:
-                    colores.add(Color.YELLOW);
+                    colores.add(Color.CYAN);
                     break;
                 case 6:
                     colores.add(Color.ORANGE);
