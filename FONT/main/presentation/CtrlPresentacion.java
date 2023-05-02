@@ -95,7 +95,7 @@ public class CtrlPresentacion {
 	
 	public static RankingFacil carregarVistaRanking1() {
 		TreeMap<String, Integer> rankingFacil = CtrlDominio.getRankingGlobalUnNivel(1);
-		RankingFacil ranking = new RankingFacil();
+		RankingFacil ranking = new RankingFacil(rankingFacil);
 		ranking.insertRanking(rankingFacil);
 		ranking.setTitle("Ranking nivel Fácil");
         ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -105,8 +105,7 @@ public class CtrlPresentacion {
 	
 	public static RankingMedio carregarVistaRanking2() {
 		TreeMap<String, Integer> rankingMedio = CtrlDominio.getRankingGlobalUnNivel(2);
-		RankingMedio ranking = new RankingMedio();
-		ranking.insertRanking(rankingMedio);
+		RankingMedio ranking = new RankingMedio(rankingMedio);
 		ranking.setTitle("Ranking nivel Medio");
 		ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		ranking.setVisible(true);
@@ -115,8 +114,7 @@ public class CtrlPresentacion {
 	
 	public static RankingAlto carregarVistaRanking3() {
 		TreeMap<String, Integer> rankingAlto = CtrlDominio.getRankingGlobalUnNivel(3);
-		RankingAlto ranking = new RankingAlto();
-		ranking.insertRanking(rankingAlto);
+		RankingAlto ranking = new RankingAlto(rankingAlto);
 		ranking.setTitle("Ranking nivel Alto");
 		ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		ranking.setVisible(true);
@@ -125,8 +123,7 @@ public class CtrlPresentacion {
 	
 	public static RankingPersonal carregarVistaRankingPersonal() {
 		int[] records = CtrlDominio.getRecord();
-		RankingPersonal ranking = new RankingPersonal();
-		ranking.insertRecords(records);
+		RankingPersonal ranking = new RankingPersonal(records);
 		ranking.setTitle("Ranking Personal");
         ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ranking.setVisible(true);

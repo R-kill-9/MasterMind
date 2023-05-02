@@ -9,14 +9,14 @@ public class RankingPersonal extends JFrame {
     private static final long serialVersionUID = 1L;
     private int[] records;
 
-    public RankingPersonal() {
+    public RankingPersonal(int[] gettedRecords) {
         // Configurar la ventana
         setTitle("Records Personales");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         
-        records = new int[5];
+        records = gettedRecords;
         // Crear los componentes
         JButton exitButton = new JButton("Salir");
         JLabel messageLabel = new JLabel("Tus mejores puntuaciones son:");    
@@ -55,7 +55,7 @@ public class RankingPersonal extends JFrame {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.ipady = 10;
-        contentPane.add(exitButton, gbc);
+        contentPane.add(exitButton, gbc);S
 
 
         
@@ -68,12 +68,4 @@ public class RankingPersonal extends JFrame {
         });
     }
     
-    public void insertRecords(int[] gettedRecords) {
-    	records = gettedRecords;
-    }
-
-    public static void main(String[] args) {
-        RankingPersonal ranking = new RankingPersonal();
-        ranking.setVisible(true);
-    }
 }
