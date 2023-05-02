@@ -125,8 +125,7 @@ public class CtrlPresentacion {
 	
 	public static RankingPersonal carregarVistaRankingPersonal() {
 		int[] records = CtrlDominio.getRecord();
-		RankingPersonal ranking = new RankingPersonal();
-		ranking.insertRecords(records);
+		RankingPersonal ranking = new RankingPersonal(records);
 		ranking.setTitle("Ranking Personal");
         ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ranking.setVisible(true);

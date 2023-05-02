@@ -7,16 +7,16 @@ import java.awt.event.ActionListener;
 
 public class RankingPersonal extends JFrame {
     private static final long serialVersionUID = 1L;
-    private int[] records;
+    private static int[] records;
 
-    public RankingPersonal() {
+    public RankingPersonal(int[] rankingP) {
         // Configurar la ventana
         setTitle("Records Personales");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         setLocationRelativeTo(null);
         
-        records = new int[5];
+        records = rankingP;
         // Crear los componentes
         JButton exitButton = new JButton("Salir");
         JLabel messageLabel = new JLabel("Tus mejores puntuaciones son:");    
@@ -42,7 +42,7 @@ public class RankingPersonal extends JFrame {
             JLabel recordLabel = new JLabel("#" + (i + 1) + ": " + recordValue);
             recordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 18));
             gbc.insets = new Insets(5, 5, 5, 5);
-            gbc.gridx = 0;
+            gbc.gridx = recordValue;
             gbc.gridy = i+1;
             gbc.anchor = GridBagConstraints.LINE_END;
             gbc.anchor = GridBagConstraints.CENTER;
@@ -73,7 +73,7 @@ public class RankingPersonal extends JFrame {
     }
 
     public static void main(String[] args) {
-        RankingPersonal ranking = new RankingPersonal();
+        RankingPersonal ranking = new RankingPersonal(records);
         ranking.setVisible(true);
     }
 }
