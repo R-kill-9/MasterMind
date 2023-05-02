@@ -17,6 +17,7 @@ public class RankingMedio extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
+        setLocationRelativeTo(null);
         
         // Crear los componentes
         JButton exitButton = new JButton("Salir");

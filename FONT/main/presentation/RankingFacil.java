@@ -14,9 +14,9 @@ public class RankingFacil extends JFrame {
     public RankingFacil() {
         // Configurar la ventana
         setTitle("Ranking NIvel Fácil");
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
+        setLocationRelativeTo(null);
         
         // Crear los componentes
         JButton exitButton = new JButton("Salir");

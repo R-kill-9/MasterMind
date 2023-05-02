@@ -91,8 +91,9 @@ public class PantallaConfiguracion extends JFrame {
 	            // Crear la instancia de mastermindGame
 	            if(rol == "CodeBreaker") CtrlPresentacion.carregarvistaMastermindGame();
 	            else CtrlPresentacion.carregaCodeMaker();
-	            this.setVisible(false);
+	            setVisible(false);
 	            dispose();
+	            repaint();
 	        });
 	        gbc.gridx = 0;
 	        gbc.gridy = 4;

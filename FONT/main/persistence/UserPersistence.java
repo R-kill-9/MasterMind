@@ -118,19 +118,19 @@ public class UserPersistence{
         solucion.add(Color.BLUE);
         solucion.add(Color.GREEN);
         solucion.add(Color.RED);
-        solucion.add(Color.YELLOW);
+        solucion.add(Color.CYAN);
         ArrayList<ArrayList<Color>> combinaciones = new ArrayList<ArrayList<Color>>();
         ArrayList<Color> combinacion1 = new ArrayList<Color>();
         combinacion1.add(Color.BLUE);
         combinacion1.add(Color.GREEN);
         combinacion1.add(Color.RED);
-        combinacion1.add(Color.YELLOW);
+        combinacion1.add(Color.CYAN);
         combinaciones.add(combinacion1);
         ArrayList<Color> combinacion2 = new ArrayList<Color>();
         combinacion2.add(Color.BLUE);
         combinacion2.add(Color.GREEN);
         combinacion2.add(Color.ORANGE);
-        combinacion2.add(Color.YELLOW);
+        combinacion2.add(Color.CYAN);
         combinaciones.add(combinacion2);
        // up.savePartida("1", 1, true, solucion, true, 100, 1, combinaciones);
         //Carga la partida

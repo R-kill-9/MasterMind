@@ -69,7 +69,7 @@ public class CtrlPresentacion {
 
 	
 	public static Menu carregarVistaMenu() {
-		System.out.println("hola");
+		lastRonda = 0;
 		Menu menu = new Menu();
 		menu.setTitle("Set up game");
         menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -125,8 +125,7 @@ public class CtrlPresentacion {
 	
 	public static RankingPersonal carregarVistaRankingPersonal() {
 		int[] records = CtrlDominio.getRecord();
-		RankingPersonal ranking = new RankingPersonal();
-		ranking.insertRecords(records);
+		RankingPersonal ranking = new RankingPersonal(records);
 		ranking.setTitle("Ranking Personal");
         ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ranking.setVisible(true);
@@ -253,6 +252,7 @@ public class CtrlPresentacion {
 	            }
 	        }
 	    }
+	    System.out.println(combinations.size());
 	    TurnosMaquina turnosM = new TurnosMaquina(colores);
 	    turnosM.setVisible(true);
 	}
