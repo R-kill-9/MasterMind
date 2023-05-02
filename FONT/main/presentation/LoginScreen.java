@@ -75,7 +75,9 @@ public class LoginScreen extends JFrame {
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
+                	
                     setVisible(false);
+                    repaint();
                 }
             }
         });

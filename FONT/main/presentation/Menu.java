@@ -13,10 +13,10 @@ public class Menu extends JFrame {
 
     public Menu() {
         // Configurar la ventana
-        setTitle("Menú");
-        setLocationRelativeTo(null);
+        setTitle("Menú Principal");
         setSize(470, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;

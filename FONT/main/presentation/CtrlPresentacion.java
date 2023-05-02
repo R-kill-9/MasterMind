@@ -69,7 +69,7 @@ public class CtrlPresentacion {
 
 	
 	public static Menu carregarVistaMenu() {
-		System.out.println("hola");
+		lastRonda = 0;
 		Menu menu = new Menu();
 		menu.setTitle("Set up game");
         menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -250,6 +250,7 @@ public class CtrlPresentacion {
 	            }
 	        }
 	    }
+	    System.out.println(combinations.size());
 	    TurnosMaquina turnosM = new TurnosMaquina(colores);
 	    turnosM.setVisible(true);
 	}

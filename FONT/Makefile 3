@@ -1,0 +1,29 @@
+JAVAC=javac 
+JAVA=java
+.SUFFIXES: .java .class
+.java.class:
+	$(JAVAC) $*.java
+
+DOMAIN_DIR=main/domain/
+DOMAINCONTROLLERS_DIR=main/domaincontrollers/
+DOMAINDRIVERS_DIR=main/drivers/
+
+DOMAIN_SRCS=$(wildcard $(DOMAIN_DIR)*.java)
+DOMAINCONTROLLERS_SRCS=$(wildcard $(DOMAINCONTROLLERS_DIR)*.java)
+DOMAINDRIVERS_SRCS=$(wildcard $(DOMAINDRIVERS_DIR)*.java)
+
+DOMAIN_CLASSES=$(DOMAIN_SRCS:.java=.class)
+DOMAINCONTROLLERS_CLASSES=$(DOMAINCONTROLLERS_SRCS:.java=.class)
+DOMAINDRIVERS_CLASSES=$(DOMAINDRIVERS_SRCS:.java=.class)
+
+CLASSES=$(DOMAIN_CLASSES) $(DOMAINCONTROLLERS_CLASSES) $(DOMAINDRIVERS_CLASSES)
+
+default: classes
+
+classes: $(CLASSES)
+
+run: classes
+	$(JAVA) main/drivers/DriverDomain
+
+clean:
+	$(RM) $(DOMAIN_CLASSES) $(DOMAINCONTROLLERS_CLASSES)
