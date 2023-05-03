@@ -11,12 +11,14 @@ public class RankingAlto extends JFrame {
     private static final long serialVersionUID = 1L;
     private TreeMap<String, Integer> ranking = new TreeMap<>();
 
-    public RankingAlto() {
+    public RankingAlto(TreeMap<String, Integer> gettedRanking) {
         // Configurar la ventana
         setTitle("Ranking Nivel Alto");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         setLocationRelativeTo(null);
+        
+        ranking = gettedRanking;
         
         // Crear los componentes
         JButton exitButton = new JButton("Salir");
@@ -38,7 +40,7 @@ public class RankingAlto extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         contentPane.add(messageLabel, gbc);
         
-        int[] values = new int[10];
+        /*int[] values = new int[10];
         for(int i = 0; i < 10; ++i) values[i] = -1;
         //obtenemos los valores del treemap
         for (int i = 0; i < 10; i++) {
@@ -71,9 +73,19 @@ public class RankingAlto extends JFrame {
             gbc.anchor = GridBagConstraints.LINE_END;
             gbc.anchor = GridBagConstraints.CENTER;
             contentPane.add(recordLabel, gbc);
-        }
+        }*/
 
-        
+        int i = 1;
+        for (Map.Entry<String, Integer> entry : ranking.entrySet()) {
+        	System.out.println(entry.getKey() + " " + entry.getValue());
+            JLabel recordLabel = new JLabel("#" + entry.getKey() + ": " + entry.getValue());
+            recordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 16));
+            gbc.insets = new Insets(5, 5, 5, 5);
+            gbc.gridx = 0;
+            gbc.gridy = i++;
+            gbc.anchor = GridBagConstraints.CENTER;
+            contentPane.add(recordLabel, gbc);
+        }
         
         gbc.gridx = 0;
         gbc.gridy = 12;
@@ -91,14 +103,5 @@ public class RankingAlto extends JFrame {
                     setVisible(false);
             }
         });
-    }
-    
-    public void insertRanking(TreeMap<String, Integer> gettedRanking) {
-    	ranking = gettedRanking;
-    }
-
-    public static void main(String[] args) {
-    	RankingAlto ranking = new RankingAlto();
-        ranking.setVisible(true);
     }
 }

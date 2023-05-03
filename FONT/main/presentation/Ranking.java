@@ -127,9 +127,4 @@ public class Ranking extends JFrame {
             }
         });
     }
-
-    public static void main(String[] args) {
-        Ranking ranking = new Ranking();
-        ranking.setVisible(true);
-    }
 }

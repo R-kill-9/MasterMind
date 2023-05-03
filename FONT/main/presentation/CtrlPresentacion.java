@@ -96,7 +96,6 @@ public class CtrlPresentacion {
 	public static RankingFacil carregarVistaRanking1() {
 		TreeMap<String, Integer> rankingFacil = CtrlDominio.getRankingGlobalUnNivel(1);
 		RankingFacil ranking = new RankingFacil(rankingFacil);
-		ranking.insertRanking(rankingFacil);
 		ranking.setTitle("Ranking nivel Fácil");
         ranking.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ranking.setVisible(true);

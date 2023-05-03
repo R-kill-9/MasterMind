@@ -44,7 +44,6 @@ public class RankingPersonal extends JFrame {
             gbc.insets = new Insets(5, 5, 5, 5);
             gbc.gridx = recordValue;
             gbc.gridy = i+1;
-            gbc.anchor = GridBagConstraints.LINE_END;
             gbc.anchor = GridBagConstraints.CENTER;
             contentPane.add(recordLabel, gbc);
         }
@@ -55,7 +54,7 @@ public class RankingPersonal extends JFrame {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.ipady = 10;
-        contentPane.add(exitButton, gbc);S
+        contentPane.add(exitButton, gbc);
 
 
         
