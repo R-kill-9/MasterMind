@@ -23,7 +23,7 @@ public class Menu extends JFrame {
         gbc.insets = new Insets(2, 2, 2, 2);
 
         // Crear los componentes
-        configButton = new JButton("Crear una nueva Partida");
+        configButton = new JButton("Nueva Partida");
         partidasButton = new JButton("Cargar Partida");
         rankingButton = new JButton("Ver Rankings");
         rulesButton = new JButton("Cómo jugar");

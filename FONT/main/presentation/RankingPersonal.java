@@ -42,11 +42,12 @@ public class RankingPersonal extends JFrame {
             JLabel recordLabel = new JLabel("#" + (i + 1) + ": " + recordValue);
             recordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 18));
             gbc.insets = new Insets(5, 5, 5, 5);
-            gbc.gridx = recordValue;
+            gbc.gridx = 2; // Set to the center column index
             gbc.gridy = i+1;
             gbc.anchor = GridBagConstraints.CENTER;
             contentPane.add(recordLabel, gbc);
         }
+
         
         
         gbc.gridx = 0;
