@@ -3,7 +3,8 @@ package main.domain;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.sql.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -36,7 +37,7 @@ public class Partida {
      * @param rol true si el usuario es el CodeMaker, false si es el CodeBreaker
 	*/
 	public Partida(int dificultadEscogida, String usuario, boolean ayuda, boolean rol) {
-		this.data = getFechaIni();
+		this.data = new Date();
 		/** 
 		* 1 = Facil, 2 = Medio, 3 = Dificil
 		*/
@@ -126,11 +127,22 @@ public class Partida {
 	/** 
 	 * Métodos privados 
 	 */
-	private Date getFechaIni() {
-		LocalDateTime fechaHoraActual = LocalDateTime.now();
-		long millis = fechaHoraActual.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-		return new Date(millis);
-	}
+
+	/**
+	 * Método que devuelve la fecha actual formateada
+	 */
+	private String getFechaIni() {
+
+    
+		// Crear un objeto SimpleDateFormat con el formato deseado
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+
+	// Formatear la fecha y hora utilizando el objeto SimpleDateFormat
+	String formattedDate = sdf.format(data);
+
+// Devolver la fecha y hora formateada
+	return formattedDate;
+}
 	
 	private void donePartida(){
 		if(turnos.size() == 1) {

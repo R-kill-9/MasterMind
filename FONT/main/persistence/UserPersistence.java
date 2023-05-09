@@ -41,7 +41,7 @@ public class UserPersistence{
      * Dentro del directorio del usuario creamos un fichero con la partida
      * que queremos guardar e insertamos en el fichero la partida los datos de la partida
      */
-    public void savePartida(Date idPartida, int nTurno, boolean rol,
+    public void savePartida(String idPartida, int nTurno, boolean rol,
                              ArrayList<Combinacion>solucion, boolean ayuda, 
                              int puntuacion, int dificultad,
                              ArrayList<ArrayList<Color>> combinaciones){ 

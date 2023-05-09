@@ -1,0 +1,8 @@
+idPartida: 2023-05-09_16-56-48
+nTurno: 0
+rol: false
+solucion: [main.domain.Combinacion@7a81197d]
+ayuda: false
+puntuacion: 0
+dificultad: 1
+combinaciones: [[BLUE, GREEN, RED, PURPLE]]

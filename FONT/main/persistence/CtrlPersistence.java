@@ -52,7 +52,7 @@ public class CtrlPersistence {
     /*
      * Función que guarda una partida
      */
-    public void savePartida(Date idPartida, int nTurno, boolean rol,
+    public void savePartida(String idPartida, int nTurno, boolean rol,
                              ArrayList<Combinacion>solucion, boolean ayuda, 
                              int puntuacion, int dificultad,
                              ArrayList<ArrayList<Color>> combinaciones){ 
