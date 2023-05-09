@@ -28,6 +28,7 @@ public class Partida {
 	private ArrayList<Turno> turnos;
 	private ArrayList<ArrayList<Color>> combinacionesEnviadas;
 	private static UserPersistence userPer;
+	private int rondasMaquina;
 
 	/** 
 	*Constructora 
@@ -64,6 +65,7 @@ public class Partida {
 		this.username = usuario;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
+		this.rondasMaquina = 0;
 	}
 	
 	private Combinacion convertIntegerToColor(List<Integer> combInteger) {
@@ -263,6 +265,7 @@ public class Partida {
 		}
 		turnos.get(getLastTurno() - 1).setAllComb(combHechas);
 		donePartida();
+		rondasMaquina=combHechas.size();
 		return combHechas.size();
 	}
 	
@@ -363,6 +366,7 @@ public class Partida {
 		userPer.showPath();
 		//Imprime la fecha
 		System.out.println(getFechaIni());
-		userPer.savePartida(getFechaIni(), (turnos.size()-1), getRol(), solutions, ayuda, puntos, getDificultad(), combinacionesEnviadas);
+		int nturns = turnos.size()-1;
+		userPer.savePartida(getFechaIni(), (turnos.size()-1), getRol(), solutions.get(nturns).getCombinationColor(), ayuda, puntos, getDificultad(), combinacionesEnviadas, rondasMaquina);
 	}
 }

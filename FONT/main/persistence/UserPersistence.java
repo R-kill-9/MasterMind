@@ -42,9 +42,10 @@ public class UserPersistence{
      * que queremos guardar e insertamos en el fichero la partida los datos de la partida
      */
     public void savePartida(String idPartida, int nTurno, boolean rol,
-                             ArrayList<Combinacion>solucion, boolean ayuda, 
+                             ArrayList<Color>solucion, boolean ayuda, 
                              int puntuacion, int dificultad,
-                             ArrayList<ArrayList<Color>> combinaciones){ 
+                             ArrayList<ArrayList<Color>> combinaciones,
+                             int rondasMaquina){ 
         String fileName = "partida" + idPartida.toString() + ".txt";
         File partidaFile = new File(path, fileName);
         try {
@@ -66,6 +67,8 @@ public class UserPersistence{
             bw.newLine();
             if (combinaciones.isEmpty()) bw.write("combinaciones: " + "null");
             else bw.write("combinaciones: " + combinaciones.toString());
+            bw.newLine();
+            bw.write("rondasMaquina: " + Integer.toString(rondasMaquina));
             bw.newLine();
             bw.close();
             fw.close();
