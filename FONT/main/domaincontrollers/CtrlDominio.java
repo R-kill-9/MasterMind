@@ -13,7 +13,7 @@ import main.domain.Pair;
 import main.domain.Juego;
 import main.domain.Ranking;
 
-import main.persistence.*;
+import main.persistence.CtrlPersistence;
 
 /** Ejemplo de Controlador de Dominio. **/
 public class CtrlDominio {
@@ -26,8 +26,7 @@ public class CtrlDominio {
 	private static Ranking rankingGlobal;
 	private static HistorialPartidas historialPartidas;
 	private static HistorialPartidasGuardadas historialPartidasGuardadas;
-	private static UserPersistence userPer;
-	private static RankingPersistence rankPer;
+	private static CtrlPersistence ctrlPersistence;
 
 	/** Constructor y metodos de inicializacion **/
 
@@ -37,8 +36,7 @@ public class CtrlDominio {
 		setJuego(Juego.getInstance());
 		historialPartidas = new HistorialPartidas();
 		historialPartidasGuardadas = new HistorialPartidasGuardadas();
-		userPer = new UserPersistence();
-		rankPer = new RankingPersistence();
+		ctrlPersistence = CtrlPersistence.getInstance();
 	}
 
 	public static CtrlDominio getInstance(){
@@ -70,15 +68,15 @@ public class CtrlDominio {
 	 * Se encarga de la persistencia de los rankings
 	 */
 	public void restoreRanking() {
-		rankPer.checkRanking();
-		if (rankPer.existsRanking1()) {
-			rankingGlobal.cargarRanking(1, rankPer.loadRanking(1));
+		ctrlPersistence.checkRanking();
+		if (ctrlPersistence.existsRanking1()) {
+			rankingGlobal.cargarRanking(1, ctrlPersistence.loadRanking(1));
 		}
 	}
 
 	public void loginUser(String username) throws Exception {
 		controladorUsuario.loginUser(username);
-		userPer.checkUser(username);
+		ctrlPersistence.checkUser(username);
 
 	}
 
@@ -176,7 +174,7 @@ public class CtrlDominio {
 	 */
 	public static void addPartidaRanking(String jugador, Integer puntuacion, Integer nivelDificultad) {
 		rankingGlobal.addPartida(jugador,puntuacion,nivelDificultad);
-		rankPer.saveRanking(nivelDificultad, rankingGlobal.getRanking(nivelDificultad));
+		ctrlPersistence.saveRanking(nivelDificultad, rankingGlobal.getRanking(nivelDificultad));
 		
 	}
 
