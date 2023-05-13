@@ -169,8 +169,10 @@ public class CodeMaker extends JFrame {
 	        public void actionPerformed(ActionEvent e) {
 	            Integer x = CtrlPresentacion.setSolution(tablero);
 	            System.out.println("Num rondas -> "  + x);
-	            CtrlPresentacion.cargaCombMaquina();
-	            setVisible(false);
+	            if(x != null) {
+		            CtrlPresentacion.cargaCombMaquina();
+		            setVisible(false);
+	            }
 	        }
 	    });
 	    pack();

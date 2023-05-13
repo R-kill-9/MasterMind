@@ -21,6 +21,8 @@ public class CtrlPresentacion {
 	private static CtrlDominio controladorDominio = CtrlDominio.getInstance();
 	private static Integer numCols;
 	private static Boolean setAyuda;
+	private static String usernameAct;
+	private static Integer nivel;
 	private static Integer lastRonda = 0;
 	
 	private static ArrayList<main.domain.Color> transformCombination(Color[] colors){
@@ -54,7 +56,9 @@ public class CtrlPresentacion {
 	}
 	
 	public static void loginUser(String username) throws Exception {
+		usernameAct = username;
 		controladorDominio.loginUser(username);
+		controladorDominio.restoreRanking();
 	}
 	
 	public static void carregarEndGame() {
@@ -157,7 +161,7 @@ public class CtrlPresentacion {
 		setAyuda = ayuda;
 		controladorDominio.crearPartida(level, rol, ayuda);
 		System.out.println("Num rondas " + CtrlDominio.getNumRounds());
-
+		nivel = level;
 
 	}
 	
@@ -213,7 +217,10 @@ public class CtrlPresentacion {
 	public static void finRonda(String turnoAct) {
 		Integer numRounds = CtrlDominio.getNumRounds();
 		++lastRonda;
-		if(lastRonda >= 2) carregarEndGame();
+		if(lastRonda >= 2) {
+			carregarEndGame();
+			controladorDominio.addPartidaRanking(usernameAct, controladorDominio.getScore(), nivel);
+		}
 		else {
 			if(numRounds <= 2 && turnoAct.equals("CB")) {
 				carregaCodeMaker();

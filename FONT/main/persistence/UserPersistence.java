@@ -133,7 +133,7 @@ public class UserPersistence{
         combinacion2.add(Color.CYAN);
         combinaciones.add(combinacion2);
        // up.savePartida("1", 1, true, solucion, true, 100, 1, combinaciones);
-        //Carga la partida
+       // Carga la partida
       //  up.loadPartida("1");
 
     }
