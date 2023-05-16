@@ -41,10 +41,11 @@ public class UserPersistence{
      * Dentro del directorio del usuario creamos un fichero con la partida
      * que queremos guardar e insertamos en el fichero la partida los datos de la partida
      */
-    public void savePartida(Date idPartida, int nTurno, boolean rol,
-                             ArrayList<Combinacion>solucion, boolean ayuda, 
+    public void savePartida(String idPartida, int nTurno, boolean rol,
+                             ArrayList<Color>solucion, boolean ayuda, 
                              int puntuacion, int dificultad,
-                             ArrayList<ArrayList<Color>> combinaciones){ 
+                             ArrayList<ArrayList<Color>> combinaciones,
+                             int rondasMaquina){ 
         String fileName = "partida" + idPartida.toString() + ".txt";
         File partidaFile = new File(path, fileName);
         try {
@@ -67,6 +68,8 @@ public class UserPersistence{
             if (combinaciones.isEmpty()) bw.write("combinaciones: " + "null");
             else bw.write("combinaciones: " + combinaciones.toString());
             bw.newLine();
+            bw.write("rondasMaquina: " + Integer.toString(rondasMaquina));
+            bw.newLine();
             bw.close();
             fw.close();
         } catch (IOException e) {
@@ -74,6 +77,21 @@ public class UserPersistence{
         }
         
 
+    }
+
+    /*
+     * Funcion que muestra las partidas guardadas del usuario
+     */
+    public ArrayList<String> getPartidasGuardadas() {
+        ArrayList<String> partidas = new ArrayList<String>();
+        File userDir = new File(path);
+        File[] files = userDir.listFiles();
+        for (File file : files) {
+            if (file.isFile()) {
+                partidas.add(file.getName());
+            }
+        }
+        return partidas;
     }
 
     /**
@@ -132,9 +150,15 @@ public class UserPersistence{
         combinacion2.add(Color.ORANGE);
         combinacion2.add(Color.CYAN);
         combinaciones.add(combinacion2);
-       // up.savePartida("1", 1, true, solucion, true, 100, 1, combinaciones);
-        //Carga la partida
+        
+       // Carga la partida
       //  up.loadPartida("1");
+        //Test ver partidas guardadas
+        ArrayList<String> partidas = up.getPartidasGuardadas();
+        for (String partida : partidas) {
+            System.out.println(partida);
+        }
+        
 
     }
 

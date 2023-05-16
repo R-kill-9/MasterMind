@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
+import java.text.SimpleDateFormat;
 
 import main.domain.Color;
 import main.domain.ColorFeedBack;
@@ -13,7 +14,7 @@ import main.domain.Pair;
 import main.domain.Juego;
 import main.domain.Ranking;
 
-import main.persistence.*;
+import main.persistence.CtrlPersistence;
 
 /** Ejemplo de Controlador de Dominio. **/
 public class CtrlDominio {
@@ -26,8 +27,7 @@ public class CtrlDominio {
 	private static Ranking rankingGlobal;
 	private static HistorialPartidas historialPartidas;
 	private static HistorialPartidasGuardadas historialPartidasGuardadas;
-	private static UserPersistence userPer;
-	private static RankingPersistence rankPer;
+	private static CtrlPersistence ctrlPersistence;
 
 	/** Constructor y metodos de inicializacion **/
 
@@ -37,8 +37,7 @@ public class CtrlDominio {
 		setJuego(Juego.getInstance());
 		historialPartidas = new HistorialPartidas();
 		historialPartidasGuardadas = new HistorialPartidasGuardadas();
-		userPer = new UserPersistence();
-		rankPer = new RankingPersistence();
+		ctrlPersistence = CtrlPersistence.getInstance();
 	}
 
 	public static CtrlDominio getInstance(){
@@ -70,15 +69,15 @@ public class CtrlDominio {
 	 * Se encarga de la persistencia de los rankings
 	 */
 	public void restoreRanking() {
-		rankPer.checkRanking();
-		if (rankPer.existsRanking1()) {
-			rankingGlobal.cargarRanking(1, rankPer.loadRanking(1));
+		ctrlPersistence.checkRanking();
+		if (ctrlPersistence.existsRanking1()) {
+			rankingGlobal.cargarRanking(1, ctrlPersistence.loadRanking(1));
 		}
 	}
 
 	public void loginUser(String username) throws Exception {
 		controladorUsuario.loginUser(username);
-		userPer.checkUser(username);
+		ctrlPersistence.checkUser(username);
 
 	}
 
@@ -118,11 +117,10 @@ public class CtrlDominio {
 	}
 	/**
 	 * Obtenemos el ArrayList de partidas del usuario actual.
-	 * @return ArrayList<Pair<String, Date>> where string = username, date =
-	 *         dateCreation
-	 */
-	public static ArrayList<Pair<String, Date>> getPartidasGuardadas() {
-		return CtrlUsuario.getPartidasGuardadas();
+	}
+	*/
+	public static ArrayList<String> getPartidasGuardadas(){
+		return ctrlPersistence.getPartidasGuardadas();
 	}
 
 	public static TreeMap<String, Integer> getRankingGlobalUnNivel(Integer nivel) {
@@ -176,7 +174,7 @@ public class CtrlDominio {
 	 */
 	public static void addPartidaRanking(String jugador, Integer puntuacion, Integer nivelDificultad) {
 		rankingGlobal.addPartida(jugador,puntuacion,nivelDificultad);
-		rankPer.saveRanking(nivelDificultad, rankingGlobal.getRanking(nivelDificultad));
+		ctrlPersistence.saveRanking(nivelDificultad, rankingGlobal.getRanking(nivelDificultad));
 		
 	}
 
@@ -184,7 +182,18 @@ public class CtrlDominio {
 	 * Guarda la partida actual
 	 */
 	public static void guardarPartida() {
-		CtrlUsuario.guardarPartida();
+		String id = CtrlUsuario.getfechaIni();
+		int nTurno = CtrlUsuario.getLastTurno();
+		boolean rol = CtrlUsuario.getRol();
+		ArrayList<Color> solucion = CtrlUsuario.getSolution();
+		boolean ayuda = CtrlUsuario.getAyuda();
+		int puntuacion = CtrlUsuario.getScore();
+		int dificultad = CtrlUsuario.getDificultad();
+		ArrayList<ArrayList<Color>> combinaciones = CtrlUsuario.getCombinacionesEnviadas();
+		int rondasMaquina = CtrlUsuario.getRondasMaquina();
+
+		ctrlPersistence.savePartida(id, nTurno, rol, solucion, ayuda, puntuacion, 
+		dificultad, combinaciones, rondasMaquina);
 	}
 	
 	public static void solicitarAyuda() {

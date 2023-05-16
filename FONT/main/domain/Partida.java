@@ -3,7 +3,8 @@ package main.domain;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.sql.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -27,6 +28,7 @@ public class Partida {
 	private ArrayList<Turno> turnos;
 	private ArrayList<ArrayList<Color>> combinacionesEnviadas;
 	private static UserPersistence userPer;
+	private int rondasMaquina;
 
 	/** 
 	*Constructora 
@@ -36,7 +38,7 @@ public class Partida {
      * @param rol true si el usuario es el CodeMaker, false si es el CodeBreaker
 	*/
 	public Partida(int dificultadEscogida, String usuario, boolean ayuda, boolean rol) {
-		this.data = getFechaIni();
+		this.data = new Date();
 		/** 
 		* 1 = Facil, 2 = Medio, 3 = Dificil
 		*/
@@ -63,6 +65,7 @@ public class Partida {
 		this.username = usuario;
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
+		this.rondasMaquina = 0;
 	}
 	
 	private Combinacion convertIntegerToColor(List<Integer> combInteger) {
@@ -126,11 +129,22 @@ public class Partida {
 	/** 
 	 * Métodos privados 
 	 */
-	private Date getFechaIni() {
-		LocalDateTime fechaHoraActual = LocalDateTime.now();
-		long millis = fechaHoraActual.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-		return new Date(millis);
-	}
+
+	/**
+	 * Método que devuelve la fecha actual formateada
+	 */
+	public String getFechaIni() {
+
+    
+		// Crear un objeto SimpleDateFormat con el formato deseado
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+
+	// Formatear la fecha y hora utilizando el objeto SimpleDateFormat
+	String formattedDate = sdf.format(data);
+
+// Devolver la fecha y hora formateada
+	return formattedDate;
+}
 	
 	private void donePartida(){
 		if(turnos.size() == 1) {
@@ -249,8 +263,9 @@ public class Partida {
 		for(List<Integer> lista : combHechasInteger) {
 			combHechas.add(convertIntegerToColor(lista));
 		}
-		turnos.get(getLastTurno() - 1).setAllComb(combHechas);
+		turnos.get(getLastTurno()).setAllComb(combHechas);
 		donePartida();
+		rondasMaquina=combHechas.size();
 		return combHechas.size();
 	}
 	
@@ -332,15 +347,47 @@ public class Partida {
 		lastTurno.eraseCombinations();
 	}
 	
-	public Integer getLastTurno() {
-		return turnos.size();
-	}
+	
 
 	/*
 	 * Devuelve el rol actual
 	 */
 	public boolean getRol() {
 		return this.turnos.get(turnos.size() - 1).getRol();
+	}
+
+	/*
+	 * Todas las funcionalidades de guardar partida
+	 */
+	
+	 /*
+	  * Devuelve el ultimo turno
+	  */
+	public Integer getLastTurno() {
+		return turnos.size()-1;
+	}
+	
+	/*
+	 * Devuelve las soluciones
+	 */
+	public ArrayList<Color> getSolutions() {
+		int nturns = turnos.size()-1;
+		return solutions.get(nturns).getCombinationColor();
+	}
+
+
+	/*
+	 * Devuelve las combinaciones enviadas
+	 */
+	public ArrayList<ArrayList<Color>> getCombinacionesEnviadas() {
+		return combinacionesEnviadas;
+	}
+
+	/*
+	 * Devuelve las rondas de la maquina
+	 */
+	public int getRondasMaquina() {
+		return rondasMaquina;
 	}
 
 	/*
@@ -351,6 +398,7 @@ public class Partida {
 		userPer.showPath();
 		//Imprime la fecha
 		System.out.println(getFechaIni());
-		userPer.savePartida(getFechaIni(), (turnos.size()-1), getRol(), solutions, ayuda, puntos, getDificultad(), combinacionesEnviadas);
+		int nturns = turnos.size()-1;
+		userPer.savePartida(getFechaIni(), (turnos.size()-1), getRol(), solutions.get(nturns).getCombinationColor(), ayuda, puntos, getDificultad(), combinacionesEnviadas, rondasMaquina);
 	}
 }

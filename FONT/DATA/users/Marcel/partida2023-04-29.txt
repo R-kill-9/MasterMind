@@ -1,0 +1,8 @@
+idPartida: 2023-04-29
+nTurno: 1
+rol: false
+solucion: [main.domain.Combinacion@402f32ff, main.domain.Combinacion@573f2bb1]
+ayuda: false
+puntuacion: 0
+dificultad: 1
+combinaciones: null

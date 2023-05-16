@@ -61,7 +61,12 @@ public class Combinacion {
 	
 	}
 
-
+	/*
+	 * Devuelve la combinación en formato Color
+	 */
+	public ArrayList<Color> getCombinationColor() {
+		return combination;
+	}
 
 
 }
