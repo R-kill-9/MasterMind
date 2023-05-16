@@ -146,12 +146,6 @@ public class CtrlPartida {
 		return partidaActual.getAyuda();
 	}
 
-     /*
-     * Guarda la partida actual
-     */
-    public static void guardarPartida() {
-        partidaActual.guardarPartida();
-    }
 	
 	/*
 	 * Sale de la partida actual

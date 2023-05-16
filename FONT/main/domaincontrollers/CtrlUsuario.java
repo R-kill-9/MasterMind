@@ -225,12 +225,7 @@ public class CtrlUsuario {
 	public static Integer getLastTurno() {
 		return CtrlPartida.getNumRounds();
 	}
-	/**
-	 * Guarda la partida
-	 */
-	public static void guardarPartida() {
-		CtrlPartida.guardarPartida();
-	}
+	
 
 	/*
 	 * Devuelve la fehca de la partida

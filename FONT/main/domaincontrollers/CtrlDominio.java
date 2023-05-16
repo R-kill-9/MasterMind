@@ -184,7 +184,7 @@ public class CtrlDominio {
 	 */
 	public static void guardarPartida() {
 		String id = CtrlUsuario.getfechaIni();
-		int nTurno = CtrlUsuario.getLastTurno()-1;
+		int nTurno = CtrlUsuario.getLastTurno();
 		boolean rol = CtrlUsuario.getRol();
 		ArrayList<Color> solucion = CtrlUsuario.getSolution();
 		boolean ayuda = CtrlUsuario.getAyuda();

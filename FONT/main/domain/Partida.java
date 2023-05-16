@@ -263,7 +263,7 @@ public class Partida {
 		for(List<Integer> lista : combHechasInteger) {
 			combHechas.add(convertIntegerToColor(lista));
 		}
-		turnos.get(getLastTurno() - 1).setAllComb(combHechas);
+		turnos.get(getLastTurno()).setAllComb(combHechas);
 		donePartida();
 		rondasMaquina=combHechas.size();
 		return combHechas.size();
