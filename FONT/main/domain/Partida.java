@@ -133,7 +133,7 @@ public class Partida {
 	/**
 	 * Método que devuelve la fecha actual formateada
 	 */
-	private String getFechaIni() {
+	public String getFechaIni() {
 
     
 		// Crear un objeto SimpleDateFormat con el formato deseado
@@ -347,15 +347,47 @@ public class Partida {
 		lastTurno.eraseCombinations();
 	}
 	
-	public Integer getLastTurno() {
-		return turnos.size();
-	}
+	
 
 	/*
 	 * Devuelve el rol actual
 	 */
 	public boolean getRol() {
 		return this.turnos.get(turnos.size() - 1).getRol();
+	}
+
+	/*
+	 * Todas las funcionalidades de guardar partida
+	 */
+	
+	 /*
+	  * Devuelve el ultimo turno
+	  */
+	public Integer getLastTurno() {
+		return turnos.size()-1;
+	}
+	
+	/*
+	 * Devuelve las soluciones
+	 */
+	public ArrayList<Color> getSolutions() {
+		int nturns = turnos.size()-1;
+		return solutions.get(nturns).getCombinationColor();
+	}
+
+
+	/*
+	 * Devuelve las combinaciones enviadas
+	 */
+	public ArrayList<ArrayList<Color>> getCombinacionesEnviadas() {
+		return combinacionesEnviadas;
+	}
+
+	/*
+	 * Devuelve las rondas de la maquina
+	 */
+	public int getRondasMaquina() {
+		return rondasMaquina;
 	}
 
 	/*

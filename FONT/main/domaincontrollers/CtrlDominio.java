@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
+import java.text.SimpleDateFormat;
 
 import main.domain.Color;
 import main.domain.ColorFeedBack;
@@ -182,7 +183,18 @@ public class CtrlDominio {
 	 * Guarda la partida actual
 	 */
 	public static void guardarPartida() {
-		CtrlUsuario.guardarPartida();
+		String id = CtrlUsuario.getfechaIni();
+		int nTurno = CtrlUsuario.getLastTurno()-1;
+		boolean rol = CtrlUsuario.getRol();
+		ArrayList<Color> solucion = CtrlUsuario.getSolution();
+		boolean ayuda = CtrlUsuario.getAyuda();
+		int puntuacion = CtrlUsuario.getScore();
+		int dificultad = CtrlUsuario.getDificultad();
+		ArrayList<ArrayList<Color>> combinaciones = CtrlUsuario.getCombinacionesEnviadas();
+		int rondasMaquina = CtrlUsuario.getRondasMaquina();
+
+		ctrlPersistence.savePartida(id, nTurno, rol, solucion, ayuda, puntuacion, 
+		dificultad, combinaciones, rondasMaquina);
 	}
 	
 	public static void solicitarAyuda() {

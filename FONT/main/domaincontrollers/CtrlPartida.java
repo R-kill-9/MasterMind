@@ -189,4 +189,43 @@ public class CtrlPartida {
     public static boolean getRol() {  
         return partidaActual.getRol();
     }
+
+    /*
+	 * Devuelve la fehca de la partida
+	 */
+	public static String getfechaIni(){
+		return partidaActual.getFechaIni();
+	}
+
+    /*
+     * Devuelve la solucion de la partida
+     */
+    public static ArrayList<Color> getSolution() {
+        return partidaActual.getSolutions();
+    }
+
+    /*
+     * Devuelve la dificultad de la partida
+     */
+    public static int getDificultad() {
+        return partidaActual.getDificultad();
+    }
+    /*
+	 * Devuelve el numero de rondas de la partia hechas por la maquina
+	 */
+    public static int getRondasMaquina() {
+        return partidaActual.getRondasMaquina();
+    }
+
+   
+    /*
+	 * Devuelve las combinaciones enviadas
+	 */
+    public static ArrayList<ArrayList<Color>> getCombinacionesEnviadas() {
+        return partidaActual.getCombinacionesEnviadas();
+    }
+
+
+
+
 }
