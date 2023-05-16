@@ -79,6 +79,21 @@ public class UserPersistence{
 
     }
 
+    /*
+     * Funcion que muestra las partidas guardadas del usuario
+     */
+    public ArrayList<String> getPartidasGuardadas() {
+        ArrayList<String> partidas = new ArrayList<String>();
+        File userDir = new File(path);
+        File[] files = userDir.listFiles();
+        for (File file : files) {
+            if (file.isFile()) {
+                partidas.add(file.getName());
+            }
+        }
+        return partidas;
+    }
+
     /**
      * Cargamos la partida con el idPartida dado
      */
@@ -135,9 +150,15 @@ public class UserPersistence{
         combinacion2.add(Color.ORANGE);
         combinacion2.add(Color.CYAN);
         combinaciones.add(combinacion2);
-       // up.savePartida("1", 1, true, solucion, true, 100, 1, combinaciones);
+        
        // Carga la partida
       //  up.loadPartida("1");
+        //Test ver partidas guardadas
+        ArrayList<String> partidas = up.getPartidasGuardadas();
+        for (String partida : partidas) {
+            System.out.println(partida);
+        }
+        
 
     }
 

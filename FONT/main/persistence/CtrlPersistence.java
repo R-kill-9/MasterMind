@@ -67,6 +67,12 @@ public class CtrlPersistence {
         userPer.loadPartida(idPartida);
     }
 
+    /*
+     * Función que devuelve un array con las partidas guardadas
+     */
+    public ArrayList<String> getPartidasGuardadas(){
+        return userPer.getPartidasGuardadas();
+    }
 
     /*
      * Función que crea carpeta con el nombre ranking

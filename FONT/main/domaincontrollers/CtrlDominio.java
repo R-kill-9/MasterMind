@@ -117,11 +117,10 @@ public class CtrlDominio {
 	}
 	/**
 	 * Obtenemos el ArrayList de partidas del usuario actual.
-	 * @return ArrayList<Pair<String, Date>> where string = username, date =
-	 *         dateCreation
-	 */
-	public static ArrayList<Pair<String, Date>> getPartidasGuardadas() {
-		return CtrlUsuario.getPartidasGuardadas();
+	}
+	*/
+	public static ArrayList<String> getPartidasGuardadas(){
+		return ctrlPersistence.getPartidasGuardadas();
 	}
 
 	public static TreeMap<String, Integer> getRankingGlobalUnNivel(Integer nivel) {
