@@ -7,31 +7,35 @@ import java.awt.event.ActionListener;
 
 public class Ranking extends JFrame {
     private static final long serialVersionUID = 1L;
-
+    private JButton easyButton = new JButton("Fácil");
+    private JButton mediumButton = new JButton("Medio");
+    private JButton hardButton = new JButton("Alto");
+    private JButton personalButton = new JButton("Ranking Personal");
+    private JButton exitButton = new JButton("Salir");
+    private JLabel messageLabel = new JLabel("Consultar Rankings Globales");
+    private JLabel levelLabel = new JLabel("Selecciona el nivel");
+    private JLabel personalRankingLabel = new JLabel("Consultar Ranking Personal");
+    private Font labelFont = messageLabel.getFont();
+    private JPanel contentPane = new JPanel();
+    
     public Ranking() {
-        // Configurar la ventana
+    	initComponents();
+        initListeners();
+    }
+    
+    void initComponents() {
+    	// Configurar la ventana
         setTitle("Consultar Ranking");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         setLocationRelativeTo(null);
 
-        // Crear los componentes
-        JButton easyButton = new JButton("Fácil");
-        JButton mediumButton = new JButton("Medio");
-        JButton hardButton = new JButton("Alto");
-        JButton personalButton = new JButton("Ranking Personal");
-        JButton exitButton = new JButton("Salir");
-        JLabel messageLabel = new JLabel("Consultar Rankings Globales");
-        JLabel levelLabel = new JLabel("Selecciona el nivel");
-        JLabel personalRankingLabel = new JLabel("Consultar Ranking Personal");
-        Font labelFont = messageLabel.getFont();
         messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
         levelLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 15));
         personalRankingLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
 
         // Crear el panel contenedor y configurar el administrador de diseño
-        JPanel contentPane = new JPanel();
         setContentPane(contentPane);
         contentPane.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -81,15 +85,16 @@ public class Ranking extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         contentPane.add(personalButton, gbc);
 
-
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.ipady = 10;
         contentPane.add(exitButton, gbc);
-
-        // Configurar el ActionListener para los botones de nivel
+    }
+    
+    void initListeners() {
+    	// Configurar el ActionListener para los botones de nivel
         easyButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 CtrlPresentacion.carregarVistaRanking1();

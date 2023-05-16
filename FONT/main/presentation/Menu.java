@@ -10,9 +10,14 @@ public class Menu extends JFrame {
     private JButton rankingButton;
     private JButton rulesButton;
     private JButton partidasButton;
-
+    
     public Menu() {
-        // Configurar la ventana
+    	initComponents();
+    	initListeners();
+    }
+    
+    private void initComponents() {
+    	// Configurar la ventana
         setTitle("Menú Principal");
         setSize(470, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,9 +36,8 @@ public class Menu extends JFrame {
         menuLabel.setFont(new Font("Arial", Font.BOLD, 30));
         menuLabel.setHorizontalAlignment(SwingConstants.CENTER);
         
-
         setLayout(new GridBagLayout());
-
+        
         // Añadir el texto de menú
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -75,8 +79,10 @@ public class Menu extends JFrame {
         gbc.gridheight = 1;
         gbc.anchor = GridBagConstraints.CENTER;
         add(rulesButton, gbc);
-
-        // Configurar el ActionListener para el botón de configuración
+    }
+    
+    private void initListeners() {
+    	// Configurar el ActionListener para el botón de configuración
         configButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CtrlPresentacion.carregarVistaConfiguracion();
