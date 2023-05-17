@@ -16,7 +16,7 @@ public class CargarPartida extends JFrame {
     private JTextField gameField;
     private JButton acceptButton;
     private JButton exitButton;
-    private ArrayList<Pair<String, Date>>  partidas = CtrlPresentacion.getPartidasGuardadas();
+    private ArrayList<String>  partidas = CtrlPresentacion.getPartidasGuardadas();
     private JPanel contentPane = new JPanel();
 
     public CargarPartida() {
@@ -47,30 +47,17 @@ public class CargarPartida extends JFrame {
         contentPane.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);  // reducir los márgenes verticales
-        
-
-        
-		ArrayList<Date> fechas = new ArrayList<>();
-		for (Pair<String, Date> partida : partidas) {
-		    fechas.add(partida.getSecond());
-		}
-		String totalPartidas = "";
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-		for (int i = 0; i < partidas.size(); ++i) {
-			String fecha = sdf.format(fechas.get(i));
-			totalPartidas = totalPartidas + System.lineSeparator() + fecha;
-		}
+      
 		
-		for (int i = 0; i < 10 && i < fechas.size(); ++i) {
-        	System.out.println(i + " " + fechas.get(fechas.size()-1-i));
-            JLabel partidaLabel = new JLabel("#" + (i+1) + ": " + fechas.get(fechas.size()-1-i));
+	/*	for (int i = 0; i < 10 && i < partidas.size(); ++i) {
+            JLabel partidaLabel = new JLabel("#" + (i+1) + ": " + partidas.get(partidas.size()-1-i));
             partidaLabel.setFont(new Font("Arial", Font.PLAIN, 16));
             gbc.insets = new Insets(5, 5, 5, 5);
             gbc.gridx = 0;
             gbc.gridy = i++;
             gbc.anchor = GridBagConstraints.CENTER;
             contentPane.add(partidaLabel, gbc);
-        }
+        }*/
         
 		gbc.gridx = 1;
         gbc.gridy = 2;

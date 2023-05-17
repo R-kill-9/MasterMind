@@ -22,16 +22,15 @@ public class RankingAlto extends JFrame {
     
     private void initComponents(TreeMap<String, Integer> gettedRanking) {
     	// Configurar la ventana
-        setTitle("Ranking Nivel Alto");
+        setTitle("Ranking NIvel Fácil");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         setLocationRelativeTo(null);
-        
         ranking = gettedRanking;
-        
+
         messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
         
-        // Crear el panel contenedor y configurar el administrador de diseño
+        //configurar el administrador de diseño
         setContentPane(contentPane);
         contentPane.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -43,7 +42,7 @@ public class RankingAlto extends JFrame {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         contentPane.add(messageLabel, gbc);
-        
+
         int i = 1;
         for (Map.Entry<String, Integer> entry : ranking.entrySet()) {
         	System.out.println(entry.getKey() + " " + entry.getValue());
@@ -54,8 +53,9 @@ public class RankingAlto extends JFrame {
             gbc.gridy = i+1;
             gbc.anchor = GridBagConstraints.CENTER;
             contentPane.add(recordLabel, gbc);
+            ++i;
         }
-        
+
         gbc.gridx = 0;
         gbc.gridy = 12;
         gbc.gridwidth = 4;

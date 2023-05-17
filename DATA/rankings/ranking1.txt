@@ -1,0 +1,3 @@
+RICARD,7000
+marcel,4000
+Joel,3000

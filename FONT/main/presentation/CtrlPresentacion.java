@@ -47,6 +47,8 @@ public class CtrlPresentacion {
 	
 
 	public static void carregarvistaLogin() {
+		//restaura rankings globales
+		controladorDominio.restoreRanking();
 		LoginScreen vistaLogin = new LoginScreen();
 	}
 	public static void carregarvistaMastermindGame() {
@@ -141,7 +143,7 @@ public class CtrlPresentacion {
 		return null;
 	}
 	
-	public static ArrayList<Pair<String, Date>> getPartidasGuardadas() {
+	public static ArrayList<String> getPartidasGuardadas() {
 		return CtrlDominio.getPartidasGuardadas();
 	}
 	
@@ -260,5 +262,6 @@ public class CtrlPresentacion {
 	    TurnosMaquina turnosM = new TurnosMaquina(colores);
 	    turnosM.setVisible(true);
 	}
+	
 	
 }

@@ -73,6 +73,13 @@ public class CtrlDominio {
 		if (ctrlPersistence.existsRanking1()) {
 			rankingGlobal.cargarRanking(1, ctrlPersistence.loadRanking(1));
 		}
+		if (ctrlPersistence.existsRanking2()) {
+			rankingGlobal.cargarRanking(2, ctrlPersistence.loadRanking(2));
+		}
+		if (ctrlPersistence.existsRanking3()) {
+			rankingGlobal.cargarRanking(3, ctrlPersistence.loadRanking(3));
+		}
+
 	}
 
 	public void loginUser(String username) throws Exception {

@@ -26,7 +26,7 @@ public class UserPersistence{
      * y asignamos el path
      */
     public void checkUser(String username) {
-        File dataDir = new File("./DATA/users/");
+    	File dataDir = new File("./DATA/users/");
         if (!dataDir.exists()) {
             dataDir.mkdir();
         }
@@ -36,6 +36,7 @@ public class UserPersistence{
         }
        path = userDir.getPath();
     }
+
 
     /*
      * Dentro del directorio del usuario creamos un fichero con la partida
