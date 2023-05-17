@@ -135,6 +135,14 @@ public class CtrlDominio {
 	}
 
 	/*
+	 * Set record del usuario
+	 */
+	public static void setRecord(int puntuacion){
+		CtrlUsuario.setRecord(puntuacion);
+	}
+
+
+	/*
 	 * Obtenemos los records del usuario
 	 */
 	public static int[] getRecord(){
