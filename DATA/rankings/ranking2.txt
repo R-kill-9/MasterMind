@@ -1,2 +1,3 @@
+kill-9,55000
 Ricard,4000
 Elsa,3000

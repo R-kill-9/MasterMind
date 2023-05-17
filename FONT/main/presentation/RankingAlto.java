@@ -46,7 +46,7 @@ public class RankingAlto extends JFrame {
         int i = 1;
         for (Map.Entry<String, Integer> entry : ranking.entrySet()) {
         	System.out.println(entry.getKey() + " " + entry.getValue());
-            JLabel recordLabel = new JLabel("#" + entry.getKey() + ": " + entry.getValue());
+            JLabel recordLabel = new JLabel("#" + i + " " + entry.getKey() + ": " + entry.getValue());
             recordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 16));
             gbc.insets = new Insets(5, 5, 5, 5);
             gbc.gridx = 0;
