@@ -1,4 +1,6 @@
 RICARD,7000
-kill-9,6500
+asdf,6500
+a,6000
+fg,5500
 marcel,4000
 Joel,3000
