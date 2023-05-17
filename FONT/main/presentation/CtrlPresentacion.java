@@ -65,6 +65,7 @@ public class CtrlPresentacion {
 	
 	public static void carregarEndGame() {
 		Integer score = CtrlUsuario.getScore();
+		CtrlDominio.setRecord(score);
 		EndGame endG = new EndGame(score);
 		endG.setVisible(true);
 	}
