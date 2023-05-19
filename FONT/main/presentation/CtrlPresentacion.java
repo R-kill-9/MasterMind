@@ -264,5 +264,8 @@ public class CtrlPresentacion {
 	    turnosM.setVisible(true);
 	}
 	
+	public static void guardarPartida() {
+		CtrlDominio.guardarPartida();
+	}
 	
 }

@@ -282,7 +282,8 @@ public class MastermindGame extends JFrame {
         botonSalirPausa.setForeground(Color.WHITE);
         botonSalirPausa.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                CtrlPresentacion.guardarPartida();
+            	System.exit(0);
             }
         });
         panelPausa.add(botonSalirPausa);

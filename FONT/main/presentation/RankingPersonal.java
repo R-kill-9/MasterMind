@@ -22,10 +22,8 @@ public class RankingPersonal extends JFrame {
     	// Configurar la ventana
     	configWindow();
         
-        
         records = gettedRecords;
         GridBagConstraints gbc = new GridBagConstraints();
-        
         
         //configurar el administrador de diseño
         configDesign(gbc);
