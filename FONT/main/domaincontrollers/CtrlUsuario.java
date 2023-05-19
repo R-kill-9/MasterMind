@@ -120,9 +120,17 @@ public class CtrlUsuario {
 		Partida newPartida = CtrlPartida.crearPartida(dificultadEscogida, userAct.getUsername(), ayuda, rol);
 		Date dataPartida = newPartida.getData();
 		userAct.addPartida(dataPartida);
-		// Se tendria que añadir la partida al usuario falta funcion para devolver la
-		// fecha de la partida
 	}
+
+	/**
+	 * Crea una partida a partir de una partida guardada
+	 */
+	public static void crearPartidaGuardada(String data, int nTurno, boolean rol, ArrayList<Color>solucion, boolean ayuda, 
+			int puntuacion, int dificultadEscogida, ArrayList<ArrayList<Color>> combinaciones, int rondasMaquina) {
+		Partida partida = CtrlPartida.crearPartidaGuardada(data, nTurno, rol, solucion, ayuda, userAct.getUsername(), puntuacion, dificultadEscogida, combinaciones, rondasMaquina);
+		Date dataPartida = partida.getData();
+		userAct.addPartida(dataPartida);
+			}
 
 	/**
 	 * Borra una partida tanto del historial de partidas como de  la lista de partidas de usuario
