@@ -1,6 +1,5 @@
 RICARD,7000
-asdf,6500
-a,6000
+a,6500
 fg,5500
 pin,5000
 marcel,4000

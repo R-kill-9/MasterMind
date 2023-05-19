@@ -268,4 +268,7 @@ public class CtrlPresentacion {
 		CtrlDominio.guardarPartida();
 	}
 	
+	public static void cargarPartida(String date) {
+		CtrlDominio.cargarPartida(date);
+	}
 }
