@@ -263,6 +263,33 @@ public class DriverDomain {
     cDominio.addPartidaRanking(username,cDominio.getScore(),dificultad);
      
 }
+
+    /*
+     * Función para renaudar partida
+     */
+    public void ResumePartida(String id) {
+        System.out.println(separator);
+        System.out.println("Partida reanudada");
+        System.out.println("Eres " + (cDominio.getRol() ? "CodeMaker" : "CodeBreaker"));
+        int rondaPartida = userPer.getNTurno(id);
+        System.out.println("Ronda " + (rondaPartida) + " de 2");
+        int rondasCB = userPer.getCombinaciones(id).size();
+        while (rondaPartida <=2){
+            if (cDominio.getRol()) {
+                ++rondaPartida;
+                testSetSolucion();
+            }
+            else {
+                ++rondaPartida;
+                for (rondaCB = rondasCB; rondaCB < 10 && !win; ++rondaCB) {
+                    System.out.println("Ronda " + (rondaCB + 1) + " de 10");
+                    testnewCombinacion();
+                }
+            }
+        }
+        cDominio.addPartidaRanking(username,cDominio.getScore(),dificultad);
+
+    }
     /**
      * Funcion para imprimir el ranking
      */
@@ -308,6 +335,22 @@ public class DriverDomain {
         cDominio.restoreRanking();
     }
 
+    public void loadPartida(String id){
+        cDominio.cargarPartida(id);
+    }
+
+    /*
+     * Función para ver las partidas guardadas
+     */
+    public void testPrintPartidasGuardadas() {
+        System.out.println(separator);
+        System.out.println("Las partidas guardadas son: ");
+        ArrayList<String> partidas = cDominio.getPartidasGuardadas();
+        for (int i = 0; i < partidas.size(); ++i) {
+            System.out.println(partidas.get(i));
+        }
+    }
+
 
             /**
              * Main del driver primero pide Login y despues jugar
@@ -317,8 +360,8 @@ public class DriverDomain {
                 driver.input = new Scanner(System.in);
                 driver.testLogin();
                 driver.restoreRanking();
-                driver.jugar();
-                driver.testPrintPuntuacion();
+               // driver.jugar();
+               // driver.testPrintPuntuacion();
                 //Una vez acabada la partida se pregunta al usuario que quiere hacer
                 int option;
                 do {
@@ -326,8 +369,9 @@ public class DriverDomain {
                     System.out.println("1. Jugar otra partida");
                     System.out.println("2. Ver records");
                     System.out.println("3. Ver ranking");
-                    System.out.println("4. Salir");
-                    System.out.println(separator);
+                    System.out.println("4. Ver partidas guardadas");
+                    System.out.println("5. Cargar partida");
+                    System.out.println("6. Salir");
                     option = driver.input.nextInt();
                     switch (option) {
                         case 1:
@@ -341,16 +385,23 @@ public class DriverDomain {
                             driver.testPrintRanking();
                             break;
                         case 4:
-                            System.out.println("Saliendo...");
+                            driver.testPrintPartidasGuardadas();
+                            break;
+                        case 5:
+                            driver.testPrintPartidasGuardadas();
+                            System.out.println("Introduce el id de la partida que quieres cargar");
+                            String id = "2023-05-19_16-12-24";
+                            driver.loadPartida(id);
+                            driver.ResumePartida(id);
+                            driver.testPrintPuntuacion();
+                            break;
+                        case 6:
                             break;
                         default:
-                            System.out.println("Opcion no valida");
+                            System.out.println("La opción debe ser 1, 2, 3, 4, 5 o 6");
                             break;
                     }
-                } while (option != 4);
-
-                
+                } while (option != 6);
             }
         }
-
-     
+                    

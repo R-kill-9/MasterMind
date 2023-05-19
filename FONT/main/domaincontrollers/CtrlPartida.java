@@ -38,13 +38,17 @@ public class CtrlPartida {
         partidaActual = partida;
         return partida;
     }
-     /**
-     * Crea una nueva partida y la añade a la lista de partidas.
-     * 
-     * @param data la fecha de la partida
-     * @param usuario el usuario que quiere borrar la partida
-     * @return valor booleano dependiendo de si exisita la partida en el historial
+     
+    /*
+     * Crea una partida a partir de una partida guardada
      */
+    public static Partida crearPartidaGuardada(String data, int nTurno, boolean rol, ArrayList<Color>solucion, boolean ayuda, String username,
+	 				int puntuacion, int dificultadEscogida, ArrayList<ArrayList<Color>> combinaciones, int rondasMaquina) {
+        Partida partida = new Partida(data, nTurno, rol, solucion, ayuda, username, puntuacion, dificultadEscogida, combinaciones, rondasMaquina);
+        partidaActual = partida;
+        return partida;
+        }
+
     public static Boolean borrarPartida(String username, Date dataPartida) {
         return HistorialPartidas.borrarPartida(username,dataPartida);
     }
@@ -219,6 +223,7 @@ public class CtrlPartida {
         return partidaActual.getCombinacionesEnviadas();
     }
 
+    
 
 
 

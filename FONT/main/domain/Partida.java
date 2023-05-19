@@ -37,6 +37,7 @@ public class Partida {
      * @param ayuda true si se activa la ayuda, false en caso contrario
      * @param rol true si el usuario es el CodeMaker, false si es el CodeBreaker
 	*/
+
 	public Partida(int dificultadEscogida, String usuario, boolean ayuda, boolean rol) {
 		this.data = new Date();
 		/** 
@@ -66,6 +67,70 @@ public class Partida {
 		String estado = "running";
 		this.estadoPartida = new EstadoPartida(estado);
 		this.rondasMaquina = 0;
+	}
+
+	/*
+	 * Constructora para cargar partida
+	 */
+	public Partida(String data, int nTurno, boolean rol, ArrayList<Color>solucion, boolean ayuda, String username,
+	 				int puntuacion, int dificultadEscogida, ArrayList<ArrayList<Color>> combinaciones, int rondasMaquina) {
+		this.data = new Date();
+		switch(dificultadEscogida) {
+			case 1:
+				this.nivel = new NivelDificultadBajo();
+				break;
+			case 2:
+				this.nivel = new NivelDificultadMedio();
+				break;
+			case 3:
+				this.nivel = new NivelDificultadAlto();
+				break;
+			default:
+				throw new  IllegalArgumentException("Nivel de dificultad: 1, 2 o 3");
+		}
+		//Creamos los correspondientes turnos
+		//Si solo hay un turno creamos un turno con las combinaciones hechas
+		if(nTurno == 1) {
+			this.turnos = new ArrayList<Turno>();
+			this.turnos.add(new Turno(rol));
+			for (ArrayList<Color> comb : combinaciones) {
+				this.turnos.get(0).setCombinacion(comb);
+			}
+		}
+		else {
+			this.turnos = new ArrayList<Turno>();
+			this.turnos.add(new Turno(!rol));
+			this.turnos.add(new Turno(rol));
+			for (ArrayList<Color> comb : combinaciones) {
+				this.turnos.get(1).setCombinacion(comb);
+			}
+			//Al primer turno (maquina) le añadimos una combinacion dummy
+			ArrayList<Color> dummy = new ArrayList<Color>();
+			for(int i = 0; i < nivel.getNumColumnas(); i++) {
+				dummy.add(Color.BLUE);
+			}
+			for(int i = 0; i < rondasMaquina; i++) {
+				this.turnos.get(0).setCombinacion(dummy);
+			}
+	
+		}
+		this.combinacionesEnviadas = combinaciones;
+		
+		this.solutions = new ArrayList<Combinacion>();
+		//Para la primera solucion añadimos una combinacion dummy
+		ArrayList<Color> dummy = new ArrayList<Color>();
+		for(int i = 0; i < nivel.getNumColumnas(); i++) {
+			dummy.add(Color.BLUE);
+		}
+		this.solutions.add(new Combinacion(dummy));
+		//Para la segunda solucion añadimos la solucion
+		this.solutions.add(new Combinacion(solucion));
+		this.ayuda = ayuda;
+		this.puntos = puntuacion;
+		this.username = username;
+		String estado = "running";
+		this.estadoPartida = new EstadoPartida(estado);
+		this.rondasMaquina = rondasMaquina;
 	}
 	
 	private Combinacion convertIntegerToColor(List<Integer> combInteger) {
@@ -391,7 +456,7 @@ public class Partida {
 	}
 
 	/*
-	 * Guarda la partida en la base de datos
+	 * Guarda la partida en la base de datos se tiene q borrar
 	 */
 	public void guardarPartida() {
 		userPer = new UserPersistence();

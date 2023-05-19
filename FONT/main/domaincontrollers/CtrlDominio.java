@@ -96,6 +96,23 @@ public class CtrlDominio {
 		CtrlUsuario.crearPartida(dificultadEscogida, ayuda, rol);
 	}
 
+	/*
+	 * Carga la partida con el id indicado
+	 */
+	public static void cargarPartida(String id) {
+		//Pedimos lo necesario a la persistencia
+		int nTurno = ctrlPersistence.getNTurno(id);
+		boolean rol = ctrlPersistence.getRol(id);
+		ArrayList<Color> solucion = ctrlPersistence.getSolucion(id);
+		boolean ayuda = ctrlPersistence.getAyuda(id);
+		int puntuacion = ctrlPersistence.getPuntuacion(id);
+		int dificultadEscogida = ctrlPersistence.getDificultad(id);
+		ArrayList<ArrayList<Color>> combinaciones = ctrlPersistence.getCombinaciones(id);
+		int rondasMaquina = ctrlPersistence.getRondasMaquina(id);
+		CtrlUsuario.crearPartidaGuardada(id, nTurno, rol, solucion, ayuda, puntuacion, dificultadEscogida, combinaciones, rondasMaquina);
+
+	}
+
 	public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
 		return controladorUsuario.newCombinacion(combination);
 	}
@@ -141,13 +158,7 @@ public class CtrlDominio {
 		CtrlUsuario.setRecord(puntuacion);
 	}
 
-	/*
-	 * Carga la partida con el id indicado
-	 */
-	public static void cargarPartida(String id) {
-		
-
-	}
+	
 
 	/*
 	 * Obtenemos los records del usuario
@@ -221,7 +232,6 @@ public class CtrlDominio {
 	public static void solicitarAyuda() {
 		controladorUsuario.solicitarAyuda();
 	}
-	
 
 }
 
