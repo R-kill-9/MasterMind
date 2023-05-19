@@ -12,9 +12,8 @@ public class Ranking extends JFrame {
     private JButton hardButton = new JButton("Alto");
     private JButton personalButton = new JButton("Ranking Personal");
     private JButton exitButton = new JButton("Salir");
-    private JLabel messageLabel = new JLabel("Consultar Rankings Globales");
+    private JLabel messageLabel = new JLabel("Consultar Rankings");
     private JLabel levelLabel = new JLabel("Selecciona el nivel");
-    private JLabel personalRankingLabel = new JLabel("Consultar Ranking Personal");
     private Font labelFont = messageLabel.getFont();
     private JPanel contentPane = new JPanel();
     
@@ -52,7 +51,6 @@ public class Ranking extends JFrame {
     private void configFonts() {
     	messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
         levelLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 15));
-        personalRankingLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
     }
     
     
@@ -60,7 +58,7 @@ public class Ranking extends JFrame {
     private void configDesign(GridBagConstraints gbc) {
     	setContentPane(contentPane);
         contentPane.setLayout(new GridBagLayout());
-        gbc.insets = new Insets(5, 5, 5, 5); 
+        gbc.insets = new Insets(25, 5, 5, 5); 
     }
     
     
@@ -71,7 +69,9 @@ public class Ranking extends JFrame {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         contentPane.add(messageLabel, gbc);
-
+        
+        gbc.insets = new Insets(5, 5, 5, 5); 
+        
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 4;
@@ -97,12 +97,6 @@ public class Ranking extends JFrame {
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         contentPane.add(hardButton, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 4;
-        gbc.anchor = GridBagConstraints.CENTER;
-        contentPane.add(personalRankingLabel, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;

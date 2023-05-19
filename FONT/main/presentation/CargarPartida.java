@@ -34,30 +34,32 @@ public class CargarPartida extends JFrame {
         // Configurar el administrador de diseño
         configDesign(gbc);
         
+        gbc.insets = new Insets(100, 0, 0, 0);
         // Configurar el texto de salida
 		setText(gbc);
     	
 		// Configurar los botones de opción
         configGroupButtons(gbc);
         
-        // Añadir el botón de aceptar solo si se pueden seleccionar partidas
-        if (partidas.size() >= 1) contentPanel.add(acceptButton, gbc);
+        // Configurar botón de jugar
+        configPlayButton(gbc);
         
-        // Añadir espacio
-        contentPanel.add(Box.createVerticalGlue());
-  
-        // Añadir el botón de salida
-        contentPanel.add(exitButton, gbc);
+        // Configurar botón de salir
+        configExitButton(gbc);
     }
     
     
     //asigna el nombre correspondiente a cada botón y lo añade al grupo y al panel
     private void configGroupButtons(GridBagConstraints gbc) {
-    	contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS)); // Colocar los componentes de forma vertical
     	int size = partidas.size();
     	for (int i = 0; i < 10 && i < size; ++i) {
     		radioButtons[i] = new JRadioButton(partidas.get(partidas.size()-1));
     		grupoOpciones.add(radioButtons[i]);
+    		gbc.gridx = 0;
+    	    gbc.gridy = 2+i;
+    		gbc.anchor = GridBagConstraints.CENTER;
+    		if (i == 0) gbc.insets = new Insets(35, 0, 5, 0);
+    		else gbc.insets = new Insets(5, 0, 5, 0);
     		contentPanel.add(radioButtons[i], gbc);
     	}
     }
@@ -76,9 +78,9 @@ public class CargarPartida extends JFrame {
     private void setText(GridBagConstraints gbc) {
         JLabel messageLabel = new JLabel();
         Font labelFont = messageLabel.getFont();
-        messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 20));
+        messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
         
-        if (partidas.size() >= 1) messageLabel.setText("Escoge la partida: ");
+        if (partidas.size() >= 1) messageLabel.setText("Escoge partida: ");
 
         else messageLabel.setText("No hay partidas guardadas");
 
@@ -93,6 +95,27 @@ public class CargarPartida extends JFrame {
     }
     
     
+    
+    //configura el botón de jugar(aceptar) y lo añade en el panel
+    private void configPlayButton(GridBagConstraints gbc) {
+    	gbc.gridx = 0;
+	    gbc.gridy = 12;
+	    gbc.insets = new Insets(20, 0, 100, 0);
+		gbc.anchor = GridBagConstraints.CENTER;
+		acceptButton.setPreferredSize(new Dimension(175, 35));
+        // Añadir el botón de aceptar solo si se pueden seleccionar partidas
+        if (partidas.size() >= 1) contentPanel.add(acceptButton, gbc);
+    }
+    
+    
+    //configura el botón de salir y lo añade al panel
+    private void configExitButton(GridBagConstraints gbc) {
+    	gbc.gridx = 0;
+	    gbc.gridy = 20;
+        contentPanel.add(exitButton, gbc);
+    }
+    
+    
     //inicializa los listeners del boton de exit y del grupo de botones
     private void initListeners() {
     	// Configurar el ActionListener para el botón de exit
@@ -103,7 +126,7 @@ public class CargarPartida extends JFrame {
             }
         });
        
-        
+  
      // Configurar el ActionListener para el botón de jugar con sus múltiples opciones
         acceptButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
