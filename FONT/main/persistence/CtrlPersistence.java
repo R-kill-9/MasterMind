@@ -60,19 +60,70 @@ public class CtrlPersistence {
         userPer.savePartida(idPartida, nTurno, rol, solucion, ayuda, puntuacion, dificultad, combinaciones, rondasMaquina);
     }
 
-    /*
-     * Función que carga una partida
-     */
-    public void loadPartida(String idPartida){
-        userPer.loadPartida(idPartida);
-    }
-
+   
     /*
      * Función que devuelve un array con las partidas guardadas
      */
     public ArrayList<String> getPartidasGuardadas(){
         return userPer.getPartidasGuardadas();
     }
+
+    /*
+     * Dado un id de partida, devuelve el turno
+     */
+    public int getNTurno(String idPartida){
+        return userPer.getNTurno(idPartida);
+    }
+
+    /*
+     * Dado un id de partida, devuelve el rol
+     */
+    public boolean getRol(String idPartida){
+        return userPer.getRol(idPartida);
+    }
+
+    /*
+     * Dado un id de partida, devuelve la solución
+     */
+    public ArrayList<Color> getSolucion(String idPartida){
+        return userPer.getSolucion(idPartida);
+    }
+
+    /*
+     * Dado un id de partida, devuelve la ayuda
+     */
+    public boolean getAyuda(String idPartida){
+        return userPer.getAyuda(idPartida);
+    }
+
+    /*
+     * Dado un id de partida, devuelve la puntuación
+     */
+    public int getPuntuacion(String idPartida){
+        return userPer.getPuntuacion(idPartida);
+    }
+
+    /*
+     * Dado un id de partida, devuelve la dificultad
+     */
+    public int getDificultad(String idPartida){
+        return userPer.getDificultad(idPartida);
+    }
+
+    /*
+     * Dado un id de partida, devuelve las combinaciones
+     */
+    public ArrayList<ArrayList<Color>> getCombinaciones(String idPartida){
+        return userPer.getCombinaciones(idPartida);
+    }
+
+    /*
+     * Dado un id de partida, devuelve las rondas de la máquina
+     */
+    public int getRondasMaquina(String idPartida){
+        return userPer.getRondasMaquina(idPartida);
+    }
+    
 
     /*
      * Función que crea carpeta con el nombre ranking

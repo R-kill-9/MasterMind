@@ -141,6 +141,13 @@ public class CtrlDominio {
 		CtrlUsuario.setRecord(puntuacion);
 	}
 
+	/*
+	 * Carga la partida con el id indicado
+	 */
+	public static void cargarPartida(String id) {
+		
+
+	}
 
 	/*
 	 * Obtenemos los records del usuario

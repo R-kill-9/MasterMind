@@ -81,39 +81,25 @@ public class UserPersistence{
     }
 
     /*
-     * Funcion que muestra las partidas guardadas del usuario
+     * Funcion que muestra las partidas guardadas del usuario pero sin
+     * la palabra partida y sin la extension .txt
      */
-    public ArrayList<String> getPartidasGuardadas() {
+    public ArrayList<String> getPartidasGuardadas(){
         ArrayList<String> partidas = new ArrayList<String>();
-        File userDir = new File(path);
-        File[] files = userDir.listFiles();
+        File dataDir = new File(path);
+        File[] files = dataDir.listFiles();
         for (File file : files) {
-            if (file.isFile()) {
-                partidas.add(file.getName());
+            String fileName = file.getName();
+            if (fileName.contains("partida")) {
+                String idPartida = fileName.substring(7, fileName.length() - 4);
+                partidas.add(idPartida);
             }
         }
         return partidas;
     }
+    
 
-    /**
-     * Cargamos la partida con el idPartida dado
-     */
-    public void loadPartida(String idPartida){
-        String fileName = "partida" + idPartida.toString() + ".txt";
-        File partidaFile = new File(path, fileName);
-        try {
-            FileReader fr = new FileReader(partidaFile);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
-            br.close();
-            fr.close();
-        } catch (IOException e) {
-            System.err.println("Error al cargar la partida: " + e.getMessage());
-        }
-    }
+
 
     /**
      * Muestra el path (debug function borrar para el final)
@@ -122,6 +108,215 @@ public class UserPersistence{
         System.out.println(path);
     }
 
+    /*
+     * Dado un idPartida, devolvemos el numero de turno
+     */
+    public int getNTurno(String idPartida){
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        int nTurno = 0;
+        try {
+            FileReader fr = new FileReader(partidaFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("nTurno: ")) {
+                    nTurno = Integer.parseInt(line.substring(8));
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+        }
+        return nTurno;
+    }
+
+    /*
+     * Dado un idPartida, devolvemos el rol
+     */
+    public boolean getRol(String idPartida){
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        boolean rol = false;
+        try {
+            FileReader fr = new FileReader(partidaFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("rol: ")) {
+                    rol = Boolean.parseBoolean(line.substring(5));
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+        }
+        return rol;
+    }
+
+    /*
+     * Dado un idPartida, devolvemos la solucion
+     */
+    public ArrayList<Color> getSolucion(String idPartida) {
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        ArrayList<Color> solucion = new ArrayList<Color>();
+        try {
+            FileReader fr = new FileReader(partidaFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("solucion: ")) {
+                    String solucionString = line.substring(10).replaceAll("\\[|\\]", "");
+                    String[] colores = solucionString.split(", ");
+                    for (String color : colores) {
+                        solucion.add(Color.valueOf(color.trim()));
+                    }
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+        }
+        return solucion;
+    }
+
+    /*
+     * Dado un idPartida, devolvemos la ayuda
+     */
+    public boolean getAyuda(String idPartida){
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        boolean ayuda = false;
+        try {
+            FileReader fr = new FileReader(partidaFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("ayuda: ")) {
+                    ayuda = Boolean.parseBoolean(line.substring(7));
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+        }
+        return ayuda;
+    }
+
+    /*
+     * Dado un idPartida, devolvemos la puntuacion
+     */
+    public int getPuntuacion(String idPartida){
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        int puntuacion = 0;
+        try {
+            FileReader fr = new FileReader(partidaFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("puntuacion: ")) {
+                    puntuacion = Integer.parseInt(line.substring(12));
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+        }
+        return puntuacion;
+    }
+
+    /*
+     * Dado un idPartida, devolvemos la dificultad
+     */
+    public int getDificultad(String idPartida){
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        int dificultad = 0;
+        try {
+            FileReader fr = new FileReader(partidaFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("dificultad: ")) {
+                    dificultad = Integer.parseInt(line.substring(12));
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+        }
+        return dificultad;
+    }
+
+    /*
+     * Dado un idPartida, devolvemos las combinaciones
+     */
+
+     public ArrayList<ArrayList<Color>> getCombinaciones(String idPartida) {
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        ArrayList<ArrayList<Color>> combinaciones = new ArrayList<ArrayList<Color>>();
+        try {
+            FileReader fr = new FileReader(partidaFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("combinaciones: ")) {
+                    if (line.substring(15).equals("null")) {
+                        combinaciones = null;
+                    } else {
+                        String[] combinacionesString = line.substring(15).split("], \\[");
+                        for (String combinacion : combinacionesString) {
+                            combinacion = combinacion.replaceAll("\\[|\\]", "");
+                            String[] colores = combinacion.split(", ");
+                            ArrayList<Color> combinacionArray = new ArrayList<Color>();
+                            for (String color : colores) {
+                                combinacionArray.add(Color.valueOf(color.trim()));
+                            }
+                            combinaciones.add(combinacionArray);
+                        }
+                    }
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+        }
+        return combinaciones;
+    }
+
+    /*
+     * Dado un idPartida, devolvemos las rondasMaquina
+     */
+    public int getRondasMaquina(String idPartida){
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        int rondasMaquina = 0;
+        try {
+            FileReader fr = new FileReader(partidaFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("rondasMaquina: ")) {
+                    rondasMaquina = Integer.parseInt(line.substring(15));
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar la partida: " + e.getMessage());
+        }
+        return rondasMaquina;
+    }
 
 
     /**
@@ -129,28 +324,10 @@ public class UserPersistence{
      */
     public static void main (String[]args){
         UserPersistence up = new UserPersistence();
-        up.checkUser("USer2");
+        up.checkUser("Marcel");
         //Imprime la varibale path
         System.out.println(up.path);
-        //Guarda una partida
-        ArrayList<Color> solucion = new ArrayList<Color>();
-        solucion.add(Color.BLUE);
-        solucion.add(Color.GREEN);
-        solucion.add(Color.RED);
-        solucion.add(Color.CYAN);
-        ArrayList<ArrayList<Color>> combinaciones = new ArrayList<ArrayList<Color>>();
-        ArrayList<Color> combinacion1 = new ArrayList<Color>();
-        combinacion1.add(Color.BLUE);
-        combinacion1.add(Color.GREEN);
-        combinacion1.add(Color.RED);
-        combinacion1.add(Color.CYAN);
-        combinaciones.add(combinacion1);
-        ArrayList<Color> combinacion2 = new ArrayList<Color>();
-        combinacion2.add(Color.BLUE);
-        combinacion2.add(Color.GREEN);
-        combinacion2.add(Color.ORANGE);
-        combinacion2.add(Color.CYAN);
-        combinaciones.add(combinacion2);
+        
         
        // Carga la partida
       //  up.loadPartida("1");
@@ -160,6 +337,16 @@ public class UserPersistence{
             System.out.println(partida);
         }
         
+        //Test getrondasMaquina
+        int rondasMaquina = up.getRondasMaquina("2023-05-16_17-12-18");
+        System.out.println(rondasMaquina);
+        //Test getCombinaciones
+        ArrayList<ArrayList<Color>> combinaciones = up.getCombinaciones("2023-05-16_17-12-18");
+        // System.out.println(combinaciones.toString());
+        //Test getSolucion
+        ArrayList<Color> solucion = up.getSolucion("2023-05-16_17-12-18");
+        System.out.println(solucion.toString());
+       
 
     }
 
