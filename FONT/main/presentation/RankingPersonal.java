@@ -20,28 +20,47 @@ public class RankingPersonal extends JFrame {
     
     private void initComponents(int[] gettedRecords) {
     	// Configurar la ventana
-        setTitle("Records Personales");
+    	configWindow();
+        
+        
+        records = gettedRecords;
+        GridBagConstraints gbc = new GridBagConstraints();
+        
+        
+        //configurar el administrador de diseño
+        configDesign(gbc);
+        
+        //configura el mensaje 
+        setMessage(gbc);
+        
+        //configura los records
+        setRecords(gbc);
+        
+        //configura el botón de salida
+        setExitButton(gbc);
+    }
+    
+    
+    //Configura la ventana indicando su título y tamaño.
+    private void configWindow() {
+    	setTitle("Records Personales");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         setLocationRelativeTo(null);
-        
-        records = gettedRecords;
-        messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
-        
-        //configurar el administrador de diseño
-        setContentPane(contentPane);
+    }
+    
+    
+    //Configura el diseño de la ventana, reduciendo los márgenes verticales.
+    private void configDesign(GridBagConstraints gbc) {
+    	setContentPane(contentPane);
         contentPane.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);  // reducir los márgenes verticales
-        
-        
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 4;
-        gbc.anchor = GridBagConstraints.CENTER;
-        contentPane.add(messageLabel, gbc);
-        
-        for (int i = 0; i < records.length; i++) {
+    }
+    
+    
+    //Crea un JLabel para cada una de las cinco mejores puntuaciones del usuario. En caso de no tenerlas son 0.
+    private void setRecords(GridBagConstraints gbc) {
+    	for (int i = 0; i < records.length; i++) {
             int recordValue = records[i];
             JLabel recordLabel = new JLabel("#" + (i + 1) + ": " + recordValue);
             recordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 18));
@@ -51,8 +70,12 @@ public class RankingPersonal extends JFrame {
             gbc.anchor = GridBagConstraints.CENTER;
             contentPane.add(recordLabel, gbc);
         }
-        
-        gbc.gridx = 0;
+    }
+    
+    
+    //Configura el botón de salida, que te regresa a la ventana de Rankings y añade el botón al control Panel.
+    private void setExitButton(GridBagConstraints gbc) {
+    	gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -60,6 +83,19 @@ public class RankingPersonal extends JFrame {
         contentPane.add(exitButton, gbc);
     }
     
+    
+    //Configura el mensaje que indica que estamos en la ventana de Records personales y lo añade al control Panel.
+    private void setMessage(GridBagConstraints gbc) {
+    	messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 4;
+        gbc.anchor = GridBagConstraints.CENTER;
+        contentPane.add(messageLabel, gbc);
+    }
+    
+    
+    //Inicializa el listener para salir de esta pantalla y volver a la pantalla de rankings al clicar en el botón de salida. 
     private void initListeners() {
     	// Configurar el ActionListener para el botón de exit
         exitButton.addActionListener(new ActionListener() {

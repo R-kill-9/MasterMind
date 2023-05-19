@@ -24,24 +24,49 @@ public class Ranking extends JFrame {
     }
     
     void initComponents() {
-    	// Configurar la ventana
-        setTitle("Consultar Ranking");
+    	//configurar la ventana
+    	configWindow();
         
+    	//configura las fuentes de los label
+    	configFonts();
+        
+    	GridBagConstraints gbc = new GridBagConstraints();
+    	
+        //configura el administrador de diseño
+    	configDesign(gbc);
+        
+        //añade los componentes
+    	addComponents(gbc);
+    }
+    
+    // Configura la ventana indicando su título y tamaño.
+    private void configWindow() {
+    	setTitle("Ranking");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 600);
         setLocationRelativeTo(null);
-
-        messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
+    }
+    
+    
+    //configura las fuentes de los distintos labels
+    private void configFonts() {
+    	messageLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
         levelLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 15));
         personalRankingLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
-
-        // Crear el panel contenedor y configurar el administrador de diseño
-        setContentPane(contentPane);
+    }
+    
+    
+    //Configura el diseño de la ventana, reduciendo los márgenes verticales.
+    private void configDesign(GridBagConstraints gbc) {
+    	setContentPane(contentPane);
         contentPane.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5); 
-
-        gbc.gridx = 0;
+    }
+    
+    
+    //Añade todos los componentes creados al panel.
+    private void addComponents(GridBagConstraints gbc	) {
+    	gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -93,7 +118,9 @@ public class Ranking extends JFrame {
         contentPane.add(exitButton, gbc);
     }
     
-    void initListeners() {
+    
+    //Inicializa el listener para ver los rankings fácil, medio, difícil, personal o salir.
+    private void initListeners() {
     	// Configurar el ActionListener para los botones de nivel
         easyButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {

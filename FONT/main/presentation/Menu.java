@@ -10,6 +10,7 @@ public class Menu extends JFrame {
     private JButton rankingButton;
     private JButton rulesButton;
     private JButton partidasButton;
+    private JLabel menuLabel;
     
     public Menu() {
     	initComponents();
@@ -18,27 +19,46 @@ public class Menu extends JFrame {
     
     private void initComponents() {
     	// Configurar la ventana
-        setTitle("Menú Principal");
-        setSize(470, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        configWindow();
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(2, 2, 2, 2);
 
         // Crear los componentes
-        configButton = new JButton("Nueva Partida");
-        partidasButton = new JButton("Cargar Partida");
-        rankingButton = new JButton("Ver Rankings");
-        rulesButton = new JButton("Cómo jugar");
-        JLabel menuLabel = new JLabel("Menú");
-        menuLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        menuLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        createComponents();
         
         setLayout(new GridBagLayout());
         
-        // Añadir el texto de menú
+        // Añade los componentes al panel
+        addComponents(gbc);
+    }
+    
+    
+    //Configura la ventana indicando su título y tamaño.
+    private void configWindow() {
+    	setTitle("Menú Principal");
+        setSize(470, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+    }
+    
+    
+    //Crea todos los componentes definidos en los atributos.
+    private void createComponents() {
+    	configButton = new JButton("Nueva Partida");
+        partidasButton = new JButton("Cargar Partida");
+        rankingButton = new JButton("Ver Rankings");
+        rulesButton = new JButton("Cómo jugar");
+        menuLabel = new JLabel("Menú");
+        menuLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        menuLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    
+    
+    //Añade todos los componentes creados en el panel
+    private void addComponents(GridBagConstraints gbc) {
+    	// Añadir el texto de menú
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -46,7 +66,6 @@ public class Menu extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30, 10, 0, 0);
         add(menuLabel, gbc);
-        
 
         // Añadir el botón de Crear una nueva Partida
         gbc.gridx = 0;
@@ -81,6 +100,8 @@ public class Menu extends JFrame {
         add(rulesButton, gbc);
     }
     
+    
+    //Inicializa el listener para ver los rankings, crear una nueva partida, cargar partida y ver las reglas.
     private void initListeners() {
     	// Configurar el ActionListener para el botón de configuración
         configButton.addActionListener(new ActionListener() {
