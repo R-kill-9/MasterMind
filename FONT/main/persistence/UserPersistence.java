@@ -318,6 +318,69 @@ public class UserPersistence{
         return rondasMaquina;
     }
 
+    /*
+     * Elimina el archivo de la partida
+     */
+    public void deletePartida(String idPartida) {
+        String fileName = "partida" + idPartida.toString() + ".txt";
+        File partidaFile = new File(path, fileName);
+        partidaFile.delete();
+    }
+
+    /*
+     * Devuelve true si existe el archivo record.txt
+     */
+    public boolean existsRecord() {
+        String fileName = "record.txt";
+        File recordFile = new File(path, fileName);
+        return recordFile.exists();
+    }
+
+    /*
+     * Guarda el record personal
+     */
+    public void saveRecord(int record[]){
+        String fileName = "record.txt";
+        File recordFile = new File(path, fileName);
+        try {
+            FileWriter fw = new FileWriter(recordFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("record: " + Arrays.toString(record));
+            bw.newLine();
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            System.err.println("Error al guardar el record: " + e.getMessage());
+        }
+    }
+
+    /*
+     * Carga el record personal
+     */
+    public int[] loadRecord(){
+        String fileName = "record.txt";
+        File recordFile = new File(path, fileName);
+        int[] record = new int[5];
+        try {
+            FileReader fr = new FileReader(recordFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("record: ")) {
+                    String recordString = line.substring(8).replaceAll("\\[|\\]", "");
+                    String[] recordStringArray = recordString.split(", ");
+                    for (int i = 0; i < 5; i++) {
+                        record[i] = Integer.parseInt(recordStringArray[i]);
+                    }
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("Error al cargar el record: " + e.getMessage());
+        }
+        return record;
+    }
 
     /**
      * Main para probar la clase

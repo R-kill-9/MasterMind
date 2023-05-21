@@ -69,6 +69,33 @@ public class CtrlPersistence {
     }
 
     /*
+     * Función que elimina el archivo de la partida
+     */
+    public void deletePartida(String idPartida){
+        userPer.deletePartida(idPartida);
+    }
+    
+    /*
+     * Funcion que guarda un record
+     */
+    public void saveRecord(int[] record){
+        userPer.saveRecord(record);
+    }
+
+    /*
+     * Función que carga un record
+     */
+    public int[] loadRecord(){
+        return userPer.loadRecord();
+    }
+
+    /*
+     * Función que devuelve true si existe el record
+     */
+    public boolean existsRecord(){
+        return userPer.existsRecord();
+    }
+    /*
      * Dado un id de partida, devuelve el turno
      */
     public int getNTurno(String idPartida){

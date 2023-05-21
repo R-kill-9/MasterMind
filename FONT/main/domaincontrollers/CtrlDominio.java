@@ -81,6 +81,17 @@ public class CtrlDominio {
 		}
 
 	}
+	/*
+	 * Restaura el record del usuario
+	 */
+	public void restoreRecord() {
+		if (ctrlPersistence.existsRecord()) {
+		int record[] = ctrlPersistence.loadRecord();
+		for (int i = 0; i < 5; ++i) {
+			CtrlUsuario.setRecord(record[i]);
+		}
+	}
+	}
 
 	public void loginUser(String username) throws Exception {
 		controladorUsuario.loginUser(username);
@@ -110,7 +121,7 @@ public class CtrlDominio {
 		ArrayList<ArrayList<Color>> combinaciones = ctrlPersistence.getCombinaciones(id);
 		int rondasMaquina = ctrlPersistence.getRondasMaquina(id);
 		CtrlUsuario.crearPartidaGuardada(id, nTurno, rol, solucion, ayuda, puntuacion, dificultadEscogida, combinaciones, rondasMaquina);
-
+		//ctrlPersistence.deletePartida(id);
 	}
 
 	public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
@@ -156,6 +167,8 @@ public class CtrlDominio {
 	 */
 	public static void setRecord(int puntuacion){
 		CtrlUsuario.setRecord(puntuacion);
+		int record[] = CtrlUsuario.getRecord();
+		ctrlPersistence.saveRecord(record);
 	}
 
 	
