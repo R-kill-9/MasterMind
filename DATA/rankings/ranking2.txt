@@ -1,3 +1,4 @@
-juan,200
-maria,300
-pepe,100
+a,60000
+juan,40000
+maria,30000
+pepe,10000
