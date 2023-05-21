@@ -261,6 +261,7 @@ public class DriverDomain {
         }
     }
     cDominio.addPartidaRanking(username,cDominio.getScore(),dificultad);
+    cDominio.setRecord(cDominio.getScore());
      
 }
 
@@ -334,6 +335,9 @@ public class DriverDomain {
     public void restoreRanking(){
         cDominio.restoreRanking();
     }
+    public void restoreRecord(){
+        cDominio.restoreRecord();
+    }
 
     public void loadPartida(String id){
         cDominio.cargarPartida(id);
@@ -360,6 +364,7 @@ public class DriverDomain {
                 driver.input = new Scanner(System.in);
                 driver.testLogin();
                 driver.restoreRanking();
+                driver.restoreRecord();
                // driver.jugar();
                // driver.testPrintPuntuacion();
                 //Una vez acabada la partida se pregunta al usuario que quiere hacer

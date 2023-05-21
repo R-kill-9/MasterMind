@@ -140,7 +140,7 @@ public class CtrlUsuario {
 	public void borrarPartida(Date data) throws Exception {
 		String username = userAct.getUsername();
 		Boolean removedPartida = CtrlPartida.borrarPartida(username, data);
-		if (removedParagregarPartidaGuardadatida == false)
+		if (removedPartida == false)
 			throw new Exception("The partida does not exists");
 		else {
 			userAct.deletePartida(data);
