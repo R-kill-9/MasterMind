@@ -38,14 +38,14 @@ public class NivelDificultadAltoTest {
 	@Test
 	public void TestSolveWin() {
 		ArrayList<Integer> solucion = new ArrayList<Integer>();
-		solucion.add(1);
+		solucion.add(0);
+		solucion.add(5);
 		solucion.add(2);
 		solucion.add(3);
-		solucion.add(4);
-		solucion.add(5);
+		solucion.add(2);
 		
 		int resultado = nda.resolve(solucion).size();
-        assertTrue(resultado >= 1 && resultado <= 10);
+		assertTrue(resultado > 0 && resultado <= 10);
 	}
 	@Test
 	public void TestSolveWinRepetidos() {
@@ -57,7 +57,7 @@ public class NivelDificultadAltoTest {
 		solucion.add(1);
 
 		int resultado = nda.resolve(solucion).size();
-        assertTrue(resultado >= 1 && resultado <= 10);
+		assertTrue(resultado >0 && resultado <= 10);
 	}
 	
 	

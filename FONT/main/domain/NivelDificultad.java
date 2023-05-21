@@ -13,16 +13,11 @@ public abstract class NivelDificultad {
 	protected int numColors = 6;
 	protected boolean  sePuedeRepetir;
 	protected Integer turn;
-    public List<Integer> solucion;
-    public List<Integer> envioActual;
     protected Maquina maquinaResolve;
     protected String Nsolucion;
         
     
-    public void setSolucion(List<Integer> solution){
-       this.solucion = solution;
-    }
-    
+   
     public NivelDificultad() {};
     
     public abstract int calculaPuntuacion(int numIntentCodeMaker, int numIntentCodeBraker);
