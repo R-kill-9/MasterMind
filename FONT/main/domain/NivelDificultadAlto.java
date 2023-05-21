@@ -10,7 +10,7 @@ public class NivelDificultadAlto extends NivelDificultad {
    	    sePuedeRepetir = true;
    	    turn = 1;
         Nsolucion = "NNNNN";
-   	    maquinaResolve = new FiveGuess(this);
+   	    maquinaResolve = new Genetic(this);
     }
     /**
      * @param puntuacion obtenida por el codemaker
@@ -40,6 +40,7 @@ public class NivelDificultadAlto extends NivelDificultad {
     public Integer getNumColumnas() {
     	return numcolumnas;
     }
+    
 
       
 }

@@ -10,7 +10,7 @@ public class FiveGuess implements Maquina {
 	  static public List< List<Integer>> totalcombinacionesPosibles;
 	  static public List< List<Integer>> solucionesEnviadas;
 	  static public List< List<Integer>> enviosCandidatos;
-	  protected Integer turn;
+	  protected Integer ronda;
 	  public List<Integer> envioActual;
 	  public List<Integer> solucion;
 	  public NivelDificultad nivel;
@@ -22,7 +22,7 @@ public class FiveGuess implements Maquina {
 	   	  solucionesEnviadas = new ArrayList<List<Integer>>();
 	   	  possibleCodes = new ArrayList<List<Integer>>();
 	      enviosCandidatos = new ArrayList<List<Integer>>();
-	 	  turn = 1;
+	 	  ronda = 1;
 
 	  }
 	  
@@ -53,7 +53,7 @@ public class FiveGuess implements Maquina {
 		    
 		    Map<List<Integer>, Integer> puntuaciones = new HashMap<List<Integer>, Integer>(); 
 		    
-		    // Aqui guardamos las posibles soluciones que nos interesaria probar a enviar
+		 
 		    
 		    int max, min;
 
@@ -83,8 +83,7 @@ public class FiveGuess implements Maquina {
 
 		    for (Map.Entry<List<Integer>, Integer> elem : puntuaciones.entrySet()) {
 		        if (elem.getValue() == min) {
-		        	//Combinacion comb = new Combinacion(elem.getKey().getCombination());
-		            enviosCandidatos.add(elem.getKey());
+		        	  enviosCandidatos.add(elem.getKey());
 		        }
 		    }
 		    return;
@@ -194,7 +193,7 @@ public class FiveGuess implements Maquina {
         
         totalcombinacionesPosibles.addAll(inicializarPosiblesCodigos());
 		possibleCodes=totalcombinacionesPosibles;
-		while(  turn <= 10 ){
+		while(  ronda <= 10 ){
 			
 			enviosCandidatos = new ArrayList<>();
 			solucionesEnviadas.add( new ArrayList<Integer>(envioActual));
@@ -210,7 +209,7 @@ public class FiveGuess implements Maquina {
             generaNuevoEnvio();
 
             envioActual = obtenSiguienteEnvio();
-            turn++;
+            ronda++;
         }
         return solucionesEnviadas;
     }
