@@ -75,7 +75,7 @@ public class RankingMedio extends JFrame {
         for (Map.Entry<String, Integer> entry : ranking.entrySet()) {
         	System.out.println(entry.getKey() + " " + entry.getValue());
             JLabel recordLabel = new JLabel("#" + i + " " + entry.getKey() + ": " + entry.getValue());
-            recordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 16));
+            recordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 17));
             gbc.insets = new Insets(5, 5, 5, 5);
             gbc.gridx = 0;
             gbc.gridy = i+1;
