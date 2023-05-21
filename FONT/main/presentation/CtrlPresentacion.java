@@ -61,6 +61,7 @@ public class CtrlPresentacion {
 		usernameAct = username;
 		controladorDominio.loginUser(username);
 		controladorDominio.restoreRanking();
+		controladorDominio.restoreRecord();
 	}
 	
 	public static void carregarEndGame() {
