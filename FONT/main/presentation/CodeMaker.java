@@ -38,6 +38,7 @@ public class CodeMaker extends JFrame {
 	    setTitle("Mastermind");
 	    setSize(300, 600); 
 	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    setResizable(false);
 	    setLocationRelativeTo(null);
 	    setLayout(new GridBagLayout());
 	    GridBagConstraints gbc = new GridBagConstraints();

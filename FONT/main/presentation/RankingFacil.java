@@ -44,6 +44,7 @@ public class RankingFacil extends JFrame {
     private void configWindow() {
     	setTitle("Ranking Nivel Fácil");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(470, 600);
         setLocationRelativeTo(null);
     }

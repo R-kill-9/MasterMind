@@ -21,6 +21,7 @@ public class TurnosMaquina extends JFrame {
        
         setSize(300, 600); // Establecer tamaño del JFrame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         NUMERO_COLUMNAS = combinaciones[0].length;

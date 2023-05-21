@@ -44,6 +44,7 @@ public class RankingAlto extends JFrame {
     private void configWindow() {
     	setTitle("Ranking Nivel Alto");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(470, 600);
         setLocationRelativeTo(null);
     }

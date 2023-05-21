@@ -62,6 +62,7 @@ public class EndGame extends JFrame {
         // Configurar la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(470, 300);
+        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
     }
