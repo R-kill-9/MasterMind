@@ -21,7 +21,7 @@ public class PantallaConfiguracion extends JFrame {
 	public PantallaConfiguracion() {
 	        // Configurar la ventana
 	        setTitle("Configurar Nueva Partida");
-	        
+	        setResizable(false);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setSize(470, 600);
 	        setLocationRelativeTo(null);

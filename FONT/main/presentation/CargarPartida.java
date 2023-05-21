@@ -69,6 +69,7 @@ public class CargarPartida extends JFrame {
     private void configWindow() {
     	setTitle("Cargar Partida");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(470, 600);
         setLocationRelativeTo(null);
     }

@@ -43,6 +43,7 @@ public class RankingPersonal extends JFrame {
     private void configWindow() {
     	setTitle("Records Personales");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(470, 600);
         setLocationRelativeTo(null);
     }

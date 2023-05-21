@@ -27,6 +27,7 @@ public class MastermindGame extends JFrame {
         setTitle("Mastermind");
         setSize(300, 600); // Establecer tamaño del JFrame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         
