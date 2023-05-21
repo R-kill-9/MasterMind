@@ -13,7 +13,7 @@ public class PantallaConfiguracion extends JFrame {
 	private JButton btnAceptar = new JButton("Aceptar");
 	private JLabel lblTitulo = new JLabel("Configurar Nueva Partida");
 	private JButton exitButton = new JButton("Salir");
-	private JLabel chkAyuda = new JLabel("Ayuda");
+	private JLabel chkAyuda = new JLabel("Ayuda:");
 	private JComboBox<String> cmbAyuda = new JComboBox<>();
 	private JLabel lblDificultad = new JLabel("Nivel de Dificultad:");
 	private JComboBox<String> cmbDificultad = new JComboBox<>();
