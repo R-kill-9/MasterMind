@@ -72,13 +72,19 @@ public class RankingFacil extends JFrame {
     //Crea un JLabel para cada posición en  el ranking y lo añade al control Panel.
     private void setRanking(GridBagConstraints gbc) {
     	int i = 1;
+        int maxPositions = 10; // Máximo de posiciones a mostrar
+
         for (Map.Entry<String, Integer> entry : ranking.entrySet()) {
-        	System.out.println(entry.getKey() + " " + entry.getValue());
+            if (i > maxPositions) {
+                break; // Si ya se han mostrado las 10 posiciones, salir del bucle
+            }
+
+            System.out.println(entry.getKey() + " " + entry.getValue());
             JLabel recordLabel = new JLabel("#" + i + " " + entry.getKey() + ": " + entry.getValue());
             recordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 17));
             gbc.insets = new Insets(5, 5, 5, 5);
             gbc.gridx = 0;
-            gbc.gridy = i+1;
+            gbc.gridy = i + 1;
             gbc.anchor = GridBagConstraints.CENTER;
             contentPane.add(recordLabel, gbc);
             ++i;
