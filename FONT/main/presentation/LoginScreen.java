@@ -7,32 +7,43 @@ import javax.swing.JFrame;
 
 public class LoginScreen extends JFrame {
     private static final long serialVersionUID = 1L;
-    private JTextField usernameField;
-    private JButton loginButton;
+    private JTextField usernameField = new JTextField(20);;
+    private JButton loginButton = new JButton("Iniciar Sesión");;
+    private JLabel welcomeIcon = new JLabel("         \u265A");;
+    private JLabel welcomeLabel = new JLabel("Welcome to Mastermind!");;
+    
 
     public LoginScreen() {
-        // Configurar la ventana
-        setTitle("Inicio de Sesión");
-        setSize(470, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
-
+    	initComponents();
+    }
+    
+    private void initComponents() {
+    	// Configurar la ventana
+    	configWindow();
+        
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 5, 5, 10); 
 
-        // Crear los componentes
-        usernameField = new JTextField(20);
-        
-        loginButton = new JButton("Iniciar Sesión");
-        JLabel welcomeIcon = new JLabel("         \u265A");
-        JLabel welcomeLabel = new JLabel("Welcome to Mastermind!");
-
-
         setLayout(new GridBagLayout());
         
-        gbc.gridx = 0;
+        configComponents(gbc);
+
+        initLogInListener();
+    }
+
+    //Configura la ventana
+    private void configWindow() {
+    	setTitle("Inicio de Sesión");
+        setSize(470, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+    }
+    
+    //Configura los componentes que conforman la ventana
+    private void configComponents(GridBagConstraints gbc) {
+    	gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         add(new JLabel("Nombre de Usuario: "), gbc);
@@ -61,8 +72,11 @@ public class LoginScreen extends JFrame {
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         add(welcomeIcon, gbc);
-
-        // Configurar el ActionListener para el botón de inicio de sesión
+    }
+    
+    
+    //Configura el listener para el botón de login
+    private void initLogInListener() {
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
@@ -83,11 +97,10 @@ public class LoginScreen extends JFrame {
             }
         });
     }
-
-
-
+    
     public static void main(String[] args) {
         LoginScreen loginScreen = new LoginScreen();
         loginScreen.setVisible(true);
     }
+
 }
