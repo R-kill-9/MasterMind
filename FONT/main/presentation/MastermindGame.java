@@ -20,304 +20,93 @@ public class MastermindGame extends JFrame {
     private JLabel botonWelcome;
     private Integer filasRest = 9;
     private static Boolean setAyuda;
+    private JPanel panelPausa;
+    private JPanel panelTablero;
+    private JPanel panelBolas;
+    private Bola bola1, bola2, bola3, bola4, bola5, bola6;
+    private JButton botonSalir;
+    private JPanel panelSalir;
+    private JButton botonAyuda;
+    private Dimension d; //dimesnion boton
+    private JButton submitB;
+    private JButton botonPausar;
+    private JPanel panelBotones;
+    private Dimension botonSize;
+    private JButton botonReiniciar;
+    private JButton botonReanudarPausa;
+    private JButton botonSalirPausa;
+    private JPanel panelSur;
     		
     public MastermindGame(Integer numCols, Boolean ayuda) {
+    	initComponents(numCols, ayuda);
+    }
+    
+    private void initComponents(Integer numCols, Boolean ayuda) {
     	NUMERO_COLUMNAS = numCols == null ? 5 : numCols;
     	setAyuda = ayuda == null ? true : ayuda;
-        setTitle("Mastermind");
-        setSize(300, 600); // Establecer tamaño del JFrame
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+    	
+    	configWindow();
         
-        JPanel panelPausa = new JPanel(new BorderLayout());
-        panelPausa.setBackground(new Color(255, 255, 255, 128));
-        panelPausa.setVisible(false);
-        add(panelPausa, BorderLayout.CENTER); 
-        panelPausa.setBounds(0, 0, 460, 800); 
-        add(panelPausa, 0);
+        pausePanel();
 
-
-        JPanel panelTablero = new JPanel(new GridLayout(NUMERO_FILAS, NUMERO_COLUMNAS));
-        solucion = new Bola[NUMERO_FILAS][NUMERO_COLUMNAS];
-        int margen = 20; 
-        int panelTableroWidth = 200;
-        int panelTableroHeight = 600;
-        panelTablero.setPreferredSize(new Dimension(panelTableroWidth, panelTableroHeight)); 
-        panelTablero.setBackground(new Color(139, 69, 19));
-        panelTablero.setBorder(BorderFactory.createLineBorder(Color.WHITE, margen));
-
-        tablero = new Color[NUMERO_FILAS][NUMERO_COLUMNAS];
-        for (int i = 0; i < NUMERO_FILAS; i++) {
-            for (int j = 0; j < NUMERO_COLUMNAS; j++) {
-                tablero[i][j] = Color.WHITE;
-            }
-        }
-
-        dibujarTablero(panelTablero);
+        boardPanel();
+        
         GridBagConstraints gbc = new GridBagConstraints();
 
-        JPanel panelBolas = new JPanel(new FlowLayout());
-        Bola bola1 = new Bola(Color.GREEN, false, true, 0, 0);
-        panelBolas.add(bola1,gbc);
-        bola1.setOpaque(false);
-        Bola bola2 = new Bola(Color.MAGENTA, false, true, 0, 0);
-        panelBolas.add(bola2);
-        bola2.setOpaque(false);
-        Bola bola3 = new Bola(Color.RED, false, true, 0, 0);
-        panelBolas.add(bola3);
-        bola3.setOpaque(false);
-        Bola bola4 = new Bola(Color.BLUE, false, true, 0, 0);
-        panelBolas.add(bola4);
-        bola4.setOpaque(false);
-        Bola bola5 = new Bola(Color.ORANGE, false, true, 0, 0);
-        panelBolas.add(bola5);
-        bola5.setOpaque(false);
-        Bola bola6 = new Bola(Color.cyan, false, true, -1, -1);
-        panelBolas.add(bola6);
-        bola6.setOpaque(false);
+        ballsPanel(gbc);
+        
+        //DIMESIONES
+        botonSize = new Dimension(100, 30); 
+        d = new Dimension(10, 0);
+        
+        
         JPanel panelSubBotones = new JPanel();
         JButton jPaused = new JButton("Pausar");
-        Dimension d = new Dimension(10, 0);
+        
         jPaused.setPreferredSize(d);
         
-        
-        bola1.addMouseListener(new BolaMouseListener());
-        bola2.addMouseListener(new BolaMouseListener());
-        bola3.addMouseListener(new BolaMouseListener());
-        bola4.addMouseListener(new BolaMouseListener());
-        bola5.addMouseListener(new BolaMouseListener());
-        bola6.addMouseListener(new BolaMouseListener());
-
-        JButton botonAyuda = new JButton("  Ayuda  ");
-        botonAyuda.setPreferredSize(d);
-        JButton botonSalir = new JButton("    Menú    ");
-        JPanel panelSalir = new JPanel(new BorderLayout());
-        panelSalir.add(botonSalir, BorderLayout.CENTER);
+        ballsListeners();
 
         // Crear panel para los botones
-        JPanel panelBotones = new JPanel();
+        panelBotones = new JPanel();
         panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
         
-        JButton submitB = new JButton("Aceptar");
-   
-        panelBolas.add(submitB);
+        //salir
+        configExit();
         
+        //ayuda
+        configHelp();
+        
+        //submit
+        configSubmit();
+
         jPaused.setPreferredSize(d);
         panelSubBotones.add(jPaused);
-        JButton botonPausar = new JButton("  Pausar  ");
-        JButton botonReiniciar = new JButton("Reiniciar");
-
-        botonSalir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	JFrame frame = new JFrame("Mi Ventana");
-                JDialog dialogo = new JDialog(frame, "Confirmación", true);
-                JPanel panel = new JPanel();
-                panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-                panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-                JLabel mensaje = new JLabel("<html><div style='text-align: center;'>¿Quieres guardar la partida?<br></div></html>");
-                mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
-                panel.add(mensaje);
-                panel.add(Box.createVerticalStrut(10));
-                JPanel panelBotones = new JPanel();
-                panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
-                JButton botonGuardar = new JButton("Guardar");
-                botonGuardar.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        CtrlPresentacion.carregarVistaMenu();
-                        dialogo.dispose();
-                        setVisible(false);
-                    }
-                });
-                JButton botonNoGuardar = new JButton("No guardar");
-                botonNoGuardar.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                    	CtrlPresentacion.carregarVistaMenu();
-                        dialogo.dispose();
-                        setVisible(false);
-                    }
-                });
-                panelBotones.add(botonNoGuardar);
-                panelBotones.add(botonGuardar);
-                panel.add(panelBotones);
-                dialogo.setContentPane(panel);
-                dialogo.pack();
-                dialogo.setLocationRelativeTo(frame);
-                dialogo.setVisible(true);
-            }
-        });
-        botonReiniciar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	CtrlPresentacion.reiniciarPartida();
-        	setVisible(false);
-        	dispose();
-        	
-        }});
-        botonAyuda.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	JFrame frame = new JFrame("Mi Ventana");
-                JDialog dialogo = new JDialog(frame, "Confirmación", true);
-                JPanel panel = new JPanel();
-                panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-                panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-                JLabel mensaje = new JLabel("<html><div style='text-align: center;'>¿Quieres solicitar ayuda?<br>Tu puntuación se reducirá a la mitad</div></html>");
-                mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
-                panel.add(mensaje);
-                panel.add(Box.createVerticalStrut(10));
-                JPanel panelBotones = new JPanel();
-                panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
-                JButton botonSi = new JButton("Sí");
-                botonSi.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        CtrlPresentacion.setAyudaPartida();
-                        dialogo.dispose();
-                    }
-                });
-                JButton botonNo = new JButton("No");
-                botonNo.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        dialogo.dispose();
-                    }
-                });
-                panelBotones.add(botonSi);
-                panelBotones.add(botonNo);
-                panel.add(panelBotones);
-                dialogo.setContentPane(panel);
-                dialogo.pack();
-                dialogo.setLocationRelativeTo(frame);
-                dialogo.setVisible(true);
-            }
-        });
-        submitB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	System.out.println(tablero[filasRest]);
-            	Color[] feedBack = CtrlPresentacion.submit(tablero[filasRest]);
-            	int pos = 0;
-            	System.out.println(feedBack);
-            	Boolean finished = true;
-            	if(feedBack != null) {
-            		for (Color c : feedBack) {
-            			System.out.println(solucion[filasRest][pos]);
-                		solucion[filasRest][pos].setColor(c);
-                		++pos;
-                		if(!c.equals(Color.black)) finished = false;
-                	}
-                	repaint();
-                	if(feedBack.length > 0) --filasRest;
-                	if(finished || filasRest < 0) {
-                		JFrame frame = new JFrame("Mi Ventana");
-                        JDialog dialogo = new JDialog(frame, "Has ganado!", true);
-                        JPanel panel = new JPanel();
-                        panel.setSize(400,400);
-                        String text = filasRest < 0 && !finished ? "<html><div style='text-align: center;'>¡Oups!<br>Te has quedado sin intentos :(</div></html>" : "<html><div style='text-align: center;'>¡HAS GANADO!<br>Felicidades👑</div></html>";
-                        JLabel mensaje = new JLabel(text);
-                        mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
-                        panel.add(mensaje);
-                        panel.add(Box.createVerticalStrut(10));
-                        JPanel panelBotones = new JPanel();
-                        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
-                        JButton botonContinuar = new JButton("Continuar");
-                        botonContinuar.addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                CtrlPresentacion.finRonda("CB");
-                                dialogo.dispose();
-                                setVisible(false);
-                            }
-                        });
-                        panelBotones.add(botonContinuar);
-                        panel.add(panelBotones);
-                        dialogo.setContentPane(panel);
-                        dialogo.pack();
-                        dialogo.setLocationRelativeTo(frame);
-                        dialogo.setVisible(true);
-                	}
-                	repaint();
-            	}
-            }
-        });
-        botonPausar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                panelPausa.setVisible(true); // mostrar el panel de pausa
-                panelTablero.setEnabled(false); // desactivar el tablero
-                panelBolas.setEnabled(false); // desactivar las bolas
-                panelBotones.setEnabled(false); // desactivar los botones
-                botonSalir.setEnabled(false);
-                botonAyuda.setEnabled(false);
-                botonPausar.setEnabled(false);
-                botonReiniciar.setEnabled(false);
-                submitB.setEnabled(false);
-
-            }
-        });
-
+        
+        //pausar
+        configPause();
         panelSubBotones.add(botonPausar);
-        panelPausa.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
-        JButton botonReanudarPausa = new JButton("Reanudar");
-        botonReanudarPausa.setPreferredSize(new Dimension(100, 50));
-        botonReanudarPausa.setOpaque(true);
-        botonReanudarPausa.setBorder(BorderFactory.createLineBorder(Color.GREEN)); 
-        botonReanudarPausa.setBackground(Color.GREEN); 
-        botonReanudarPausa.setForeground(Color.white); // texto negro
-        botonReanudarPausa.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                panelPausa.setVisible(false);
-                panelTablero.setEnabled(true);
-                panelBolas.setEnabled(true);
-                panelBotones.setEnabled(true);
-                botonSalir.setEnabled(true);
-                botonAyuda.setEnabled(true);
-                botonPausar.setEnabled(true);
-                botonReiniciar.setEnabled(true);
-                submitB.setEnabled(true);
-
-            }
-        });
-        panelPausa.add(botonReanudarPausa);
         
-        JButton botonSalirPausa = new JButton("Salir");
-        botonSalirPausa.setPreferredSize(new Dimension(100, 50));
-        botonSalirPausa.setOpaque(true);
-        botonSalirPausa.setBorder(BorderFactory.createLineBorder(Color.RED));
-        botonSalirPausa.setBackground(Color.RED);
-        botonSalirPausa.setForeground(Color.WHITE);
-        botonSalirPausa.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CtrlPresentacion.guardarPartida();
-            	System.exit(0);
-            }
-        });
-        panelPausa.add(botonSalirPausa);
-
-
+        //reiniciar
+        configRestart();
         
-        Dimension botonSize = new Dimension(100, 30); 
-        botonAyuda.setPreferredSize(botonSize);
-        botonPausar.setPreferredSize(botonSize);
-        botonReiniciar.setPreferredSize(botonSize);
-        panelBotones.add(botonAyuda);
-        panelBotones.add(botonPausar);
-        panelBotones.add(botonReiniciar);
-
+        //gestión pausa
+        pauseGestion();
+        
         // Crear panel para el sur
-        JPanel panelSur = new JPanel(new BorderLayout());
-        panelSur.add(panelBotones, BorderLayout.EAST);
-        panelSur.add(panelBolas, BorderLayout.CENTER);
-        panelSur.add(panelSalir, BorderLayout.SOUTH);
+        configSouthPanel();
         
-        botonWelcome = new JLabel("Selecciona un color para empezar");
-        botonWelcome.setBackground(Color.gray);
-        botonWelcome.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        Font font = new Font(botonWelcome.getFont().getName(), Font.BOLD, 15);
-        botonWelcome.setFont(font);
+        //Boton superior
+        configMessage();
         
         add(botonWelcome, BorderLayout.NORTH);
         add(panelTablero, BorderLayout.CENTER);
 
         add(panelSur, BorderLayout.SOUTH);
-        pack();
-        
+        pack();	
     }
+    
+    
     private void dibujarTablero(JPanel panelTablero) {
         for (int i = 0; i < NUMERO_FILAS; i++) {
             for (int j = 0; j < NUMERO_COLUMNAS; j++) {
@@ -393,8 +182,329 @@ public class MastermindGame extends JFrame {
 	     	repaint();
         }
     }
-    public static void main(String[] args) {
-        MastermindGame mastermindGame = new MastermindGame(NUMERO_COLUMNAS, setAyuda);
-        mastermindGame.setVisible(true);
+    
+    
+    //Configura la ventana
+    private void configWindow() {
+    	setTitle("Mastermind");
+        setSize(300, 600); // Establecer tamaño del JFrame
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
     }
+    
+    
+    //Configura el panel de pausa
+    private void pausePanel() {
+    	panelPausa = new JPanel(new BorderLayout());
+        panelPausa.setBackground(new Color(255, 255, 255, 128));
+        panelPausa.setVisible(false);
+        add(panelPausa, BorderLayout.CENTER); 
+        panelPausa.setBounds(0, 0, 460, 800); 
+        add(panelPausa, 0);
+    }
+    
+    
+    //Configura el panel del tablero y llama la función encargada de dibujarlo
+    private void boardPanel() {
+    	panelTablero = new JPanel(new GridLayout(NUMERO_FILAS, NUMERO_COLUMNAS));
+        solucion = new Bola[NUMERO_FILAS][NUMERO_COLUMNAS];
+        int margen = 20; 
+        int panelTableroWidth = 200;
+        int panelTableroHeight = 600;
+        panelTablero.setPreferredSize(new Dimension(panelTableroWidth, panelTableroHeight)); 
+        panelTablero.setBackground(new Color(139, 69, 19));
+        panelTablero.setBorder(BorderFactory.createLineBorder(Color.WHITE, margen));
+
+        tablero = new Color[NUMERO_FILAS][NUMERO_COLUMNAS];
+        for (int i = 0; i < NUMERO_FILAS; i++) {
+            for (int j = 0; j < NUMERO_COLUMNAS; j++) {
+                tablero[i][j] = Color.WHITE;
+            }
+        }
+
+        dibujarTablero(panelTablero);	
+    }
+    
+    
+    //Configura el panel de bolas y le añade las bolas
+    private void ballsPanel(GridBagConstraints gbc)
+    {
+    	panelBolas = new JPanel(new FlowLayout());
+        bola1 = new Bola(Color.GREEN, false, true, 0, 0);
+        panelBolas.add(bola1,gbc);
+        bola1.setOpaque(false);
+        bola2 = new Bola(Color.MAGENTA, false, true, 0, 0);
+        panelBolas.add(bola2);
+        bola2.setOpaque(false);
+        bola3 = new Bola(Color.RED, false, true, 0, 0);
+        panelBolas.add(bola3);
+        bola3.setOpaque(false);
+        bola4 = new Bola(Color.BLUE, false, true, 0, 0);
+        panelBolas.add(bola4);
+        bola4.setOpaque(false);
+        bola5 = new Bola(Color.ORANGE, false, true, 0, 0);
+        panelBolas.add(bola5);
+        bola5.setOpaque(false);
+        bola6 = new Bola(Color.cyan, false, true, -1, -1);
+        panelBolas.add(bola6);
+        bola6.setOpaque(false);
+    }
+    
+    
+    //añade los listeners a las bolas
+    private void ballsListeners() {
+    	bola1.addMouseListener(new BolaMouseListener());
+        bola2.addMouseListener(new BolaMouseListener());
+        bola3.addMouseListener(new BolaMouseListener());
+        bola4.addMouseListener(new BolaMouseListener());
+        bola5.addMouseListener(new BolaMouseListener());
+        bola6.addMouseListener(new BolaMouseListener());
+    }
+    
+    //Configura el botón de salida
+    private void configExit() {
+    	botonSalir = new JButton("    Menú    ");
+        panelSalir = new JPanel(new BorderLayout());
+        panelSalir.add(botonSalir, BorderLayout.CENTER);
+        //LISTENER
+        botonSalir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	JFrame frame = new JFrame("Mi Ventana");
+                JDialog dialogo = new JDialog(frame, "Confirmación", true);
+                JPanel panel = new JPanel();
+                panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+                JLabel mensaje = new JLabel("<html><div style='text-align: center;'>¿Quieres guardar la partida?<br></div></html>");
+                mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
+                panel.add(mensaje);
+                panel.add(Box.createVerticalStrut(10));
+                panelBotones = new JPanel();
+                panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
+                JButton botonGuardar = new JButton("Guardar");
+                botonGuardar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                    	//GUARDA LA PARTIDA EN LA PERSISTENCIA
+                    	CtrlPresentacion.guardarPartida();
+                        CtrlPresentacion.carregarVistaMenu();
+                        dialogo.dispose();
+                        setVisible(false);
+                    }
+                });
+                JButton botonNoGuardar = new JButton("No guardar");
+                botonNoGuardar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                    	CtrlPresentacion.carregarVistaMenu();
+                        dialogo.dispose();
+                        setVisible(false);
+                    }
+                });
+                panelBotones.add(botonNoGuardar);
+                panelBotones.add(botonGuardar);
+                panel.add(panelBotones);
+                dialogo.setContentPane(panel);
+                dialogo.pack();
+                dialogo.setLocationRelativeTo(frame);
+                dialogo.setVisible(true);
+            }
+        });
+    }
+    
+    
+    //Configura el botón de ayuda
+    private void configHelp() {
+    	botonAyuda = new JButton("  Ayuda  ");
+        botonAyuda.setPreferredSize(d);
+        botonAyuda.setPreferredSize(botonSize);
+        panelBotones.add(botonAyuda);
+        //LISTENER
+        botonAyuda.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	JFrame frame = new JFrame("Mi Ventana");
+                JDialog dialogo = new JDialog(frame, "Confirmación", true);
+                JPanel panel = new JPanel();
+                panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+                JLabel mensaje = new JLabel("<html><div style='text-align: center;'>¿Quieres solicitar ayuda?<br>Tu puntuación se reducirá a la mitad</div></html>");
+                mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
+                panel.add(mensaje);
+                panel.add(Box.createVerticalStrut(10));
+                panelBotones = new JPanel();
+                panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
+                JButton botonSi = new JButton("Sí");
+                botonSi.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        CtrlPresentacion.setAyudaPartida();
+                        dialogo.dispose();
+                    }
+                });
+                JButton botonNo = new JButton("No");
+                botonNo.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        dialogo.dispose();
+                    }
+                });
+                panelBotones.add(botonSi);
+                panelBotones.add(botonNo);
+                panel.add(panelBotones);
+                dialogo.setContentPane(panel);
+                dialogo.pack();
+                dialogo.setLocationRelativeTo(frame);
+                dialogo.setVisible(true);
+            }
+        });
+    }
+    
+    //Configura el botón de submit
+    private void configSubmit() {
+    	submitB = new JButton("Aceptar");
+    	panelBolas.add(submitB);
+    	//LISTENER
+    	submitB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println(tablero[filasRest]);
+            	Color[] feedBack = CtrlPresentacion.submit(tablero[filasRest]);
+            	int pos = 0;
+            	System.out.println(feedBack);
+            	Boolean finished = true;
+            	if(feedBack != null) {
+            		for (Color c : feedBack) {
+            			System.out.println(solucion[filasRest][pos]);
+                		solucion[filasRest][pos].setColor(c);
+                		++pos;
+                		if(!c.equals(Color.black)) finished = false;
+                	}
+                	repaint();
+                	if(feedBack.length > 0) --filasRest;
+                	if(finished || filasRest < 0) {
+                		JFrame frame = new JFrame("Mi Ventana");
+                        JDialog dialogo = new JDialog(frame, "Has ganado!", true);
+                        JPanel panel = new JPanel();
+                        panel.setSize(400,400);
+                        String text = filasRest < 0 && !finished ? "<html><div style='text-align: center;'>¡Oups!<br>Te has quedado sin intentos :(</div></html>" : "<html><div style='text-align: center;'>¡HAS GANADO!<br>Felicidades👑</div></html>";
+                        JLabel mensaje = new JLabel(text);
+                        mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
+                        panel.add(mensaje);
+                        panel.add(Box.createVerticalStrut(10));
+                        panelBotones = new JPanel();
+                        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
+                        JButton botonContinuar = new JButton("Continuar");
+                        botonContinuar.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                CtrlPresentacion.finRonda("CB");
+                                dialogo.dispose();
+                                setVisible(false);
+                            }
+                        });
+                        panelBotones.add(botonContinuar);
+                        panel.add(panelBotones);
+                        dialogo.setContentPane(panel);
+                        dialogo.pack();
+                        dialogo.setLocationRelativeTo(frame);
+                        dialogo.setVisible(true);
+                	}
+                	repaint();
+            	}
+            }
+        });
+    }
+    
+    //Configura lo relativo al botón de pausa
+    private void configPause() {
+    	botonPausar = new JButton("  Pausar  ");
+    	botonPausar.setPreferredSize(botonSize);
+    	panelBotones.add(botonPausar);
+    	//LISTENER
+    	botonPausar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                panelPausa.setVisible(true); // mostrar el panel de pausa
+                panelTablero.setEnabled(false); // desactivar el tablero
+                panelBolas.setEnabled(false); // desactivar las bolas
+                panelBotones.setEnabled(false); // desactivar los botones
+                botonSalir.setEnabled(false);
+                botonAyuda.setEnabled(false);
+                botonPausar.setEnabled(false);
+                botonReiniciar.setEnabled(false);
+                submitB.setEnabled(false);
+
+            }
+        });
+    }
+    
+    
+    //Configura el botón de reiniciar
+    private void configRestart() {
+    	botonReiniciar = new JButton("Reiniciar");
+    	botonReiniciar.setPreferredSize(botonSize);
+        panelBotones.add(botonReiniciar);
+    	//LISTENER
+    	botonReiniciar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	CtrlPresentacion.reiniciarPartida();
+        	setVisible(false);
+        	dispose();
+        	
+        }});
+    }
+    
+    
+    //Gestiona la configuración de la ventana cuando se hace pause
+    private void pauseGestion() {
+    	panelPausa.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
+        botonReanudarPausa = new JButton("Reanudar");
+        botonReanudarPausa.setPreferredSize(new Dimension(100, 50));
+        botonReanudarPausa.setOpaque(true);
+        botonReanudarPausa.setBorder(BorderFactory.createLineBorder(Color.GREEN)); 
+        botonReanudarPausa.setBackground(Color.GREEN); 
+        botonReanudarPausa.setForeground(Color.white); // texto negro
+        botonReanudarPausa.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                panelPausa.setVisible(false);
+                panelTablero.setEnabled(true);
+                panelBolas.setEnabled(true);
+                panelBotones.setEnabled(true);
+                botonSalir.setEnabled(true);
+                botonAyuda.setEnabled(true);
+                botonPausar.setEnabled(true);
+                botonReiniciar.setEnabled(true);
+                submitB.setEnabled(true);
+
+            }
+        });
+        panelPausa.add(botonReanudarPausa);
+        
+        botonSalirPausa = new JButton("Salir");
+        botonSalirPausa.setPreferredSize(new Dimension(100, 50));
+        botonSalirPausa.setOpaque(true);
+        botonSalirPausa.setBorder(BorderFactory.createLineBorder(Color.RED));
+        botonSalirPausa.setBackground(Color.RED);
+        botonSalirPausa.setForeground(Color.WHITE);
+        botonSalirPausa.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CtrlPresentacion.guardarPartida();
+            	System.exit(0);
+            }
+        });
+        panelPausa.add(botonSalirPausa);
+    }
+    
+    
+    //COnfigura el panel inferior de la pantalla
+    private void configSouthPanel() {
+    	panelSur = new JPanel(new BorderLayout());
+        panelSur.add(panelBotones, BorderLayout.EAST);
+        panelSur.add(panelBolas, BorderLayout.CENTER);
+        panelSur.add(panelSalir, BorderLayout.SOUTH);
+    }
+
+    //Configura el mensaje de la parte superior de la pantalla
+    private void configMessage() {
+    	botonWelcome = new JLabel("Selecciona un color para empezar");
+        botonWelcome.setBackground(Color.gray);
+        botonWelcome.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        Font font = new Font(botonWelcome.getFont().getName(), Font.BOLD, 15);
+        botonWelcome.setFont(font);
+    }
+    
 }

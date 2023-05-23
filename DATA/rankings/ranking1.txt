@@ -1,5 +1,5 @@
-Kill-9,7000
 Ricard,6500
+R-kill-9,5500
 Elsa,5000
 Marcel,4000
 Joel,3000
