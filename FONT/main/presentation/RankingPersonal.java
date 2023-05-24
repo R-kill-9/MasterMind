@@ -75,10 +75,17 @@ public class RankingPersonal extends JFrame {
     //Configura el botón de salida, que te regresa a la ventana de Rankings y añade el botón al control Panel.
     private void setExitButton(GridBagConstraints gbc) {
     	gbc.gridx = 0;
-        gbc.gridy = 8;
+        gbc.gridy = 10;
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.ipady = 10;
+        Color redColor = new Color(200, 0, 0);
+        exitButton.setBackground(redColor);
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setFocusPainted(false);
+        exitButton.setBorderPainted(false);
+        
+        exitButton.setOpaque(true);
         contentPane.add(exitButton, gbc);
     }
     

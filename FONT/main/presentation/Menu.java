@@ -48,7 +48,7 @@ public class Menu extends JFrame {
     //Crea todos los componentes definidos en los atributos.
     private void createComponents() {
     	configButton = new JButton("Nueva Partida");
-        partidasButton = new JButton("Cargar Partida");
+        partidasButton = new JButton("Cargar Partida existente");
         rankingButton = new JButton("Ver Rankings");
         rulesButton = new JButton("Cómo jugar");
         menuLabel = new JLabel("Menú");

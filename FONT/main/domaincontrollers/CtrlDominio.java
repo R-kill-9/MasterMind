@@ -110,7 +110,7 @@ public class CtrlDominio {
 	/*
 	 * Carga la partida con el id indicado
 	 */
-	public static void cargarPartida(String id) {
+	public static ArrayList<ArrayList<Color>> cargarPartida(String id) {
 		//Pedimos lo necesario a la persistencia
 		int nTurno = ctrlPersistence.getNTurno(id);
 		boolean rol = ctrlPersistence.getRol(id);
@@ -121,6 +121,7 @@ public class CtrlDominio {
 		ArrayList<ArrayList<Color>> combinaciones = ctrlPersistence.getCombinaciones(id);
 		int rondasMaquina = ctrlPersistence.getRondasMaquina(id);
 		CtrlUsuario.crearPartidaGuardada(id, nTurno, rol, solucion, ayuda, puntuacion, dificultadEscogida, combinaciones, rondasMaquina);
+		return combinaciones;
 		//ctrlPersistence.deletePartida(id);
 	}
 
@@ -244,6 +245,10 @@ public class CtrlDominio {
 	
 	public static void solicitarAyuda() {
 		controladorUsuario.solicitarAyuda();
+	}
+
+	public static Boolean getAyuda() {
+		return CtrlPartida.getAyuda();
 	}
 
 }

@@ -36,15 +36,20 @@ public class MastermindGame extends JFrame {
     private JButton botonReanudarPausa;
     private JButton botonSalirPausa;
     private JPanel panelSur;
+    private Color[][] combHechasAnt;
     		
-    public MastermindGame(Integer numCols, Boolean ayuda) {
+    public MastermindGame(Integer numCols, Boolean ayuda, Color[][] colores) {
+    	combHechasAnt = colores;
+    	Integer filasComb = 0;
+    	if(colores != null) filasComb = colores.length;
+    	filasRest = filasRest - filasComb;
     	initComponents(numCols, ayuda);
     }
     
     private void initComponents(Integer numCols, Boolean ayuda) {
     	NUMERO_COLUMNAS = numCols == null ? 5 : numCols;
     	setAyuda = ayuda == null ? true : ayuda;
-    	
+    
     	configWindow();
         
         pausePanel();
@@ -108,6 +113,7 @@ public class MastermindGame extends JFrame {
     
     
     private void dibujarTablero(JPanel panelTablero) {
+  
         for (int i = 0; i < NUMERO_FILAS; i++) {
             for (int j = 0; j < NUMERO_COLUMNAS; j++) {
                 
@@ -134,11 +140,25 @@ public class MastermindGame extends JFrame {
                     bolaPanel.setPreferredSize(new Dimension(25, 25));
                     bolaPanel.setBackground(new Color(139, 69, 19).darker());
                     panelTablero.add(bolaPanel);
-                    Bola bola = new Bola(new Color(139, 69, 19).darker(), false, i == 0, j , i);
+                    Color colorBola;
+                    if (combHechasAnt != null && combHechasAnt.length > i && combHechasAnt[i].length > j) {
+                    	colorBola = combHechasAnt[i][j];
+                    }
+                    else colorBola = new Color(139, 69, 19).darker();
+                    Bola bola = new Bola(colorBola, false, i == NUMERO_FILAS - 1 - filasRest, j , i);
                     bola.addMouseListener(new BolaMouseListener());
                     bola.setColorTablero();
                     bola.setOpaque(false);
                     bolaPanel.add(bola);
+                    if (combHechasAnt != null && (NUMERO_FILAS - i) <= combHechasAnt.length) {
+                    	int combHechasAntFila = NUMERO_FILAS - i - 1;
+                        int combHechasAntColumna = j;
+                        if (combHechasAntColumna < combHechasAnt[combHechasAntFila].length) {
+                            bola.setColor(combHechasAnt[combHechasAntFila][combHechasAntColumna]);
+                            bola.changeDisabled(true);
+                            bola.repaint();
+                        }
+                    }
                 }
             }
         }
@@ -154,6 +174,7 @@ public class MastermindGame extends JFrame {
 	         		if(colorSeleccionado != null) {
 	         			bola.setColor(colorSeleccionado);
 	         			Integer numColumna = bola.getColumna();
+	         			System.out.println("COLUMNA"+ numColumna);
 	         			tablero[filasRest][numColumna] = colorSeleccionado;
 	         		}
 	         }
@@ -216,14 +237,12 @@ public class MastermindGame extends JFrame {
         panelTablero.setPreferredSize(new Dimension(panelTableroWidth, panelTableroHeight)); 
         panelTablero.setBackground(new Color(139, 69, 19));
         panelTablero.setBorder(BorderFactory.createLineBorder(Color.WHITE, margen));
-
-        tablero = new Color[NUMERO_FILAS][NUMERO_COLUMNAS];
+    	tablero = new Color[NUMERO_FILAS][NUMERO_COLUMNAS];
         for (int i = 0; i < NUMERO_FILAS; i++) {
             for (int j = 0; j < NUMERO_COLUMNAS; j++) {
                 tablero[i][j] = Color.WHITE;
             }
         }
-
         dibujarTablero(panelTablero);	
     }
     
@@ -363,14 +382,15 @@ public class MastermindGame extends JFrame {
     	//LISTENER
     	submitB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	System.out.println(tablero[filasRest]);
+            	for(int i = 0; i < 10; i++) {
+            		for(int j = 0; j < 5; j++) System.out.println("POS I = "+ i + "POS J" + j + " " + tablero[i][j]);
+            	}
             	Color[] feedBack = CtrlPresentacion.submit(tablero[filasRest]);
             	int pos = 0;
-            	System.out.println(feedBack);
+            	System.out.println("FEEDBACK" + feedBack);
             	Boolean finished = true;
             	if(feedBack != null) {
             		for (Color c : feedBack) {
-            			System.out.println(solucion[filasRest][pos]);
                 		solucion[filasRest][pos].setColor(c);
                 		++pos;
                 		if(!c.equals(Color.black)) finished = false;
@@ -469,7 +489,6 @@ public class MastermindGame extends JFrame {
                 botonPausar.setEnabled(true);
                 botonReiniciar.setEnabled(true);
                 submitB.setEnabled(true);
-
             }
         });
         panelPausa.add(botonReanudarPausa);

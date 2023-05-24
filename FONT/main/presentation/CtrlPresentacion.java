@@ -53,7 +53,7 @@ public class CtrlPresentacion {
 	}
 	public static void carregarvistaMastermindGame() {
 		System.out.println(CtrlDominio.getNumRounds());
-		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda);
+		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, null);
 		vistaGame.setVisible(true);
 	}
 	
@@ -194,7 +194,7 @@ public class CtrlPresentacion {
 	}
 	public static void reiniciarPartida() {
 		CtrlDominio.reiniciarPartida();
-		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda);
+		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, null);
 		vistaGame.setVisible(true);
 	}
 	
@@ -232,8 +232,7 @@ public class CtrlPresentacion {
 		}
 	}
 	
-	public static void cargaCombMaquina() {
-		ArrayList<ArrayList<main.domain.Color>> combinations = CtrlDominio.getAllCombLastTurno();
+	private static Color[][] changeToColor(ArrayList<ArrayList<main.domain.Color>> combinations){
 		Color[][] colores = new Color[combinations.size()][combinations.get(0).size()];
 	    for (int i = 0; i < combinations.size(); i++) {
 	        for (int j = 0; j < combinations.get(i).size(); j++) {
@@ -260,7 +259,12 @@ public class CtrlPresentacion {
 	            }
 	        }
 	    }
-	    System.out.println(combinations.size());
+	    return colores;
+	}
+	
+	public static void cargaCombMaquina() {
+		ArrayList<ArrayList<main.domain.Color>> combinations = CtrlDominio.getAllCombLastTurno();
+		Color[][] colores = changeToColor(combinations);
 	    TurnosMaquina turnosM = new TurnosMaquina(colores);
 	    turnosM.setVisible(true);
 	}
@@ -270,6 +274,11 @@ public class CtrlPresentacion {
 	}
 	
 	public static void cargarPartida(String date) {
-		CtrlDominio.cargarPartida(date);
+		ArrayList<ArrayList<main.domain.Color>> combinations = CtrlDominio.cargarPartida(date);
+		Color[][] colores = changeToColor(combinations);
+		numCols = colores[0].length + 1;
+		setAyuda = CtrlDominio.getAyuda(); 
+		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, colores);
+		vistaGame.setVisible(true);
 	}
 }

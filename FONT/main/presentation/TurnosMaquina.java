@@ -105,7 +105,6 @@ public class TurnosMaquina extends JFrame {
                          int i = fila; // Acceder a la variable i de la iteración exterior
                          int j = col; // Acceder a la variable j de la iteración exterior
                          public void actionPerformed(ActionEvent evt) {
-                         	System.out.println(i);
                              bola.setColor(combinaciones[i][j]);
                              bola.repaint(); // Llamar a repaint() para actualizar la vista
                          }

@@ -122,6 +122,16 @@ public class PantallaConfiguracion extends JFrame {
 	
 	//Configura y añade el botón de aceptar en el panel, también configura su listener
 	private void setAccept(GridBagConstraints gbc) {
+		
+		gbc.anchor = GridBagConstraints.CENTER;
+
+        Color greenColor = new Color(0, 200, 0);
+		btnAceptar.setBackground(greenColor);
+		btnAceptar.setForeground(Color.WHITE);
+		btnAceptar.setFocusPainted(false);
+		btnAceptar.setBorderPainted(false);
+        
+		btnAceptar.setOpaque(true);
 		 // Agregar el botón de aceptar
         btnAceptar.addActionListener(e -> {
             // Obtener los valores seleccionados
@@ -152,6 +162,13 @@ public class PantallaConfiguracion extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.CENTER;
+        Color redColor = new Color(200, 0, 0);
+        exitButton.setBackground(redColor);
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setFocusPainted(false);
+        exitButton.setBorderPainted(false);
+        
+        exitButton.setOpaque(true);
         panel.add(exitButton, gbc);
         
      // Configurar el ActionListener para el botón de exit

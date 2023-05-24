@@ -1,0 +1,9 @@
+idPartida: 2023-05-24_17-55-24
+nTurno: 1
+rol: false
+solucion: [PURPLE, BLUE, CYAN, RED]
+ayuda: true
+puntuacion: 0
+dificultad: 1
+combinaciones: [[BLUE, PURPLE, RED, ORANGE], [CYAN, GREEN, RED, BLUE]]
+rondasMaquina: 0

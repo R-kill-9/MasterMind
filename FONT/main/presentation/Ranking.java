@@ -87,22 +87,50 @@ public class Ranking extends JFrame {
         gbc.weighty = 0.5;
         gbc.ipadx = 30;
         gbc.ipady = 20;
+        Color easyBlue = new Color(0, 0, 150);
+        easyButton.setBackground(easyBlue);
+        easyButton.setForeground(Color.WHITE);
+        easyButton.setFocusPainted(false);
+        easyButton.setBorderPainted(false);
+        
+        easyButton.setOpaque(true);
         contentPane.add(easyButton, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
+        Color mediumBlue = new Color(0, 0, 100);
+        mediumButton.setBackground(mediumBlue);
+        mediumButton.setForeground(Color.WHITE);
+        mediumButton.setFocusPainted(false);
+        mediumButton.setBorderPainted(false);
+        
+        mediumButton.setOpaque(true);
         contentPane.add(mediumButton, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
+        Color darkBlue = new Color(0, 0, 10);
+        hardButton.setBackground(darkBlue);
+        hardButton.setForeground(Color.WHITE);
+        hardButton.setFocusPainted(false);
+        hardButton.setBorderPainted(false);
+        
+        hardButton.setOpaque(true);
         contentPane.add(hardButton, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
+        Color greenColor = new Color(0, 200, 0);
+        personalButton.setBackground(greenColor);
+        personalButton.setForeground(Color.WHITE);
+        personalButton.setFocusPainted(false);
+        personalButton.setBorderPainted(false);
+        
+        personalButton.setOpaque(true);
         contentPane.add(personalButton, gbc);
 
         gbc.gridx = 0;
@@ -110,6 +138,13 @@ public class Ranking extends JFrame {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.ipady = 10;
+        Color redColor = new Color(200, 0, 0);
+        exitButton.setBackground(redColor);
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setFocusPainted(false);
+        exitButton.setBorderPainted(false);
+        
+        exitButton.setOpaque(true);
         contentPane.add(exitButton, gbc);
     }
     
