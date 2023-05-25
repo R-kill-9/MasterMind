@@ -121,8 +121,8 @@ public class CtrlDominio {
 		ArrayList<ArrayList<Color>> combinaciones = ctrlPersistence.getCombinaciones(id);
 		int rondasMaquina = ctrlPersistence.getRondasMaquina(id);
 		CtrlUsuario.crearPartidaGuardada(id, nTurno, rol, solucion, ayuda, puntuacion, dificultadEscogida, combinaciones, rondasMaquina);
+		ctrlPersistence.deletePartida(id);
 		return combinaciones;
-		//ctrlPersistence.deletePartida(id);
 	}
 
 	public ArrayList<ColorFeedBack> newCombinacion(ArrayList<Color> combination) throws Exception{
