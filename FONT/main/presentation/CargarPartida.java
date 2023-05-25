@@ -20,8 +20,6 @@ public class CargarPartida extends JFrame {
     private JButton exitButton = new JButton("Salir");;
     private ArrayList<String>  partidas = CtrlPresentacion.getPartidasGuardadas();
     private JPanel contentPanel = new JPanel();
-    private ButtonGroup grupoOpciones = new ButtonGroup();
-    private JRadioButton[] radioButtons = new JRadioButton[10];
     private DefaultListModel<String> listModel = new DefaultListModel<>();
     private JList<String> dateList = new JList<>(listModel);
     private Integer selectedIndex = null; 
@@ -45,12 +43,11 @@ public class CargarPartida extends JFrame {
         
         configDesign(gbc);
         
-        // 
         // Configurar el texto de salida
 		setText(gbc);
     	
-		// Configurar los botones de opción
-        configGroupButtons(gbc);
+		// Añade las partidas
+        addPartidas();
         
         // Configurar botón de jugar
         configPlayButton(gbc);
@@ -60,18 +57,10 @@ public class CargarPartida extends JFrame {
     }
     
     
-    //asigna el nombre correspondiente a cada botón y lo añade al grupo y al panel
-    private void configGroupButtons(GridBagConstraints gbc) {
+    //asigna el nombre correspondiente a cada partida y lo añade al panel
+    private void addPartidas() {
         int size = partidas.size();
         for (int i = 0; i < 10 && i < size; ++i) {
-            radioButtons[i] = new JRadioButton(partidas.get(partidas.size() - 1 - i));
-            grupoOpciones.add(radioButtons[i]);
-            gbc.gridx = 0;
-            gbc.gridy = 2 + i;
-            gbc.anchor = GridBagConstraints.CENTER;
-            if (i == 0) gbc.insets = new Insets(35, 0, 5, 0);
-            else gbc.insets = new Insets(5, 0, 5, 0);
-            
             String dateTime = partidas.get(partidas.size() - 1 - i);
             String[] parts = dateTime.split("_");
             String date = parts[0];
@@ -121,7 +110,7 @@ public class CargarPartida extends JFrame {
         setContentPane(contentPanel);
         contentPanel.setLayout(new GridBagLayout());
 
-        // Configurar el tamaño preferido del JScrollPane
+        // Configurar el tamaño del JScrollPane
         scrollPane.setPreferredSize(new Dimension(230, partidas.size() * 25));
 
         // Agregar "Escoge partida" en la primera fila

@@ -1,4 +1,5 @@
 Ricard,6500
+ricard,6000
 R-kill-9,5500
 Elsa,5000
 Marcel,4000
