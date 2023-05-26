@@ -3,48 +3,30 @@ package main.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class Genetic implements Maquina {
 
 	private final int POPULATION_SIZE = 150;
 	private final int GENERATION_SIZE = 100;
-    /**
-     * Max number of feasible codes. When the FEASIBLE_CODES_MAX is reached, we stop producing feasible codes
-     * and we choose one randomly
-     */
-    private static final int NMAX_CANDIDATOS = 20;
-
-    /**
-     * Array with the GeneticComputer previous attempts
-     */
-    private final List< List<Integer>> solucionesEnviadas = new ArrayList<>();
-    /**
-     * Array with all the feasible codes found.
-     */
+    
+    private final int NMAX_CANDIDATOS = 20;
+	private final List< List<Integer>> solucionesEnviadas = new ArrayList<>();
     private List< Pair<List<Integer>, Integer >>  enviosCandidatos = new ArrayList<>();
-    /**
-     * Array with the population generated
-     */
     private List< Pair<List<Integer>, Integer >> poblacion = new ArrayList<>(POPULATION_SIZE);
-    /**
-     * Integer used to choose 2 ColorRows for the crossover
-     */
     private Integer parentPos = 0;
-    private List<Integer >negrasSol= new ArrayList<>();
-    private List<Integer >blancasSol= new ArrayList<>();
-    
-    public NivelDificultad nivel;
-    
+    private List<Pair<Integer, Integer> > negrasBlancasEnvios= new ArrayList<>();
+//    private List<Integer >blancasSol= new ArrayList<>();
 
-	
+    public NivelDificultad nivel;
+
+
+
 	public  Genetic(NivelDificultad nivelJugador) {
 		nivel = nivelJugador;
 	}
-	
+
 	private List<Integer> generaRandom() {
 	    List<Integer> combinacion = new ArrayList<>();
 	    Random rand = new Random();
@@ -54,7 +36,7 @@ public class Genetic implements Maquina {
 	    }
 	  return combinacion;
 	}
-	
+
 	private void inicializarPoblacion() {
 		enviosCandidatos.clear();
 	    poblacion.clear();
@@ -64,8 +46,8 @@ public class Genetic implements Maquina {
 	    	poblacion.add(i, p);
 	        }
 	    }
-	
-	
+
+
 	private List< Pair<List<Integer>, Integer >> ordenarPorAptitud(List< Pair<List<Integer>, Integer >>  listaDesordenada) {
 	    Collections.sort(listaDesordenada, new Comparator<Pair<List<Integer>, Integer>>() {
 	        @Override
@@ -75,7 +57,7 @@ public class Genetic implements Maquina {
 	    });
 	    return listaDesordenada;
 	}
-	
+
 // Evolucionar la población a través de generaciones
 	private  void evolucionarPoblacion() {
 		List< Pair<List<Integer>, Integer >> NuevaPoblacion = new ArrayList<>(POPULATION_SIZE);
@@ -85,9 +67,9 @@ public class Genetic implements Maquina {
         }
 	//	Cruce
 		 for (int i = 0; i < POPULATION_SIZE; i += 2) {
-	            if ((new Random().nextInt(4)) == 0) {
+	            if ((new Random().nextInt(2)) == 0) {
 	            	cruce1pos(NuevaPoblacion, i, i + 1);
-	            } 
+	            }
 		 }
 	//	 Mutacion
 		 for (int i = 0; i < POPULATION_SIZE; i++) {
@@ -96,15 +78,15 @@ public class Genetic implements Maquina {
 
 	            } else if (new Random().nextInt(100) < 3) {
 	            	intercambiar(NuevaPoblacion, i);
-	        		
+
 	            } else if (new Random().nextInt(100) < 2) {
 	            	invertir(NuevaPoblacion, i);
 
 	            }
 	        }
-		 
+
 		 	poblacion = NuevaPoblacion;
-		
+
 	}
 	//  Mutación
     private void mutar(List<Pair<List<Integer>, Integer>> nuevaPoblacion, int pos) {
@@ -131,7 +113,7 @@ public class Genetic implements Maquina {
 		 int pos1 = new Random().nextInt(nivel.getNumColumnas());
 		 int pos2 = pos1 + new Random().nextInt(nivel.getNumColumnas() - pos1);
 		 List<Integer> combinacion = NuevaPoblacion.get(index).getFirst();
-		 
+
 		    for (int i = 0; i < (pos2 - pos1) / 2; i++) {
 		        int tmp = combinacion.get(pos1 + i);
 		        combinacion.set(pos1 + i, combinacion.get(pos2 - i - 1));
@@ -163,10 +145,10 @@ public class Genetic implements Maquina {
 	 private boolean añadirCandidatos() {
 		    outer:
 		    for (int i = 0; i < POPULATION_SIZE; i++) {
-		        for (int j = 0; j < negrasSol.size() && j < blancasSol.size(); j++) {
+		        for (int j = 0; j < negrasBlancasEnvios.size(); j++) {
 		            String feed = comprobarCombinacion(solucionesEnviadas.get(j), poblacion.get(i).getFirst());
 		            Pair<Integer, Integer> numNegrasBlancas = cuentaNB(feed);
-		            if (numNegrasBlancas.getFirst() != negrasSol.get(j) || numNegrasBlancas.getSecond() != blancasSol.get(j)) {
+		            if (numNegrasBlancas.getFirst() != negrasBlancasEnvios.get(j).getFirst() || numNegrasBlancas.getSecond() != negrasBlancasEnvios.get(j).getSecond()) {
 		                continue outer;
 		            }
 		        }
@@ -178,17 +160,17 @@ public class Genetic implements Maquina {
 		                    esta = true;
 		                }
 		            }
-		            if (!esta && !solucionesEnviadas.contains(poblacion.get(i).getFirst())) {    	
+		            if (!esta && !solucionesEnviadas.contains(poblacion.get(i).getFirst())) {
 		                enviosCandidatos.add(poblacion.get(i));
 		            }
-		        } 
+		        }
 		        else {
 //		             E is full
 		            return false;
 		        }
 		    }
 
-		   
+
 
 		    enviosCandidatos = ordenarPorAptitud(enviosCandidatos);
 		    if (enviosCandidatos.size() < NMAX_CANDIDATOS) {
@@ -200,10 +182,10 @@ public class Genetic implements Maquina {
 		}
 
 
-	
+
 
 	private int generaPosicionPadres() {
-	        parentPos += (int) (new Random().nextInt(10));
+	        parentPos += (new Random().nextInt(10));
 	        if (parentPos < POPULATION_SIZE / 5) {
 	            return parentPos;
 	        } else {
@@ -211,12 +193,13 @@ public class Genetic implements Maquina {
 	        }
 	        return parentPos;
 	    }
-	 
-	 
+
+
 	@Override
 	public List<List<Integer>> resolve(List<Integer> solucionUsuario) {
 		int numGeneracion = 0;
 		solucionesEnviadas.clear();
+		negrasBlancasEnvios.clear();
         if(primerEnvio(solucionUsuario)) return solucionesEnviadas;
         inicializarPoblacion();
         calcularAptitud();
@@ -230,23 +213,22 @@ public class Genetic implements Maquina {
 	    		poblacion = ordenarPorAptitud(poblacion);
 	    		añadirCandidatos();
 
-	    		numGeneracion += 1; 
+	    		numGeneracion += 1;
 	    	}
-	    	
+
 	    	if( enviosCandidatos.size() > 0 && envia(solucionUsuario, enviosCandidatos.get(0).getFirst())) {
 			    	System.out.print("SOLUCION ENCOTNRATADA \n");
 			    	return solucionesEnviadas;
 			    }
 	    }
-	   
+
 	    return solucionesEnviadas;
-	    
+
 	}
 	 private boolean envia(List<Integer> solucionUsuario, List<Integer> bestEnvio) {
 		 String feedback = comprobarCombinacion(solucionUsuario, bestEnvio);
-		    Pair<Integer, Integer> nb = cuentaNB(feedback);	
-		    negrasSol.add(nb.getFirst());
-		    blancasSol.add(nb.getSecond());
+		    Pair<Integer, Integer> nb = cuentaNB(feedback);
+		    negrasBlancasEnvios.add(nb);
 		    solucionesEnviadas.add(bestEnvio);
 		    System.out.print("  ENVIO"+ bestEnvio +" en el intento " + solucionesEnviadas.size()+ "\n");
 if(bestEnvio.equals(solucionUsuario)) {
@@ -254,14 +236,14 @@ if(bestEnvio.equals(solucionUsuario)) {
 }
 
 		    return false;
-		    
+
 	}
 
 
 	private Pair<Integer, Integer> cuentaNB(String feedback) {
 		    int n = 0;
 		    int b = 0;
-		    
+
 		    for (int pos = 0; pos < feedback.length(); pos++) {
 		        if (feedback.charAt(pos) == 'N') {
 		            n++;
@@ -269,12 +251,12 @@ if(bestEnvio.equals(solucionUsuario)) {
 		            b++;
 		        }
 		    }
-		    
+
 		    return new Pair<>(n, b);
-		    
+
 		}
-	
-	
+
+
 
 	private boolean primerEnvio(List<Integer> solucionUsuario) {
 		List<Integer> combi =new ArrayList<>();
@@ -285,10 +267,9 @@ if(bestEnvio.equals(solucionUsuario)) {
 		combi.add(2);
 		solucionesEnviadas.add(combi);
 		String f = comprobarCombinacion(solucionUsuario, combi);
-		Pair<Integer, Integer> nb = cuentaNB(f);	
-		negrasSol.add(nb.getFirst());
-		blancasSol.add(nb.getSecond());
-		
+		Pair<Integer, Integer> nb = cuentaNB(f);
+		negrasBlancasEnvios.add(nb);
+
 		return  f == "NNNNN";
 	}
 
@@ -300,9 +281,9 @@ if(bestEnvio.equals(solucionUsuario)) {
 		            int y = 0;
 		            for (int j = 0; j < solucionesEnviadas.size(); j++) {
 		                String feedback = comprobarCombinacion(poblacion.get(i).getFirst(), solucionesEnviadas.get(j));
-		                Pair<Integer, Integer> nb = cuentaNB(feedback);	
-		                x += Math.abs(nb.getFirst() - negrasSol.get(j));
-		                y += Math.abs(nb.getSecond() - blancasSol.get(j));
+		                Pair<Integer, Integer> nb = cuentaNB(feedback);
+		                x += Math.abs(nb.getFirst() - negrasBlancasEnvios.get(j).getFirst());
+		                y += Math.abs(nb.getSecond() - negrasBlancasEnvios.get(j).getSecond());
 		            }
 		            poblacion.get(i).setSecond(x + y);
 		        }
@@ -312,8 +293,6 @@ if(bestEnvio.equals(solucionUsuario)) {
 
 
 	public String comprobarCombinacion(List<Integer> solution, List<Integer> solEnviada) {
-	    int aciertos = 0;
-	    int semiaciertos = 0;
 	    String feedback = "";
 
 	    List<Integer> sol = new ArrayList<>(solution);
@@ -321,7 +300,6 @@ if(bestEnvio.equals(solucionUsuario)) {
 
 	    for (int i = 0; i < sol.size(); i++) {
 	        if (env.get(i).equals(sol.get(i))) {
-	            aciertos++;
 	            feedback += "N";
 	            sol.set(i, -1);
 	            env.set(i, -1);
@@ -332,10 +310,9 @@ if(bestEnvio.equals(solucionUsuario)) {
 	    	if (env.get(posEnv) != -1) {
 	            for (int posSol = 0; posSol < sol.size(); posSol++) {
 	                if (posSol != posEnv && env.get(posEnv).equals(sol.get(posSol))) {
-	                    semiaciertos++;
 	                    feedback += "B";
 	                    sol.set(posSol, -1);
-	                    break; 
+	                    break;
 	                }
 	            }
 	        }
@@ -348,7 +325,7 @@ if(bestEnvio.equals(solucionUsuario)) {
 	@Override
 	public void setSolucion(List<Integer> solution) {
 //		 TODO Auto-generated method stub
-		
+
 	}
 
 }
