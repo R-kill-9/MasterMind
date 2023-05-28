@@ -220,7 +220,7 @@ public class CtrlPresentacion {
 		++lastRonda;
 		if(lastRonda >= 2) {
 			carregarEndGame();
-			controladorDominio.addPartidaRanking(usernameAct, controladorDominio.getScore(), nivel);
+			CtrlDominio.addPartidaRanking(usernameAct, CtrlDominio.getScore(), nivel);
 		}
 		else {
 			if(numRounds <= 2 && turnoAct.equals("CB")) {

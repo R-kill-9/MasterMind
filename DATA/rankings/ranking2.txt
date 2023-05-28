@@ -1,5 +1,4 @@
 a,60000
-ricard,55000
 juan,40000
 maria,30000
 pepe,10000
