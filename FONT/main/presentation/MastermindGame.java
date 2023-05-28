@@ -37,9 +37,11 @@ public class MastermindGame extends JFrame {
     private JButton botonSalirPausa;
     private JPanel panelSur;
     private Color[][] combHechasAnt;
+    private Color[][] feedBack;
     		
-    public MastermindGame(Integer numCols, Boolean ayuda, Color[][] colores) {
+    public MastermindGame(Integer numCols, Boolean ayuda, Color[][] colores, Color[][] feedBackProps) {
     	combHechasAnt = colores;
+    	feedBack = feedBackProps;
     	Integer filasComb = 0;
     	if(colores != null) filasComb = colores.length;
     	filasRest = filasRest - filasComb;
@@ -133,6 +135,15 @@ public class MastermindGame extends JFrame {
                          panelUltimaColumna.add(bolaSol);
                          panelUltimaColumna.setBorder(BorderFactory.createLineBorder(new Color(139, 69, 19).darker(), 5));
                          solucion[i][k] = bolaSol;
+                         if (feedBack != null && (NUMERO_FILAS - i) <= feedBack.length) {
+                         	int combHechasAntFila = NUMERO_FILAS - i - 1;
+                             int combHechasAntColumna = k;
+                             if (combHechasAntColumna < feedBack[combHechasAntFila].length) {
+                                 bolaSol.setColor(feedBack[combHechasAntFila][combHechasAntColumna]);
+                                 bolaSol.changeDisabled(true);
+                                 bolaSol.repaint();
+                             }
+                         }
                      }
                      panelTablero.add(panelUltimaColumna);
                 } else {
@@ -382,12 +393,8 @@ public class MastermindGame extends JFrame {
     	//LISTENER
     	submitB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	for(int i = 0; i < 10; i++) {
-            		for(int j = 0; j < 5; j++) System.out.println("POS I = "+ i + "POS J" + j + " " + tablero[i][j]);
-            	}
             	Color[] feedBack = CtrlPresentacion.submit(tablero[filasRest]);
             	int pos = 0;
-            	System.out.println("FEEDBACK" + feedBack);
             	Boolean finished = true;
             	if(feedBack != null) {
             		for (Color c : feedBack) {

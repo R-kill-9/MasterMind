@@ -6,6 +6,7 @@ import main.domaincontrollers.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.TreeMap;
 
@@ -53,7 +54,7 @@ public class CtrlPresentacion {
 	}
 	public static void carregarvistaMastermindGame() {
 		System.out.println(CtrlDominio.getNumRounds());
-		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, null);
+		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, null, null);
 		vistaGame.setVisible(true);
 	}
 	
@@ -194,7 +195,7 @@ public class CtrlPresentacion {
 	}
 	public static void reiniciarPartida() {
 		CtrlDominio.reiniciarPartida();
-		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, null);
+		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, null, null);
 		vistaGame.setVisible(true);
 	}
 	
@@ -232,7 +233,35 @@ public class CtrlPresentacion {
 		}
 	}
 	
-	private static Color[][] changeToColor(ArrayList<ArrayList<main.domain.Color>> combinations){
+	private static Color[] changeToColorVector(ArrayList<main.domain.Color> combinations){
+		Color[] colores = new Color[combinations.size()];
+	    for (int i = 0; i < combinations.size(); i++) {
+            main.domain.Color c = combinations.get(i);
+            switch (c) {
+                case RED:
+                    colores[i] = Color.RED;
+                    break;
+                case GREEN:
+                    colores[i] = Color.GREEN;
+                    break;
+                case BLUE:
+                    colores[i] = Color.BLUE;
+                    break;
+                case CYAN:
+                    colores[i] = Color.CYAN;
+                    break;
+                case PURPLE:
+                    colores[i] = Color.MAGENTA; 
+                    break;
+                case ORANGE:
+                    colores[i] = Color.ORANGE;
+                    break;
+            }
+	    }
+	    return colores;
+	}
+	
+	private static Color[][] changeToColorMatrix(ArrayList<ArrayList<main.domain.Color>> combinations){
 		Color[][] colores = new Color[combinations.size()][combinations.get(0).size()];
 	    for (int i = 0; i < combinations.size(); i++) {
 	        for (int j = 0; j < combinations.get(i).size(); j++) {
@@ -264,7 +293,7 @@ public class CtrlPresentacion {
 	
 	public static void cargaCombMaquina() {
 		ArrayList<ArrayList<main.domain.Color>> combinations = CtrlDominio.getAllCombLastTurno();
-		Color[][] colores = changeToColor(combinations);
+		Color[][] colores = changeToColorMatrix(combinations);
 	    TurnosMaquina turnosM = new TurnosMaquina(colores);
 	    turnosM.setVisible(true);
 	}
@@ -273,12 +302,89 @@ public class CtrlPresentacion {
 		CtrlDominio.guardarPartida();
 	}
 	
+
+
+	private static Color[][] generateFeedBack(Color[] solution, Color[][] combinations) {
+	    Color[][] feedBack = new Color[combinations.length][combinations[0].length];
+	    for (int i = 0; i < combinations.length; i++) {
+	        String positionsBolas = "";
+	        ArrayList<Color> remainingSolutionColors = new ArrayList<>(Arrays.asList(solution));
+	        for (int j = 0; j < combinations[0].length; j++) {
+	            Color colorSol = solution[j];
+	            Color tiro = combinations[i][j];
+	            System.out.println("colorSol " + colorSol);
+	            System.out.println("tiro " + tiro);
+	            if (colorSol == tiro) {
+	                positionsBolas += "N";
+	                // remainingSolutionColors.remove(tiro);
+	            } else if (remainingSolutionColors.contains(tiro)) {
+	                positionsBolas += "B";
+	                // remainingSolutionColors.remove(tiro);
+	            } else {
+	                positionsBolas += "S";
+	            }
+	        }
+	        if (setAyuda) {
+		        System.out.println("ayuda" + positionsBolas);
+
+	            Integer pos = 0;
+	            for (char bola : positionsBolas.toCharArray()) {
+	                if (bola == 'N') {
+	                    feedBack[i][pos] = Color.black;
+	                } else if (bola == 'B') {
+	                    feedBack[i][pos] = Color.white;
+	                } else {
+	                    feedBack[i][pos] = Color.gray;
+	                }
+	                ++pos;
+	            }
+	        } else {
+	            Integer numN = 0;
+	            Integer numB = 0;
+		        System.out.println("no ayuda" + positionsBolas);
+
+	            for (char bola : positionsBolas.toCharArray()) {
+	                if (bola == 'N') {
+	                    numN++;
+	                } else if (bola == 'B') {
+	                    numB++;
+	                }
+	            }
+	            for (int k = 0; k < combinations[0].length; k++) {
+	                if (numN > 0) {
+	                    feedBack[i][k] = Color.black;
+	                    --numN;
+	                } else if (numB > 0) {
+	                    feedBack[i][k] = Color.white;
+	                    --numB;
+	                } else {
+	                    feedBack[i][k] = Color.gray;
+	                }
+	            }
+	        }
+	    }
+	    for (int i = 0; i < feedBack.length; i++) {
+	        for (Color c : feedBack[i]) {
+	            System.out.println("Color " + c + " " + i);
+	        }
+	    }
+	    return feedBack;
+	}
+	
 	public static void cargarPartida(String date) {
 		ArrayList<ArrayList<main.domain.Color>> combinations = CtrlDominio.cargarPartida(date);
-		Color[][] colores = changeToColor(combinations);
+		Color[][] colores = changeToColorMatrix(combinations);
 		numCols = colores[0].length + 1;
-		setAyuda = CtrlDominio.getAyuda(); 
-		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, colores);
+		lastRonda = 0;
+		setAyuda = CtrlDominio.getAyuda();
+		Color[] solution = changeToColorVector(controladorDominio.getSolution());
+		for(int i = 0; i < solution.length; i++) {
+				System.out.println("fila " + i );
+				System.out.println("solution" + solution[i]);
+		}
+		Color[][] feedBack = generateFeedBack(solution, colores); 
+		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, colores, feedBack);
 		vistaGame.setVisible(true);
 	}
+
 }
