@@ -4,15 +4,10 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import java.text.SimpleDateFormat;
-import main.domain.Pair;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
 
 public class CargarPartida extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -35,7 +30,7 @@ public class CargarPartida extends JFrame {
     	// Configurar la ventana
         configWindow();
         
-    	selectedDateLabel.setText("<html><font color='red'><i>Por favor, seleccione una partida para continuar</i></font></html>");                     
+    	if(partidas.size() > 0) selectedDateLabel.setText("<html><font color='red'><i>Por favor, seleccione una partida para continuar</i></font></html>");                     
         
         GridBagConstraints gbc = new GridBagConstraints();
         
@@ -123,12 +118,19 @@ public class CargarPartida extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         contentPanel.add(selectedDateLabel, gbc);
 
-        // Agregar el JScrollPane en la tercera fila
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        contentPanel.add(scrollPane, gbc);
+        if(partidas.size() == 0) {
+	        gbc.gridx = 0;
+	        gbc.gridy = 2;
+	        gbc.weighty = 1.0;
+	        gbc.anchor = GridBagConstraints.CENTER;
+	        contentPanel.add(scrollPane, gbc);
+        } else {
+	        Dimension scrollPaneSize = new Dimension(300, 100);
+	        scrollPane.setPreferredSize(scrollPaneSize);
+	        scrollPane.setMinimumSize(scrollPaneSize);
+	        scrollPane.setMaximumSize(scrollPaneSize);
+	        contentPanel.add(scrollPane, gbc);
+        }
     }
     
     
@@ -195,7 +197,7 @@ public class CargarPartida extends JFrame {
                     selectedIndex = selectedI;
 
                     if (selectedI != -1) {
-                        String selectedDate = partidas.get(partidas.size() - 1 - selectedI);
+                        String selectedDate = partidas.get( selectedI);
                         String[] parts = selectedDate.split("_");
                         String date = parts[0];
                         String time = parts[1];
@@ -203,7 +205,7 @@ public class CargarPartida extends JFrame {
                         String newTime = partsTime[0] + ":" + partsTime[1] + ":" + partsTime[2];
                         String elementToAdd = date + " - "+ newTime;selectedDateLabel.setText("<html><font color='#404040'><i>Partida seleccionada, empezó: " + elementToAdd + "</i></font></html>");
 
-                    } else {
+                    } else if(partidas.size() > 0) {
                     	selectedDateLabel.setText("<html><font color='red'>Por favor, seleccione una partida para continuar</font></html>");                     
                     }
                 }
@@ -214,7 +216,9 @@ public class CargarPartida extends JFrame {
      // Configurar el ActionListener para el botón de jugar con sus múltiples opciones
         acceptButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	if (selectedIndex != null) CtrlPresentacion.cargarPartida(partidas.get(selectedIndex));
+            	System.out.println(partidas);
+            	System.out.println(selectedIndex);
+            	if (selectedIndex != null) CtrlPresentacion.cargarPartida(partidas.get(partidas.size() -1 - selectedIndex));
             }
         });
     }

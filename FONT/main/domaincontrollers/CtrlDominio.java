@@ -246,6 +246,10 @@ public class CtrlDominio {
 	public static void solicitarAyuda() {
 		controladorUsuario.solicitarAyuda();
 	}
+	
+	public ArrayList<Color> getSolution() {
+		return controladorUsuario.getSolution();
+	}
 
 	public static Boolean getAyuda() {
 		return CtrlPartida.getAyuda();

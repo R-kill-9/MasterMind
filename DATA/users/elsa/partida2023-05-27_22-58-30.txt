@@ -1,7 +1,7 @@
-idPartida: 2023-05-24_16-12-00
+idPartida: 2023-05-27_22-58-30
 nTurno: 1
 rol: false
-solucion: [PURPLE, CYAN, CYAN, CYAN]
+solucion: [BLUE, BLUE, BLUE, BLUE]
 ayuda: true
 puntuacion: 0
 dificultad: 2
