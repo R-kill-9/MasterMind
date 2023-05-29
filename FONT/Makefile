@@ -73,6 +73,9 @@ jar: $(JAR_FILE)
 run_jar: jar
 	java -jar $(JAR_FILE)
 
+reset_data:
+	rm -rf DATA/*
+
 clean:
 	rm -f main/persistence/*.class
 	rm -f main/presentation/*.class

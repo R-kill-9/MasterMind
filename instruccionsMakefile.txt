@@ -15,5 +15,14 @@ Compilarà tots el tests.java i executarà els tests del domain
 make run_test_domainControllers
 Compilarà tots el tests.java i executarà els tests del domainController
 
+make jar
+Compilarà tots els arxius .java i crearà un arxiu .jar
+
+make run_jar
+Executarà l'arxiu .jar
+
+make reset_data
+Elimina totes les dades guardades del joc
+
 make clean
 Elimina tots els arxius .class generats a la compilació

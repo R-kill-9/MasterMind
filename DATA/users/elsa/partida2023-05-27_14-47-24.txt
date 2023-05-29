@@ -1,9 +1,0 @@
-idPartida: 2023-05-27_14-47-24
-nTurno: 1
-rol: false
-solucion: [BLUE, BLUE, BLUE, BLUE, BLUE]
-ayuda: true
-puntuacion: 0
-dificultad: 3
-combinaciones: [[BLUE, BLUE, ORANGE, ORANGE, CYAN], [PURPLE, PURPLE, PURPLE, PURPLE, PURPLE]]
-rondasMaquina: 0

@@ -1,9 +1,0 @@
-idPartida: 2023-05-28_10-41-13
-nTurno: 1
-rol: false
-solucion: [RED, GREEN, BLUE, PURPLE]
-ayuda: true
-puntuacion: 0
-dificultad: 1
-combinaciones: [[BLUE, PURPLE, ORANGE, RED]]
-rondasMaquina: 0

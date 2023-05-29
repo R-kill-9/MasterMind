@@ -1,9 +1,0 @@
-idPartida: 2023-05-21_19-47-44
-nTurno: 2
-rol: false
-solucion: [BLUE, PURPLE, GREEN, CYAN]
-ayuda: true
-puntuacion: 0
-dificultad: 1
-combinaciones: null
-rondasMaquina: 3

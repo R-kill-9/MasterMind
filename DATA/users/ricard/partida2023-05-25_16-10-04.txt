@@ -1,9 +1,0 @@
-idPartida: 2023-05-25_16-10-04
-nTurno: 2
-rol: false
-solucion: [PURPLE, GREEN, CYAN, BLUE]
-ayuda: true
-puntuacion: 0
-dificultad: 1
-combinaciones: [[PURPLE, BLUE, RED, ORANGE], [PURPLE, BLUE, RED, ORANGE], [PURPLE, BLUE, RED, ORANGE], [PURPLE, BLUE, RED, ORANGE]]
-rondasMaquina: 4
