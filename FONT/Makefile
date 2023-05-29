@@ -13,6 +13,7 @@ DOMAINCONTROLLERS_DIR=main/domaincontrollers/
 DOMAINDRIVERS_DIR=main/drivers/
 DOMAIN_TESTS_DIR=main/domain/tests/
 DOMAINCONTROLLERS_TESTS_DIR=main/domaincontrollers/tests/
+PRESENTATION_DIR=main/presentation/
 
 
 
@@ -21,6 +22,7 @@ DOMAINCONTROLLERS_SRCS=$(wildcard $(DOMAINCONTROLLERS_DIR)*.java)
 DOMAINDRIVERS_SRCS=$(wildcard $(DOMAINDRIVERS_DIR)*.java)
 DOMAIN_TESTS_SRCS=$(wildcard $(DOMAIN_TESTS_DIR)*.java)
 DOMAINCONTROLLERS_TESTS_SRCS=$(wildcard $(DOMAINCONTROLLERS_TESTS_DIR)*.java)
+PRESENTATION_SRCS=$(wildcard $(PRESENTATION_DIR)*.java)
 
 DOMAIN_TESTS_test=$(basename $(notdir $(wildcard ./main/domain/tests/*.java)))
 DOMAINCONTROLLERS_TESTS_test=$(basename $(notdir $(wildcard ./main/domaincontrollers/tests/*.java)))
@@ -32,10 +34,13 @@ DOMAINCONTROLLERS_CLASSES=$(DOMAINCONTROLLERS_SRCS:.java=.class)
 DOMAINDRIVERS_CLASSES=$(DOMAINDRIVERS_SRCS:.java=.class)
 DOMAIN_TESTS_CLASSES=$(DOMAIN_TESTS_SRCS:.java=.class)
 DOMAINCONTROLLERS_TESTS_CLASSES=$(DOMAINCONTROLLERS_TESTS_SRCS:.java=.class)
+PRESENTATION_CLASSES=$(PRESENTATION_SRCS:.java=.class)
 
 
 
-CLASSES=$(DOMAIN_CLASSES) $(DOMAINCONTROLLERS_CLASSES) $(DOMAINDRIVERS_CLASSES) 
+CLASSES=$(DOMAIN_CLASSES) $(DOMAINCONTROLLERS_CLASSES) $(DOMAINDRIVERS_CLASSES) $(PRESENTATION_CLASSES)
+
+JAR_FILE=mastermind.jar
 
 $(info $(PACKAGE).$(DOMAIN_TESTS_test))
 
@@ -60,5 +65,21 @@ run_test_domainControllers: test_classes
 		$(JAVA) -cp lib/junit-4.13.1.jar::lib/hamcrest-core-1.3.jar::main/domaincontrollers/tests/ org.junit.runner.JUnitCore $(PACKAGE2).$$test; \
 	done
 
+$(JAR_FILE): classes
+	jar cfe $(JAR_FILE) main.presentation.LoginScreen main/presentation/*.class main/domain/*.class main/domaincontrollers/*.class main/persistence/*.class
+
+jar: $(JAR_FILE)
+
+run_jar: jar
+	java -jar $(JAR_FILE)
+
 clean:
-	$(RM) $(DOMAIN_CLASSES) $(DOMAINCONTROLLERS_CLASSES) $(DOMAINDRIVERS_CLASSES) $(DOMAIN_TESTS_CLASSES) $(DOMAINCONTROLLERS_TESTS_CLASSES)
+	rm -f main/persistence/*.class
+	rm -f main/presentation/*.class
+	rm -f main/domain/*.class
+	rm -f main/domaincontrollers/*.class
+	rm -f main/drivers/*.class
+	rm -f main/domain/tests/*.class
+	rm -f main/domaincontrollers/tests/*.class
+	rm -f $(JAR_FILE)
+	
