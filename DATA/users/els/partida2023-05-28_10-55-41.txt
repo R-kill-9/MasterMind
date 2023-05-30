@@ -1,9 +1,0 @@
-idPartida: 2023-05-28_10-55-41
-nTurno: 1
-rol: false
-solucion: [BLUE, GREEN, RED, CYAN]
-ayuda: true
-puntuacion: 0
-dificultad: 1
-combinaciones: [[RED, PURPLE, ORANGE, CYAN]]
-rondasMaquina: 0

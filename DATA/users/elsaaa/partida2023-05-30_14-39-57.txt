@@ -1,9 +1,0 @@
-idPartida: 2023-05-30_14-39-57
-nTurno: 1
-rol: false
-solucion: [GREEN, PURPLE, BLUE, RED]
-ayuda: true
-puntuacion: 0
-dificultad: 1
-combinaciones: null
-rondasMaquina: 0
