@@ -128,8 +128,10 @@ public class MastermindGame extends JFrame {
                      panelUltimaColumna.setOpaque(true);
                      panelUltimaColumna.setBackground(new Color(139, 69, 19).darker());
                      for (int k = 0; k < NUMERO_COLUMNAS-1; k++) {
-                         Bola bolaSol = new Bola(new Color(139, 69, 19).darker(), true, true, j, i);
-                         bolaSol.addMouseListener(new BolaMouseListener());
+                         Bola bolaSol = new Bola(new Color(139, 69, 19).darker(), true, false, j, i);
+                         bolaSol.setEnabled(false);
+                         bolaSol.changeDisabled(false);
+                         // bolaSol.addMouseListener(new BolaMouseListener());
                          bolaSol.setColorTablero();
                          bolaSol.setOpaque(false);
                          panelUltimaColumna.add(bolaSol);
@@ -181,7 +183,7 @@ public class MastermindGame extends JFrame {
              Bola bola = (Bola) e.getComponent();
              Integer numFila = bola.getFila();
              System.out.println(filasRest + "numfila" + numFila);
-	         if(bola.esColorTablero() && !bola.isDisabled() && numFila == filasRest || numFila == filasRest) {
+	         if(bola.esColorTablero() && !bola.isDisabled() && numFila == filasRest) {
 	         		if(colorSeleccionado != null) {
 	         			bola.setColor(colorSeleccionado);
 	         			Integer numColumna = bola.getColumna();
@@ -189,7 +191,7 @@ public class MastermindGame extends JFrame {
 	         			tablero[filasRest][numColumna] = colorSeleccionado;
 	         		}
 	         }
-	         else{
+	         else if (!bola.isDisabled()){
 	         	colorSeleccionado = bola.getColor();
 	         	botonWelcome.setBackground(colorSeleccionado);
 	         	botonWelcome.setForeground(botonWelcome.getBackground());
@@ -262,22 +264,22 @@ public class MastermindGame extends JFrame {
     private void ballsPanel(GridBagConstraints gbc)
     {
     	panelBolas = new JPanel(new FlowLayout());
-        bola1 = new Bola(Color.GREEN, false, true, 0, 0);
+        bola1 = new Bola(Color.GREEN, false, false, 0, 0);
         panelBolas.add(bola1,gbc);
         bola1.setOpaque(false);
-        bola2 = new Bola(Color.MAGENTA, false, true, 0, 0);
+        bola2 = new Bola(Color.MAGENTA, false, false, 0, 0);
         panelBolas.add(bola2);
         bola2.setOpaque(false);
-        bola3 = new Bola(Color.RED, false, true, 0, 0);
+        bola3 = new Bola(Color.RED, false, false, 0, 0);
         panelBolas.add(bola3);
         bola3.setOpaque(false);
-        bola4 = new Bola(Color.BLUE, false, true, 0, 0);
+        bola4 = new Bola(Color.BLUE, false, false, 0, 0);
         panelBolas.add(bola4);
         bola4.setOpaque(false);
-        bola5 = new Bola(Color.ORANGE, false, true, 0, 0);
+        bola5 = new Bola(Color.ORANGE, false, false, 0, 0);
         panelBolas.add(bola5);
         bola5.setOpaque(false);
-        bola6 = new Bola(Color.cyan, false, true, -1, -1);
+        bola6 = new Bola(Color.cyan, false, false, -1, -1);
         panelBolas.add(bola6);
         bola6.setOpaque(false);
     }
@@ -306,7 +308,7 @@ public class MastermindGame extends JFrame {
                 JPanel panel = new JPanel();
                 panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-                JLabel mensaje = new JLabel("<html><div style='text-align: center;'>¿Quieres guardar la partida?<br></div></html>");
+                JLabel mensaje = new JLabel("<html><div style='text-align: center;'>¿Quieres guardar la partida?<br>Si no has hecho aún ninguna combinación, no se guardará nada<br></div></html>");
                 mensaje.setAlignmentX(Component.CENTER_ALIGNMENT);
                 panel.add(mensaje);
                 panel.add(Box.createVerticalStrut(10));

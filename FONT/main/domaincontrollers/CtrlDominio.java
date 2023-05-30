@@ -238,8 +238,7 @@ public class CtrlDominio {
 		int dificultad = CtrlUsuario.getDificultad();
 		ArrayList<ArrayList<Color>> combinaciones = CtrlUsuario.getCombinacionesEnviadas();
 		int rondasMaquina = CtrlUsuario.getRondasMaquina();
-
-		ctrlPersistence.savePartida(id, nTurno, rol, solucion, ayuda, puntuacion, 
+		if(combinaciones.size() != 0) ctrlPersistence.savePartida(id, nTurno, rol, solucion, ayuda, puntuacion, 
 		dificultad, combinaciones, rondasMaquina);
 	}
 	

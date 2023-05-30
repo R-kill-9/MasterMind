@@ -373,6 +373,10 @@ public class CtrlPresentacion {
 		setAyuda = CtrlDominio.getAyuda();
 		Color[] solution = changeToColorVector(controladorDominio.getSolution());
 		Color[][] feedBack = generateFeedBack(solution, colores); 
+		if(colores.length == 0) {
+			colores = null;
+			feedBack = null;
+		}
 		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, colores, feedBack);
 		vistaGame.setVisible(true);
 	}
