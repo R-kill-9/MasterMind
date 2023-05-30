@@ -1,0 +1,9 @@
+idPartida: 2023-05-28_10-54-42
+nTurno: 1
+rol: false
+solucion: [BLUE, BLUE, BLUE, BLUE]
+ayuda: true
+puntuacion: 0
+dificultad: 2
+combinaciones: [[CYAN, CYAN, CYAN, CYAN]]
+rondasMaquina: 0

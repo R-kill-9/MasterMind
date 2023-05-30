@@ -53,7 +53,6 @@ public class CtrlPresentacion {
 		LoginScreen vistaLogin = new LoginScreen();
 	}
 	public static void carregarvistaMastermindGame() {
-		System.out.println(CtrlDominio.getNumRounds());
 		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, null, null);
 		vistaGame.setVisible(true);
 	}
@@ -162,9 +161,7 @@ public class CtrlPresentacion {
 		numCols = level == 3 ? 6 : 5;
 		setAyuda = ayuda;
 		controladorDominio.crearPartida(level, rol, ayuda);
-		System.out.println("Num rondas " + CtrlDominio.getNumRounds());
 		nivel = level;
-
 	}
 	
 	public static Color[] submit(Color[] colors) {
@@ -312,8 +309,6 @@ public class CtrlPresentacion {
 	        for (int j = 0; j < combinations[0].length; j++) {
 	            Color colorSol = solution[j];
 	            Color tiro = combinations[i][j];
-	            System.out.println("colorSol " + colorSol);
-	            System.out.println("tiro " + tiro);
 	            if (colorSol == tiro) {
 	                positionsBolas += "N";
 	                // remainingSolutionColors.remove(tiro);
@@ -341,7 +336,6 @@ public class CtrlPresentacion {
 	        } else {
 	            Integer numN = 0;
 	            Integer numB = 0;
-		        System.out.println("no ayuda" + positionsBolas);
 
 	            for (char bola : positionsBolas.toCharArray()) {
 	                if (bola == 'N') {
@@ -378,10 +372,6 @@ public class CtrlPresentacion {
 		lastRonda = 0;
 		setAyuda = CtrlDominio.getAyuda();
 		Color[] solution = changeToColorVector(controladorDominio.getSolution());
-		for(int i = 0; i < solution.length; i++) {
-				System.out.println("fila " + i );
-				System.out.println("solution" + solution[i]);
-		}
 		Color[][] feedBack = generateFeedBack(solution, colores); 
 		MastermindGame vistaGame = new MastermindGame(numCols, setAyuda, colores, feedBack);
 		vistaGame.setVisible(true);

@@ -1,0 +1,9 @@
+idPartida: 2023-05-28_10-56-19
+nTurno: 1
+rol: false
+solucion: [BLUE, BLUE, BLUE, BLUE]
+ayuda: true
+puntuacion: 0
+dificultad: 1
+combinaciones: [[BLUE, PURPLE, ORANGE, RED]]
+rondasMaquina: 0

@@ -338,7 +338,6 @@ public class Partida {
 		ArrayList<ArrayList<Color>> combinaciones = new ArrayList<ArrayList<Color>>();		
 		for(Combinacion comb: turnos.get(getLastTurno() - 2).getCombinaciones()) {
 			combinaciones.add(comb.getCombination());
-			System.out.println("Comb1->  " + comb.getCombination());
 		}
 		return combinaciones;
 	}
