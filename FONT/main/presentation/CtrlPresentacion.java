@@ -369,7 +369,7 @@ public class CtrlPresentacion {
 		ArrayList<ArrayList<main.domain.Color>> combinations = CtrlDominio.cargarPartida(date);
 		Color[][] colores = changeToColorMatrix(combinations);
 		numCols = colores[0].length + 1;
-		lastRonda = 0;
+		lastRonda = CtrlDominio.getNumRounds();
 		setAyuda = CtrlDominio.getAyuda();
 		Color[] solution = changeToColorVector(controladorDominio.getSolution());
 		Color[][] feedBack = generateFeedBack(solution, colores); 
