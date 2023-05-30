@@ -78,6 +78,7 @@ public class MastermindGame extends JFrame {
         panelBotones = new JPanel();
         panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
         
+        configPause();
         //salir
         configExit();
         
@@ -93,7 +94,6 @@ public class MastermindGame extends JFrame {
         //pausar
         configPause();
         panelSubBotones.add(botonPausar);
-        
         //reiniciar
         configRestart();
         
@@ -440,8 +440,8 @@ public class MastermindGame extends JFrame {
     //Configura lo relativo al botón de pausa
     private void configPause() {
     	botonPausar = new JButton("  Pausar  ");
-    	botonPausar.setPreferredSize(botonSize);
-    	panelBotones.add(botonPausar);
+        botonPausar.setPreferredSize(botonSize);
+        panelBotones.add(botonPausar);
     	//LISTENER
     	botonPausar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -468,10 +468,9 @@ public class MastermindGame extends JFrame {
     	//LISTENER
     	botonReiniciar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        	CtrlPresentacion.reiniciarPartida();
-        	setVisible(false);
-        	dispose();
-        	
+        		CtrlPresentacion.reiniciarPartida();
+        		setVisible(false);
+        		dispose();
         }});
     }
     
@@ -509,7 +508,8 @@ public class MastermindGame extends JFrame {
         botonSalirPausa.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CtrlPresentacion.guardarPartida();
-            	System.exit(0);
+                CtrlPresentacion.carregarVistaMenu();
+                setVisible(false);
             }
         });
         panelPausa.add(botonSalirPausa);

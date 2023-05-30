@@ -1,0 +1,9 @@
+idPartida: 2023-05-30_14-32-47
+nTurno: 1
+rol: false
+solucion: [CYAN, RED, GREEN, BLUE]
+ayuda: true
+puntuacion: 0
+dificultad: 1
+combinaciones: null
+rondasMaquina: 0
