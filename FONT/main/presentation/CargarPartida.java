@@ -219,6 +219,7 @@ public class CargarPartida extends JFrame {
             	System.out.println(partidas);
             	System.out.println(selectedIndex);
             	if (selectedIndex != null) CtrlPresentacion.cargarPartida(partidas.get(partidas.size() -1 - selectedIndex));
+            	setVisible(false);
             }
         });
     }
