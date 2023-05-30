@@ -99,6 +99,13 @@ public class RankingAlto extends JFrame {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.ipady = 10;
+        Color redColor = new Color(200, 0, 0);
+        exitButton.setBackground(redColor);
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setFocusPainted(false);
+        exitButton.setBorderPainted(false);
+        
+        exitButton.setOpaque(true);
         contentPane.add(exitButton, gbc);
     }
     
