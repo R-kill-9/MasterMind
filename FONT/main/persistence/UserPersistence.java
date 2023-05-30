@@ -26,6 +26,10 @@ public class UserPersistence{
      * y asignamos el path
      */
     public void checkUser(String username) {
+        File dataDir2 = new File("./DATA/");
+        if (!dataDir2.exists()) {
+           dataDir2.mkdir();
+        }
     	File dataDir = new File("./DATA/users/");
         if (!dataDir.exists()) {
             dataDir.mkdir();
