@@ -181,14 +181,6 @@ public class CargarPartida extends JFrame {
             }
         });
         
-        dateList.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                	 int selectedI = dateList.getSelectedIndex();
-                	 selectedIndex = selectedI;
-                }
-            }
-        });
         
         dateList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
@@ -197,7 +189,7 @@ public class CargarPartida extends JFrame {
                     selectedIndex = selectedI;
 
                     if (selectedI != -1) {
-                        String selectedDate = partidas.get( selectedI);
+                        String selectedDate = partidas.get(partidas.size() - 1 - selectedI);
                         String[] parts = selectedDate.split("_");
                         String date = parts[0];
                         String time = parts[1];
