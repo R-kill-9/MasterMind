@@ -16,7 +16,7 @@ make run_test_domainControllers
 Compilarà tots el tests.java i executarà els tests del domainController
 
 make jar
-Compilarà tots els arxius .java i crearà un arxiu .jar
+Compilarà tots els arxius .java i crearà un arxiu .jar a la carpeta /EXE
 
 make run_jar
 Executarà l'arxiu .jar
@@ -26,3 +26,6 @@ Elimina totes les dades guardades del joc
 
 make clean
 Elimina tots els arxius .class generats a la compilació
+
+make clean_jar
+Elimina l'arxiu .jar generat a la compilació
