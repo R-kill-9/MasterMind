@@ -67,14 +67,14 @@ run_test_domainControllers: test_classes
 
 $(JAR_FILE): classes
 	jar cfe $(JAR_FILE) main.presentation.LoginScreen main/presentation/*.class main/domain/*.class main/domaincontrollers/*.class main/persistence/*.class
-
+	mv $(JAR_FILE) ../EXE/$(JAR_FILE)
 jar: $(JAR_FILE)
 
 run_jar: jar
-	java -jar $(JAR_FILE)
+	cd ../EXE && java -jar $(JAR_FILE)
 
 reset_data:
-	rm -rf DATA/*
+	rm -rf ../EXE/DATA/*
 
 clean:
 	rm -f main/persistence/*.class
@@ -84,5 +84,7 @@ clean:
 	rm -f main/drivers/*.class
 	rm -f main/domain/tests/*.class
 	rm -f main/domaincontrollers/tests/*.class
-	rm -f $(JAR_FILE)
+
+clean_jar:
+	rm -f ../EXE/$(JAR_FILE)
 	
